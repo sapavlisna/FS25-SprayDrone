@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<GUI onOpen="onOpen" onClose="onClose">
+    <Bitmap profile="baseReference" imageColor="0 0 0 1"/>
+    <InGameMap id="ingameMap" profile="ingameMapOverview" cursorId="mapCursor" onClickMap="onClickMap"
+        onDrawPostIngameMap="onDrawPostIngameMap" onDrawPostIngameMapHotspots="onDrawPostIngameMapHotspots"/>
+    <Bitmap profile="ingameMapCursor" id="mapCursor" visible="false"/>
+
+    <BoxLayout profile="fs25_buttonBox" id="buttonBox">
+        <Button profile="buttonBack" id="closeButton" text="Close" onClick="onClickBack"/>
+        <Button profile="buttonOK" id="startButton" text="Start" onClick="onClickStart">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+        <Button profile="buttonActivate" id="returnButton" text="Return" onClick="onClickReturn">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+        <Button profile="buttonMenuSwitch" id="drawButton" text="Draw" onClick="onClickDraw">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+        <Button profile="buttonActivate" inputAction="MENU_EXTRA_2" id="undoButton" text="Undo" onClick="onClickUndo">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+        <Button profile="buttonActivate" id="resetFieldButton" text="Restart field" onClick="onClickResetField">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+        <Button profile="buttonDelete" id="deleteAreaButton" text="Delete" onClick="onClickDeleteArea">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+        <Button profile="buttonActivate" inputAction="MENU_PAGE_PREV" id="settingDownButton" text="Lower" onClick="onClickSettingDown">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+        <Button profile="buttonActivate" inputAction="MENU_PAGE_NEXT" id="settingUpButton" text="Raise" onClick="onClickSettingUp">
+            <Bitmap profile="fs25_buttonBoxSeparator" name="separator"/>
+        </Button>
+    </BoxLayout>
+</GUI>

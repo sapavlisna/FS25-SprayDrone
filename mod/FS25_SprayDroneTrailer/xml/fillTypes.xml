@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<map>
+    <fillTypes>
+        <fillType name="SDT_CONCENTRATE_FERTILIZER" title="$l10n_fillType_sdtConcentrateFertilizer" showOnPriceTable="false" isBulkType="true" unitShort="$l10n_unit_literShort">
+            <physics massPerLiter="1.25" maxPhysicalSurfaceAngle="0"/>
+            <economy pricePerLiter="12"/>
+            <image hud="hud/fillTypes/hud_fill_sdtConcentrateFertilizer.dds"/>
+        </fillType>
+
+        <fillType name="SDT_CONCENTRATE_HERBICIDE" title="$l10n_fillType_sdtConcentrateHerbicide" showOnPriceTable="false" isBulkType="true" unitShort="$l10n_unit_literShort">
+            <physics massPerLiter="1.10" maxPhysicalSurfaceAngle="0"/>
+            <economy pricePerLiter="13"/>
+            <image hud="hud/fillTypes/hud_fill_sdtConcentrateHerbicide.dds"/>
+        </fillType>
+    </fillTypes>
+</map>

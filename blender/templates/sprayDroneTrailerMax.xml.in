@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Generováno z blender/templates/sprayDroneTrailerMax.xml.in skriptem blender/export_max_mod.py. Needitovat ručně. -->
+<vehicle type="FS25_SprayDroneTrailer.sprayDroneTrailer">
+    <annotation>Spray drone service trailer, XL version (tandem, two tanks, two drones on the upper deck). Podvozek a nástavba z verze za auto, dvě přistávací plochy vpředu a vzadu, uprostřed společná nabíječka a navíječ.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_trailer_max</name>
+        <functions>
+            <function>$l10n_function_tank</function>
+        </functions>
+        <image>vehicles/sprayDroneTrailerMax/store_sprayDroneTrailerMax.dds</image>
+        <price>48000</price>
+        <lifetime>600</lifetime>
+        <rotation>0</rotation>
+        <brand>BZUK</brand>
+        <category>sprayDroneTrailers</category>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_typeDesc_sprayerTank</typeDesc>
+        <filename>vehicles/sprayDroneTrailerMax/sprayDroneTrailerMax.i3d</filename>
+        <size width="{{SIZE_WIDTH}}" length="{{SIZE_LENGTH}}" height="{{SIZE_HEIGHT}}" lengthOffset="{{SIZE_LENGTH_OFFSET}}"/>
+        <components maxMass="26000">
+            <component centerOfMass="{{CENTER_OF_MASS}}" solverIterationCount="10" mass="4200"/>
+        </components>
+        <schemaOverlay attacherJointPosition="0 0" name="IMPLEMENT"/>
+        <mapHotspot type="TOOL_TRAILED"/>
+    </base>
+
+    <!-- konfigurace Design (polepy BZUK / ROSA / kapka / STRATUS AGRI): export_middle_mod.design_configurations_xml z uzlů brand_<KEY>_* -->
+{{DESIGN_CONFIGURATIONS}}
+
+    <wheels>
+        <wheelConfigurations>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" brand="CONTINENTAL" saveId="DEFAULT" isDefault="true">
+                <wheels>
+{{WHEELS}}
+                </wheels>
+            </wheelConfiguration>
+{{LEGACY_WHEELS}}
+        </wheelConfigurations>
+    </wheels>
+
+    <attachable>
+        <!-- spojka podle volby v obchodě: tažné oko za traktor / nákladní auto, nebo kulová hlava za auto / pickup -->
+        <inputAttacherJointConfigurations>
+            <inputAttacherJointConfiguration name="$l10n_sdt_hitch_tractor" price="0" saveId="TRACTOR" isDefault="true">
+                <inputAttacherJoint node="attacherJoint" jointType="trailer" attacherHeight="{{ATTACHER_HEIGHT}}"/>
+                <inputAttacherJoint node="attacherJoint" jointType="trailerLow" attacherHeight="{{ATTACHER_HEIGHT}}"/>
+                <objectChange node="drawbarTractorSet" visibilityActive="true" visibilityInactive="false"/>
+            </inputAttacherJointConfiguration>
+            <inputAttacherJointConfiguration name="$l10n_sdt_hitch_car" price="400" saveId="CAR">
+                <inputAttacherJoint node="attacherJoint" jointType="trailerCar" attacherHeight="{{ATTACHER_HEIGHT}}"/>
+                <objectChange node="drawbarCarSet" visibilityActive="true" visibilityInactive="false"/>
+            </inputAttacherJointConfiguration>
+        </inputAttacherJointConfigurations>
+        <brakeForce force="0.5" maxForce="1.8" maxForceMass="26000"/>
+        <support animationName="moveSupport"/>
+        <sounds>
+            <active file="$data/sounds/tools/sowing/generalRattle_02.wav" innerRadius="10" outerRadius="50" volumeScale="8.6" isLocalSound="true" pitchScale="1.2">
+                <volume indoor="0.7" outdoor="0.9">
+                    <modifier type="WHEEL_SUSPENSION" value="-0.08" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.06" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.04" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.03" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.02" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.01" modifiedValue="0.1"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.00" modifiedValue="0.0"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.01" modifiedValue="0.1"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.02" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.03" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.04" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.06" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.08" modifiedValue="0.2"/>
+
+                    <modifier type="SPEED" value="0.0" modifiedValue="0.0"/>
+                    <modifier type="SPEED" value="2.0" modifiedValue="1.0"/>
+                    <modifier type="SPEED" value="40.0" modifiedValue="1.0"/>
+                </volume>
+                <lowpassCutoffFrequency indoor="250" outdoor="20000"/>
+                <lowpassGain indoor="0.5" outdoor="1"/>
+            </active>
+        </sounds>
+    </attachable>
+
+    <!-- hadice k tahači jako u vanilla DPW 1800 (indexy spojek 1 a 2 platí v obou konfiguracích spojky): vzduchové uzly jsou ve skupině
+         drawbarTractorSet, takže u kulové hlavy za auto jsou skryté a auto je nenajde (nemá vzduchové přípojky), elektrika je společná -->
+    <connectionHoses>
+        <hose inputAttacherJointIndices="1 2" type="airDoubleRed" node="airIn" adapterNode="airIn_detached" length="1.6" diameter="0.02" straighteningFactor="1">
+            <objectChange node="airIn_detached" visibilityActive="false" visibilityInactive="true"/>
+        </hose>
+        <hose inputAttacherJointIndices="1 2" type="airDoubleYellow" node="airOut" adapterNode="airOut_detached" length="1.6" diameter="0.02" straighteningFactor="1">
+            <objectChange node="airOut_detached" visibilityActive="false" visibilityInactive="true"/>
+        </hose>
+        <hose inputAttacherJointIndices="1 2" type="electric" node="electric" adapterNode="electric_detached" length="1.6" diameter="0.012" straighteningFactor="1">
+            <objectChange node="electric_detached" visibilityActive="false" visibilityInactive="true"/>
+        </hose>
+        <sounds>
+            <connect    type="airDoubleRed" template="hydraulicHosesAttach" volumeScale="0.7" linkNode="attacherJoint"/>
+            <connect    type="electric"     template="generalConnection"    volumeScale="0.7" linkNode="attacherJoint"/>
+            <disconnect type="airDoubleRed" template="hydraulicHosesDetach" volumeScale="0.7" linkNode="attacherJoint"/>
+            <disconnect type="electric"     template="generalConnection"    volumeScale="0.7" linkNode="attacherJoint"/>
+        </sounds>
+    </connectionHoses>
+
+    <!-- stanoviště pilota dronu: nastoupit jde vždy, plánovač a start letu jen z rozloženého vleku (SprayDronePlannerScreen.lua, SprayDroneStation.lua) -->
+    <enterable isTabbable="false">
+        <enterReferenceNode node="sprayDroneTrailerMax_main_component1" interactionRadius="6"/>
+        <exitPoint node="exitPoint"/>
+        <cameras>
+            <camera node="outdoorCamera" rotatable="true" rotateNode="outdoorCameraTarget" limit="true" useWorldXZRotation="true"
+                    rotMinX="-1.4" rotMaxX="1.2" transMin="3" transMax="40" translation="0 0 9" rotation="-25 180 0"/>
+            <!-- pohled z dronu 1 a 2: uzel kamery se za běhu připojí pod uzel náklonu dronu (drone(?)#cameraNode), myší se rozhlíží;
+                 přepíná akce SDT_DRONE_VIEW (Alt+9), klávesa C přepíná na vnější pohled na dron -->
+            <camera node="droneCamera1" isInside="false" useOutdoorSounds="true" rotatable="true" useWorldXZRotation="false"
+                    useDefaultPositionSmoothing="false" positionSmoothingParameter="0" lookAtSmoothingParameter="0"/>
+            <camera node="droneCamera2" isInside="false" useOutdoorSounds="true" rotatable="true" useWorldXZRotation="false"
+                    useDefaultPositionSmoothing="false" positionSmoothingParameter="0" lookAtSmoothingParameter="0"/>
+            <!-- vnější pohled na dron 1 a 2: střed otáčení (droneOutTarget) se za běhu připojí pod uzel dronu (drone(?)#outTargetNode) -->
+            <camera node="droneOutCamera1" rotatable="true" rotateNode="droneOutTarget1" limit="true" useWorldXZRotation="true"
+                    rotMinX="-1.4" rotMaxX="1.2" transMin="1.5" transMax="30" translation="0 0 5" rotation="-20 180 0"/>
+            <camera node="droneOutCamera2" rotatable="true" rotateNode="droneOutTarget2" limit="true" useWorldXZRotation="true"
+                    rotMinX="-1.4" rotMaxX="1.2" transMin="1.5" transMax="30" translation="0 0 5" rotation="-20 180 0"/>
+        </cameras>
+    </enterable>
+
+    <licensePlates>
+        <licensePlate node="licensePlateBack" position="BACK" preferedType="SQUARISH" placementArea="0.06 0.26 0.09 0.15"/>
+    </licensePlates>
+
+    <lights>
+        <states>
+            <state lightTypes="0"/>
+        </states>
+        <sharedLight linkNode="rearLight52_left" filename="$data/shared/assets/lights/lizard/rearLight52_left.xml"/>
+        <sharedLight linkNode="rearLight52_right" filename="$data/shared/assets/lights/lizard/rearLight52_right.xml"/>
+        <sharedLight linkNode="sideMarker05_left" filename="$data/shared/assets/lights/lizard/sideMarker05_left.xml"/>
+        <sharedLight linkNode="sideMarker05_right" filename="$data/shared/assets/lights/lizard/sideMarker05_right.xml"/>
+        <sharedLight linkNode="plateNumberLight03" filename="$data/shared/assets/lights/lizard/plateNumberLight03.xml"/>
+    </lights>
+
+    <animations>
+        <!-- opěrné kolečko: čas 0 = zapřaženo (zvednuté), čas 1 = odpojeno (na zemi, model v i3d) -->
+        <animation name="moveSupport">
+            <part node="jockeyWheel" startTime="0" endTime="1" startTrans="{{JOCKEY_UP}}" endTrans="{{JOCKEY_DOWN}}"/>
+            <!-- zvuky (vanilla šablony, vzor abi/waterTrailer550): čas 0 = zapřaženo, 1 = kolečko na zemi -->
+            <sound template="slideOpen" startTime="0.02" direction="1" volumeScale="1.5" pitchScale="1.4" linkNode="jockeyWheel"/>
+            <sound template="slideOpen" startTime="0.98" direction="-1" volumeScale="1.5" pitchScale="1.4" linkNode="jockeyWheel"/>
+            <sound template="clackVar1" startTime="0.95" direction="1" volumeScale="1.1" pitchScale="1.1" linkNode="jockeyWheel"/>
+            <sound template="clackVar1" startTime="0.05" direction="-1" volumeScale="1.1" pitchScale="1.1" linkNode="jockeyWheel"/>
+        </animation>
+        <!-- konvence FS25 (Foldable.lua): čas 0 = rozloženo (model v i3d), čas 1 = složeno;
+             startMoveDirection="1" => vozidlo začíná v čase 1. Skládání: 0–2 s se složí dron na plošině (skript podle
+             času skládání, sprayDrone#trailerFoldEnd); 2–2,4 s se zavřou úchyty lyžin
+             dronu (sprayDrone#securedFoldTime = 2,4 / 3); víko truhly nabíječky 1,8–3 s. Teleskopický žebřík vpravo na boku
+             (blender/build_trailer_max.py, build_ladder): rozložený stojí šikmo, 2–2,12 s se sklopí ramena přes lem desky (ladderArms),
+             2,1–2,25 s se zasune horní díl (ladderUpper), 2,25–2,6 s se žebřík venku otočí podél boku a zasune mezi sloupky na háky
+             (ladderHinge, několik navazujících dílů). Až potom 2,6–3 s spadnou plachty (tarpL/R/F a role) a jejich kolize
+             (colTarpHinge{L,R,F} se sklopí z horní desky do roviny plachty); při rozkládání obráceně:
+             nejdřív se plachty srolují, pak vyjede žebřík. Řádky žebříku i plachet vkládá export za zástupce TARP_PARTS (vlastnost sdt_fold_parts
+             uzlů v Blenderu), ladderGrab je u Max jen prázdný uzel bez pohybu. -->
+        <animation name="foldLadder">
+            <!-- truhla nabíječky na horní palubě: rozložený vlek = víko otevřené (kabely k centrálám jsou napevno) -->
+            <part node="chargerLid" startTime="{{LID_START}}" endTime="{{LID_END}}" startRot="{{LID_OPEN}}" endRot="{{LID_CLOSED}}"/>
+            <!-- teleskopy antény a GPS se při skládání vleku zasunou (blender/build_trailer_middle.py: TELE_SECTIONS) -->
+            <part node="antennaBoostedTele1" startTime="0.2" endTime="1.4" startTrans="0 0.750 0" endTrans="0 0.230 0"/>
+            <part node="antennaBoostedTele2" startTime="0.2" endTime="1.4" startTrans="0 0.600 0" endTrans="0 0.130 0"/>
+            <part node="antennaLargeTele1" startTime="0.2" endTime="1.4" startTrans="0 0.800 0" endTrans="0 0.230 0"/>
+            <part node="antennaLargeTele2" startTime="0.2" endTime="1.4" startTrans="0 0.650 0" endTrans="0 0.180 0"/>
+            <part node="gpsRtkBoxTele1" startTime="0.2" endTime="1.4" startTrans="0 0.500 0" endTrans="0 0.130 0"/>
+            <part node="gpsRtkBoxTele2" startTime="0.2" endTime="1.4" startTrans="0 0.450 0" endTrans="0 0.130 0"/>
+{{CLAMP_PARTS}}
+{{TARP_PARTS}}
+            <!-- zvuky (vanilla šablony): direction -1 = rozkládání, 1 = skládání -->
+            <sound template="latchSmall" startTime="2.1" volumeScale="0.6" pitchScale="1.2" linkNode="chargerLid"/>
+            <sound template="latchSmall" startTime="2.3" volumeScale="0.6" pitchScale="1" linkNode="chargerLid"/>
+            <sound template="coverMetalOpen" startTime="2.95" direction="-1" volumeScale="1" pitchScale="1" linkNode="chargerLid"/>
+            <sound template="metalClose" startTime="2.85" direction="1" volumeScale="0.8" pitchScale="1.1" linkNode="chargerLid"/>
+            <!-- žebřík: teleskop a dosednutí na háky -->
+            <sound template="slideOpen" startTime="2.12" direction="1" volumeScale="0.9" pitchScale="1.3" linkNode="ladderHinge"/>
+            <sound template="slideOpen" startTime="2.23" direction="-1" volumeScale="0.9" pitchScale="1.3" linkNode="ladderHinge"/>
+            <sound template="clackVar1" startTime="2.58" direction="1" volumeScale="1" pitchScale="1.1" linkNode="ladderHinge"/>
+            <sound template="clackVar1" startTime="2.03" direction="-1" volumeScale="1" pitchScale="1.1" linkNode="ladderHinge"/>
+        </animation>
+    </animations>
+
+    <foldable>
+        <foldingConfigurations>
+            <foldingConfiguration>
+                <foldingParts startMoveDirection="1" requiresPower="false" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
+                    <foldingPart animationName="foldLadder" speedScale="1"/>
+                </foldingParts>
+            </foldingConfiguration>
+        </foldingConfigurations>
+    </foldable>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <!-- dvě hlavní nádrže za sebou (tankMain<litry> vpředu, tankMain<litry>B vzadu), obě v jedné fill unit; objectChange každé
+                 konfigurace ukazuje svou dvojici a v ostatních se použije visibilityInactive="false". Pořadí fill units se nesmí
+                 měnit: 1 hlavní nádrže (voda nebo hotový přípravek), 2 nafta pro elektrocentrálu, 3 koncentrát pro mixér
+                 (scripts/SprayDroneStation.lua, sprayDrone#mixer) -->
+            <fillUnitConfiguration name="2 x 3000 l" price="0" saveId="TANK6000" isDefault="true">
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water liquidFertilizer herbicide" capacity="6000">
+                        <exactFillRootNode node="exactFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="30">
+                        <exactFillRootNode node="dieselFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_FERTILIZER SDT_CONCENTRATE_HERBICIDE" capacity="300">
+                        <exactFillRootNode node="concentrateFillRootNode"/>
+                    </fillUnit>
+                </fillUnits>
+                <objectChange node="tankMain3000" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="tankMain3000B" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="colTank3000" compoundChildActive="true" compoundChildInactive="false"/>
+                <objectChange node="colTank3000B" compoundChildActive="true" compoundChildInactive="false"/>
+            </fillUnitConfiguration>
+            <fillUnitConfiguration name="2 x 5000 l" price="9000" saveId="TANK10000">
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water liquidFertilizer herbicide" capacity="10000">
+                        <exactFillRootNode node="exactFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="30">
+                        <exactFillRootNode node="dieselFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_FERTILIZER SDT_CONCENTRATE_HERBICIDE" capacity="500">
+                        <exactFillRootNode node="concentrateFillRootNode"/>
+                    </fillUnit>
+                </fillUnits>
+                <objectChange node="tankMain5000" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="tankMain5000B" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="colTank5000" compoundChildActive="true" compoundChildInactive="false"/>
+                <objectChange node="colTank5000B" compoundChildActive="true" compoundChildInactive="false"/>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <!-- z nádrže vleku se dočerpává dron (a případně pozemní postřikovač zajetý vedle vleku) -->
+    <fillTriggerVehicle triggerNode="fillTrigger" fillUnitIndex="1" litersPerSecond="300"/>
+
+    <!-- voda z vodní plochy (vanilla WaterTrailer, vzor abi/waterTrailer550): R u hladiny napouští hlavní nádrž (fillUnit 1), jen když je
+         kořen vleku (fillNode) nejvýš 0,2 m nad hladinou, tedy vlek stojí u vody; do nádrže s přípravkem se voda nenapustí -->
+    <waterTrailer fillUnitIndex="1" fillLitersPerSecond="500">
+        <sounds>
+            <refill template="defaultRefuelSound" linkNode="0>"/>
+        </sounds>
+    </waterTrailer>
+
+    <!-- postřikový dron (scripts/SprayDroneStation.lua, docs/DRON.md); schéma vehicle.xsd tuhle sekci nezná.
+         Atributy <sprayDrone> jsou společné, blok <drone> varianty (S / M / L, vybírá konfigurace sprayDrone#drone) je
+         přepisuje; uzly varianty mají prefix (<prefix>Root, Tilt, FillPort, BatterySlot, Clamp_i), bez dronu (drone="") je
+         vlek jen nabíječka a nádrž. droneMass = dron bez baterie, batteryMass se přičte; batteryKwh jen pro zobrazení.
+         foldPart: natočení kloubů složeno/rozloženo (čas 0..1 rozložení), rotor: vrtule, která se za letu točí;
+         batteryMinutes: výdrž ve vodorovném letu s plnou nádrží, odběr roste s kvadrátem hmotnosti a s fází letu,
+         baterie se na vleku mění pod batterySwapBelow kapacity;
+         sounds.rotor: smyčka rotorů, výšku a hlasitost podle otáček řídí skript, rotorPitch = výška varianty;
+         litersPerSecond: čerpadlo, kterým se dron na plošině plní z nádrže vleku;
+         power: elektrocentrála (nafta z fillUnit dieselFillUnitIndex) nabíjí baterie ve slotech vleku (i složeného);
+         chargeMinutes = nabití jedné baterie z 30 % na 95 %, dieselPerHour = spotřeba při nabíjení jedné baterie (varianta
+         je přepisuje), readyLevel = od kolika jde baterie do dronu; počet baterií (0..5, vlek má 5 slotů, typ podle dronu) je
+         konfigurace v obchodě sprayDroneBatteryConfigurations, power#batteries platí bez ní; transfer: vypouštění dronu do
+         vleku a přečerpání vleku do IBC (l/s, dosah IBC v m); navLight: LED ramen (svit shaderem lightIds0 a bodové světlo);
+         effects: mlha z trysek, vlastní částicový efekt effects/sprayMist.i3d (ParticleEffect, jeden emitor na trysku; emitory
+         0|0 = S, 0|1 = M, 0|2 = L se liší rozevřením kužele, které pak u země dosáhne záběru varianty); skript emitory postaví
+         pod trysky (uzly nebo x/z nozzle, jinak pod motory ramen) do výšky nozzleY pod kloubem náklonu -->
+    <sprayDrone fillUnitIndex="1" maxRange="750"
+                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.667" batteryStowFrom="0.06" batteryStowUntil="0.55"
+                cruiseSpeed="10" sprayingSpeed="7" climbSpeed="3" ascentSpeed="5" acceleration="2.5" yawSpeed="90"
+                sprayHeight="3" transitHeight="12" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="0.2"
+                sideClearance="4" turnAcceleration="2.5"
+                litersPerSecond="1" securedFoldTime="0.8">
+        <sprayDroneConfigurations>
+            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneS" drone="S" price="14000" saveId="S" workingWidth="6">
+                <objectChange node="Drone_S_Root" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_S_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_S_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_S_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_S_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_S_Root" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_S_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_S_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_S_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_S_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneConfiguration>
+            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneM" drone="M" price="24000" saveId="M" workingWidth="9" isDefault="true">
+                <objectChange node="Drone_A_Root" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_A_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_A_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_A_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_A_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_A_Root" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_A_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_A_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_A_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_A_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneConfiguration>
+            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneL" drone="L" price="44000" saveId="L" workingWidth="11">
+                <objectChange node="Drone_L_Root" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_L_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_L_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_L_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone_L_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_L_Root" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_L_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_L_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_L_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="Drone2_L_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneConfiguration>
+        </sprayDroneConfigurations>
+        <sprayDroneBatteryConfigurations>
+            <sprayDroneBatteryConfiguration name="0" count="0" price="0" saveId="0"/>
+            <sprayDroneBatteryConfiguration name="1" count="1" price="1500" saveId="1"/>
+            <sprayDroneBatteryConfiguration name="2" count="2" price="3000" saveId="2"/>
+            <sprayDroneBatteryConfiguration name="3" count="3" price="4500" saveId="3"/>
+            <sprayDroneBatteryConfiguration name="4" count="4" price="6000" saveId="4" isDefault="true"/>
+            <sprayDroneBatteryConfiguration name="5" count="5" price="7500" saveId="5"/>
+            <sprayDroneBatteryConfiguration name="6" count="6" price="9000" saveId="6"/>
+            <sprayDroneBatteryConfiguration name="7" count="7" price="10500" saveId="7"/>
+            <sprayDroneBatteryConfiguration name="8" count="8" price="12000" saveId="8"/>
+            <sprayDroneBatteryConfiguration name="9" count="9" price="13500" saveId="9"/>
+            <sprayDroneBatteryConfiguration name="10" count="10" price="15000" saveId="10"/>
+        </sprayDroneBatteryConfigurations>
+        <!-- elektrocentrály: dvě nabíjejí baterie dvakrát rychleji (scripts/SprayDroneStation.lua, power#chargeMinutes platí pro jednu) a mají
+             dvě nádrže na naftu (power#dieselPerGenerator); druhá stojí vpředu vedle první i s kabelem k nabíječce -->
+        <sprayDroneGeneratorConfigurations>
+            <sprayDroneGeneratorConfiguration name="$l10n_sdt_generators_one" count="1" price="0" saveId="1" isDefault="true"/>
+            <sprayDroneGeneratorConfiguration name="$l10n_sdt_generators_two" count="2" price="3500" saveId="2">
+                <objectChange node="generator2" visibilityActive="true" visibilityInactive="false"/>
+                <objectChange node="colGenerator2" compoundChildActive="true" compoundChildInactive="false"/>
+            </sprayDroneGeneratorConfiguration>
+        </sprayDroneGeneratorConfigurations>
+        <!-- anténa vysílačky a přesná GPS (jen Middle a Max): rangeBonus násobí dosah dronů (sprayDrone#maxRange), usageFactor spotřebu l/ha -->
+        <sprayDroneAntennaConfigurations>
+            <sprayDroneAntennaConfiguration name="$l10n_sdt_antenna_none" rangeBonus="1" price="0" saveId="NONE" isDefault="true">
+                <objectChange node="antennaBase" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneAntennaConfiguration>
+            <sprayDroneAntennaConfiguration name="$l10n_sdt_antenna_boosted" rangeBonus="1.35" price="1200" saveId="BOOSTED">
+                <objectChange node="antennaBoosted" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneAntennaConfiguration>
+            <sprayDroneAntennaConfiguration name="$l10n_sdt_antenna_large" rangeBonus="1.7" price="3000" saveId="LARGE">
+                <objectChange node="antennaLarge" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneAntennaConfiguration>
+        </sprayDroneAntennaConfigurations>
+        <sprayDroneGpsConfigurations>
+            <sprayDroneGpsConfiguration name="$l10n_sdt_gps_standard" usageFactor="1" price="0" saveId="STANDARD" isDefault="true"/>
+            <sprayDroneGpsConfiguration name="$l10n_sdt_gps_rtk" usageFactor="0.85" price="2500" saveId="RTK">
+                <objectChange node="gpsRtkBox" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneGpsConfiguration>
+        </sprayDroneGpsConfigurations>
+        <!-- vzhled vrtulí: kind default = podle modelu (T50 bílé bez proužků, T25 a T100 karbon s oranžovými), paint = barva listů,
+             carbon = karbon; tips: proužky na koncích listů (none = bez nich) -->
+        <sprayDronePropellerConfigurations>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_black" kind="paint" color="0.03 0.03 0.035" price="0" saveId="BLACK"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.85 0.86 0.87" price="0" saveId="WHITE"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_carbon" kind="carbon" price="300" saveId="CARBON"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="150" saveId="GREEN"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="150" saveId="YELLOW"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="150" saveId="ORANGE"/>
+        </sprayDronePropellerConfigurations>
+        <sprayDroneTipsConfigurations>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_none" kind="none" price="0" saveId="NONE"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="50" saveId="ORANGE"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="50" saveId="YELLOW"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_red" kind="paint" color="0.85 0.02 0.02" price="50" saveId="RED"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="50" saveId="GREEN"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_blue" kind="paint" color="0.05 0.25 0.85" price="50" saveId="BLUE"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.90 0.90 0.90" price="50" saveId="WHITE"/>
+        </sprayDroneTipsConfigurations>
+        <power dieselFillUnitIndex="2" slots="10" batteries="4" chargeMinutes="10" dieselPerHour="2.2" dieselPerGenerator="30" readyLevel="0.95" swapTime="5">
+            <exhaust node="generatorExhaust" node2="generatorExhaust2" filename="$data/effects/exhaust/exhaust.i3d" color="0.12 0.12 0.12 0.35" scale="0.35"/>
+        </power>
+        <!-- mixér: při plnění dronu z vody v hlavní nádrži a koncentrátu ve fill unit 3 vzniká přípravek; concentrate = podíl
+             koncentrátu v hotovém přípravku (litr koncentrátu na litr přípravku), zbytek je voda -->
+        <mixer concentrateFillUnitIndex="3">
+            <ratio fillType="SDT_CONCENTRATE_FERTILIZER" product="liquidFertilizer" concentrate="0.05"/>
+            <ratio fillType="SDT_CONCENTRATE_HERBICIDE" product="herbicide" concentrate="0.05"/>
+        </mixer>
+        <!-- skříň s kanystry: rolovací vrata (doorNode, žádný lidNode/openAngle - viz SprayDroneToolbox.applyLid),
+             kanystry toolboxCanister1..48 (čtyři patra po dvou řadách po šesti jako u Middle, Pavel 2026-10-09: zadní stěna u
+             nádrže, vrata ven z vleku, skříň sahá až pod horní plošinu). Žádný slot není vyhrazený, kterýkoli pojme koncentrát i naftu; otvor pro vsátí pokrývá celý otvor vrat (aktivační uzel je uprostřed výšky skříně). neckNode =
+             hrdlo indukční nádrže -->
+        <toolbox slots="48" slotLiters="20" activateNode="toolboxActivateNode" doorNode="Toolbox_Door" doorTravel="{{DOOR_TRAVEL}}" canisterNodePrefix="toolboxCanister" neckNode="concentrateNeckNode" intakeBelow="0.7" intakeAbove="0.7"/>
+        <transfer drainRate="1" palletRate="20" palletDistance="6"/>
+        <!-- rozložit jde jen vlek, který stojí dost rovně: největší náklon paluby (°) podélně i příčně (scripts/SprayDroneLevel.lua);
+             náklon se u složeného vleku ukazuje zeleně / červeně -->
+        <tilt max="5"/>
+        <navLights intensity="4" lightScale="0.3" blinkPeriod="1" blinkOn="0.5"/>
+        <sounds>
+            <!-- naftový agregát: motor (vanilla čerpadlo rýžových polí) + hluboké hučení alternátoru; rozjezd a doběh řídí SprayDroneSound.lua
+                 linkNode generatorExhaust (výfuk u motoru) -->
+            <generator template="riceFieldPump" linkNode="generatorExhaust" innerRadius="3" outerRadius="45" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.35" outdoor="0.5"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </generator>
+            <generatorHum template="generator05" volumeScale="1" linkNode="generatorExhaust" innerRadius="2" outerRadius="30" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.5" outdoor="0.7"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </generatorHum>
+            <!-- mixér (hraje při spec.isMixing): motor s míchadlem (vanilla míchací vůz, výše laděný) + šplouchání kapaliny;
+                 linkNode mixerSoundNode (empty u mixéru) -->
+            <mixer template="mixerLoop" linkNode="mixerSoundNode" innerRadius="2" outerRadius="30" fadeIn="0.2" fadeOut="0.3">
+                <volume indoor="0.25" outdoor="1.0"/>
+                <pitch indoor="1.35" outdoor="1.35"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </mixer>
+            <mixerLiquid template="riceFieldWater" linkNode="mixerSoundNode" innerRadius="2" outerRadius="20" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.1" outdoor="0.6"/>
+                <pitch indoor="1.1" outdoor="1.1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </mixerLiquid>
+            <!-- čerpadlo plnění dronu (isPumping), přečerpávání (transfer), plnicí hadice a výměna baterie: vanilla vzorky -->
+            <pump template="pressureWasherRun01" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" fadeIn="0.2" fadeOut="0.3" volumeScale="0.8"/>
+            <transfer template="defaultRefuelSound" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" fadeIn="0.2" fadeOut="0.3" volumeScale="0.8"/>
+            <hoseAttach template="hydraulicHosesAttach" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" volumeScale="0.7"/>
+            <hoseDetach template="hydraulicHosesDetach" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" volumeScale="0.7"/>
+            <batteryInsert template="clickLong" linkNode="batteryCharger" innerRadius="2" outerRadius="20" volumeScale="0.9"/>
+            <!-- nalévání z kanystru (R u hrdla i nakloněný kanystr): smyčka, dokud z kanystru teče; vypouštění koncentrátu na zem (Ctrl+I);
+                 skládání a rozkládání vleku (smyčka po dobu animace skládání, panely i žebřík); otevření / zavření bedny nebo vrat skříně.
+                 Řídí SprayDroneSound.lua, vzorky jsou vanilla šablony -->
+            <pour template="defaultRefuelSound" linkNode="concentrateNeckNode" innerRadius="2" outerRadius="25" fadeIn="0.1" fadeOut="0.2" volumeScale="0.7"/>
+            <groundDrain template="riceFieldWater" linkNode="concentrateNeckNode" innerRadius="3" outerRadius="30" fadeIn="0.2" fadeOut="0.3" volumeScale="1.2">
+                <volume indoor="0.2" outdoor="1.0"/>
+                <pitch indoor="0.9" outdoor="0.9"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </groundDrain>
+            <door template="rollingGarageDoor" linkNode="toolboxActivateNode" innerRadius="3" outerRadius="30" fadeIn="0.1" fadeOut="0.2" volumeScale="0.8"/>
+            <!-- ramena a listy dronu: jedno cvaknutí na každý stupeň rozložení (SprayDroneSound.UNFOLD_STAGES), loop skládání vleku je pryč -->
+            <droneUnfoldStep template="hingeSmall" linkNode="0>" innerRadius="4" outerRadius="40" volumeScale="0.9"/>
+            <droneFoldStep template="clackVar2" linkNode="0>" innerRadius="4" outerRadius="40" volumeScale="0.8"/>
+            <boxOpen template="latchSmall" linkNode="toolboxActivateNode" innerRadius="2" outerRadius="25" volumeScale="0.8"/>
+            <boxClose template="metalClose" linkNode="toolboxActivateNode" innerRadius="2" outerRadius="25" volumeScale="0.8"/>
+        </sounds>
+
+        <!-- malý „S“ podle DJI T25: 25,4 kg + DB800 6,6 kg (0,81 kWh), 20 l, záběr 6 m, 4 jednoduché vrtule 50″, 2 zadní trysky
+             (rozteč 1368 mm); výdrž 9 min s plnou nádrží (výkon ~ m^1,5 / √plocha vrtulí, kalibrováno na T50) -->
+        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.10 0.36" cameraPitch="15" tankCapacity="20" workWidth="6" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
+               batteryMinutes="9" chargeMinutes="10" dieselPerHour="1.14" droneRadius="1.35" rotorPitch="1.25" hoseVia="0.145 0.15 0.24">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_S_Tilt" innerRadius="6" outerRadius="100" fadeOut="0.3">
+                    <volume indoor="0.5" outdoor="1.0"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+                <spray template="defaultSprayer" linkNode="Drone_S_Tilt" innerRadius="5" outerRadius="80" volumeScale="0.5" pitchScale="1.1"/>
+            </sounds>
+            <effects nozzleY="-0.08">
+                <nozzle x="-0.684" z="-0.657"/>
+                <nozzle x="0.684" z="-0.657"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|0" linkNode="Drone_S_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|0" linkNode="Drone_S_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+            </effects>
+{{DRONE_PARTS_S}}
+        </drone>
+
+        <!-- druhý dron téže varianty (slot 2): z tohoto bloku se berou jen uzly, zvuk, efekty a hadice, parametry letu jsou ze slotu 1 -->
+        <drone name="S" slot="2" prefix="Drone2_S_" hosePrefix="fillHoseB" cameraIndex="3" cameraNode="droneCamera2" outCameraIndex="5" outTargetNode="droneOutTarget2" cameraTrans="0 0.10 0.36" cameraPitch="15" tankCapacity="20" workWidth="6" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
+               batteryMinutes="9" chargeMinutes="10" dieselPerHour="1.14" droneRadius="1.35" rotorPitch="1.25" hoseVia="0.145 0.15 0.24">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone2_S_Tilt" innerRadius="6" outerRadius="100" fadeOut="0.3">
+                    <volume indoor="0.5" outdoor="1.0"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+                <spray template="defaultSprayer" linkNode="Drone2_S_Tilt" innerRadius="5" outerRadius="80" volumeScale="0.5" pitchScale="1.1"/>
+            </sounds>
+            <effects nozzleY="-0.08">
+                <nozzle x="-0.684" z="-0.657"/>
+                <nozzle x="0.684" z="-0.657"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|0" linkNode="Drone2_S_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|0" linkNode="Drone2_S_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+            </effects>
+{{DRONE_PARTS_S2}}
+        </drone>
+
+        <!-- střední „M“ = DJI T50 (dnešní): 39,9 kg + DB1560 12,1 kg (1,567 kWh), 40 l, záběr 9 m, 4 trysky pod motory -->
+        <drone name="M" prefix="Drone_A_" maxRange="450" litersPerSecond="1.5" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.10 0.42" cameraPitch="15" tankCapacity="40" workWidth="9" droneMass="39.9" batteryMass="12.1" batteryKwh="1.567"
+               batteryMinutes="8" chargeMinutes="10" dieselPerHour="2.2" droneRadius="1.6" rotorPitch="1" hoseVia="0.17 0.155 0.32">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_A_Tilt" innerRadius="8" outerRadius="120" fadeOut="0.3">
+                    <volume indoor="0.6" outdoor="1.2"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+                <spray template="defaultSprayer" linkNode="Drone_A_Tilt" innerRadius="6" outerRadius="100" volumeScale="0.6" pitchScale="1.0"/>
+            </sounds>
+            <effects nozzleY="-0.11">
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+            </effects>
+{{DRONE_PARTS_M}}
+        </drone>
+
+        <!-- druhý dron téže varianty (slot 2): z tohoto bloku se berou jen uzly, zvuk, efekty a hadice, parametry letu jsou ze slotu 1 -->
+        <drone name="M" slot="2" prefix="Drone2_A_" hosePrefix="fillHoseB" cameraIndex="3" cameraNode="droneCamera2" outCameraIndex="5" outTargetNode="droneOutTarget2" cameraTrans="0 0.10 0.42" cameraPitch="15" tankCapacity="40" workWidth="9" droneMass="39.9" batteryMass="12.1" batteryKwh="1.567"
+               batteryMinutes="8" chargeMinutes="10" dieselPerHour="2.2" droneRadius="1.6" rotorPitch="1" hoseVia="0.17 0.155 0.32">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone2_A_Tilt" innerRadius="8" outerRadius="120" fadeOut="0.3">
+                    <volume indoor="0.6" outdoor="1.2"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+                <spray template="defaultSprayer" linkNode="Drone2_A_Tilt" innerRadius="6" outerRadius="100" volumeScale="0.6" pitchScale="1.0"/>
+            </sounds>
+            <effects nozzleY="-0.11">
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone2_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone2_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone2_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|1" linkNode="Drone2_A_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+            </effects>
+{{DRONE_PARTS_M2}}
+        </drone>
+
+        <!-- velký „L“ podle DJI T100: 75 kg „weight for spraying“ včetně DB2160 14,7 kg (MTOW 175 = 75 + 100), tedy 60,3 kg bez
+             baterie; DB2160 41 Ah × 52 V = 2,13 kWh, nabití 30 → 95 % za 8–9 min; nádrž ve hře 75 l (se 100 l by výdrž vyšla
+             4,8 min, se 75 l 6,0 min), záběr 11 m, 2 trysky na rameni postřiku (rozteč 1834 mm) -->
+        <drone name="L" prefix="Drone_L_" maxRange="600" litersPerSecond="2.5" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.12 0.48" cameraPitch="15" tankCapacity="75" workWidth="11" droneMass="60.3" batteryMass="14.7" batteryKwh="2.13"
+               batteryMinutes="6" chargeMinutes="8.5" dieselPerHour="3.52" droneRadius="1.65" rotorPitch="0.8" hoseVia="0.20 0.19 0.40">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_L_Tilt" innerRadius="10" outerRadius="150" fadeOut="0.3">
+                    <volume indoor="0.7" outdoor="1.4"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+                <spray template="defaultSprayer" linkNode="Drone_L_Tilt" innerRadius="8" outerRadius="120" volumeScale="0.7" pitchScale="0.9"/>
+            </sounds>
+            <effects nozzleY="-0.24">
+                <nozzle x="-0.917" z="-0.823"/>
+                <nozzle x="0.917" z="-0.823"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|2" linkNode="Drone_L_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|2" linkNode="Drone_L_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+            </effects>
+{{DRONE_PARTS_L}}
+        </drone>
+
+        <!-- druhý dron téže varianty (slot 2): z tohoto bloku se berou jen uzly, zvuk, efekty a hadice, parametry letu jsou ze slotu 1 -->
+        <drone name="L" slot="2" prefix="Drone2_L_" hosePrefix="fillHoseB" cameraIndex="3" cameraNode="droneCamera2" outCameraIndex="5" outTargetNode="droneOutTarget2" cameraTrans="0 0.12 0.48" cameraPitch="15" tankCapacity="75" workWidth="11" droneMass="60.3" batteryMass="14.7" batteryKwh="2.13"
+               batteryMinutes="6" chargeMinutes="8.5" dieselPerHour="3.52" droneRadius="1.65" rotorPitch="0.8" hoseVia="0.20 0.19 0.40">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone2_L_Tilt" innerRadius="10" outerRadius="150" fadeOut="0.3">
+                    <volume indoor="0.7" outdoor="1.4"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+                <spray template="defaultSprayer" linkNode="Drone2_L_Tilt" innerRadius="8" outerRadius="120" volumeScale="0.7" pitchScale="0.9"/>
+            </sounds>
+            <effects nozzleY="-0.24">
+                <nozzle x="-0.917" z="-0.823"/>
+                <nozzle x="0.917" z="-0.823"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|2" linkNode="Drone2_L_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|2" linkNode="Drone2_L_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+            </effects>
+{{DRONE_PARTS_L2}}
+        </drone>
+    </sprayDrone>
+
+    <foliageBending>
+        <bendingNode minX="-1.5" maxX="1.5" minZ="{{BEND_MIN_Z}}" maxZ="{{BEND_MAX_Z}}" yOffset="0.3"/>
+    </foliageBending>
+
+    <ai>
+        <agentAttachment jointNode="attacherJoint" rotCenterWheelIndices="1 2 3 4" width="{{SIZE_WIDTH}}" height="{{SIZE_HEIGHT}}" length="{{SIZE_LENGTH}}" lengthOffset="{{SIZE_LENGTH_OFFSET}}"/>
+    </ai>
+
+    <tipOccluder>
+        <occlusionArea start="occlusionAreaStart" width="occlusionAreaWidth" height="occlusionAreaHeight"/>
+    </tipOccluder>
+
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="2" fieldMultiplier="2"/>
+
+    <!-- barva ráfků v obchodě (materiál rim_outer_mat v wheels/sdtRim*.i3d) -->
+    <rimColorConfigurations>
+        <rimColorConfiguration materialTemplateName="RIM_DEFAULT" isDefault="true"/>
+        <rimColorConfiguration materialTemplateName="RIM_CONFIGURATION_WHITE"/>
+        <rimColorConfiguration materialTemplateName="RIM_CONFIGURATION_BLACK"/>
+        <rimColorConfiguration materialTemplateName="ARMATRAC_ORANGE1" price="150"/>
+        <rimColorConfiguration materialTemplateName="ARMATRAC_RED1" price="150"/>
+        <rimColorConfiguration materialTemplateName="DOBLETT_BLUE1" price="150"/>
+        <rimColorConfiguration materialTemplateName="DOBLETT_GREEN1" price="150"/>
+        <rimColorConfiguration materialTemplateName="RISUTEC_YELLOW1" price="150"/>
+        <rimColorConfiguration materialTemplateName="RIM_CONFIGURATION_CHROME" price="1000"/>
+    </rimColorConfigurations>
+
+    <!-- barva plachet a zadních vrat (materiál SDT_Tarp, i3d slot SDT_Tarp: plachty, role, roleta/pole vrat; lemy a popruhy zůstávají
+         tmavé). materialTemplateUseColorOnly: mění se jen colorScale, plachta si nechá šablonu fabric1 (textura tkaniny); fabric1 má
+         světlý detailDiffuse (~0,83), výchozí šedá je proto barva / 0,83 jako v export_middle_mod.MATERIAL_MAP. Lockupy designu jsou
+         bez podkladu ve dvou sadách (sdt_parts.brand_tone_group): světlé barvy (oranžová, žlutá, šedá, bílá - jas šablony nad ~0,4)
+         ukážou lockupOnLight s tmavým textem, ostatní lockupOnDark ({{TONE_*}} vyplní export); barvy, které hra přidá sama
+         (useDefaultColors, vlastní barva), mají lockupOnDark. Nabídka jako bedna Mini. -->
+    <baseColorConfigurations title="$l10n_sdt_cfg_tarpColor" useDefaultColors="true" price="0" defaultColorMaterialTemplateName="calibratedPaint">
+        <baseColorConfiguration name="$l10n_sdt_cfg_tarpGrey" color="0.083 0.094 0.109" uiColor="0.29 0.31 0.33" isDefault="true">{{TONE_DARK}}</baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="ARMATRAC_RED1">{{TONE_DARK}}</baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="ARMATRAC_ORANGE1">{{TONE_LIGHT}}</baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RISUTEC_YELLOW1">{{TONE_LIGHT}}</baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="DOBLETT_BLUE1">{{TONE_DARK}}</baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RISUTEC_GREY1">{{TONE_LIGHT}}</baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RIM_CONFIGURATION_WHITE">{{TONE_LIGHT}}</baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RIM_CONFIGURATION_BLACK">{{TONE_DARK}}</baseColorConfiguration>
+        <material materialSlotName="SDT_Tarp" materialTemplateUseColorOnly="true"/>
+    </baseColorConfigurations>
+
+{{I3D_MAPPINGS}}
+</vehicle>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="114">
+    <author>Pavel Mazálek</author>
+    <version>1.0.1.0</version>
+    <title>
+        <en>Spray Drone Service Trailer</en>
+        <de>Sprühdrohnen-Serviceanhänger</de>
+        <cz>Servisní Vlek Pro Postřikové Drony</cz>
+    </title>
+    <description>
+        <en><![CDATA[Service trailer for agricultural spray drones. Plan the flight on a map, the drone sprays the field on its own and comes back to refill and swap batteries.
+
+Spray Drone Service Trailer Mini
+Category: Drone trailers
+Price: $3,900 (small drone from $7,000)
+Capacity: 300 l
+Working width: 6 m
+Batteries: 0–4
+
+Spray Drone Service Trailer Middle
+Category: Drone trailers
+Price: $6,100 (drone from $7,000)
+Capacity: 800 / 1,000 / 1,500 / 3,000 / 5,000 l
+Working width: 6 / 9 / 11 m (small / medium / large drone)
+Batteries: 0–6
+Configurations: drone, batteries, propellers, antenna, RTK GPS, tarp colour, design
+
+Spray Drone Service Trailer XL
+Category: Drone trailers
+Price: $48,000 (two drones from $14,000)
+Capacity: 6,000 / 10,000 l
+Working width: 2 × 6 / 9 / 11 m (two drones)
+Batteries: 0–10
+Configurations: drones, batteries, propellers, antenna, RTK GPS, tarp colour, design
+
+Equipment (categories Drone equipment and Canisters): relay pole ($650) extends the drone range and can be stored on the trailer, drone tablet ($400) opens the flight planner remotely, 20 l canisters of fertilizer or herbicide concentrate and diesel.
+
+How to use: park and unfold the trailer, open the flight planner by clicking the display on the trailer or with R while holding the tablet, pick your own or a contract field and start the flight. Fill the tank with ready-made fertilizer or herbicide, or with water and concentrate – the mixer dilutes it. Batteries are charged by the diesel generator. Precision Farming is supported.
+
+Hotkeys: Alt+8 start flight, Alt+0 return home, Alt+6 generator, Alt+9 drone view, Alt+1 drain drone tank into the trailer, Alt+2 pump the tank into an IBC, Alt+5 route lines, R planner with the tablet / take out a relay pole.]]></en>
+        <de><![CDATA[Serviceanhänger für landwirtschaftliche Sprühdrohnen. Plane den Flug auf der Karte, die Drohne spritzt das Feld selbstständig und kehrt zum Nachfüllen und Akkuwechsel zurück.
+
+Sprühdrohnen-Serviceanhänger Mini
+Shopkategorie: Drohnenanhänger
+Preis: 3.900 € (kleine Drohne ab 7.000 €)
+Kapazität: 300 l
+Arbeitsbreite: 6 m
+Akkus: 0–4
+
+Sprühdrohnen-Serviceanhänger Middle
+Shopkategorie: Drohnenanhänger
+Preis: 6.100 € (Drohne ab 7.000 €)
+Kapazität: 800 / 1.000 / 1.500 / 3.000 / 5.000 l
+Arbeitsbreite: 6 / 9 / 11 m (kleine / mittlere / große Drohne)
+Akkus: 0–6
+Konfigurationen: Drohne, Akkus, Propeller, Antenne, RTK-GPS, Planenfarbe, Design
+
+Sprühdrohnen-Serviceanhänger XL
+Shopkategorie: Drohnenanhänger
+Preis: 48.000 € (zwei Drohnen ab 14.000 €)
+Kapazität: 6.000 / 10.000 l
+Arbeitsbreite: 2 × 6 / 9 / 11 m (zwei Drohnen)
+Akkus: 0–10
+Konfigurationen: Drohnen, Akkus, Propeller, Antenne, RTK-GPS, Planenfarbe, Design
+
+Zubehör (Kategorien Drohnenausrüstung und Kanister): Relaismast (650 €) erhöht die Reichweite der Drohne und lässt sich am Anhänger verstauen, Drohnen-Tablet (400 €) öffnet die Flugplanung aus der Ferne, 20-l-Kanister mit Dünger- oder Herbizidkonzentrat und Diesel.
+
+Bedienung: Anhänger abstellen und ausklappen, die Flugplanung per Klick auf das Display am Anhänger oder mit R und dem Tablet in der Hand öffnen, eigenes Feld oder Auftragsfeld wählen und den Flug starten. Den Tank mit fertigem Dünger oder Herbizid füllen, oder mit Wasser und Konzentrat – der Mischer verdünnt es. Die Akkus lädt das Diesel-Stromaggregat. Precision Farming wird unterstützt.
+
+Tastenkürzel: Alt+8 Flug starten, Alt+0 Rückkehr, Alt+6 Stromaggregat, Alt+9 Drohnenansicht, Alt+1 Drohnentank in den Anhänger ablassen, Alt+2 Tank in einen IBC umpumpen, Alt+5 Routenlinien, R Flugplanung mit dem Tablet / Relaismast herausnehmen.]]></de>
+        <cz><![CDATA[Servisní vlek pro zemědělské postřikové drony. Let naplánuješ na mapě, dron pole postříká sám a vrací se doplnit nádrž a vyměnit baterii.
+
+Servisní vlek pro postřikové drony Mini
+Kategorie: Vleky s drony
+Cena: 3 900 € (malý dron od 7 000 €)
+Objem: 300 l
+Pracovní záběr: 6 m
+Baterie: 0–4
+
+Servisní vlek pro postřikové drony Middle
+Kategorie: Vleky s drony
+Cena: 6 100 € (dron od 7 000 €)
+Objem: 800 / 1 000 / 1 500 / 3 000 / 5 000 l
+Pracovní záběr: 6 / 9 / 11 m (malý / střední / velký dron)
+Baterie: 0–6
+Konfigurace: dron, baterie, vrtule, anténa, RTK GPS, barva plachty, design
+
+Servisní vlek pro postřikové drony XL
+Kategorie: Vleky s drony
+Cena: 48 000 € (dva drony od 14 000 €)
+Objem: 6 000 / 10 000 l
+Pracovní záběr: 2 × 6 / 9 / 11 m (dva drony)
+Baterie: 0–10
+Konfigurace: drony, baterie, vrtule, anténa, RTK GPS, barva plachty, design
+
+Vybavení (kategorie Vybavení dronů a Kanystry): retranslační tyč (650 €) prodlouží dosah dronu a dá se uložit na vlek, tablet dronu (400 €) otevře plánovač letu na dálku, 20l kanystry s koncentrátem hnojiva nebo herbicidu a naftou.
+
+Ovládání: vlek odstav a rozlož, plánovač letu otevři kliknutím na displej na vleku nebo klávesou R s tabletem v ruce, vyber vlastní pole nebo pole zakázky a spusť let. Nádrž plníš hotovým hnojivem či herbicidem, nebo vodou a koncentrátem – mixér ho naředí. Baterie nabíjí naftová elektrocentrála. Podporuje Precision Farming.
+
+Klávesy: Alt+8 start letu, Alt+0 návrat, Alt+6 centrála, Alt+9 pohled z dronu, Alt+1 vypustit nádrž dronu do vleku, Alt+2 přečerpat nádrž do IBC, Alt+5 čáry trasy, R plánovač s tabletem / vyndat retranslační tyč.]]></cz>
+    </description>
+    <iconFilename>icon_sprayDroneTrailer.dds</iconFilename>
+    <multiplayer supported="true"/>
+
+    <extraSourceFiles>
+        <sourceFile filename="scripts/SprayDroneLink.lua"/>
+        <sourceFile filename="scripts/SprayDroneStoreCategories.lua"/>
+    </extraSourceFiles>
+
+    <l10n filenamePrefix="translations/translation"/>
+
+    <actions>
+        <action name="SDT_START_FLIGHT" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_RETURN_HOME" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_TOGGLE_GENERATOR" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_TOGGLE_LINES" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_DRAIN_DRONE" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_PUMP_TO_PALLET" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_DRONE_VIEW" category="VEHICLE" displayCategory="VEHICLE"/>
+    </actions>
+
+    <inputBinding>
+        <actionBinding action="SDT_START_FLIGHT">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_8"/>
+        </actionBinding>
+        <actionBinding action="SDT_RETURN_HOME">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_0"/>
+        </actionBinding>
+        <actionBinding action="SDT_TOGGLE_GENERATOR">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_6"/>
+        </actionBinding>
+        <actionBinding action="SDT_TOGGLE_LINES">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_5"/>
+        </actionBinding>
+        <actionBinding action="SDT_DRAIN_DRONE">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_1"/>
+        </actionBinding>
+        <actionBinding action="SDT_PUMP_TO_PALLET">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_2"/>
+        </actionBinding>
+        <actionBinding action="SDT_DRONE_VIEW">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_9"/>
+        </actionBinding>
+    </inputBinding>
+
+    <specializations>
+        <specialization name="sprayDroneStation" className="SprayDroneStation" filename="scripts/SprayDroneStation.lua"/>
+        <specialization name="sprayDroneRelay" className="SprayDroneRelay" filename="scripts/SprayDroneRelay.lua"/>
+    </specializations>
+
+    <vehicleTypes>
+        <type name="sprayDroneTrailer" parent="baseFillable" filename="$dataS/scripts/vehicles/Vehicle.lua">
+            <specialization name="fillTriggerVehicle"/>
+            <specialization name="waterTrailer"/>
+            <specialization name="enterable"/>
+            <specialization name="sprayDroneStation"/>
+        </type>
+        <type name="sdtRelayPole" parent="pallet" filename="$dataS/scripts/vehicles/Vehicle.lua">
+            <specialization name="enterable"/>
+            <specialization name="sprayDroneRelay"/>
+        </type>
+    </vehicleTypes>
+
+    <!-- vlastní značka BZUK (Značky; brand_bzuk.dds 512 x 256 jako vanilla data/store/brands, kreslí tools/make_brand_atlas.py)
+         a vlastní záložka obchodu „BZUK“ (storeType jako LSFM balíčky, registruje ji scripts/SprayDroneStoreCategories.lua) se třemi
+         kategoriemi: vleky, vybavení (tyč, tablet) a kanystry; tablet je ruční nástroj, proto je i v kategorii ručního nářadí -->
+    <brands>
+        <brand name="BZUK" title="BZUK" image="brand_bzuk.dds"/>
+    </brands>
+    <storeCategories>
+        <storeType name="SPRAYDRONE" title="BZUK" insertAfter="HANDTOOLS"/>
+        <storeCategory type="SPRAYDRONE" name="sprayDroneTrailers" title="$l10n_sdt_storeCategoryTrailers" image="vehicles/sprayDroneTrailerMiddle/store_sprayDroneTrailerMiddle.dds"/>
+        <storeCategory type="SPRAYDRONE" name="sprayDroneEquipment" title="$l10n_sdt_storeCategoryEquipment" image="objects/relay/store_relayPole.dds"/>
+        <storeCategory type="SPRAYDRONE" name="sprayDroneCanisters" title="$l10n_sdt_storeCategoryCanisters" image="objects/canister/store_canisterFertilizer.dds"/>
+    </storeCategories>
+
+    <storeItems>
+        <storeItem xmlFilename="vehicles/sprayDroneTrailerMini/sprayDroneTrailerMini.xml"/>
+        <storeItem xmlFilename="vehicles/sprayDroneTrailerMiddle/sprayDroneTrailerMiddle.xml"/>
+        <storeItem xmlFilename="vehicles/sprayDroneTrailerMax/sprayDroneTrailerMax.xml"/>
+        <storeItem xmlFilename="objects/canister/canisterFertilizer.xml"/>
+        <storeItem xmlFilename="objects/canister/multiPurchaseCanisterFertilizer.xml"/>
+        <storeItem xmlFilename="objects/canister/canisterHerbicide.xml"/>
+        <storeItem xmlFilename="objects/canister/multiPurchaseCanisterHerbicide.xml"/>
+        <storeItem xmlFilename="objects/canister/canisterDiesel.xml"/>
+        <storeItem xmlFilename="objects/canister/multiPurchaseCanisterDiesel.xml"/>
+        <storeItem xmlFilename="objects/relay/relayPole.xml"/>
+        <storeItem xmlFilename="objects/tablet/droneTablet.xml"/>
+    </storeItems>
+
+    <fillTypes filename="xml/fillTypes.xml"/>
+</modDesc>

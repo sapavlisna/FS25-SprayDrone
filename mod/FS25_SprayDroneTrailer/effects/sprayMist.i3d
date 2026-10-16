@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<i3D name="sprayMist" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Files>
+    <File fileId="1" filename="$data/effects/smoke/smoke6x6_diffuse.png"/>
+    <File fileId="2" filename="$data/effects/smoke/smoke6x6_normal.png"/>
+    <File fileId="4" filename="$data/shaders/psSubUVShader.xml"/>
+    <File fileId="3" filename="$data/shared/default_specular.png"/>
+  </Files>
+
+  <Materials>
+    <Material name="lambert1" materialId="5" diffuseColor="0.494118 0.494118 0.494118 1">
+    </Material>
+    <Material name="mist_mat" materialId="6" alphaBlending="true" customShaderId="4" customShaderVariation="subUV" shadingRate="4x4">
+      <Texture fileId="1"/>
+      <Normalmap fileId="2"/>
+      <Glossmap fileId="3"/>
+      <CustomParameter name="playScale" value="20 40 1 0"/>
+      <CustomParameter name="colorAlpha" value="1 1 1 1"/>
+    </Material>
+  </Materials>
+
+  <Shapes externalShapesFile="sprayMist.i3d.shapes">
+  </Shapes>
+
+  <Dynamics>
+    <ParticleSystem name="mistS" dynamicId="1" type="sprite" rate="0.056" lifespan="1100" maxCount="800" speed="0.003091" speedRandom="0.000371" tangentSpeed="0.676" normalSpeed="1" damping="0" spriteScaleX="0.15" spriteScaleY="0.15" spriteScaleXGain="0.000773" spriteScaleYGain="0.000773" blendFactor="0.45" blendInFactor="0.2" blendOutFactor="0.7" depthSort="true" randomInitRotation="true" deltaRotateMin="-0.0004" deltaRotateMax="0.0004" textureAtlasSizeX="6" textureAtlasSizeY="6">
+      <Gravity force="0 0 0"/>
+    </ParticleSystem>
+    <ParticleSystem name="mistM" dynamicId="2" type="sprite" rate="0.056" lifespan="1100" maxCount="800" speed="0.003091" speedRandom="0.000371" tangentSpeed="1.000" normalSpeed="1" damping="0" spriteScaleX="0.15" spriteScaleY="0.15" spriteScaleXGain="0.000864" spriteScaleYGain="0.000864" blendFactor="0.45" blendInFactor="0.2" blendOutFactor="0.7" depthSort="true" randomInitRotation="true" deltaRotateMin="-0.0004" deltaRotateMax="0.0004" textureAtlasSizeX="6" textureAtlasSizeY="6">
+      <Gravity force="0 0 0"/>
+    </ParticleSystem>
+    <ParticleSystem name="mistL" dynamicId="3" type="sprite" rate="0.068" lifespan="1100" maxCount="1000" speed="0.003091" speedRandom="0.000371" tangentSpeed="1.324" normalSpeed="1" damping="0" spriteScaleX="0.2" spriteScaleY="0.2" spriteScaleXGain="0.001091" spriteScaleYGain="0.001091" blendFactor="0.45" blendInFactor="0.2" blendOutFactor="0.7" depthSort="true" randomInitRotation="true" deltaRotateMin="-0.0004" deltaRotateMax="0.0004" textureAtlasSizeX="6" textureAtlasSizeY="6">
+      <Gravity force="0 0 0"/>
+    </ParticleSystem>
+  </Dynamics>
+
+  <Scene>
+    <TransformGroup name="sprayMist" nodeId="1">
+    <Dynamic name="mistS" dynamicId="1" emitterShapeNodeId="11" clipDistance="120" nodeId="10" castsShadows="false" receiveShadows="false" distanceBlending="false" materialIds="6">
+      <Shape name="mistEmitShape" shapeId="1" nodeId="11" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="5"/>
+    </Dynamic>
+    <Dynamic name="mistM" dynamicId="2" emitterShapeNodeId="13" clipDistance="120" nodeId="12" castsShadows="false" receiveShadows="false" distanceBlending="false" materialIds="6">
+      <Shape name="mistEmitShape" shapeId="1" nodeId="13" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="5"/>
+    </Dynamic>
+    <Dynamic name="mistL" dynamicId="3" emitterShapeNodeId="15" clipDistance="120" nodeId="14" castsShadows="false" receiveShadows="false" distanceBlending="false" materialIds="6">
+      <Shape name="mistEmitShape" shapeId="1" nodeId="15" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="5"/>
+    </Dynamic>
+    </TransformGroup>
+  </Scene>
+</i3D>

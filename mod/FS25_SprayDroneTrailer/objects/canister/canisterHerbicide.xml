@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Pravidla objektu ručně; i3d, obrázek a čísla v i3dMappings dává blender/build_canister.py. Cestu k souboru čte SprayDroneToolbox.lua. -->
+<vehicle type="pallet">
+    <annotation>Kanystr 20 l s koncentrátem pro servisní vlek postřikového dronu; herní objekt typu pallet, kupuje se v obchodě plný.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_canisterHerbicide_name</name>
+        <functions>
+            <function>$l10n_sdt_canister_function</function>
+        </functions>
+        <specs>
+            <capacity>20</capacity>
+            <fillTypes>SDT_CONCENTRATE_HERBICIDE</fillTypes>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/canister/store_canisterHerbicide.dds</image>
+        <price>260</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>false</canBeSold>
+        <showInStore>false</showInStore>
+        <rotation>0</rotation>
+        <shopHeight>0.5</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneCanisters pallets palletFertilizerHerbicide</category>
+        <financeCategory>PURCHASE_FERTILIZER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_typeDesc_pallet</typeDesc>
+        <filename>objects/canister/canisterHerbicide.i3d</filename>
+        <size width="0.26" length="0.18" height="0.34"/>
+        <canBeReset>false</canBeReset>
+        <supportsPickUp>true</supportsPickUp>
+        <components>
+            <component centerOfMass="0 0.13 0" solverIterationCount="10" mass="1"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <mapHotspot available="false"/>
+        <input allowed="false"/>
+    </base>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits removeVehicleIfEmpty="true">
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_HERBICIDE" capacity="20" startFillType="SDT_CONCENTRATE_HERBICIDE" startFillLevel="20" ignoreFillLimit="true" updateMass="false">
+                        <fillRootNode node="0&gt;"/>
+                    </fillUnit>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <fillTriggerVehicle triggerNode="fillTrigger" fillUnitIndex="1" litersPerSecond="20"/>
+
+    <dynamicMount triggerNode="dynamicMountTrigger" triggerForceAcceleration="4" additionalMountDistance="0.09" jointTransY="0.02" jointLimitToRotY="true"/>
+
+    <i3dMappings>
+        <i3dMapping id="canisterHerbicide_main_component1" node="0&gt;"/>
+        <i3dMapping id="canisterHerbicide_vis" node="0&gt;1"/>
+        <i3dMapping id="floorCollision01" node="0&gt;3|0"/>
+        <i3dMapping id="dynamicMountTrigger" node="0&gt;4"/>
+        <i3dMapping id="fillTrigger" node="0&gt;5"/>
+        <i3dMapping id="canisterCap" node="0&gt;2"/>
+    </i3dMappings>
+</vehicle>

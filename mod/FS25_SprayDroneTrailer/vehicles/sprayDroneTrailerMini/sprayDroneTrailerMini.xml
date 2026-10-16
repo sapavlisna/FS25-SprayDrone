@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Generováno z blender/templates/sprayDroneTrailerMini.xml.in skriptem blender/export_mini_mod.py. Needitovat ručně. -->
+<vehicle type="FS25_SprayDroneTrailer.sprayDroneTrailer">
+    <annotation>Spray drone service trailer, small version (everything on one level, drone S on the tank). Podvozek a oj jako velký vlek.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_trailer_mini</name>
+        <functions>
+            <function>$l10n_function_tank</function>
+        </functions>
+        <image>vehicles/sprayDroneTrailerMini/store_sprayDroneTrailerMini.dds</image>
+        <price>3900</price>
+        <lifetime>600</lifetime>
+        <rotation>0</rotation>
+        <brand>BZUK</brand>
+        <category>sprayDroneTrailers</category>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_typeDesc_sprayerTank</typeDesc>
+        <filename>vehicles/sprayDroneTrailerMini/sprayDroneTrailerMini.i3d</filename>
+        <size width="2.60" length="5.99" height="1.66" lengthOffset="1.52"/>
+        <components maxMass="1600">
+            <component centerOfMass="0 0.75 1.01" solverIterationCount="10" mass="480"/>
+        </components>
+        <schemaOverlay attacherJointPosition="0 0" name="IMPLEMENT"/>
+        <mapHotspot type="TOOL_TRAILED"/>
+    </base>
+
+    <!-- konfigurace Design (polepy BZUK / ROSA / kapka / STRATUS AGRI): export_middle_mod.design_configurations_xml z uzlů brand_<KEY>_* -->
+    <designConfigurations>
+        <designConfiguration name="BZUK" saveId="BZUK" price="0" isDefault="true">
+            <objectChange node="brand_BZUK_Drone_S_TankF" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_Drone_S_TankL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_Drone_S_TankR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateHDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateHLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateInL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateInR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateLDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateLLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_cratePDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_cratePLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateRDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateRLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateZDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_crateZLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_padDeck" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_planner" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_toolbox" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_BZUK_toolbox2" visibilityActive="true" visibilityInactive="false"/>
+        </designConfiguration>
+        <designConfiguration name="ROSA" saveId="ROSA" price="0">
+            <objectChange node="brand_ROSA_Drone_S_TankF" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_Drone_S_TankL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_Drone_S_TankR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateHDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateHLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateInL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateInR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateLDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateLLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_cratePDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_cratePLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateRDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateRLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateZDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_crateZLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_padDeck" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_planner" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_toolbox" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_ROSA_toolbox2" visibilityActive="true" visibilityInactive="false"/>
+        </designConfiguration>
+        <designConfiguration name="kapka" saveId="KAPKA" price="0">
+            <objectChange node="brand_KAPKA_Drone_S_TankF" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_Drone_S_TankL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_Drone_S_TankR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateHDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateHLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateInL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateInR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateLDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateLLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_cratePDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_cratePLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateRDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateRLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateZDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_crateZLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_padDeck" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_planner" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_toolbox" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_KAPKA_toolbox2" visibilityActive="true" visibilityInactive="false"/>
+        </designConfiguration>
+        <designConfiguration name="STRATUS AGRI" saveId="STRATUS" price="0">
+            <objectChange node="brand_STRATUS_Drone_S_TankF" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_Drone_S_TankL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_Drone_S_TankR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateHDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateHLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateInL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateInR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateLDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateLLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_cratePDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_cratePLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateRDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateRLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateZDark" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_crateZLight" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_padDeck" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_planner" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_toolbox" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brand_STRATUS_toolbox2" visibilityActive="true" visibilityInactive="false"/>
+        </designConfiguration>
+    </designConfigurations>
+
+    <wheels>
+        <wheelConfigurations>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" brand="LIZARD" saveId="DEFAULT" isDefault="true">
+                <wheels>
+                    <wheel filename="$data/shared/wheels/tires/lizard/destinationFarm/280_70R15.xml" isLeft="true" hasTireTracks="true" hasParticles="true">
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.8" repr="wheelFrontLeft" forcePointRatio="0.3" initialCompression="15" suspTravel="0.05" spring="55" damper="25" frictionScale="1.6" yOffset="0.031"/>
+                        <outerRim filename="wheels/sdtRim15.i3d" node="0|0" widthAndDiam="8 15.5"/>
+                        <innerRim filename="-"/>
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/lizard/destinationFarm/280_70R15.xml" isLeft="false" hasTireTracks="true" hasParticles="true">
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.8" repr="wheelFrontRight" forcePointRatio="0.3" initialCompression="15" suspTravel="0.05" spring="55" damper="25" frictionScale="1.6" yOffset="0.031"/>
+                        <outerRim filename="wheels/sdtRim15.i3d" node="0|1" widthAndDiam="8 15.5"/>
+                        <innerRim filename="-"/>
+                    </wheel>
+                </wheels>
+            </wheelConfiguration>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="DEFAULT_TRELLEBORG_T421" isSelectable="false">
+                <wheels baseConfig="DEFAULT"/>
+            </wheelConfiguration>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="TRELLEBORG_T421_320_55R15" isSelectable="false">
+                <wheels baseConfig="DEFAULT"/>
+            </wheelConfiguration>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="TRELLEBORG_T421_280_60R15_5" isSelectable="false">
+                <wheels baseConfig="DEFAULT"/>
+            </wheelConfiguration>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="TRELLEBORG_AW305_10_80R12" isSelectable="false">
+                <wheels baseConfig="DEFAULT"/>
+            </wheelConfiguration>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="BKT_I1_11L_14" isSelectable="false">
+                <wheels baseConfig="DEFAULT"/>
+            </wheelConfiguration>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="BKT_PL801_250_70R15" isSelectable="false">
+                <wheels baseConfig="DEFAULT"/>
+            </wheelConfiguration>
+        </wheelConfigurations>
+    </wheels>
+
+    <attachable>
+        <inputAttacherJoints>
+            <inputAttacherJoint node="attacherJoint" jointType="trailerCar" attacherHeight="0.50"/>
+            <inputAttacherJoint node="attacherJoint" jointType="trailerLow" attacherHeight="0.50"/>
+            <inputAttacherJoint node="attacherJoint" jointType="trailer" attacherHeight="0.90"/>
+        </inputAttacherJoints>
+        <brakeForce force="0.1" maxForce="0.3" maxForceMass="1600"/>
+        <support animationName="moveSupport"/>
+        <sounds>
+            <active file="$data/sounds/tools/sowing/generalRattle_02.wav" innerRadius="10" outerRadius="50" volumeScale="8.6" isLocalSound="true" pitchScale="1.2">
+                <volume indoor="0.7" outdoor="0.9">
+                    <modifier type="WHEEL_SUSPENSION" value="-0.08" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.06" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.04" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.03" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.02" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.01" modifiedValue="0.1"/>
+                    <modifier type="WHEEL_SUSPENSION" value="-0.00" modifiedValue="0.0"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.01" modifiedValue="0.1"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.02" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.03" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.04" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.06" modifiedValue="0.2"/>
+                    <modifier type="WHEEL_SUSPENSION" value="0.08" modifiedValue="0.2"/>
+
+                    <modifier type="SPEED" value="0.0" modifiedValue="0.0"/>
+                    <modifier type="SPEED" value="2.0" modifiedValue="1.0"/>
+                    <modifier type="SPEED" value="40.0" modifiedValue="1.0"/>
+                </volume>
+                <lowpassCutoffFrequency indoor="250" outdoor="20000"/>
+                <lowpassGain indoor="0.5" outdoor="1"/>
+            </active>
+        </sounds>
+    </attachable>
+
+    <!-- stanoviště pilota dronu: nastoupit jde vždy, plánovač a start letu jen z rozloženého vleku (SprayDronePlannerScreen.lua, SprayDroneStation.lua) -->
+    <enterable isTabbable="false">
+        <enterReferenceNode node="sprayDroneTrailerMini_main_component1" interactionRadius="4"/>
+        <exitPoint node="exitPoint"/>
+        <cameras>
+            <camera node="outdoorCamera" rotatable="true" rotateNode="outdoorCameraTarget" limit="true" useWorldXZRotation="true"
+                    rotMinX="-1.4" rotMaxX="1.2" transMin="3" transMax="40" translation="0 0 9" rotation="-25 180 0"/>
+        </cameras>
+    </enterable>
+
+    <licensePlates>
+        <licensePlate node="licensePlateBack" position="BACK" preferedType="SQUARISH" placementArea="0.06 0.26 0.09 0.15"/>
+    </licensePlates>
+
+    <lights>
+        <states>
+            <state lightTypes="0"/>
+        </states>
+        <sharedLight linkNode="rearLight52_left" filename="$data/shared/assets/lights/lizard/rearLight52_left.xml"/>
+        <sharedLight linkNode="rearLight52_right" filename="$data/shared/assets/lights/lizard/rearLight52_right.xml"/>
+        <sharedLight linkNode="sideMarker05_left" filename="$data/shared/assets/lights/lizard/sideMarker05_left.xml"/>
+        <sharedLight linkNode="sideMarker05_right" filename="$data/shared/assets/lights/lizard/sideMarker05_right.xml"/>
+        <sharedLight linkNode="plateNumberLight03" filename="$data/shared/assets/lights/lizard/plateNumberLight03.xml"/>
+    </lights>
+
+    <animations>
+        <!-- opěrné kolečko: čas 0 = zapřaženo (zvednuté), čas 1 = odpojeno (na zemi, model v i3d) -->
+        <animation name="moveSupport">
+            <part node="jockeyWheel" startTime="0" endTime="1" startTrans="0.3 0.85 3.575" endTrans="0.3 0.5 3.575"/>
+            <!-- zvuky (vanilla šablony, vzor abi/waterTrailer550): čas 0 = zapřaženo, 1 = kolečko na zemi -->
+            <sound template="slideOpen" startTime="0.02" direction="1" volumeScale="1.5" pitchScale="1.4" linkNode="jockeyWheel"/>
+            <sound template="slideOpen" startTime="0.98" direction="-1" volumeScale="1.5" pitchScale="1.4" linkNode="jockeyWheel"/>
+            <sound template="clackVar1" startTime="0.95" direction="1" volumeScale="1.1" pitchScale="1.1" linkNode="jockeyWheel"/>
+            <sound template="clackVar1" startTime="0.05" direction="-1" volumeScale="1.1" pitchScale="1.1" linkNode="jockeyWheel"/>
+        </animation>
+        <!-- konvence FS25 (Foldable.lua): čas 0 = rozloženo (model v i3d), čas 1 = složeno;
+             startMoveDirection="1" => vozidlo začíná v čase 1, animace trvá 12 s. Skládání: 0–2,6 s se složí dron na rozložené
+             plošině (skript podle času skládání, sprayDrone#trailerFoldEnd); 2,6–10,6 s se plošina skládá do bedny (skript,
+             sprayDrone.pad: foldEnd / foldStart; v obráceném pořadí než rozkládání: dron sjede na střed bedny a otočí se, nožičky
+             se zasunou, panely se sklopí kolem dronu do bedny a jako poslední se zvedne pomačkaná plachta a vrátí na boky bedny);
+             10,6–11 s bedna s dronem je zajištěná (sprayDrone#securedFoldTime = 11 / 12); 11–12 s se zavře víko šachty baterií. -->
+        <animation name="foldTrailer">
+            <!-- šachta baterií po levém boku nádrže: rozložený vlek = víko otevřené a kabel k elektrocentrále zapojený -->
+            <part node="chargerCable" startTime="0" endTime="0.05" startVisibility="true" endVisibility="false"/>
+            <part node="chargerLid" startTime="11" endTime="12" startRot="100 -7e-06 0" endRot="0 -7e-06 0"/>
+
+
+            <!-- zvuky (vanilla šablony): direction -1 = rozkládání, 1 = skládání; bedna a nožičky se hýbou ve skriptu, zvuky jednotlivých kroků viz níž -->
+            <sound template="coverMetalOpen" startTime="11.95" direction="-1" volumeScale="1" pitchScale="1" linkNode="chargerLid"/>
+            <sound template="metalClose" startTime="11.9" direction="1" volumeScale="0.8" pitchScale="1.1" linkNode="chargerLid"/>
+            <!-- boční stěny bedny dosednou na zem při 9,5 s (SprayDronePad: D = 0,14 odpovídá 10,6 - 0,14 * 8 s) -->
+            <sound template="metalClose" startTime="9.55" direction="-1" volumeScale="0.9" pitchScale="0.9" linkNode="padSideL"/>
+            <sound template="metalClose" startTime="9.45" direction="-1" volumeScale="0.9" pitchScale="0.85" linkNode="padSideR"/>
+            <sound template="latchSmall" startTime="9.5" direction="1" volumeScale="0.6" pitchScale="1.1" linkNode="padSideL"/>
+            <sound template="latchSmall" startTime="9.45" direction="1" volumeScale="0.6" pitchScale="1.0" linkNode="padSideR"/>
+            <sound template="latchSmall" startTime="10.7" volumeScale="0.6" pitchScale="1.2" linkNode="padHingeH"/>
+            <sound template="latchSmall" startTime="10.9" volumeScale="0.6" pitchScale="1" linkNode="padHingeH"/>
+            <!-- posloupnost bedny (Pavel 2026-10-13: žádná dlouhá hydraulika): panely skřípou na závěsech (D 0,14-0,38 = 7,6-9,5 s), nožičky vyjedou (D 0,38-0,53 = 6,4-7,6 s),
+                 dron se po plošině posouvá se zvukem po dřevě (D 0,61-0,92 = 3,2-5,7 s) a dosedne cvaknutím -->
+            <sound template="slideOpen" startTime="7.55" direction="-1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
+            <sound template="slideOpen" startTime="6.45" direction="1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
+            <sound template="clackVar1" startTime="6.4" direction="-1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
+            <sound template="clackVar1" startTime="7.6" direction="1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
+        </animation>
+    </animations>
+
+    <foldable>
+        <foldingConfigurations>
+            <foldingConfiguration>
+                <foldingParts startMoveDirection="1" requiresPower="false" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
+                    <foldingPart animationName="foldTrailer" speedScale="1"/>
+                </foldingParts>
+            </foldingConfiguration>
+        </foldingConfigurations>
+    </foldable>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <!-- jedna velikost nádrže (hranatá nádrž pod dronem). Pořadí fill units se nesmí měnit: 1 hlavní nádrž (voda nebo hotový
+                 přípravek), 2 nafta pro elektrocentrálu, 3 koncentrát pro mixér (scripts/SprayDroneStation.lua, sprayDrone#mixer) -->
+            <fillUnitConfiguration name="300 l" price="0" saveId="TANK300" isDefault="true">
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water liquidFertilizer herbicide" capacity="300">
+                        <exactFillRootNode node="exactFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="30">
+                        <exactFillRootNode node="dieselFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_FERTILIZER SDT_CONCENTRATE_HERBICIDE" capacity="50">
+                        <exactFillRootNode node="concentrateFillRootNode"/>
+                    </fillUnit>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <!-- z nádrže vleku se dočerpává dron (a případně pozemní postřikovač zajetý vedle vleku) -->
+    <fillTriggerVehicle triggerNode="fillTrigger" fillUnitIndex="1" litersPerSecond="200"/>
+
+    <!-- voda z vodní plochy (vanilla WaterTrailer, vzor abi/waterTrailer550): R u hladiny napouští hlavní nádrž (fillUnit 1), jen když je
+         kořen vleku (fillNode) nejvýš 0,2 m nad hladinou, tedy vlek stojí u vody; do nádrže s přípravkem se voda nenapustí -->
+    <waterTrailer fillUnitIndex="1" fillLitersPerSecond="150">
+        <sounds>
+            <refill template="defaultRefuelSound" linkNode="0>"/>
+        </sounds>
+    </waterTrailer>
+
+    <!-- postřikový dron (scripts/SprayDroneStation.lua, docs/DRON.md); schéma vehicle.xsd tuhle sekci nezná.
+         Atributy <sprayDrone> jsou společné, blok <drone> varianty (S / M / L, vybírá konfigurace sprayDrone#drone) je
+         přepisuje; uzly varianty mají prefix (<prefix>Root, Tilt, FillPort, BatterySlot), bez dronu (drone="") je
+         vlek jen nabíječka a nádrž. droneMass = dron bez baterie, batteryMass se přičte; batteryKwh jen pro zobrazení.
+         foldPart: natočení kloubů složeno/rozloženo (čas 0..1 rozložení), rotor: vrtule, která se za letu točí;
+         batteryMinutes: výdrž ve vodorovném letu s plnou nádrží, odběr roste s kvadrátem hmotnosti a s fází letu,
+         baterie se na vleku mění pod batterySwapBelow kapacity;
+         sounds.rotor: smyčka rotorů, výšku a hlasitost podle otáček řídí skript, rotorPitch = výška varianty;
+         litersPerSecond: čerpadlo, kterým se dron na plošině plní z nádrže vleku;
+         power: elektrocentrála (nafta z fillUnit dieselFillUnitIndex) nabíjí baterie ve slotech vleku (i složeného);
+         chargeMinutes = nabití jedné baterie z 30 % na 95 %, dieselPerHour = spotřeba při nabíjení jedné baterie (varianta
+         je přepisuje), readyLevel = od kolika jde baterie do dronu; počet baterií (0..5, vlek má 5 slotů, typ podle dronu) je
+         konfigurace v obchodě sprayDroneBatteryConfigurations, power#batteries platí bez ní; transfer: vypouštění dronu do
+         vleku a přečerpání vleku do IBC (l/s, dosah IBC v m); navLight: LED ramen (svit shaderem lightIds0 a bodové světlo);
+         effects: mlha z trysek, vlastní částicový efekt effects/sprayMist.i3d (ParticleEffect, jeden emitor na trysku; emitory
+         0|0 = S, 0|1 = M, 0|2 = L se liší rozevřením kužele, které pak u země dosáhne záběru varianty); skript emitory postaví
+         pod trysky (uzly nebo x/z nozzle, jinak pod motory ramen) do výšky nozzleY pod kloubem náklonu -->
+    <sprayDrone fillUnitIndex="1" maxRange="750"
+                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.2167"
+                cruiseSpeed="10" sprayingSpeed="7" climbSpeed="3" ascentSpeed="5" acceleration="2.5" yawSpeed="90"
+                sprayHeight="3" transitHeight="12" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="0.2"
+                sideClearance="4" turnAcceleration="2.5"
+                litersPerSecond="1" securedFoldTime="0.9167">
+        <sprayDroneConfigurations>
+            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneS" drone="S" price="7000" saveId="S" workingWidth="6" isDefault="true">
+                <objectChange node="Drone_S_Root" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneConfiguration>
+        </sprayDroneConfigurations>
+        <sprayDroneBatteryConfigurations>
+            <sprayDroneBatteryConfiguration name="0" count="0" price="0" saveId="0"/>
+            <sprayDroneBatteryConfiguration name="1" count="1" price="1500" saveId="1"/>
+            <sprayDroneBatteryConfiguration name="2" count="2" price="3000" saveId="2"/>
+            <sprayDroneBatteryConfiguration name="3" count="3" price="4500" saveId="3" isDefault="true"/>
+            <sprayDroneBatteryConfiguration name="4" count="4" price="6000" saveId="4"/>
+        </sprayDroneBatteryConfigurations>
+        <!-- vzhled vrtulí: kind default = podle modelu (T50 bílé bez proužků, T25 a T100 karbon s oranžovými), paint = barva listů,
+             carbon = karbon; tips: proužky na koncích listů (none = bez nich) -->
+        <sprayDronePropellerConfigurations>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_black" kind="paint" color="0.03 0.03 0.035" price="0" saveId="BLACK"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.85 0.86 0.87" price="0" saveId="WHITE"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_carbon" kind="carbon" price="300" saveId="CARBON"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="150" saveId="GREEN"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="150" saveId="YELLOW"/>
+            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="150" saveId="ORANGE"/>
+        </sprayDronePropellerConfigurations>
+        <sprayDroneTipsConfigurations>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_none" kind="none" price="0" saveId="NONE"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="50" saveId="ORANGE"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="50" saveId="YELLOW"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_red" kind="paint" color="0.85 0.02 0.02" price="50" saveId="RED"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="50" saveId="GREEN"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_blue" kind="paint" color="0.05 0.25 0.85" price="50" saveId="BLUE"/>
+            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.90 0.90 0.90" price="50" saveId="WHITE"/>
+        </sprayDroneTipsConfigurations>
+        <!-- skládací bedna s dronem (scripts/SprayDronePad.lua): ve složeném stavu stojí bedna vzpřímená celou základnou na palubě
+             (panely P/H/Z, padHingeZ/H/P) a dron stojí uvnitř na palubě, otočený o droneYaw navíc; při rozložení se plechové boční stěny
+             (padSideL/R, čep na vnější spodní hraně u lemu paluby) vyklopí ven a sklopí k zemi (sideLength = jejich výška od čepu, podle ní se
+             sklopení dorovná na terén; pochozí vnitřní strana je pak nahoře), pak se panely sklopí
+             řetězem čepů do jedné roviny a vytvoří samostatnou plošinu na šesti nožičkách (padLeg1..6, ve složené bedně skryté),
+             které ji vyrovnají vodorovně o terén; teprve potom se dron (carrier) nadzvedne o liftHeight, otočí zpět o droneYaw a přejede na střed plošiny
+             (droneSettle). Šířka a hloubka plošiny se čtou přímo z uzlů, nejsou tu duplikované -->
+        <pad foldStart="0.8833" foldEnd="0.2167"
+             legRest="0.02" legFoot="0.025" maxLegLength="1"
+             maxHeightDiff="0.5" checkHeight="1.2"
+             liftHeight="0.12" droneSettle="-0.011" droneYaw="90.0000" sideLength="0.819"/>
+        <power dieselFillUnitIndex="2" slots="4" batteries="3" chargeMinutes="10" dieselPerHour="2.2" readyLevel="0.95" swapTime="5">
+            <exhaust node="generatorExhaust" filename="$data/effects/exhaust/exhaust.i3d" color="0.12 0.12 0.12 0.35" scale="0.35"/>
+        </power>
+        <!-- mixér: při plnění dronu z vody v hlavní nádrži a koncentrátu ve fill unit 3 vzniká přípravek; concentrate = podíl
+             koncentrátu v hotovém přípravku (litr koncentrátu na litr přípravku), zbytek je voda -->
+        <mixer concentrateFillUnitIndex="3">
+            <ratio fillType="SDT_CONCENTRATE_FERTILIZER" product="liquidFertilizer" concentrate="0.05"/>
+            <ratio fillType="SDT_CONCENTRATE_HERBICIDE" product="herbicide" concentrate="0.05"/>
+        </mixer>
+        <!-- dvě samostatné bedny na 4 kanystry u lemů paluby, nádrž je mezi nimi: pravá (sloty 1-4, toolboxCanister1..4) a levá
+             (sloty 5-8, toolboxCanister5..8). Každá má vlastní víko se závěsem na hraně u nádrže (uzel víka se otáčí o openAngle
+             stupňů kolem své lokální osy X), vlastní referenční bod (aktivace, otvor pro vsátí, místo výdeje) a vlastní dialog jen
+             se svými sloty. Žádný slot není vyhrazený, kterýkoli pojme koncentrát i naftu. neckNode = hrdlo indukční nádrže -->
+        <toolbox slots="8" slotLiters="20" canisterNodePrefix="toolboxCanister" neckNode="concentrateNeckNode" intakeHalfWidth="0.45" intakeHalfLength="0.55" intakeBelow="0.35" intakeAbove="0.9" spawnDistance="1.9" spawnSign="-1">
+            <box lidNode="toolboxLid" activateNode="toolboxActivateNode" firstSlot="1" slotCount="4" openAngle="96"/>
+            <box lidNode="toolboxLid2" activateNode="toolboxActivateNode2" firstSlot="5" slotCount="4" openAngle="96"/>
+        </toolbox>
+        <transfer drainRate="1" palletRate="20" palletDistance="6"/>
+        <navLights intensity="4" lightScale="0.3" blinkPeriod="1" blinkOn="0.5"/>
+        <sounds>
+            <!-- naftový agregát: motor (vanilla čerpadlo rýžových polí) + hluboké hučení alternátoru; rozjezd a doběh řídí SprayDroneSound.lua
+                 linkNode generatorExhaust (výfuk u motoru) -->
+            <generator template="riceFieldPump" linkNode="generatorExhaust" innerRadius="3" outerRadius="45" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.35" outdoor="0.5"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </generator>
+            <generatorHum template="generator05" volumeScale="1" linkNode="generatorExhaust" innerRadius="2" outerRadius="30" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.5" outdoor="0.7"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </generatorHum>
+            <!-- mixér (hraje při spec.isMixing): motor s míchadlem (vanilla míchací vůz, výše laděný) + šplouchání kapaliny;
+                 linkNode mixerSoundNode (empty u mixéru) -->
+            <mixer template="mixerLoop" linkNode="mixerSoundNode" innerRadius="2" outerRadius="30" fadeIn="0.2" fadeOut="0.3">
+                <volume indoor="0.25" outdoor="1.0"/>
+                <pitch indoor="1.35" outdoor="1.35"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </mixer>
+            <mixerLiquid template="riceFieldWater" linkNode="mixerSoundNode" innerRadius="2" outerRadius="20" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.1" outdoor="0.6"/>
+                <pitch indoor="1.1" outdoor="1.1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </mixerLiquid>
+            <!-- čerpadlo plnění dronu (isPumping), přečerpávání (transfer), plnicí hadice a výměna baterie: vanilla vzorky -->
+            <pump template="pressureWasherRun01" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" fadeIn="0.2" fadeOut="0.3" volumeScale="0.8"/>
+            <transfer template="defaultRefuelSound" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" fadeIn="0.2" fadeOut="0.3" volumeScale="0.8"/>
+            <hoseAttach template="hydraulicHosesAttach" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" volumeScale="0.7"/>
+            <hoseDetach template="hydraulicHosesDetach" linkNode="fillHoseCoil" innerRadius="3" outerRadius="30" volumeScale="0.7"/>
+            <batteryInsert template="clickLong" linkNode="batteryCharger" innerRadius="2" outerRadius="20" volumeScale="0.5"/>
+            <!-- nalévání z kanystru (R u hrdla i nakloněný kanystr): smyčka, dokud z kanystru teče; vypouštění koncentrátu na zem (Ctrl+I);
+                 skládání a rozkládání vleku (smyčka po dobu animace skládání, panely i žebřík); otevření / zavření bedny nebo vrat skříně.
+                 Řídí SprayDroneSound.lua, vzorky jsou vanilla šablony -->
+            <pour template="defaultRefuelSound" linkNode="concentrateNeckNode" innerRadius="2" outerRadius="25" fadeIn="0.1" fadeOut="0.2" volumeScale="0.7"/>
+            <groundDrain template="riceFieldWater" linkNode="concentrateNeckNode" innerRadius="3" outerRadius="30" fadeIn="0.2" fadeOut="0.3" volumeScale="1.2">
+                <volume indoor="0.2" outdoor="1.0"/>
+                <pitch indoor="0.9" outdoor="0.9"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </groundDrain>
+            <!-- ramena a listy dronu: jedno cvaknutí na každý stupeň rozložení (SprayDroneSound.UNFOLD_STAGES) -->
+            <droneUnfoldStep template="hingeSmall" linkNode="0>" innerRadius="4" outerRadius="40" volumeScale="0.9"/>
+            <droneFoldStep template="clackVar2" linkNode="0>" innerRadius="4" outerRadius="40" volumeScale="0.8"/>
+            <boxOpen template="metalOpen" linkNode="toolboxActivateNode" innerRadius="2" outerRadius="25" volumeScale="0.9"/>
+            <boxClose template="metalClose" linkNode="toolboxActivateNode" innerRadius="2" outerRadius="25" volumeScale="0.9"/>
+        </sounds>
+
+        <!-- malý „S“ podle DJI T25: 25,4 kg + DB800 6,6 kg (0,81 kWh), 20 l, záběr 6 m, 4 jednoduché vrtule 50″, 2 zadní trysky
+             (rozteč 1368 mm); výdrž 9 min s plnou nádrží (výkon ~ m^1,5 / √plocha vrtulí, kalibrováno na T50) -->
+        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" tankCapacity="20" workWidth="6" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
+               batteryMinutes="9" chargeMinutes="10" dieselPerHour="1.14" droneRadius="1.35" rotorPitch="1.25" hoseVia="0.145 0.22 0.34">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_S_Tilt" innerRadius="6" outerRadius="100" fadeOut="0.3">
+                    <volume indoor="0.5" outdoor="1.0"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+                <spray template="defaultSprayer" linkNode="Drone_S_Tilt" innerRadius="5" outerRadius="80" volumeScale="0.5" pitchScale="1.1"/>
+            </sounds>
+            <effects nozzleY="-0.08">
+                <nozzle x="-0.684" z="-0.657"/>
+                <nozzle x="0.684" z="-0.657"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|0" linkNode="Drone_S_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+                <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|0" linkNode="Drone_S_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
+            </effects>
+        <tilt node="Drone_S_Tilt"/>
+        <foldPart node="Drone_S_ArmPivot_1" foldedRot="0 18.431 0" unfoldedRot="0 -90.148 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_1Top0" foldedRot="0 -128.105 0" unfoldedRot="0 -223.105 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_1Top1" foldedRot="0 -138.105 0" unfoldedRot="0 -43.105 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_ArmPivot_2" foldedRot="0 161.569 0" unfoldedRot="0 270.148 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_2Top0" foldedRot="0 138.105 0" unfoldedRot="0 43.105 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_2Top1" foldedRot="0 128.105 0" unfoldedRot="0 223.105 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_ArmPivot_3" foldedRot="0 -45.431 0" unfoldedRot="0 -90.149 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_3Top0" foldedRot="0 -41.895 0" unfoldedRot="0 -136.895 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_3Top1" foldedRot="0 -51.895 0" unfoldedRot="0 43.105 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_ArmPivot_4" foldedRot="0 -134.570 0" unfoldedRot="0 -89.851 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_4Top0" foldedRot="0 51.895 0" unfoldedRot="0 -43.105 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_4Top1" foldedRot="0 41.895 0" unfoldedRot="0 136.895 0" startTime="0.5" endTime="1"/>
+        <propSource node="Drone_S_Arm_1"/>
+        <propBlade node="Drone_S_Blade_1Top0" tip="Drone_S_Blade_1Top0_Tip"/>
+        <propBlade node="Drone_S_Blade_1Top1" tip="Drone_S_Blade_1Top1_Tip"/>
+        <propBlade node="Drone_S_Blade_2Top0" tip="Drone_S_Blade_2Top0_Tip"/>
+        <propBlade node="Drone_S_Blade_2Top1" tip="Drone_S_Blade_2Top1_Tip"/>
+        <propBlade node="Drone_S_Blade_3Top0" tip="Drone_S_Blade_3Top0_Tip"/>
+        <propBlade node="Drone_S_Blade_3Top1" tip="Drone_S_Blade_3Top1_Tip"/>
+        <propBlade node="Drone_S_Blade_4Top0" tip="Drone_S_Blade_4Top0_Tip"/>
+        <propBlade node="Drone_S_Blade_4Top1" tip="Drone_S_Blade_4Top1_Tip"/>
+        <rotor node="Drone_S_Rotor_1Top" direction="1"/>
+        <rotor node="Drone_S_Rotor_2Top" direction="-1"/>
+        <rotor node="Drone_S_Rotor_3Top" direction="-1"/>
+        <rotor node="Drone_S_Rotor_4Top" direction="1"/>
+        <navLight node="Drone_S_Led_1" lightNode="Drone_S_LedLight_1" blink="false"/>
+        <navLight node="Drone_S_Led_2" lightNode="Drone_S_LedLight_2" blink="false"/>
+        <navLight node="Drone_S_Led_3" lightNode="Drone_S_LedLight_3" blink="true"/>
+        <navLight node="Drone_S_Led_4" lightNode="Drone_S_LedLight_4" blink="true"/>
+        </drone>
+    </sprayDrone>
+
+    <foliageBending>
+        <bendingNode minX="-1.30" maxX="1.30" minZ="-1.40" maxZ="2.60" yOffset="0.3"/>
+    </foliageBending>
+
+    <ai>
+        <agentAttachment jointNode="attacherJoint" rotCenterWheelIndices="1 2" width="2.60" height="1.66" length="5.99" lengthOffset="1.52"/>
+    </ai>
+
+    <tipOccluder>
+        <occlusionArea start="occlusionAreaStart" width="occlusionAreaWidth" height="occlusionAreaHeight"/>
+    </tipOccluder>
+
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="2" fieldMultiplier="2"/>
+
+    <!-- barva ráfků v obchodě (materiál rim_outer_mat v wheels/sdtRim*.i3d) -->
+    <rimColorConfigurations>
+        <rimColorConfiguration materialTemplateName="RIM_DEFAULT" isDefault="true"/>
+        <rimColorConfiguration materialTemplateName="RIM_CONFIGURATION_WHITE"/>
+        <rimColorConfiguration materialTemplateName="RIM_CONFIGURATION_BLACK"/>
+        <rimColorConfiguration materialTemplateName="ARMATRAC_ORANGE1" price="150"/>
+        <rimColorConfiguration materialTemplateName="ARMATRAC_RED1" price="150"/>
+        <rimColorConfiguration materialTemplateName="DOBLETT_BLUE1" price="150"/>
+        <rimColorConfiguration materialTemplateName="DOBLETT_GREEN1" price="150"/>
+        <rimColorConfiguration materialTemplateName="RISUTEC_YELLOW1" price="150"/>
+        <rimColorConfiguration materialTemplateName="RIM_CONFIGURATION_CHROME" price="1000"/>
+    </rimColorConfigurations>
+
+    <!-- Mini: barva bedny (materiál SDT_CrateGreen; polepy značky bez štítku ve dvou sadách: na světlé
+         bedně (oranžová, žlutá, šedá, bílá) lockupOnLight, jinak lockupOnDark - {{TONE_*}} vyplní export, design se volí
+         v designConfigurations nahoře); v obchodě je bedna rozložená z půlky (víko a přední stěna do řady se zadní, jedna dlouhá deska s barvou a polepy; SprayDronePad.openInShop) -->
+    <baseColorConfigurations title="$l10n_sdt_cfg_crateColor" useDefaultColors="true" price="0" defaultColorMaterialTemplateName="calibratedPaint">
+        <baseColorConfiguration materialTemplateName="ARMATRAC_RED1">
+            <objectChange node="brandToneDark_crateH" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateL" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateP" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateR" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateZ" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneLight_crateH" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateL" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateP" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateR" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateZ" visibilityActive="false" visibilityInactive="false"/>
+        </baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="ARMATRAC_ORANGE1">
+            <objectChange node="brandToneDark_crateH" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateL" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateP" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateR" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateZ" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneLight_crateH" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateP" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateZ" visibilityActive="true" visibilityInactive="false"/>
+        </baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RISUTEC_YELLOW1">
+            <objectChange node="brandToneDark_crateH" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateL" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateP" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateR" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateZ" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneLight_crateH" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateP" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateZ" visibilityActive="true" visibilityInactive="false"/>
+        </baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="DOBLETT_BLUE1">
+            <objectChange node="brandToneDark_crateH" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateL" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateP" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateR" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateZ" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneLight_crateH" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateL" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateP" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateR" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateZ" visibilityActive="false" visibilityInactive="false"/>
+        </baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RISUTEC_GREY1">
+            <objectChange node="brandToneDark_crateH" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateL" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateP" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateR" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateZ" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneLight_crateH" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateP" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateZ" visibilityActive="true" visibilityInactive="false"/>
+        </baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RIM_CONFIGURATION_WHITE">
+            <objectChange node="brandToneDark_crateH" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateL" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateP" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateR" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateZ" visibilityActive="false" visibilityInactive="true"/>
+            <objectChange node="brandToneLight_crateH" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateL" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateP" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateR" visibilityActive="true" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateZ" visibilityActive="true" visibilityInactive="false"/>
+        </baseColorConfiguration>
+        <baseColorConfiguration materialTemplateName="RIM_CONFIGURATION_BLACK">
+            <objectChange node="brandToneDark_crateH" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateL" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateP" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateR" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneDark_crateZ" visibilityActive="true" visibilityInactive="true"/>
+            <objectChange node="brandToneLight_crateH" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateL" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateP" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateR" visibilityActive="false" visibilityInactive="false"/>
+            <objectChange node="brandToneLight_crateZ" visibilityActive="false" visibilityInactive="false"/>
+        </baseColorConfiguration>
+        <material materialSlotName="SDT_CrateGreen"/>
+    </baseColorConfigurations>
+
+    <i3dMappings>
+        <i3dMapping id="sprayDroneTrailerMini_main_component1" node="0>"/>
+        <i3dMapping id="sprayDroneTrailerMini_vis" node="0>1"/>
+        <i3dMapping id="attacherJoint" node="0>1|171"/>
+        <i3dMapping id="wheelFrontLeft" node="0>1|217|0"/>
+        <i3dMapping id="wheelFrontRight" node="0>1|217|1"/>
+        <i3dMapping id="jockeyWheel" node="0>1|191"/>
+        <i3dMapping id="chargerLid" node="0>1|182"/>
+        <i3dMapping id="chargerCable" node="0>1|181"/>
+        <i3dMapping id="fillTrigger" node="0>1|187|3"/>
+        <i3dMapping id="exactFillRootNode" node="0>1|187|2"/>
+        <i3dMapping id="concentrateFillRootNode" node="0>1|187|0"/>
+        <i3dMapping id="dieselFillRootNode" node="0>1|187|1"/>
+        <i3dMapping id="mixerMotor" node="0>1|193"/>
+        <i3dMapping id="mixerSoundNode" node="0>1|194"/>
+        <i3dMapping id="toolboxLid" node="0>1|215"/>
+        <i3dMapping id="toolboxActivateNode" node="0>1|205"/>
+        <i3dMapping id="toolboxLid2" node="0>1|216"/>
+        <i3dMapping id="toolboxActivateNode2" node="0>1|206"/>
+        <i3dMapping id="concentrateNeckNode" node="0>1|183"/>
+        <i3dMapping id="dieselNeckNode" node="0>1|184"/>
+        <i3dMapping id="rearLight52_left" node="0>1|202|1"/>
+        <i3dMapping id="rearLight52_right" node="0>1|202|2"/>
+        <i3dMapping id="plateNumberLight03" node="0>1|202|0"/>
+        <i3dMapping id="sideMarker05_left" node="0>1|202|3"/>
+        <i3dMapping id="sideMarker05_right" node="0>1|202|4"/>
+        <i3dMapping id="exitPoint" node="0>1|186|0"/>
+        <i3dMapping id="outdoorCameraTarget" node="0>1|186|1"/>
+        <i3dMapping id="outdoorCamera" node="0>1|186|1|0"/>
+        <i3dMapping id="occlusionAreaStart" node="0>1|204|1"/>
+        <i3dMapping id="occlusionAreaWidth" node="0>1|204|2"/>
+        <i3dMapping id="occlusionAreaHeight" node="0>1|204|0"/>
+        <i3dMapping id="licensePlateBack" node="0>1|192"/>
+        <i3dMapping id="generatorExhaust" node="0>1|190"/>
+        <i3dMapping id="batteryCharger" node="0>1|172"/>
+        <i3dMapping id="padAnchor" node="0>1|195"/>
+        <i3dMapping id="padHingeZ" node="0>1|195|0"/>
+        <i3dMapping id="padHingeH" node="0>1|195|0|5"/>
+        <i3dMapping id="padHingeP" node="0>1|195|0|5|10"/>
+        <i3dMapping id="padHingeEnd" node="0>1|195|0|5|10|9"/>
+        <i3dMapping id="droneCarrier" node="0>1|185"/>
+        <i3dMapping id="padSideL" node="0>1|196"/>
+        <i3dMapping id="padSideR" node="0>1|197"/>
+        <i3dMapping id="fillHoseCoil" node="0>1|189"/>
+        <i3dMapping id="fillHoseStart" node="0>1|188|106"/>
+        <i3dMapping id="fillHoseNozzle" node="0>1|188|8"/>
+        <i3dMapping id="fillHoseParkPos" node="0>1|188|9"/>
+        <i3dMapping id="padLeg1" node="0>1|195|0|5|11"/>
+        <i3dMapping id="padLeg2" node="0>1|195|0|5|12"/>
+        <i3dMapping id="padLeg3" node="0>1|195|0|5|10|10"/>
+        <i3dMapping id="padLeg4" node="0>1|195|0|5|10|11"/>
+        <i3dMapping id="padLeg5" node="0>1|195|0|5|10|9|0"/>
+        <i3dMapping id="padLeg6" node="0>1|195|0|5|10|9|1"/>
+        <i3dMapping id="padLegRod1" node="0>1|195|0|5|11|2"/>
+        <i3dMapping id="padLegRod2" node="0>1|195|0|5|12|2"/>
+        <i3dMapping id="padLegRod3" node="0>1|195|0|5|10|10|2"/>
+        <i3dMapping id="padLegRod4" node="0>1|195|0|5|10|11|2"/>
+        <i3dMapping id="padLegRod5" node="0>1|195|0|5|10|9|0|2"/>
+        <i3dMapping id="padLegRod6" node="0>1|195|0|5|10|9|1|2"/>
+        <i3dMapping id="padLegFoot1" node="0>1|195|0|5|11|1"/>
+        <i3dMapping id="padLegFoot2" node="0>1|195|0|5|12|1"/>
+        <i3dMapping id="padLegFoot3" node="0>1|195|0|5|10|10|1"/>
+        <i3dMapping id="padLegFoot4" node="0>1|195|0|5|10|11|1"/>
+        <i3dMapping id="padLegFoot5" node="0>1|195|0|5|10|9|0|1"/>
+        <i3dMapping id="padLegFoot6" node="0>1|195|0|5|10|9|1|1"/>
+        <i3dMapping id="fillHoseLay1" node="0>1|188|0"/>
+        <i3dMapping id="fillHoseLay2" node="0>1|188|1"/>
+        <i3dMapping id="fillHoseLay3" node="0>1|188|2"/>
+        <i3dMapping id="fillHoseLay4" node="0>1|188|3"/>
+        <i3dMapping id="fillHoseLay5" node="0>1|188|4"/>
+        <i3dMapping id="fillHoseLay6" node="0>1|188|5"/>
+        <i3dMapping id="fillHoseLay7" node="0>1|188|6"/>
+        <i3dMapping id="fillHoseLay8" node="0>1|188|7"/>
+        <i3dMapping id="fillHoseSeg1" node="0>1|188|10"/>
+        <i3dMapping id="fillHoseSeg2" node="0>1|188|21"/>
+        <i3dMapping id="fillHoseSeg3" node="0>1|188|32"/>
+        <i3dMapping id="fillHoseSeg4" node="0>1|188|43"/>
+        <i3dMapping id="fillHoseSeg5" node="0>1|188|54"/>
+        <i3dMapping id="fillHoseSeg6" node="0>1|188|65"/>
+        <i3dMapping id="fillHoseSeg7" node="0>1|188|76"/>
+        <i3dMapping id="fillHoseSeg8" node="0>1|188|87"/>
+        <i3dMapping id="fillHoseSeg9" node="0>1|188|98"/>
+        <i3dMapping id="fillHoseSeg10" node="0>1|188|11"/>
+        <i3dMapping id="fillHoseSeg11" node="0>1|188|12"/>
+        <i3dMapping id="fillHoseSeg12" node="0>1|188|13"/>
+        <i3dMapping id="fillHoseSeg13" node="0>1|188|14"/>
+        <i3dMapping id="fillHoseSeg14" node="0>1|188|15"/>
+        <i3dMapping id="fillHoseSeg15" node="0>1|188|16"/>
+        <i3dMapping id="fillHoseSeg16" node="0>1|188|17"/>
+        <i3dMapping id="fillHoseSeg17" node="0>1|188|18"/>
+        <i3dMapping id="fillHoseSeg18" node="0>1|188|19"/>
+        <i3dMapping id="fillHoseSeg19" node="0>1|188|20"/>
+        <i3dMapping id="fillHoseSeg20" node="0>1|188|22"/>
+        <i3dMapping id="fillHoseSeg21" node="0>1|188|23"/>
+        <i3dMapping id="fillHoseSeg22" node="0>1|188|24"/>
+        <i3dMapping id="fillHoseSeg23" node="0>1|188|25"/>
+        <i3dMapping id="fillHoseSeg24" node="0>1|188|26"/>
+        <i3dMapping id="fillHoseSeg25" node="0>1|188|27"/>
+        <i3dMapping id="fillHoseSeg26" node="0>1|188|28"/>
+        <i3dMapping id="fillHoseSeg27" node="0>1|188|29"/>
+        <i3dMapping id="fillHoseSeg28" node="0>1|188|30"/>
+        <i3dMapping id="fillHoseSeg29" node="0>1|188|31"/>
+        <i3dMapping id="fillHoseSeg30" node="0>1|188|33"/>
+        <i3dMapping id="fillHoseSeg31" node="0>1|188|34"/>
+        <i3dMapping id="fillHoseSeg32" node="0>1|188|35"/>
+        <i3dMapping id="fillHoseSeg33" node="0>1|188|36"/>
+        <i3dMapping id="fillHoseSeg34" node="0>1|188|37"/>
+        <i3dMapping id="fillHoseSeg35" node="0>1|188|38"/>
+        <i3dMapping id="fillHoseSeg36" node="0>1|188|39"/>
+        <i3dMapping id="fillHoseSeg37" node="0>1|188|40"/>
+        <i3dMapping id="fillHoseSeg38" node="0>1|188|41"/>
+        <i3dMapping id="fillHoseSeg39" node="0>1|188|42"/>
+        <i3dMapping id="fillHoseSeg40" node="0>1|188|44"/>
+        <i3dMapping id="fillHoseSeg41" node="0>1|188|45"/>
+        <i3dMapping id="fillHoseSeg42" node="0>1|188|46"/>
+        <i3dMapping id="fillHoseSeg43" node="0>1|188|47"/>
+        <i3dMapping id="fillHoseSeg44" node="0>1|188|48"/>
+        <i3dMapping id="fillHoseSeg45" node="0>1|188|49"/>
+        <i3dMapping id="fillHoseSeg46" node="0>1|188|50"/>
+        <i3dMapping id="fillHoseSeg47" node="0>1|188|51"/>
+        <i3dMapping id="fillHoseSeg48" node="0>1|188|52"/>
+        <i3dMapping id="fillHoseSeg49" node="0>1|188|53"/>
+        <i3dMapping id="fillHoseSeg50" node="0>1|188|55"/>
+        <i3dMapping id="fillHoseSeg51" node="0>1|188|56"/>
+        <i3dMapping id="fillHoseSeg52" node="0>1|188|57"/>
+        <i3dMapping id="fillHoseSeg53" node="0>1|188|58"/>
+        <i3dMapping id="fillHoseSeg54" node="0>1|188|59"/>
+        <i3dMapping id="fillHoseSeg55" node="0>1|188|60"/>
+        <i3dMapping id="fillHoseSeg56" node="0>1|188|61"/>
+        <i3dMapping id="fillHoseSeg57" node="0>1|188|62"/>
+        <i3dMapping id="fillHoseSeg58" node="0>1|188|63"/>
+        <i3dMapping id="fillHoseSeg59" node="0>1|188|64"/>
+        <i3dMapping id="fillHoseSeg60" node="0>1|188|66"/>
+        <i3dMapping id="fillHoseSeg61" node="0>1|188|67"/>
+        <i3dMapping id="fillHoseSeg62" node="0>1|188|68"/>
+        <i3dMapping id="fillHoseSeg63" node="0>1|188|69"/>
+        <i3dMapping id="fillHoseSeg64" node="0>1|188|70"/>
+        <i3dMapping id="fillHoseSeg65" node="0>1|188|71"/>
+        <i3dMapping id="fillHoseSeg66" node="0>1|188|72"/>
+        <i3dMapping id="fillHoseSeg67" node="0>1|188|73"/>
+        <i3dMapping id="fillHoseSeg68" node="0>1|188|74"/>
+        <i3dMapping id="fillHoseSeg69" node="0>1|188|75"/>
+        <i3dMapping id="fillHoseSeg70" node="0>1|188|77"/>
+        <i3dMapping id="fillHoseSeg71" node="0>1|188|78"/>
+        <i3dMapping id="fillHoseSeg72" node="0>1|188|79"/>
+        <i3dMapping id="fillHoseSeg73" node="0>1|188|80"/>
+        <i3dMapping id="fillHoseSeg74" node="0>1|188|81"/>
+        <i3dMapping id="fillHoseSeg75" node="0>1|188|82"/>
+        <i3dMapping id="fillHoseSeg76" node="0>1|188|83"/>
+        <i3dMapping id="fillHoseSeg77" node="0>1|188|84"/>
+        <i3dMapping id="fillHoseSeg78" node="0>1|188|85"/>
+        <i3dMapping id="fillHoseSeg79" node="0>1|188|86"/>
+        <i3dMapping id="fillHoseSeg80" node="0>1|188|88"/>
+        <i3dMapping id="fillHoseSeg81" node="0>1|188|89"/>
+        <i3dMapping id="fillHoseSeg82" node="0>1|188|90"/>
+        <i3dMapping id="fillHoseSeg83" node="0>1|188|91"/>
+        <i3dMapping id="fillHoseSeg84" node="0>1|188|92"/>
+        <i3dMapping id="fillHoseSeg85" node="0>1|188|93"/>
+        <i3dMapping id="fillHoseSeg86" node="0>1|188|94"/>
+        <i3dMapping id="fillHoseSeg87" node="0>1|188|95"/>
+        <i3dMapping id="fillHoseSeg88" node="0>1|188|96"/>
+        <i3dMapping id="fillHoseSeg89" node="0>1|188|97"/>
+        <i3dMapping id="fillHoseSeg90" node="0>1|188|99"/>
+        <i3dMapping id="fillHoseSeg91" node="0>1|188|100"/>
+        <i3dMapping id="fillHoseSeg92" node="0>1|188|101"/>
+        <i3dMapping id="fillHoseSeg93" node="0>1|188|102"/>
+        <i3dMapping id="fillHoseSeg94" node="0>1|188|103"/>
+        <i3dMapping id="fillHoseSeg95" node="0>1|188|104"/>
+        <i3dMapping id="fillHoseSeg96" node="0>1|188|105"/>
+        <i3dMapping id="toolboxCanister1" node="0>1|207"/>
+        <i3dMapping id="toolboxCanister2" node="0>1|208"/>
+        <i3dMapping id="toolboxCanister3" node="0>1|209"/>
+        <i3dMapping id="toolboxCanister4" node="0>1|210"/>
+        <i3dMapping id="toolboxCanister5" node="0>1|211"/>
+        <i3dMapping id="toolboxCanister6" node="0>1|212"/>
+        <i3dMapping id="toolboxCanister7" node="0>1|213"/>
+        <i3dMapping id="toolboxCanister8" node="0>1|214"/>
+        <i3dMapping id="battery1" node="0>1|172|46|0"/>
+        <i3dMapping id="battery2" node="0>1|172|47|0"/>
+        <i3dMapping id="battery3" node="0>1|172|48|0"/>
+        <i3dMapping id="battery4" node="0>1|172|49|0"/>
+        <i3dMapping id="batterySlotDeck1" node="0>1|172|46"/>
+        <i3dMapping id="batterySlotDeck2" node="0>1|172|47"/>
+        <i3dMapping id="batterySlotDeck3" node="0>1|172|48"/>
+        <i3dMapping id="batterySlotDeck4" node="0>1|172|49"/>
+        <i3dMapping id="battery1S" node="0>1|172|46|0|0"/>
+        <i3dMapping id="battery2S" node="0>1|172|47|0|0"/>
+        <i3dMapping id="battery3S" node="0>1|172|48|0|0"/>
+        <i3dMapping id="battery4S" node="0>1|172|49|0|0"/>
+        <i3dMapping id="Charger_Led_1_0" node="0>1|172|12"/>
+        <i3dMapping id="Charger_Led_1_1" node="0>1|172|13"/>
+        <i3dMapping id="Charger_Led_1_2" node="0>1|172|14"/>
+        <i3dMapping id="Charger_Led_1_3" node="0>1|172|15"/>
+        <i3dMapping id="Charger_Led_1_4" node="0>1|172|16"/>
+        <i3dMapping id="Charger_Led_2_0" node="0>1|172|17"/>
+        <i3dMapping id="Charger_Led_2_1" node="0>1|172|18"/>
+        <i3dMapping id="Charger_Led_2_2" node="0>1|172|19"/>
+        <i3dMapping id="Charger_Led_2_3" node="0>1|172|20"/>
+        <i3dMapping id="Charger_Led_2_4" node="0>1|172|21"/>
+        <i3dMapping id="Charger_Led_3_0" node="0>1|172|22"/>
+        <i3dMapping id="Charger_Led_3_1" node="0>1|172|23"/>
+        <i3dMapping id="Charger_Led_3_2" node="0>1|172|24"/>
+        <i3dMapping id="Charger_Led_3_3" node="0>1|172|25"/>
+        <i3dMapping id="Charger_Led_3_4" node="0>1|172|26"/>
+        <i3dMapping id="Charger_Led_4_0" node="0>1|172|27"/>
+        <i3dMapping id="Charger_Led_4_1" node="0>1|172|28"/>
+        <i3dMapping id="Charger_Led_4_2" node="0>1|172|29"/>
+        <i3dMapping id="Charger_Led_4_3" node="0>1|172|30"/>
+        <i3dMapping id="Charger_Led_4_4" node="0>1|172|31"/>
+        <i3dMapping id="relaySlot1" node="0>1|201"/>
+        <i3dMapping id="relaySlot1_pole" node="0>1|201|0"/>
+        <i3dMapping id="plannerScreenNode" node="0>1|199"/>
+        <i3dMapping id="plannerScreenOn" node="0>1|200"/>
+        <i3dMapping id="Drone_S_Root" node="0>1|185|0"/>
+        <i3dMapping id="Drone_S_Tilt" node="0>1|185|0|0"/>
+        <i3dMapping id="Drone_S_ArmPivot_1" node="0>1|185|0|0|0"/>
+        <i3dMapping id="Drone_S_ArmPivot_2" node="0>1|185|0|0|1"/>
+        <i3dMapping id="Drone_S_ArmPivot_3" node="0>1|185|0|0|2"/>
+        <i3dMapping id="Drone_S_ArmPivot_4" node="0>1|185|0|0|3"/>
+        <i3dMapping id="Drone_S_Rotor_1Top" node="0>1|185|0|0|0|4"/>
+        <i3dMapping id="Drone_S_Rotor_2Top" node="0>1|185|0|0|1|4"/>
+        <i3dMapping id="Drone_S_Rotor_3Top" node="0>1|185|0|0|2|5"/>
+        <i3dMapping id="Drone_S_Rotor_4Top" node="0>1|185|0|0|3|5"/>
+        <i3dMapping id="Drone_S_Blade_1Top0" node="0>1|185|0|0|0|4|0"/>
+        <i3dMapping id="Drone_S_Blade_1Top1" node="0>1|185|0|0|0|4|1"/>
+        <i3dMapping id="Drone_S_Blade_2Top0" node="0>1|185|0|0|1|4|0"/>
+        <i3dMapping id="Drone_S_Blade_2Top1" node="0>1|185|0|0|1|4|1"/>
+        <i3dMapping id="Drone_S_Blade_3Top0" node="0>1|185|0|0|2|5|0"/>
+        <i3dMapping id="Drone_S_Blade_3Top1" node="0>1|185|0|0|2|5|1"/>
+        <i3dMapping id="Drone_S_Blade_4Top0" node="0>1|185|0|0|3|5|0"/>
+        <i3dMapping id="Drone_S_Blade_4Top1" node="0>1|185|0|0|3|5|1"/>
+        <i3dMapping id="Drone_S_Blade_1Top0_Tip" node="0>1|185|0|0|0|4|0|0"/>
+        <i3dMapping id="Drone_S_Blade_1Top1_Tip" node="0>1|185|0|0|0|4|1|0"/>
+        <i3dMapping id="Drone_S_Blade_2Top0_Tip" node="0>1|185|0|0|1|4|0|0"/>
+        <i3dMapping id="Drone_S_Blade_2Top1_Tip" node="0>1|185|0|0|1|4|1|0"/>
+        <i3dMapping id="Drone_S_Blade_3Top0_Tip" node="0>1|185|0|0|2|5|0|0"/>
+        <i3dMapping id="Drone_S_Blade_3Top1_Tip" node="0>1|185|0|0|2|5|1|0"/>
+        <i3dMapping id="Drone_S_Blade_4Top0_Tip" node="0>1|185|0|0|3|5|0|0"/>
+        <i3dMapping id="Drone_S_Blade_4Top1_Tip" node="0>1|185|0|0|3|5|1|0"/>
+        <i3dMapping id="Drone_S_Arm_1" node="0>1|185|0|0|0|0"/>
+        <i3dMapping id="Drone_S_Led_1" node="0>1|185|0|0|0|2"/>
+        <i3dMapping id="Drone_S_LedLight_1" node="0>1|185|0|0|0|2|0"/>
+        <i3dMapping id="Drone_S_Led_2" node="0>1|185|0|0|1|2"/>
+        <i3dMapping id="Drone_S_LedLight_2" node="0>1|185|0|0|1|2|0"/>
+        <i3dMapping id="Drone_S_Led_3" node="0>1|185|0|0|2|2"/>
+        <i3dMapping id="Drone_S_LedLight_3" node="0>1|185|0|0|2|2|0"/>
+        <i3dMapping id="Drone_S_Led_4" node="0>1|185|0|0|3|2"/>
+        <i3dMapping id="Drone_S_LedLight_4" node="0>1|185|0|0|3|2|0"/>
+        <i3dMapping id="Drone_S_FillPort" node="0>1|185|0|0|10"/>
+        <i3dMapping id="Drone_S_BatterySlot" node="0>1|185|0|0|6"/>
+        <i3dMapping id="Drone_S_SprayNozzle_1" node="0>1|185|0|0|2|6"/>
+        <i3dMapping id="Drone_S_SprayNozzle_2" node="0>1|185|0|0|3|6"/>
+        <i3dMapping id="brandToneDark_crateH" node="0>1|195|0|5|7"/>
+        <i3dMapping id="brandToneDark_crateL" node="0>1|196|16"/>
+        <i3dMapping id="brandToneDark_crateP" node="0>1|195|0|5|10|2"/>
+        <i3dMapping id="brandToneDark_crateR" node="0>1|197|16"/>
+        <i3dMapping id="brandToneDark_crateZ" node="0>1|195|0|2"/>
+        <i3dMapping id="brandToneLight_crateH" node="0>1|195|0|5|8"/>
+        <i3dMapping id="brandToneLight_crateL" node="0>1|196|17"/>
+        <i3dMapping id="brandToneLight_crateP" node="0>1|195|0|5|10|3"/>
+        <i3dMapping id="brandToneLight_crateR" node="0>1|197|17"/>
+        <i3dMapping id="brandToneLight_crateZ" node="0>1|195|0|3"/>
+        <i3dMapping id="brand_BZUK_Drone_S_TankF" node="0>1|185|0|0|29|0"/>
+        <i3dMapping id="brand_BZUK_Drone_S_TankL" node="0>1|185|0|0|29|1"/>
+        <i3dMapping id="brand_BZUK_Drone_S_TankR" node="0>1|185|0|0|29|2"/>
+        <i3dMapping id="brand_BZUK_crateHDark" node="0>1|195|0|5|7|0"/>
+        <i3dMapping id="brand_BZUK_crateHLight" node="0>1|195|0|5|8|0"/>
+        <i3dMapping id="brand_BZUK_crateInL" node="0>1|196|18"/>
+        <i3dMapping id="brand_BZUK_crateInR" node="0>1|197|18"/>
+        <i3dMapping id="brand_BZUK_crateLDark" node="0>1|196|16|0"/>
+        <i3dMapping id="brand_BZUK_crateLLight" node="0>1|196|17|0"/>
+        <i3dMapping id="brand_BZUK_cratePDark" node="0>1|195|0|5|10|2|0"/>
+        <i3dMapping id="brand_BZUK_cratePLight" node="0>1|195|0|5|10|3|0"/>
+        <i3dMapping id="brand_BZUK_crateRDark" node="0>1|197|16|0"/>
+        <i3dMapping id="brand_BZUK_crateRLight" node="0>1|197|17|0"/>
+        <i3dMapping id="brand_BZUK_crateZDark" node="0>1|195|0|2|0"/>
+        <i3dMapping id="brand_BZUK_crateZLight" node="0>1|195|0|3|0"/>
+        <i3dMapping id="brand_BZUK_padDeck" node="0>1|195|0|5|10|4"/>
+        <i3dMapping id="brand_BZUK_planner" node="0>1|200|0"/>
+        <i3dMapping id="brand_BZUK_toolbox" node="0>1|173"/>
+        <i3dMapping id="brand_BZUK_toolbox2" node="0>1|174"/>
+        <i3dMapping id="brand_KAPKA_Drone_S_TankF" node="0>1|185|0|0|29|3"/>
+        <i3dMapping id="brand_KAPKA_Drone_S_TankL" node="0>1|185|0|0|29|4"/>
+        <i3dMapping id="brand_KAPKA_Drone_S_TankR" node="0>1|185|0|0|29|5"/>
+        <i3dMapping id="brand_KAPKA_crateHDark" node="0>1|195|0|5|7|1"/>
+        <i3dMapping id="brand_KAPKA_crateHLight" node="0>1|195|0|5|8|1"/>
+        <i3dMapping id="brand_KAPKA_crateInL" node="0>1|196|19"/>
+        <i3dMapping id="brand_KAPKA_crateInR" node="0>1|197|19"/>
+        <i3dMapping id="brand_KAPKA_crateLDark" node="0>1|196|16|1"/>
+        <i3dMapping id="brand_KAPKA_crateLLight" node="0>1|196|17|1"/>
+        <i3dMapping id="brand_KAPKA_cratePDark" node="0>1|195|0|5|10|2|1"/>
+        <i3dMapping id="brand_KAPKA_cratePLight" node="0>1|195|0|5|10|3|1"/>
+        <i3dMapping id="brand_KAPKA_crateRDark" node="0>1|197|16|1"/>
+        <i3dMapping id="brand_KAPKA_crateRLight" node="0>1|197|17|1"/>
+        <i3dMapping id="brand_KAPKA_crateZDark" node="0>1|195|0|2|1"/>
+        <i3dMapping id="brand_KAPKA_crateZLight" node="0>1|195|0|3|1"/>
+        <i3dMapping id="brand_KAPKA_padDeck" node="0>1|195|0|5|10|5"/>
+        <i3dMapping id="brand_KAPKA_planner" node="0>1|200|1"/>
+        <i3dMapping id="brand_KAPKA_toolbox" node="0>1|175"/>
+        <i3dMapping id="brand_KAPKA_toolbox2" node="0>1|176"/>
+        <i3dMapping id="brand_ROSA_Drone_S_TankF" node="0>1|185|0|0|29|6"/>
+        <i3dMapping id="brand_ROSA_Drone_S_TankL" node="0>1|185|0|0|29|7"/>
+        <i3dMapping id="brand_ROSA_Drone_S_TankR" node="0>1|185|0|0|29|8"/>
+        <i3dMapping id="brand_ROSA_crateHDark" node="0>1|195|0|5|7|2"/>
+        <i3dMapping id="brand_ROSA_crateHLight" node="0>1|195|0|5|8|2"/>
+        <i3dMapping id="brand_ROSA_crateInL" node="0>1|196|20"/>
+        <i3dMapping id="brand_ROSA_crateInR" node="0>1|197|20"/>
+        <i3dMapping id="brand_ROSA_crateLDark" node="0>1|196|16|2"/>
+        <i3dMapping id="brand_ROSA_crateLLight" node="0>1|196|17|2"/>
+        <i3dMapping id="brand_ROSA_cratePDark" node="0>1|195|0|5|10|2|2"/>
+        <i3dMapping id="brand_ROSA_cratePLight" node="0>1|195|0|5|10|3|2"/>
+        <i3dMapping id="brand_ROSA_crateRDark" node="0>1|197|16|2"/>
+        <i3dMapping id="brand_ROSA_crateRLight" node="0>1|197|17|2"/>
+        <i3dMapping id="brand_ROSA_crateZDark" node="0>1|195|0|2|2"/>
+        <i3dMapping id="brand_ROSA_crateZLight" node="0>1|195|0|3|2"/>
+        <i3dMapping id="brand_ROSA_padDeck" node="0>1|195|0|5|10|6"/>
+        <i3dMapping id="brand_ROSA_planner" node="0>1|200|2"/>
+        <i3dMapping id="brand_ROSA_toolbox" node="0>1|177"/>
+        <i3dMapping id="brand_ROSA_toolbox2" node="0>1|178"/>
+        <i3dMapping id="brand_STRATUS_Drone_S_TankF" node="0>1|185|0|0|29|9"/>
+        <i3dMapping id="brand_STRATUS_Drone_S_TankL" node="0>1|185|0|0|29|10"/>
+        <i3dMapping id="brand_STRATUS_Drone_S_TankR" node="0>1|185|0|0|29|11"/>
+        <i3dMapping id="brand_STRATUS_crateHDark" node="0>1|195|0|5|7|3"/>
+        <i3dMapping id="brand_STRATUS_crateHLight" node="0>1|195|0|5|8|3"/>
+        <i3dMapping id="brand_STRATUS_crateInL" node="0>1|196|21"/>
+        <i3dMapping id="brand_STRATUS_crateInR" node="0>1|197|21"/>
+        <i3dMapping id="brand_STRATUS_crateLDark" node="0>1|196|16|3"/>
+        <i3dMapping id="brand_STRATUS_crateLLight" node="0>1|196|17|3"/>
+        <i3dMapping id="brand_STRATUS_cratePDark" node="0>1|195|0|5|10|2|3"/>
+        <i3dMapping id="brand_STRATUS_cratePLight" node="0>1|195|0|5|10|3|3"/>
+        <i3dMapping id="brand_STRATUS_crateRDark" node="0>1|197|16|3"/>
+        <i3dMapping id="brand_STRATUS_crateRLight" node="0>1|197|17|3"/>
+        <i3dMapping id="brand_STRATUS_crateZDark" node="0>1|195|0|2|3"/>
+        <i3dMapping id="brand_STRATUS_crateZLight" node="0>1|195|0|3|3"/>
+        <i3dMapping id="brand_STRATUS_padDeck" node="0>1|195|0|5|10|7"/>
+        <i3dMapping id="brand_STRATUS_planner" node="0>1|200|3"/>
+        <i3dMapping id="brand_STRATUS_toolbox" node="0>1|179"/>
+        <i3dMapping id="brand_STRATUS_toolbox2" node="0>1|180"/>
+    </i3dMappings>
+</vehicle>
