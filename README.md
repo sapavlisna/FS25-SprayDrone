@@ -3,6 +3,19 @@
 Mod do Farming Simulator 25: servisní vlek pro zemědělský postřikový dron ve třech velikostech (Mini, auto, tandem XL)
 s plánovačem letu, výměnou baterií, naftovou centrálou, mixérem koncentrátu, přenosnou relé tyčí a tabletem.
 
+## Galerie
+
+| | |
+|---|---|
+| ![Tři vleky na dvoře farmy](assets/gallery/01-vleky-na-dvore.jpg) | ![Car za pickupem](assets/gallery/02-car-za-pickupem.jpg) |
+| Mini, Max a Car (za pickupem) na dvoře farmy | Car: nádrž, čerpadlo, mixér a elektrocentrála na jednom vleku |
+| ![Mini](assets/gallery/03-mini.jpg) | ![Max při postřiku](assets/gallery/04-max-postrik.jpg) |
+| Mini: nejmenší vlek s jedním dronem | Max: tandem pro dva drony, postřik z paluby |
+| ![Postřik pole](assets/gallery/05-postrik-pole.jpg) | ![Plánovač letu](assets/gallery/08-planovac-letu.jpg) |
+| Dron stříká pole | Plánovač letu na mapě: dávky, přelety a servis na vleku |
+| ![Centrála a mixér](assets/gallery/06-centrala-a-mixer.jpg) | ![Detail Maxe](assets/gallery/07-max-detail.jpg) |
+| Naftová centrála, mixér koncentrátu a čerpadlo | Max zepředu: oj, nádrže 3000 l a nabíječka |
+
 ## Instalace
 
 Složku `mod/FS25_SprayDroneTrailer` zabal do `FS25_SprayDroneTrailer.zip` (obsah složky v kořeni zipu) a vlož do
@@ -17,6 +30,7 @@ Složku `mod/FS25_SprayDroneTrailer` zabal do `FS25_SprayDroneTrailer.zip` (obsa
 | `blender/templates` | šablony XML vleků, které export doplní |
 | `tools/` | kontroly modu (Lua, XML, kolize, savegame) a výroba textur |
 | `assets/fonts` | písma pro polepy a loga (licence OFL u každého písma) |
+| `assets/gallery` | snímky z hry pro tento README |
 
 ## Sestavení modelů
 
