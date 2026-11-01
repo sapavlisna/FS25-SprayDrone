@@ -30,11 +30,13 @@ INDUCTION_STAND_H = 0.28            # výška dna kužele nad palubou
 INDUCTION_CONE_H = 0.19
 INDUCTION_BODY_H = 0.33
 INDUCTION_LEG_R = 0.19              # půlrozteč nohou indukční nádrže
+INDUCTION_HOSE_SCALE_Y = -0.12       # stupnice s přívodem plnicí hadice (hose_inlet): pruh je vedle přípojky na -Y straně od osy
 INDUCTION_NECK_R = 0.105            # plnicí hrdlo: vnější poloměr krku a zvednutého lemu
 INDUCTION_NECK_LIP = 0.117
 INDUCTION_R0 = 0.052                # poloměr dna kužele
 INDUCTION_WALL = 0.004
 MAIN_DRAIN_HOSE = 0.180             # hadice z MAIN_DRAIN začíná tolik před výpustí (v hadicovém nátrubku kohoutu)
+Z_FIGHT_STEP = 0.0007               # o kolik se posune menší válec ležící čelem v rovině čela většího (Mesh._separate_caps)
 MAIN_TANK_REF_R = 0.40              # poloměr, ke kterému jsou vztažené hrdlo, hladinoměr a další drobnosti hlavní nádrže
 
 
@@ -74,17 +76,22 @@ class Mesh:
         self.name = name
         self.bm = bmesh.new()
         self.mats = []
+        self._caps = []
+        self.spiral = None
 
     def _absorb(self, t, m, mat):
         if mat not in self.mats:
             self.mats.append(mat)
         idx = self.mats.index(mat)
         vm = {v: self.bm.verts.new(m @ v.co) for v in t.verts}
+        fm = {}
         for f in t.faces:
             nf = self.bm.faces.new([vm[v] for v in f.verts])
             nf.smooth = f.smooth
             nf.material_index = idx
+            fm[f] = nf
         t.free()
+        return vm, fm
 
     # ---- základní tělesa
 
@@ -107,6 +114,7 @@ class Mesh:
         stínování láme (dvojí kruh)."""
         t = bmesh.new()
         n = len(profile)
+        flat = []
 
         def ring(r, a):
             if r < 1e-9:
@@ -114,7 +122,8 @@ class Mesh:
             return [t.verts.new((r * math.cos(phase + TAU * i / seg), r * math.sin(phase + TAU * i / seg), a))
                     for i in range(seg)]
 
-        def link(r0, r1):
+        def link(r0, r1, flat_cap=False):
+            made = []
             for i in range(seg):
                 j = (i + 1) % seg
                 if isinstance(r0, list) and isinstance(r1, list):
@@ -123,19 +132,61 @@ class Mesh:
                     vs = (r0[i], r0[j], r1)
                 else:
                     vs = (r0, r1[j], r1[i])
-                t.faces.new(vs).smooth = True
+                f = t.faces.new(vs)
+                f.smooth = True
+                made.append(f)
+            if flat_cap:
+                center = r0 if not isinstance(r0, list) else r1
+                rim = r1 if not isinstance(r0, list) else r0
+                flat.append((center, math.hypot(rim[0].co.x, rim[0].co.y), made))
+
+        def strip(pts, closed):
+            rings = [ring(r, a) for r, a in pts]
+            pairs = list(zip(rings, rings[1:])) + ([(rings[-1], rings[0])] if closed else [])
+            idx = list(zip(pts, pts[1:])) + ([(pts[-1], pts[0])] if closed else [])
+            for (r0, r1), ((ra, aa), (rb, ab)) in zip(pairs, idx):
+                link(r0, r1, flat_cap=(ra < 1e-9) != (rb < 1e-9) and abs(aa - ab) < 1e-9)
 
         if loop:
-            rings = [ring(r, a) for r, a in profile]
-            for k in range(n):
-                link(rings[k], rings[(k + 1) % n])
+            strip(profile, True)
         else:
             cuts = [0] + sorted(h for h in hard if 0 < h < n - 1) + [n - 1]
             for s, e in zip(cuts, cuts[1:]):
-                rings = [ring(r, a) for r, a in profile[s:e + 1]]
-                for r0, r1 in zip(rings, rings[1:]):
-                    link(r0, r1)
-        self._absorb(t, frame(origin, axis, ref), mat)
+                strip(profile[s:e + 1], False)
+        if loop:
+            bmesh.ops.recalc_face_normals(t, faces=t.faces)
+        vm, fm = self._absorb(t, frame(origin, axis, ref), mat)
+        solid = list(vm.values())
+        for center, radius, faces in flat:
+            self._caps.append({"center": vm[center], "radius": radius, "faces": [fm[f] for f in faces], "solid": solid})
+
+    def _separate_caps(self):
+        """Kruhová čela válců ležící v téže rovině nad sebou (menší disk na větším, např. gumové těsnění na čele spojky) by se ve hře
+        prolínala (z-fighting, v UV se to jeví jako paprsky); čelo menšího válce (vrcholy v rovině čela) se proto posune o zlomek milimetru ven,
+        nejmenší nejvíc."""
+        self.bm.normal_update()
+        caps = []
+        for c in self._caps:
+            n = Vector(c["faces"][0].normal)
+            caps.append((c["radius"], Vector(c["center"].co), n, c))
+        caps.sort(key=lambda x: -x[0])
+        level = [0] * len(caps)
+        for i, (ri, ci, ni, _) in enumerate(caps):
+            for j in range(i):
+                rj, cj, nj, _ = caps[j]
+                if ni.dot(nj) < 0.999 or abs((ci - cj).dot(nj)) > 2e-4:
+                    continue
+                d = ci - cj
+                if (d - nj * d.dot(nj)).length < ri + rj - 1e-4:
+                    level[i] = max(level[i], level[j] + 1)
+        for (r, c, n, rec), lv in zip(caps, level):
+            if not lv:
+                continue
+            plane = c.dot(n)
+            for v in rec["solid"]:
+                if abs(v.co.dot(n) - plane) < 1e-5:
+                    v.co += n * (lv * Z_FIGHT_STEP)
+        self._caps = []
 
     def loft(self, origin, rings, mat, corner_pts=5, pocket=None):
         """Těleso prolože zaoblenými obdélníky: rings = [(z, polovina X, polovina Y, poloměr rohu)] od spodu nahoru, počátek
@@ -222,6 +273,28 @@ class Mesh:
             prof, hard = [(r, 0), (r1, length)], ()
         self.lathe(prof, p0, d, mat, seg=seg, hard=hard, ref=ref, phase=phase)
 
+    def pipe(self, pts, r, mat, seg=10, caps=True):
+        """Trubka po lomené nebo vzorkované čáře pts (v prostoru): kruhové řezy přenášené paralelním rámem, hladké stínování, ploché konce."""
+        pts = [Vector(p) for p in pts]
+        tans = [(pts[min(k + 1, len(pts) - 1)] - pts[max(k - 1, 0)]).normalized() for k in range(len(pts))]
+        ref = V(0, 0, 1) if abs(tans[0].z) < 0.9 else V(1, 0, 0)
+        nrm = (ref - tans[0] * ref.dot(tans[0])).normalized()
+        t = bmesh.new()
+        rings = []
+        for p, tan in zip(pts, tans):
+            nrm = (nrm - tan * nrm.dot(tan)).normalized()
+            bi = tan.cross(nrm)
+            rings.append([t.verts.new(p + (nrm * math.cos(TAU * i / seg) + bi * math.sin(TAU * i / seg)) * r) for i in range(seg)])
+        for lo, hi in zip(rings, rings[1:]):
+            for i in range(seg):
+                j = (i + 1) % seg
+                t.faces.new((lo[i], lo[j], hi[j], hi[i])).smooth = True
+        if caps:
+            t.faces.new(rings[0][::-1]).smooth = False
+            t.faces.new(rings[-1]).smooth = False
+        bmesh.ops.recalc_face_normals(t, faces=t.faces)
+        self._absorb(t, Matrix.Identity(4), mat)
+
     def sphere(self, c, r, mat, seg=16, rings=8, axis=(0, 0, 1)):
         prof = [(r * math.sin(math.pi * k / rings), -r * math.cos(math.pi * k / rings)) for k in range(rings + 1)]
         self.lathe(prof, c, axis, mat, seg=seg)
@@ -267,9 +340,9 @@ class Mesh:
         bmesh.ops.recalc_face_normals(t, faces=t.faces)
         self._absorb(t, Matrix.Identity(4), mat)
 
-    def scroll(self, c, u0, u1, r_in, r_out0, r_out1, chamfer, theta0, mat, steps=48):
-        """Spirálové těleso čerpadla (osa X): průřez (šířka u0..u1, od r_in do r_out) se otáčí od theta0 o 360°
-        a vnější poloměr roste od r_out0 k r_out1."""
+    def scroll(self, c, u0, u1, r_in, r_out0, r_out1, chamfer, theta0, mat, steps=48, m=None):
+        """Spirálové těleso čerpadla (osa X, nebo osa otočená maticí m kolem c): průřez (šířka u0..u1, od r_in do r_out) se otáčí
+        od theta0 o 360° a vnější poloměr roste od r_out0 k r_out1."""
         t = bmesh.new()
         rings = []
         for k in range(steps + 1):
@@ -285,6 +358,8 @@ class Mesh:
         t.faces.new(rings[0][::-1])
         t.faces.new(rings[-1])
         bmesh.ops.recalc_face_normals(t, faces=t.faces)
+        if m is not None:
+            bmesh.ops.transform(t, matrix=m, verts=t.verts)
         self._absorb(t, Matrix.Identity(4), mat)
 
     # ---- složené drobnosti
@@ -330,7 +405,30 @@ class Mesh:
         side = axis.cross(up)
         self.obox((width, 0.014, 0.012), frame(c + up * (r + 0.008), side, axis), mat)
 
-    def lever(self, base, stem_dir, handle_dir, length, metal="SDT_Steel", grip="SDT_PaintRed", width=0.018):
+    def storz(self, p, d, collar="SDT_PaintRed", seg=24, scale=1.0):
+        """Spojka Storz: p = čelo spojky, d = osa dovnitř do tělesa. Litý prstenec s drážkou pro gumové těsnění (vyčnívá 3 mm před čelo),
+        tři ploché výstupky (packy) na obvodu, barevná objímka podle okruhu (collar) na krku, tmavý průvrt. Hloubka 0,06 m, vnější Ø 0,164 m
+        (scale zmenší všechny rozměry, např. koncovka hadice)."""
+        p, d, k = Vector(p), Vector(d).normalized(), scale
+        ref = V(0, 0, 1) if abs(d.z) < 0.9 else V(1, 0, 0)
+
+        def prof(pts):
+            return [(r * k, a * k) for r, a in pts]
+
+        self.lathe(prof([(0.050, 0.0), (0.056, 0.0), (0.056, 0.006), (0.069, 0.006), (0.069, 0.0), (0.082, 0.0), (0.082, 0.034),
+                         (0.074, 0.034), (0.074, 0.060), (0.050, 0.060)]), p, d, "SDT_AluCast", seg=seg, loop=True)
+        self.lathe(prof([(0.0565, -0.003), (0.0685, -0.003), (0.0685, 0.0045), (0.0565, 0.0045)]), p, d, "SDT_Rubber", seg=seg, loop=True)
+        self.lathe(prof([(0.0735, 0.036), (0.0845, 0.036), (0.0845, 0.058), (0.0735, 0.058)]), p, d, collar, seg=seg, loop=True)
+        self.cyl(p + d * (0.030 * k), p + d * (0.034 * k), 0.0505 * k, "SDT_Plastic", seg=seg)
+        e1 = (ref - d * ref.dot(d)).normalized()
+        e2 = d.cross(e1)
+        for i in range(3):
+            a = TAU * i / 3 + math.pi / 2
+            radial = e1 * math.cos(a) + e2 * math.sin(a)
+            self.obox((0.010 * k, 0.030 * k, 0.030 * k), frame(p + d * (0.014 * k) + radial * (0.093 * k), radial, d), "SDT_AluCast",
+                      bevel=0.003 * k)
+
+    def lever(self, base, stem_dir, handle_dir, length, metal="SDT_Steel", grip="SDT_PaintRed", width=0.018, thick=0.005):
         """Páka kulového kohoutu: vřeteno ze středu, matice, plochá páka a barevná rukojeť na konci."""
         base = Vector(base)
         s = Vector(stem_dir).normalized()
@@ -339,11 +437,12 @@ class Mesh:
         self.cyl(base, base + s * 0.036, 0.007, metal, seg=8)
         self.hex(base + s * 0.028, s, 0.011, 0.008, metal)
         top = base + s * 0.040
-        self.obox((length, width * 0.7, 0.005), frame(top + h * (length / 2 - 0.012), n, h), metal)
-        self.obox((length * 0.55, width, 0.012), frame(top + h * (length * 0.72) + s * 0.003, n, h), grip, bevel=0.003)
+        self.obox((length, width * 0.7, thick), frame(top + h * (length / 2 - 0.012), n, h), metal)
+        self.obox((length * 0.55, width, thick * 2.4), frame(top + h * (length * 0.72) + s * 0.003, n, h), grip, bevel=0.003)
 
     def ball_valve(self, p0, p1, radius, lever_dir, lever_grip, lever_len=0.11, body="SDT_Brass"):
-        """Kulový kohout mezi p0 a p1: mosazné tělo s hrdly a maticemi, páka kolmo na osu ve směru lever_dir."""
+        """Kulový kohout mezi p0 a p1: mosazné tělo s hrdly a maticemi, páka kolmo na osu ve směru lever_dir (lever_len=None: bez páky,
+        ta se pak staví zvlášť přes valve_lever_node a ve hře se otáčí)."""
         p0, p1 = Vector(p0), Vector(p1)
         d = p1 - p0
         ln = d.length
@@ -353,8 +452,9 @@ class Mesh:
                 (rb, ln * 0.60), (rb * 0.8, ln * 0.74), (radius * 0.85, ln * 0.82), (radius * 0.85, ln), (0, ln)]
         self.lathe(prof, p0, a, body, seg=20, hard=(1, 8))
         mid = p0 + a * (ln * 0.5)
-        ld = Vector(lever_dir).normalized()
-        self.lever(mid + ld * (rb * 0.9), ld, a, lever_len, grip=lever_grip)
+        if lever_len is not None:
+            ld = Vector(lever_dir).normalized()
+            self.lever(mid + ld * (rb * 0.9), ld, a, lever_len, grip=lever_grip)
         return mid
 
     def hose_tail(self, p0, p1, radius, mat="SDT_Steel", rings=2):
@@ -368,10 +468,38 @@ class Mesh:
             s = ln * (0.35 + 0.4 * k / max(rings - 1, 1)) if rings > 1 else ln * 0.6
             self.cyl(p0 + a * s, p0 + a * (s + ln * 0.18), radius * 1.18, mat, r1=radius * 1.02, seg=16)
 
-    def finish(self):
+    def _spiral_uv(self, bm, mat, tiles, origin, axis):
+        """UV válcového tvaru kolem osy (origin, axis) na plochách materiálu mat: U kolem obvodu 0..1, V po délce tiles dlaždic na metr
+        (normálová textura spirály hadice, tools/make_hose_normal.py); kruhová čela rovinně."""
+        if mat not in self.mats:
+            return
+        idx = self.mats.index(mat)
+        origin, ax = Vector(origin), Vector(axis).normalized()
+        e1 = (V(0, 0, 1) if abs(ax.z) < 0.9 else V(1, 0, 0))
+        e1 = (e1 - ax * e1.dot(ax)).normalized()
+        e2 = ax.cross(e1)
+        uv = bm.loops.layers.uv.verify()
+        for f in bm.faces:
+            if f.material_index != idx:
+                continue
+            rel = [l.vert.co - origin for l in f.loops]
+            if any((r - ax * r.dot(ax)).length < 1e-6 for r in rel):
+                for l, r in zip(f.loops, rel):
+                    l[uv].uv = (0.5 + r.dot(e1) * 10.0, 0.5 + r.dot(e2) * 10.0)
+                continue
+            angs = [math.atan2(r.dot(e2), r.dot(e1)) / TAU for r in rel]
+            for l, r, a in zip(f.loops, rel, angs):
+                dd = a - angs[0]
+                dd -= round(dd)
+                l[uv].uv = (angs[0] + dd, r.dot(ax) * tiles)
+
+    def finish(self, uv=None):
+        self._separate_caps()
         bm = self.bm
         bm.normal_update()
-        P._box_uv(bm)
+        (uv or P._box_uv)(bm)
+        if self.spiral:
+            self._spiral_uv(bm, *self.spiral)
         me = bpy.data.meshes.new(self.name)
         bm.to_mesh(me)
         bm.free()
@@ -534,6 +662,25 @@ def build_main_tank(prefix, y, z, radius, length):
     lid.finish()
 
 
+def valve_lever_node(name, mid, radius, stem_dir, closed_dir, length, size=1.0):
+    """Otočná páka kulového kohoutu jako vlastní uzel: prázdný uzel `name` leží na ose vřetene (střed kohoutu zvednutý o tělo,
+    radius je poloměr hrdla jako u ball_valve) a páka pod ním stojí v ZAVŘENÉ poloze (closed_dir kolmo na tok). Ve hře se uzel
+    otáčí kolem osy vřetene (SprayDroneMill: valveOpenAngle)."""
+    mid = Vector(mid)
+    sd = Vector(stem_dir).normalized()
+    base = mid + sd * (radius * 1.55 * 0.9)
+    m = Mesh(f"{name}_Lever")
+    m.lever(base, sd, closed_dir, length, width=0.018 * size, thick=0.005 * size)
+    obj = m.finish()
+    node = P.empty(name, base)
+    node.empty_display_size = 0.05
+    w = obj.matrix_world.copy()
+    obj.parent = node
+    obj.matrix_parent_inverse = Matrix.Identity(4)
+    obj.matrix_world = w
+    return node
+
+
 # ------------------------------------------------------------------------------------------ indukční nádrž
 
 def induction_ports(x, y, z, radius=INDUCTION_R, stand_h=INDUCTION_STAND_H, cone_h=INDUCTION_CONE_H):
@@ -552,38 +699,41 @@ def induction_level_height(litres, radius=INDUCTION_R, cone_h=INDUCTION_CONE_H):
     return h
 
 
-def _induction_scale(fit, x, y, zb, R, cone_h):
-    """Stupnice na pravém boku (-X): černý pruh po povrchu (kužel a válec), bílé rysky po 5 l, delší po 10 l, červená
-    na 50 l. Rysky mají v ose Y rozsah y - 0,019 .. y + 0,019 (delší) od levého okraje pruhu."""
+def _induction_scale(fit, x, y, zb, R, cone_h, y_off=0.0, litres_max=50, step=5, big=10):
+    """Stupnice na pravém boku (-X): černý pruh po povrchu (kužel a válec), bílé rysky po step litrech, delší po big litrech, červená
+    na litres_max. Pruh je y_off od osy po Y, ale sedí na plášti (otočený kolem osy nádrže o úhel phi), takže se povrchu dotýká i mimo
+    střed; rysky jsou rovnoběžné s obvodem a začínají u levého okraje pruhu."""
     R0 = INDUCTION_R0
     L = math.hypot(R - R0, cone_h)
-    n_cone = V(-cone_h / L, 0, -(R - R0) / L)
-    m_cone = V(-(R - R0) / L, 0, cone_h / L)
+    phi = math.asin(y_off / R)
+    rad = V(-math.cos(phi), math.sin(phi), 0)
+    tg = V(math.sin(phi), math.cos(phi), 0)
+    n_cone = rad * (cone_h / L) + V(0, 0, -(R - R0) / L)
+    m_cone = rad * ((R - R0) / L) + V(0, 0, cone_h / L)
+    axis = V(x, y, zb)
+    tick_dir = -1 if y_off < 0 else 1       # rysky vedou od okraje pruhu k číslům na straně od přípojky
 
     def surf(h):
         if h < cone_h:
             r = R0 + (R - R0) * h / cone_h
-            return V(x - r, y, zb + h), n_cone, m_cone, 0.001
-        return V(x - R, y, zb + h), V(-1, 0, 0), V(0, 0, 1), 0.0055
+            return axis + V(0, 0, h) + rad * r, n_cone, m_cone, 0.001
+        return axis + V(0, 0, h) + rad * R, rad, V(0, 0, 1), 0.0055
 
-    def strip(h0, h1, thick, mat, y0, y1, off_extra):
+    def strip(h0, h1, thick, mat):
         p0, n, m, off = surf((h0 + h1) / 2)
         length = (h1 - h0) / m.z
-        c = p0 + n * (off + off_extra + thick / 2)
-        c.y = (y0 + y1) / 2
-        fit.obox((length, y1 - y0, thick), frame(c, n, m), mat)
+        fit.obox((length, 0.044, thick), frame(p0 + n * (off + thick / 2), n, m), mat)
 
-    h_lo, h_hi = induction_level_height(2.0, R, cone_h), induction_level_height(52.0, R, cone_h)
-    strip(h_lo, cone_h - 0.0005, 0.004, "SDT_TankBlack", y - 0.022, y + 0.022, 0.0)
-    strip(cone_h + 0.0005, h_hi, 0.004, "SDT_TankBlack", y - 0.022, y + 0.022, 0.0)
-    for litres in range(5, 51, 5):
+    h_lo, h_hi = induction_level_height(2.0, R, cone_h), induction_level_height(litres_max + 2.0, R, cone_h)
+    strip(h_lo, cone_h - 0.0005, 0.004, "SDT_TankBlack")
+    strip(cone_h + 0.0005, h_hi, 0.004, "SDT_TankBlack")
+    for litres in range(step, litres_max + 1, step):
         h = induction_level_height(litres, R, cone_h)
         p, n, m, off = surf(h)
-        big = litres % 10 == 0
-        ln = 0.038 if litres == 50 else (0.032 if big else 0.018)
-        c = p + n * (off + 0.004 + 0.0008)
-        c.y = y - 0.019 + ln / 2
-        fit.obox((0.0026, ln, 0.0016), frame(c, n, m), "SDT_PaintRed" if litres == 50 else "SDT_PaintWhite")
+        major = litres % big == 0
+        ln = 0.038 if litres == litres_max else (0.032 if major else 0.018)
+        c = p + n * (off + 0.004 + 0.0008) + tg * (tick_dir * (-0.019 + ln / 2))
+        fit.obox((0.0026, ln, 0.0016), frame(c, n, m), "SDT_PaintRed" if litres == litres_max else "SDT_PaintWhite")
 
 
 def induction_fill_box(x, y, z, radius=INDUCTION_R, stand_h=INDUCTION_STAND_H, cone_h=INDUCTION_CONE_H,
@@ -593,12 +743,24 @@ def induction_fill_box(x, y, z, radius=INDUCTION_R, stand_h=INDUCTION_STAND_H, c
     return x - radius - 0.03, x + radius + 0.03, y - radius - 0.03, y + radius + 0.03, z + stand_h - 0.04, top
 
 
+def _rinse_nozzle(fit, p, s=1.0):
+    """Oplachovací tryska kanystrů v míse: černý kužel zužující se vzhůru, válcová hlava s bajonetovými výstupky a šroubem; stlačením
+    kanystru se otevře proud vody."""
+    fit.cyl(p, p + V(0, 0, 0.045 * s), 0.016 * s, "SDT_TankBlack", r1=0.0065 * s, seg=14)
+    fit.cyl(p + V(0, 0, 0.045 * s), p + V(0, 0, 0.070 * s), 0.0145 * s, "SDT_TankBlack", seg=14)
+    for sx in (-1, 1):
+        fit.obox((0.007 * s, 0.012 * s, 0.010 * s), frame(p + V(sx * 0.0155 * s, 0, 0.056 * s), V(0, 0, 1), V(1, 0, 0)),
+                 "SDT_TankBlack")
+    fit.hex(p + V(0, 0, 0.070 * s), V(0, 0, 1), 0.0065 * s, 0.006 * s, "SDT_Steel")
+
+
 def build_induction_tank(prefix, x, y, z, radius=INDUCTION_R, stand_h=INDUCTION_STAND_H, cone_h=INDUCTION_CONE_H,
-                         body_h=INDUCTION_BODY_H):
+                         body_h=INDUCTION_BODY_H, hose_inlet=False):
     """Plnitelná koncentrátová (indukční) nádrž ~50 l: bílý PE válec s kuželovým dnem na svařeném stojanu (čtyři šikmé
     nohy, rám, patky), nahoře mísa se zdviženým okrajem a plnicí hrdlo se zvednutým lemem a šroubovacím víčkem na lanku
     (nalévá se z kanystru), kalibrovaná stupnice hladiny po 5 l na pravém boku, plocha pro štítek vpředu, hadicová
-    přípojka (kamlok) na levém boku a výpust s kohoutem a kolenem. Vrací výšku vrcholu víčka."""
+    přípojka (kamlok) na levém boku a výpust s kohoutem a kolenem. Vrací výšku vrcholu víčka.
+    hose_inlet: kamlok je vstup plnicí hadice (uzel limeInletNode a kohout s otočnou pákou limeValveLever)."""
     zb = z + stand_h
     zj = zb + cone_h
     zt = zj + body_h
@@ -664,23 +826,29 @@ def build_induction_tank(prefix, x, y, z, radius=INDUCTION_R, stand_h=INDUCTION_
                   seg=6)
 
     # stupnice hladiny na pravém boku (-X), kalibrovaná po 5 l podle skutečného objemu (kužel + válec), a plocha pro štítek
-    _induction_scale(fit, x, y, zb, R, cone_h)
+    _induction_scale(fit, x, y, zb, R, cone_h, INDUCTION_HOSE_SCALE_Y if hose_inlet else 0.0)
     hw = 0.065
     xe = math.sqrt(R * R - hw * hw)
     fit.box(x - hw, x + hw, y - R - 0.003, y - xe + 0.004, zj + 0.115, zj + 0.215, "SDT_PaintWhite", bevel=0.003)
 
-    # kamlok na levém boku (+X): patka, trubka, spojka s vačkami, víčko na očku
+    # kamlok na levém boku (+X), jako vstup hadice na pravém (-X): patka, trubka, spojka s vačkami, víčko na očku
     zk = zj + 0.17
-    ex = x + R
-    fit.cyl(V(ex - 0.012, y, zk), V(ex + 0.016, y, zk), 0.036, "SDT_TankPE", seg=16)
-    fit.cyl(V(ex + 0.010, y, zk), V(ex + 0.050, y, zk), 0.022, "SDT_Steel", seg=14)
-    fit.cyl(V(ex + 0.050, y, zk), V(ex + 0.078, y, zk), 0.029, "SDT_Steel", seg=14)
-    fit.cyl(V(ex + 0.078, y, zk), V(ex + 0.090, y, zk), 0.032, "SDT_Frame", seg=14)
+    sgn = -1 if hose_inlet else 1               # vstup hadice je na pravém boku (-X) vedle stupnice, jinak kamlok vlevo
+    ex = x + sgn * R
+    yk = y
+    fit.cyl(V(ex - sgn * 0.012, yk, zk), V(ex + sgn * 0.016, yk, zk), 0.036, "SDT_TankPE", seg=16)
+    if hose_inlet:
+        valve_mid = fit.ball_valve(V(ex + sgn * 0.010, yk, zk), V(ex + sgn * 0.050, yk, zk), 0.022, V(0, 0, 1), "SDT_PaintRed", lever_len=None)
+        valve_lever_node("limeValveLever", valve_mid, 0.022, V(0, 0, 1), V(0, 1, 0), 0.15, size=1.8)
+    else:
+        fit.cyl(V(ex + sgn * 0.010, yk, zk), V(ex + sgn * 0.050, yk, zk), 0.022, "SDT_Steel", seg=14)
+    fit.cyl(V(ex + sgn * 0.050, yk, zk), V(ex + sgn * 0.078, yk, zk), 0.029, "SDT_Steel", seg=14)
+    fit.cyl(V(ex + sgn * 0.078, yk, zk), V(ex + sgn * 0.090, yk, zk), 0.032, "SDT_Frame", seg=14)
     for sy in (-1, 1):
-        fit.obox((0.022, 0.006, 0.010), frame(V(ex + 0.060, y + sy * 0.032, zk), V(1, 0, 0), V(0, 1, 0)), "SDT_Steel")
-        fit.obox((0.008, 0.008, 0.026), frame(V(ex + 0.056, y + sy * 0.034, zk + 0.008), V(0, 0, 1), V(1, 0, 0)),
+        fit.obox((0.022, 0.006, 0.010), frame(V(ex + sgn * 0.060, yk + sy * 0.032, zk), V(1, 0, 0), V(0, 1, 0)), "SDT_Steel")
+        fit.obox((0.008, 0.008, 0.026), frame(V(ex + sgn * 0.056, yk + sy * 0.034, zk + 0.008), V(0, 0, 1), V(1, 0, 0)),
                  "SDT_Steel")
-    fit.torus(V(ex + 0.030, y, zk - 0.024), V(1, 0, 0), 0.010, 0.0025, "SDT_Steel", seg=10, rseg=5)
+    fit.torus(V(ex + sgn * 0.030, yk, zk - 0.024), V(1, 0, 0), 0.010, 0.0025, "SDT_Steel", seg=10, rseg=5)
 
     # plnicí hrdlo: šroubovací víčko s vroubkováním a madlem, těsnění, lanko k oku na okraji mísy, odvzdušňovací zátka
     cap_z = zt + 0.049
@@ -702,12 +870,16 @@ def build_induction_tank(prefix, x, y, z, radius=INDUCTION_R, stand_h=INDUCTION_
     lid.box(x - 0.012, x + 0.012, y + 0.158, y + 0.176, zt, zt + 0.010, "SDT_Steel", bevel=0.002)
     fit.cyl(V(x, y - 0.150, zt), V(x, y - 0.150, zt + 0.020), 0.011, "SDT_TankBlack", seg=10)
     fit.cyl(V(x, y - 0.150, zt + 0.020), V(x, y - 0.150, zt + 0.028), 0.017, "SDT_TankBlack", r1=0.012, seg=12)
+    _rinse_nozzle(fit, V(x - 0.15, y - 0.055, zt), s)
     shell.finish()
     stand.finish()
     fit.finish()
     lid.finish()
     neck = P.empty("concentrateNeckNode", cz(cap_z + 0.038))
     neck.empty_display_size = 0.10
+    if hose_inlet:
+        inlet = P.empty("limeInletNode", V(ex + sgn * 0.092, yk, zk))
+        inlet.empty_display_size = 0.08
     return cap_z + 0.050
 
 
@@ -804,7 +976,8 @@ def build_pump(prefix, px, py, z):
              phase=math.radians(45))
     # výpustná a zálivková zátka
     m.cyl(V(ox, py, hz - 0.155), V(ox, py, hz - 0.125), 0.013, "SDT_Brass", seg=6)
-    m.cyl(V(px + 0.20, py - 0.10, hz + 0.12), V(px + 0.20, py - 0.10, hz + 0.155), 0.014, "SDT_Brass", seg=6)
+    m.cyl(V(px + 0.20, py - 0.10, hz + 0.066), V(px + 0.20, py - 0.10, hz + 0.140), 0.024, "SDT_Alu", r1=0.019, seg=16)
+    m.hex(V(px + 0.20, py - 0.10, hz + 0.140), V(0, 0, 1), 0.014, 0.016, "SDT_Brass")
 
     # manometr: stopka, šroubení, těleso s okrajem, bílý ciferník se stupnicí a červená ručička
     g = pump_ports(px, py, z)["gauge"]
@@ -975,62 +1148,71 @@ TOOLBOX_XY = (-0.92, 0.95, 1.56, 2.04)      # x0, x1, y0, y1 půdorysu skříně
 CANISTER = (0.25, 0.17, 0.26)                # kanystr 20 l (herní měřítko): šířka po X, hloubka po Y, výška těla (bez hrdla a madla)
 
 
-POCKET_CX, POCKET_HX, POCKET_HY, POCKET_DEPTH = -0.040, 0.044, 0.036, 0.016    # prohlubeň pod madlem v horní ploše
-HANDLE_X = (-0.070, -0.010)                                                       # osy sloupků madla
+POCKET_CX, POCKET_HX, POCKET_HY, POCKET_DEPTH = -0.045, 0.050, 0.040, 0.018    # prohlubeň pod madlem v horní ploše
+HANDLE_X = (-0.080, -0.012)                                                       # osy sloupků madla
 
 
 def canister_shape(m, c, mat, cap_mat=None):
-    """Tvar kanystru 20 l do sběrače m se středem základny v c: zaoblené tělo prolože (kulatá svislá i spodní hrana, rameno
-    do hrdla), žebra, oblé madlo s přechody, hrdlo s fazetovaným víčkem. Polohy hrdla (x 0,062; vrch víčka H + 0,057) a štítku
-    na bocích (y = +-D/2) se nesmí měnit, drží se na nich sloty, Lua a štítky."""
+    """Tvar plastového UN kanystru 20 l do sběrače m se středem základny v c: téměř kvádr se zaoblenými hranami a mírně
+    zúženým ramenem, na širokých bocích rovná plocha mezi dvěma žebry (štítek), na úzkých svislá žebra, nahoře hluboká
+    prohlubeň s plochým madlem, dvě stohovací patky a odvzdušňovací zátka, hrdlo s fazetovaným víčkem. Polohy hrdla
+    (x 0,062; vrch víčka H + 0,057) a štítku na bocích (y = +-D/2) se nesmí měnit, drží se na nich sloty, Lua a štítky."""
     W, D, H = CANISTER
     cap_mat = cap_mat or mat
     c = Vector(c)
     hx, hy = W / 2, D / 2
     top = H + 0.016
     m.loft(c, [
-        (0.000, hx - 0.026, hy - 0.024, 0.030),
-        (0.004, hx - 0.012, hy - 0.010, 0.034),
-        (0.014, hx - 0.002, hy - 0.001, 0.038),
-        (0.030, hx, hy, 0.040),
-        (0.205, hx, hy, 0.040),
-        (0.228, hx - 0.005, hy - 0.004, 0.040),
-        (0.246, hx - 0.018, hy - 0.016, 0.040),
-        (0.262, hx - 0.027, hy - 0.026, 0.036),
-        (top, hx - 0.032, hy - 0.030, 0.032),
-    ], mat, pocket=(POCKET_CX, POCKET_HX, POCKET_HY, 0.020, POCKET_DEPTH))
+        (0.000, hx - 0.020, hy - 0.018, 0.026),
+        (0.004, hx - 0.008, hy - 0.006, 0.028),
+        (0.012, hx - 0.001, hy, 0.030),
+        (0.030, hx, hy, 0.030),
+        (0.205, hx, hy, 0.030),
+        (0.226, hx - 0.003, hy - 0.002, 0.030),
+        (0.246, hx - 0.012, hy - 0.010, 0.029),
+        (0.262, hx - 0.022, hy - 0.020, 0.027),
+        (top, hx - 0.030, hy - 0.028, 0.025),
+    ], mat, pocket=(POCKET_CX, POCKET_HX, POCKET_HY, 0.022, POCKET_DEPTH))
     for sy in (-1, 1):
         for zz in (0.05, 0.16):
             m.obox((W - 0.10, 0.007, 0.014), Matrix.Translation(c + V(0, sy * D / 2, zz)), mat, bevel=0.0032, segments=2)
-    # madlo: oblý plochý oblouk z jednoho kusu, vystupuje z dna prohlubně, pod příčkou je místo na prsty
+    for sx in (-1, 1):
+        for yy in (-0.034, 0.034):
+            m.obox((0.007, 0.014, 0.125), Matrix.Translation(c + V(sx * W / 2, yy, 0.118)), mat, bevel=0.0032, segments=1)
+    # madlo: plochý široký oblouk, vystupuje z dna prohlubně, pod příčkou je místo na prsty
     x0, x1 = HANDLE_X
     floor = top - POCKET_DEPTH
-    zt = top + 0.040
-    rb = 0.017
+    zt = top + 0.036
+    rb = 0.016
     path, scales = [], []
 
     def add(x, z, s=1.0):
         path.append(V(x, 0, z))
         scales.append(s)
 
-    add(x0, floor - 0.004, 1.45)
-    add(x0, floor + 0.006, 1.2)
+    add(x0, floor - 0.004, 1.30)
+    add(x0, floor + 0.006, 1.15)
     add(x0, floor + 0.016, 1.0)
     add(x0, zt - rb)
-    for k in range(1, 6):
-        a = math.pi / 2 * k / 6
+    for k in range(1, 4):
+        a = math.pi / 2 * k / 4
         add(x0 + rb - rb * math.cos(a), zt - rb + rb * math.sin(a))
     add(x0 + rb, zt)
     add((x0 + x1) / 2, zt)
     add(x1 - rb, zt)
-    for k in range(1, 6):
-        a = math.pi / 2 * k / 6
+    for k in range(1, 4):
+        a = math.pi / 2 * k / 4
         add(x1 - rb + rb * math.sin(a), zt - rb + rb * math.cos(a))
     add(x1, zt - rb)
     add(x1, floor + 0.016, 1.0)
-    add(x1, floor + 0.006, 1.2)
-    add(x1, floor - 0.004, 1.45)
-    m.tube([c + p for p in path], 0.0092, 0.0155, mat, seg=12, scales=scales)
+    add(x1, floor + 0.006, 1.15)
+    add(x1, floor - 0.004, 1.30)
+    m.tube([c + p for p in path], 0.0078, 0.029, mat, seg=12, scales=scales)
+    # stohovací patky v rozích ramene a odvzdušňovací zátka u hrdla
+    for px, py in ((0.082, -0.044), (-0.088, -0.052), (-0.088, 0.052)):
+        m.cyl(c + V(px, py, top - 0.002), c + V(px, py, top + 0.007), 0.009, mat, r1=0.0072, seg=10)
+    m.cyl(c + V(0.084, 0.044, top - 0.002), c + V(0.084, 0.044, top + 0.010), 0.0085, cap_mat, seg=10)
+    m.cyl(c + V(0.084, 0.044, top + 0.010), c + V(0.084, 0.044, top + 0.013), 0.0085, cap_mat, r1=0.0065, seg=10)
     # hrdlo s náběhem, víčkem s fazetou, pojistným kroužkem a vroubky
     sx = 0.062
     m.cyl(c + V(sx, 0, top - 0.005), c + V(sx, 0, top + 0.004), 0.031, mat, r1=0.022, seg=20)
@@ -1083,8 +1265,29 @@ def build_canister(name, c):
     build_canister.py má stejný tvar."""
     c = Vector(c)
     m = Mesh(name)
-    canister_shape(m, c, "SDT_Canister")
+    canister_shape(m, c, "SDT_Canister", "SDT_TankBlack")
     obj = m.finish()
     attach(obj, P._root, c)
+    _split_material(obj, "SDT_TankBlack", f"{name}_cap")
     canister_label(name, c, obj)
     return obj
+
+
+def _split_material(obj, mat_name, child_name):
+    """Plochy s materiálem mat_name přesune do dítěte child_name: colorScale nastavuje skript po shapech a černé víčko
+    (dítě <kanystr>_cap) barvu obsahu nebere."""
+    me = obj.data
+    idx = next(i for i, mm in enumerate(me.materials) if mm and mm.name == mat_name)
+    child_me = me.copy()
+    child_me.name = child_name
+    for target, keep in ((me, False), (child_me, True)):
+        bm = bmesh.new()
+        bm.from_mesh(target)
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if (f.material_index == idx) != keep], context="FACES")
+        bm.to_mesh(target)
+        bm.free()
+    child = bpy.data.objects.new(child_name, child_me)
+    P._coll.objects.link(child)
+    child.parent = obj
+    child.matrix_parent_inverse = Matrix.Identity(4)
+    return child

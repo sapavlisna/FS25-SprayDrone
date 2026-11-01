@@ -21,15 +21,25 @@ CHECKS = [
     (os.path.join("vehicles", "sprayDroneTrailerMiddle", "sprayDroneTrailerMiddle.xml"), "vehicle.xsd"),
     (os.path.join("objects", "canister", "canisterFertilizer.xml"), "vehicle.xsd"),
     (os.path.join("objects", "canister", "canisterHerbicide.xml"), "vehicle.xsd"),
+    # vlastní bloky modu schéma nezná (viz KNOWN_XSD v check_all.py), proto se pro kontrolu ostatního vyříznou
+    (os.path.join("vehicles", "sprayDroneTrailerMax", "sprayDroneTrailerMax.xml"), "vehicle.xsd", ("sprayDrone", "sprayDroneWaterHose")),
+    (os.path.join("vehicles", "sdtLimeMill", "sdtLimeMill.xml"), "vehicle.xsd", ("sprayDroneMill",)),
+    (os.path.join("objects", "droneCase", "scanCase.xml"), "vehicle.xsd", ("sprayDrone",)),
+    (os.path.join("objects", "droneCase", "samplerCase.xml"), "vehicle.xsd", ("sprayDrone",)),
+    (os.path.join("objects", "battery", "batteryM.xml"), "vehicle.xsd", ("sprayDroneItem",)),
+    (os.path.join("objects", "battery", "batteryC.xml"), "vehicle.xsd", ("sprayDroneItem",)),
 ]
 
 
-def validate(xml_rel, xsd_name):
+def validate(xml_rel, xsd_name, strip=()):
     xsd_path = os.path.join(SCHEMA_DIR, xsd_name)
     if not os.path.exists(xsd_path):
         return [f"schéma {xsd_name} ve hře není"]
     schema = etree.XMLSchema(etree.parse(xsd_path))
     doc = etree.parse(os.path.join(MOD, xml_rel))
+    for tag in strip:
+        for el in doc.getroot().findall(tag):
+            doc.getroot().remove(el)
     if schema.validate(doc):
         return []
     return [f"řádek {e.line}: {e.message}" for e in schema.error_log]
@@ -52,8 +62,8 @@ def referenced_files(xml_rel):
 
 def main():
     ok = True
-    for xml_rel, xsd in CHECKS:
-        errors = validate(xml_rel, xsd)
+    for xml_rel, xsd, *strip in CHECKS:
+        errors = validate(xml_rel, xsd, *strip)
         missing = referenced_files(xml_rel)
         status = "OK" if not errors and not missing else "CHYBA"
         ok &= status == "OK"

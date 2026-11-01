@@ -26,7 +26,7 @@
     <base>
         <typeDesc>$l10n_sdt_relayPole_name</typeDesc>
         <filename>objects/relay/relayPole.i3d</filename>
-        <size width="1.1" length="1.1" height="2.45"/>
+        <size width="1.1" length="1.1" height="2.55"/>
         <canBeReset>false</canBeReset>
         <supportsPickUp>true</supportsPickUp>
         <components>
@@ -35,11 +35,9 @@
         <showInVehicleMenu>false</showInVehicleMenu>
         <!-- ikona na velké mapě: Pallet ji skrývá, SprayDroneRelay:getIsMapHotspotVisible ji vrací -->
         <mapHotspot available="true" type="OTHER"/>
-        <!-- vstup jen po nástupu (B zapne / vypne tyč); Pallet ho jinak vypíná -->
-        <input allowed="true"/>
     </base>
 
-    <!-- TestRunner je u vozidla (enterable) čeká; stativ zabírá ~1,1 m, tráva se pod ním ohýbá -->
+    <!-- stativ zabírá ~1,1 m, tráva se pod ním ohýbá -->
     <foliageBending>
         <bendingNode minX="-0.55" maxX="0.55" minZ="-0.55" maxZ="0.55" yOffset="0.2"/>
     </foliageBending>
@@ -47,12 +45,12 @@
     <washable dirtDuration="90" washDuration="1" workMultiplier="2" fieldMultiplier="2"/>
 
     <!-- baterie tyče: 20 jednotek ELECTRICCHARGE = 5 h provozu (SprayDroneRelay.DISCHARGE_TIME); vanilla nabíjecí stanice
-         (0,015/s × zrychlení času) ji nabije za ~22 min herního času, po nástupu do tyče a R u stanice -->
+         (0,015/s × zrychlení času) ji nabije za ~22 min herního času (R u stanice) -->
     <fillUnit>
         <fillUnitConfigurations>
             <fillUnitConfiguration>
                 <fillUnits>
-                    <fillUnit fillTypes="ELECTRICCHARGE" capacity="20" startFillType="ELECTRICCHARGE" startFillLevel="20" showOnHud="true"
+                    <fillUnit unitTextOverride="$l10n_unit_kw" fillTypes="ELECTRICCHARGE" capacity="20" startFillType="ELECTRICCHARGE" startFillLevel="20" showOnHud="false"
                               uiPrecision="1" uiCustomFillTypeName="$l10n_sdt_relay_battery" ignoreFillLimit="true" updateMass="false">
                         <exactFillRootNode node="exactFillRootNode"/>
                         <fillRootNode node="0&gt;"/>
@@ -61,16 +59,6 @@
             </fillUnitConfiguration>
         </fillUnitConfigurations>
     </fillUnit>
-
-    <!-- nastoupit (E) jde jen do rozložené tyče (SprayDroneRelay:getDistanceToNode / getIsEnterable); kamera obíhá stožár -->
-    <enterable isTabbable="false" canBeEnteredFromMenu="false">
-        <enterReferenceNode node="relayPole_main_component1" interactionRadius="2.5"/>
-        <exitPoint node="relayExitPoint"/>
-        <cameras>
-            <camera node="relayCamera" rotatable="true" rotateNode="relayCameraRot" limit="true" useWorldXZRotation="true"
-                    rotMinX="-1.4" rotMaxX="1.2" transMin="2" transMax="25" translation="0 0 5" rotation="-20 180 0"/>
-        </cameras>
-    </enterable>
 
     <!-- síla tyče: dosah (m) tyče i kruhu, který plánovač kreslí; silnější varianta stojí víc -->
     <sprayDroneRelayStrengthConfigurations>

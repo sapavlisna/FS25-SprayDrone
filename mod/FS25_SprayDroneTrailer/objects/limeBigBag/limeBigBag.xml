@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Big bag (FIBC vak s poutky) pro jemně mleté vápno (SDT_FINE_LIME): vanilla bigBag (typ bigBag, vak se zvedá za poutka hákem big bag), jen jiný druh, prázdný při koupi.
+     Plní ho mlýnek v režimu výstupu "big bag" (foukání zeshora do stojícího vaku, scripts/SprayDroneMill.lua), vyklopí se jako vanilla big bag (dischargeable) do nádoby
+     s exactFillRootNode (násypka). Materiál vaku vybírá fillTypeMaterials: material(3) je v bigBag.xml vápno (lime_mat), druhy jdou v pořadí wheat, fertilizer, oat, lime;
+     potisk jemného vápna (blender/limebigbag_label.py, textures/limebigbag_diffuse.dds) dává materiálu uzlu lime_mat po načtení SprayDroneHopper.applyBigBagLabel
+     (vanilla vak nemá pojmenované sloty materiálů, fillTypeMaterials#materialSlotName by nic nenašel). -->
+<vehicle type="bigBag">
+    <annotation>Big bag 1000 l na jemně mleté vápno.</annotation>
+
+    <parentFile xmlFilename="$data/objects/bigBag/bigBag.xml">
+        <attributes>
+            <set path="vehicle.storeData.name" value="$l10n_sdt_limeBigBag_name"/>
+            <set path="vehicle.storeData.image" value="objects/limeBigBag/store_limeBigBag.dds"/>
+            <set path="vehicle.storeData.price" value="225"/>
+            <set path="vehicle.storeData.showInStore" value="true"/>
+            <!-- první kategorie (kořenová) je vanilla typu OBJECTS: seznam vlastněných v obchodě (FS25_GarageMenu) podle ní spotřební věci vynechá jako vanilla palety -->
+            <set path="vehicle.storeData.category" value="bigbags sprayDroneCanisters"/>
+            <set path="vehicle.storeData.brand" value="BZUK"/>
+            <set path="vehicle.storeData.functions.function" value="$l10n_sdt_limeBigBag_function"/>
+            <set path="vehicle.storeData.financeCategory" value="OTHER"/>
+
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit#fillTypes" value="SDT_FINE_LIME"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit#startFillType" value="SDT_FINE_LIME"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit#capacity" value="1000"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit#startFillLevel" value="0"/>
+            <set path="vehicle.fillUnit.fillUnitConfigurations.fillUnitConfiguration(0).fillUnits.fillUnit.fillTypeMaterials.material(3)#fillType" value="SDT_FINE_LIME"/>
+        </attributes>
+    </parentFile>
+</vehicle>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Směrová relé tyč: kopie relayPole.xml, místo všesměrové antény panel (čelo = osa +Z, žlutý pruh). Pravidla objektu ručně; i3d, obrázek,
+     čísla v i3dMappings a nohy v <sprayDroneRelay> dává blender/build_link_items.py (-- relayDir). Objekt poznává SprayDroneLink.lua
+     (RELAY_FILES) a držák tyčí na vleku (SprayDroneRelaySlots.POLE_FILES) podle konce názvu souboru. -->
+<vehicle type="FS25_SprayDroneTrailer.sdtRelayPole">
+    <annotation>Přenosná směrová retranslační tyč na stativu: nese signál vleku postřikového dronu jen ve výseči před čelem panelu, zato dál.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_relayPoleDirectional_name</name>
+        <functions>
+            <function>$l10n_sdt_relayPoleDirectional_function</function>
+        </functions>
+        <specs>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/relay/store_relayPoleDirectional.dds</image>
+        <price>900</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <rotation>0</rotation>
+        <shopHeight>1.6</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneEquipment</category>
+        <financeCategory>PURCHASE_FERTILIZER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_sdt_relayPoleDirectional_name</typeDesc>
+        <filename>objects/relay/relayPoleDirectional.i3d</filename>
+        <size width="1.1" length="1.1" height="2.55"/>
+        <canBeReset>false</canBeReset>
+        <supportsPickUp>true</supportsPickUp>
+        <components>
+            <component centerOfMass="0 0.25 0" solverIterationCount="10" mass="6"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <!-- ikona na velké mapě: Pallet ji skrývá, SprayDroneRelay:getIsMapHotspotVisible ji vrací -->
+        <mapHotspot available="true" type="OTHER"/>
+    </base>
+
+    <!-- stativ zabírá ~1,1 m, tráva se pod ním ohýbá -->
+    <foliageBending>
+        <bendingNode minX="-0.55" maxX="0.55" minZ="-0.55" maxZ="0.55" yOffset="0.2"/>
+    </foliageBending>
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="2" fieldMultiplier="2"/>
+
+    <!-- baterie tyče: 20 jednotek ELECTRICCHARGE = 5 h provozu (SprayDroneRelay.DISCHARGE_TIME); vanilla nabíjecí stanice
+         (0,015/s × zrychlení času) ji nabije za ~22 min herního času (R u stanice) -->
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_kw" fillTypes="ELECTRICCHARGE" capacity="20" startFillType="ELECTRICCHARGE" startFillLevel="20" showOnHud="false"
+                              uiPrecision="1" uiCustomFillTypeName="$l10n_sdt_relay_battery" ignoreFillLimit="true" updateMass="false">
+                        <exactFillRootNode node="exactFillRootNode"/>
+                        <fillRootNode node="0&gt;"/>
+                    </fillUnit>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <!-- síla tyče: poloměr (m) jako u všesměrové; dosah výseče je poloměr × sprayDroneRelay#sectorFactor (525 / 700 m) -->
+    <sprayDroneRelayStrengthConfigurations>
+        <sprayDroneRelayStrengthConfiguration name="$l10n_sdt_relayDir_standard" radius="300" price="0" saveId="STANDARD" isDefault="true"/>
+        <sprayDroneRelayStrengthConfiguration name="$l10n_sdt_relayDir_strong" radius="400" price="450" saveId="STRONG"/>
+    </sprayDroneRelayStrengthConfigurations>
+
+    <!-- výseč: plný úhel kolem osy +Z (čelo panelu) a dosah ve výseči jako násobek poloměru; mimo výseč tyč nepokrývá nic -->
+    <sprayDroneRelay sectorAngle="99" sectorFactor="1.75">
+        <leg node="relayLeg1" axis="-1.0000 0.0000 -0.0000" angle="34.80"/>
+        <leg node="relayStrut1" axis="-1.0000 0.0000 -0.0000" angle="-53.30"/>
+        <leg node="relayLeg2" axis="0.5000 0.0000 0.8660" angle="34.80"/>
+        <leg node="relayStrut2" axis="0.5000 0.0000 0.8660" angle="-53.30"/>
+        <leg node="relayLeg3" axis="0.5000 0.0000 -0.8660" angle="34.80"/>
+        <leg node="relayStrut3" axis="0.5000 0.0000 -0.8660" angle="-53.30"/>
+        <slide node="relayCollar" foldedTrans="0 0.25 0"/>
+        <mast node="relayMast" foldedTrans="0 -1 0"/>
+        <led node="relayLed"/>
+        <batteryLed node="relayBatteryLed0"/>
+        <batteryLed node="relayBatteryLed1"/>
+        <batteryLed node="relayBatteryLed2"/>
+        <batteryLed node="relayBatteryLed3"/>
+        <batteryLed node="relayBatteryLed4"/>
+    </sprayDroneRelay>
+
+    <i3dMappings>
+        <i3dMapping id="relayPoleDirectional_main_component1" node="0&gt;"/>
+        <i3dMapping id="relayPoleDirectional_vis" node="0&gt;13"/>
+        <i3dMapping id="floorCollision01" node="0&gt;0|0"/>
+        <i3dMapping id="relayLeg1" node="0&gt;9|1"/>
+        <i3dMapping id="relayLeg2" node="0&gt;9|2"/>
+        <i3dMapping id="relayLeg3" node="0&gt;9|3"/>
+        <i3dMapping id="relayStrut1" node="0&gt;14"/>
+        <i3dMapping id="relayStrut2" node="0&gt;15"/>
+        <i3dMapping id="relayStrut3" node="0&gt;16"/>
+        <i3dMapping id="relayCollar" node="0&gt;9"/>
+        <i3dMapping id="relayMast" node="0&gt;12"/>
+        <i3dMapping id="relayLed" node="0&gt;11"/>
+        <i3dMapping id="relayBatteryLed0" node="0&gt;2"/>
+        <i3dMapping id="relayBatteryLed1" node="0&gt;3"/>
+        <i3dMapping id="relayBatteryLed2" node="0&gt;4"/>
+        <i3dMapping id="relayBatteryLed3" node="0&gt;5"/>
+        <i3dMapping id="relayBatteryLed4" node="0&gt;6"/>
+        <i3dMapping id="relayCameraRot" node="0&gt;8"/>
+        <i3dMapping id="relayCamera" node="0&gt;8|0"/>
+        <i3dMapping id="relayExitPoint" node="0&gt;10"/>
+        <i3dMapping id="exactFillRootNode" node="0&gt;1"/>
+    </i3dMappings>
+</vehicle>

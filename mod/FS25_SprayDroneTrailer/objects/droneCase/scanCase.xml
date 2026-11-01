@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Pravidla objektu ručně; i3d, obrázek a čísla v i3dMappings dává blender/build_drone_case.py (docs/NAVRH-kufr-modely.md, čísla z
+     out/case_preview/scanCase_export.txt). Chování: scripts/SprayDroneCase.lua a SprayDroneStation v profilu portable (docs/DRON.md, „Přenosný skenovací dron (kufr)“). -->
+<vehicle type="FS25_SprayDroneTrailer.sdtDroneCase">
+    <annotation>Kufr se skenovacím dronem (třída Mavic 3 Multispectral) a dvěma bateriemi: položí se kamkoli s volným nebem, víko se otevře pěšky (R), sken pole se řídí tabletem. Baterie se nabíjí jen u budovy farmy nebo u běžící elektrocentrály vleku SprayDrone.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_case_name</name>
+        <functions>
+            <function>$l10n_sdt_case_function</function>
+        </functions>
+        <specs>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/droneCase/store_scanCase.dds</image>
+        <price>9750</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <rotation>0</rotation>
+        <shopHeight>0.5</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneDrones</category>
+        <financeCategory>PURCHASE_FERTILIZER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_sdt_case_name</typeDesc>
+        <filename>objects/droneCase/scanCase.i3d</filename>
+        <size width="0.42" length="0.60" height="0.24"/>
+        <canBeReset>false</canBeReset>
+        <supportsPickUp>true</supportsPickUp>
+        <components>
+            <component centerOfMass="0 0.09 0" solverIterationCount="10" mass="12"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <mapHotspot available="true" type="OTHER"/>
+        <input allowed="false"/>
+    </base>
+
+    <foliageBending>
+        <bendingNode minX="-0.21" maxX="0.21" minZ="-0.3" maxZ="0.3" yOffset="0.1"/>
+    </foliageBending>
+
+    <!-- vozidlo typu pallet potřebuje fill unit; kufr nic neveze, unit je formální (sprayDrone#fillUnitIndex i power#dieselFillUnitIndex na něj
+         ukazují, takže plán čte nulu místo chybějící nádrže) -->
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water" capacity="1" showOnHud="false" ignoreFillLimit="true" updateMass="false"/>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <dynamicMount triggerNode="dynamicMountTrigger" triggerForceAcceleration="4" additionalMountDistance="0.09" jointTransY="0.02" jointLimitToRotY="true"/>
+
+    <!-- víko: čas animace 0 = otevřeno (rozloženo), 1 = zavřeno; Foldable začíná zavřený (startMoveDirection 1) a rozkládá se k času 0.
+         Při otevírání (čte se odspodu): víko, podložka casePad z pěny víka na zem vedle kufru (-X) a rozevřít, droneCarrier přenese dron
+         z pěny na H, v 0–1 s dosedne a rozkládají se ramena (trailerFoldEnd 0,2). Čísla dává blender/build_drone_case.py (*_export.txt). -->
+    <animations>
+        <animation name="caseLidAnim">
+            <part node="droneCarrier" startTime="0.00" endTime="1.00" startTrans="-0.8100 -0.0240 0.0650" endTrans="-0.8100 -0.0220 0.0650"/>
+            <part node="droneCarrier" startTime="1.00" endTime="1.40" startTrans="-0.8100 -0.0220 0.0650" endTrans="-0.8100 0.1630 0.0650"/>
+            <part node="droneCarrier" startTime="1.40" endTime="2.15" startTrans="-0.8100 0.1630 0.0650" endTrans="0.0000 0.1630 -0.0000"/>
+            <part node="droneCarrier" startTime="2.15" endTime="2.50" startTrans="0.0000 0.1630 -0.0000" endTrans="0.0000 0.0000 -0.0000"/>
+            <part node="casePad" startTime="2.50" endTime="2.90" startScale="1.0000 1.0000 1.0000" endScale="0.3333 3.0000 0.3333"/>
+            <part node="casePad" startTime="2.90" endTime="3.15" startTrans="-0.8100 -0.1526 -0.2152" endTrans="-0.8100 -0.2757 0.1231" startRot="110.0 0 0" endRot="110.0 0 0"/>
+            <part node="casePad" startTime="3.15" endTime="3.50" startTrans="-0.8100 -0.2757 0.1231" endTrans="0.0000 -0.0121 0.2170" startRot="110.0 0 0" endRot="0.0 0 0"/>
+            <part node="casePad" startTime="3.50" endTime="3.75" startTrans="0.0000 -0.0121 0.2170" endTrans="0.0000 0.0679 0.2170"/>
+            <part node="caseLid" startTime="3.75" endTime="5.00" startRot="-110.0 0 0" endRot="0.0 0 0"/>
+        </animation>
+    </animations>
+
+    <foldable>
+        <foldingConfigurations>
+            <foldingConfiguration>
+                <foldingParts startMoveDirection="1" requiresPower="false" objectText="$l10n_sdt_case_name">
+                    <foldingPart animationName="caseLidAnim" speedScale="1"/>
+                </foldingParts>
+            </foldingConfiguration>
+        </foldingConfigurations>
+    </foldable>
+
+    <!-- profil portable (SprayDroneCase): bez centrály, mixéru, hadic a bedny; jediná varianta dronu je vždy v kufru. Ramena se rozkládají
+         až na podložce, v posledních 20 % otevírání (trailerFoldEnd); domov dronu = rodič kořene dronu (droneCarrier na podložce). Baterie: dvě šachty v pěně a strop poolu 2 i s baterií v dronu (dron + jedna náhradní; po přistání jde vybitá do
+         volné šachty a nabitá do dronu jako u vleku), nabíjení obou jako nabíječka vleku (power#chargeMinutes), jen se
+         zdrojem (budova farmy, běžící centrála vleku do 15 m). Parametry letu: návrh z docs/NAVRH-kufr-modely.md (Mavic 3M).
+         maxRange = rádio kufru (500 m); dál pomůže relé tyč (všesměrová i směrová, objects/relay) -->
+    <sprayDrone portable="true" fillUnitIndex="1" maxRange="500"
+                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.2"
+                cruiseSpeed="12" sprayingSpeed="7" climbSpeed="3" ascentSpeed="5" acceleration="3" yawSpeed="120"
+                sprayHeight="3" transitHeight="15" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="1"
+                sideClearance="3" turnAcceleration="3" litersPerSecond="0" securedFoldTime="0.99">
+        <power dieselFillUnitIndex="1" slots="2" batteries="2" chargeMinutes="10" dieselPerHour="0" readyLevel="0.95" swapTime="5"/>
+        <navLights intensity="4" lightScale="0.15" blinkPeriod="1" blinkOn="0.5"/>
+        <drone name="C" prefix="Drone_C_" scan="true" scanSpeed="12" scanMaxWind="12" maxRange="500" tankCapacity="0" litersPerSecond="0"
+               workWidth="6" sprayMaxWind="6" droneMass="0.6" batteryMass="0.35" batteryKwh="0.077" batteryMinutes="40"
+               droneRadius="0.32" rotorPitch="2.2">
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_C_Tilt" innerRadius="3" outerRadius="60" fadeOut="0.3">
+                    <volume indoor="0.3" outdoor="0.6"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+            </sounds>
+            <tilt node="Drone_C_Tilt"/>
+            <foldPart node="Drone_C_ArmPivot_1" foldedRot="0.000 79.605 0.000" unfoldedRot="0.000 -40.121 0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_C_Blade_1Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_C_Blade_1Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_C_ArmPivot_2" foldedRot="0.000 100.395 0.000" unfoldedRot="0.000 220.121 0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_C_Blade_2Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_C_Blade_2Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_C_ArmPivot_3" foldedRot="0.000 -78.319 0.000" unfoldedRot="0.000 36.769 0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_C_Blade_3Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_C_Blade_3Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_C_ArmPivot_4" foldedRot="0.000 -101.681 0.000" unfoldedRot="0.000 -216.769 0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_C_Blade_4Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_C_Blade_4Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <propSource node="Drone_C_Arm_1"/>
+            <propBlade node="Drone_C_Blade_1Top0" tip="Drone_C_Blade_1Top0_Tip"/>
+            <propBlade node="Drone_C_Blade_1Top1" tip="Drone_C_Blade_1Top1_Tip"/>
+            <propBlade node="Drone_C_Blade_2Top0" tip="Drone_C_Blade_2Top0_Tip"/>
+            <propBlade node="Drone_C_Blade_2Top1" tip="Drone_C_Blade_2Top1_Tip"/>
+            <propBlade node="Drone_C_Blade_3Top0" tip="Drone_C_Blade_3Top0_Tip"/>
+            <propBlade node="Drone_C_Blade_3Top1" tip="Drone_C_Blade_3Top1_Tip"/>
+            <propBlade node="Drone_C_Blade_4Top0" tip="Drone_C_Blade_4Top0_Tip"/>
+            <propBlade node="Drone_C_Blade_4Top1" tip="Drone_C_Blade_4Top1_Tip"/>
+            <rotor node="Drone_C_Rotor_1Top" direction="1"/>
+            <rotor node="Drone_C_Rotor_2Top" direction="-1"/>
+            <rotor node="Drone_C_Rotor_3Top" direction="-1"/>
+            <rotor node="Drone_C_Rotor_4Top" direction="1"/>
+            <navLight node="Drone_C_Led_1" lightNode="Drone_C_LedLight_1" blink="false"/>
+            <navLight node="Drone_C_Led_2" lightNode="Drone_C_LedLight_2" blink="false"/>
+            <navLight node="Drone_C_Led_3" lightNode="Drone_C_LedLight_3" blink="true"/>
+            <navLight node="Drone_C_Led_4" lightNode="Drone_C_LedLight_4" blink="true"/>
+        </drone>
+    </sprayDrone>
+
+    <i3dMappings>
+        <i3dMapping id="scanCase_main_component1" node="0>"/>
+        <i3dMapping id="scanCase_vis" node="0>12"/>
+        <i3dMapping id="floorCollision01" node="0>8|0"/>
+        <i3dMapping id="dynamicMountTrigger" node="0>10"/>
+        <i3dMapping id="exactFillRootNode" node="0>11"/>
+        <i3dMapping id="caseLid" node="0>7"/>
+        <i3dMapping id="caseLid_vis" node="0>7|2"/>
+        <i3dMapping id="casePad" node="0>7|3"/>
+        <i3dMapping id="casePad_vis" node="0>7|3|0"/>
+        <i3dMapping id="droneCarrier" node="0>9"/>
+        <i3dMapping id="caseBatterySlot" node="0>0"/>
+        <i3dMapping id="caseBattery" node="0>0|0"/>
+        <i3dMapping id="caseBatterySlot2" node="0>1"/>
+        <i3dMapping id="caseBattery2" node="0>1|0"/>
+        <i3dMapping id="caseChargeCable" node="0>2"/>
+        <i3dMapping id="caseChargeLed0" node="0>3"/>
+        <i3dMapping id="caseChargeLed1" node="0>4"/>
+        <i3dMapping id="caseChargeLed2" node="0>5"/>
+        <i3dMapping id="caseChargeLed3" node="0>6"/>
+        <i3dMapping id="Drone_C_Root" node="0>9|0"/>
+        <i3dMapping id="Drone_C_Tilt" node="0>9|0|0"/>
+        <i3dMapping id="Drone_C_Body" node="0>9|0|0|5"/>
+        <i3dMapping id="Drone_C_BatterySlot" node="0>9|0|0|4"/>
+        <i3dMapping id="Drone_C_Battery" node="0>9|0|0|4|0"/>
+        <i3dMapping id="Drone_C_ArmPivot_1" node="0>9|0|0|0"/>
+        <i3dMapping id="Drone_C_ArmPivot_2" node="0>9|0|0|1"/>
+        <i3dMapping id="Drone_C_ArmPivot_3" node="0>9|0|0|2"/>
+        <i3dMapping id="Drone_C_ArmPivot_4" node="0>9|0|0|3"/>
+        <i3dMapping id="Drone_C_Arm_1" node="0>9|0|0|0|0"/>
+        <i3dMapping id="Drone_C_Arm_2" node="0>9|0|0|1|0"/>
+        <i3dMapping id="Drone_C_Arm_3" node="0>9|0|0|2|0"/>
+        <i3dMapping id="Drone_C_Arm_4" node="0>9|0|0|3|0"/>
+        <i3dMapping id="Drone_C_Rotor_1Top" node="0>9|0|0|0|2"/>
+        <i3dMapping id="Drone_C_Rotor_2Top" node="0>9|0|0|1|2"/>
+        <i3dMapping id="Drone_C_Rotor_3Top" node="0>9|0|0|2|2"/>
+        <i3dMapping id="Drone_C_Rotor_4Top" node="0>9|0|0|3|2"/>
+        <i3dMapping id="Drone_C_Blade_1Top0" node="0>9|0|0|0|2|0"/>
+        <i3dMapping id="Drone_C_Blade_1Top0_Tip" node="0>9|0|0|0|2|0|0"/>
+        <i3dMapping id="Drone_C_Blade_1Top1" node="0>9|0|0|0|2|1"/>
+        <i3dMapping id="Drone_C_Blade_1Top1_Tip" node="0>9|0|0|0|2|1|0"/>
+        <i3dMapping id="Drone_C_Blade_2Top0" node="0>9|0|0|1|2|0"/>
+        <i3dMapping id="Drone_C_Blade_2Top0_Tip" node="0>9|0|0|1|2|0|0"/>
+        <i3dMapping id="Drone_C_Blade_2Top1" node="0>9|0|0|1|2|1"/>
+        <i3dMapping id="Drone_C_Blade_2Top1_Tip" node="0>9|0|0|1|2|1|0"/>
+        <i3dMapping id="Drone_C_Blade_3Top0" node="0>9|0|0|2|2|0"/>
+        <i3dMapping id="Drone_C_Blade_3Top0_Tip" node="0>9|0|0|2|2|0|0"/>
+        <i3dMapping id="Drone_C_Blade_3Top1" node="0>9|0|0|2|2|1"/>
+        <i3dMapping id="Drone_C_Blade_3Top1_Tip" node="0>9|0|0|2|2|1|0"/>
+        <i3dMapping id="Drone_C_Blade_4Top0" node="0>9|0|0|3|2|0"/>
+        <i3dMapping id="Drone_C_Blade_4Top0_Tip" node="0>9|0|0|3|2|0|0"/>
+        <i3dMapping id="Drone_C_Blade_4Top1" node="0>9|0|0|3|2|1"/>
+        <i3dMapping id="Drone_C_Blade_4Top1_Tip" node="0>9|0|0|3|2|1|0"/>
+        <i3dMapping id="Drone_C_Led_1" node="0>9|0|0|0|1"/>
+        <i3dMapping id="Drone_C_LedLight_1" node="0>9|0|0|0|1|0"/>
+        <i3dMapping id="Drone_C_Led_2" node="0>9|0|0|1|1"/>
+        <i3dMapping id="Drone_C_LedLight_2" node="0>9|0|0|1|1|0"/>
+        <i3dMapping id="Drone_C_Led_3" node="0>9|0|0|2|1"/>
+        <i3dMapping id="Drone_C_LedLight_3" node="0>9|0|0|2|1|0"/>
+        <i3dMapping id="Drone_C_Led_4" node="0>9|0|0|3|1"/>
+        <i3dMapping id="Drone_C_LedLight_4" node="0>9|0|0|3|1|0"/>
+        <i3dMapping id="brand_BZUK_caseLidFront" node="0>7|0"/>
+        <i3dMapping id="brand_BZUK_caseLidTop" node="0>7|1"/>
+    </i3dMappings>
+</vehicle>

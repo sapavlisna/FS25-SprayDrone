@@ -199,6 +199,8 @@
 
     <licensePlates>
         <licensePlate node="licensePlateBack" position="BACK" preferedType="SQUARISH" placementArea="0.06 0.26 0.09 0.15"/>
+        <!-- druhá SPZ na konci rozložené plošiny (ta zakryje první); ve složeném stavu ji skryje rodič padRearLights (foldTrailer) -->
+        <licensePlate node="licensePlateBackPad" position="BACK" preferedType="SQUARISH" placementArea="0.05 0.17 0.075 0.17"/>
     </licensePlates>
 
     <lights>
@@ -210,6 +212,11 @@
         <sharedLight linkNode="sideMarker05_left" filename="$data/shared/assets/lights/lizard/sideMarker05_left.xml"/>
         <sharedLight linkNode="sideMarker05_right" filename="$data/shared/assets/lights/lizard/sideMarker05_right.xml"/>
         <sharedLight linkNode="plateNumberLight03" filename="$data/shared/assets/lights/lizard/plateNumberLight03.xml"/>
+        <!-- druhá sada na konci rozložené plošiny (padRearLights pod padHingeEnd): rozložená plošina hlavní sadu zakryje a vlek pak
+             nejde odpojit; stejné sdílené soubory = stejné funkce (obrys, brzda, blinkry), viditelná jen rozložená (foldTrailer) -->
+        <sharedLight linkNode="padRearLight52_left" filename="$data/shared/assets/lights/lizard/rearLight52_left.xml"/>
+        <sharedLight linkNode="padRearLight52_right" filename="$data/shared/assets/lights/lizard/rearLight52_right.xml"/>
+        <sharedLight linkNode="padPlateNumberLight03" filename="$data/shared/assets/lights/lizard/plateNumberLight03.xml"/>
     </lights>
 
     <animations>
@@ -223,40 +230,43 @@
             <sound template="clackVar1" startTime="0.05" direction="-1" volumeScale="1.1" pitchScale="1.1" linkNode="jockeyWheel"/>
         </animation>
         <!-- konvence FS25 (Foldable.lua): čas 0 = rozloženo (model v i3d), čas 1 = složeno;
-             startMoveDirection="1" => vozidlo začíná v čase 1, animace trvá 12 s. Skládání: 0–2,6 s se složí dron na rozložené
-             plošině (skript podle času skládání, sprayDrone#trailerFoldEnd); 2,6–10,6 s se plošina skládá do bedny (skript,
-             sprayDrone.pad: foldEnd / foldStart; v obráceném pořadí než rozkládání: dron sjede na střed bedny a otočí se, nožičky
-             se zasunou, panely se sklopí kolem dronu do bedny a jako poslední se zvedne pomačkaná plachta a vrátí na boky bedny);
-             10,6–11 s bedna s dronem je zajištěná (sprayDrone#securedFoldTime = 11 / 12); 11–12 s se zavře víko šachty baterií. -->
+             startMoveDirection="1" => vozidlo začíná v čase 1, animace trvá 10 s. Skládání: 0–0,6 s krátká rezerva
+             (sprayDrone#trailerFoldEnd; dron se s vlekem neskládá: Mini se s dronem na plošině složit nedá, dron v bedně je složený už předem); 0,6–8,6 s se plošina
+             skládá do bedny (skript, sprayDrone.pad: foldEnd / foldStart; v obráceném pořadí než rozkládání: dron se sám nepřesouvá, hráč
+             ho přendá z plošiny do bedny jako předmět; nožičky se zasunou, panely se sklopí kolem dronu do bedny a jako poslední se zvedne pomačkaná plachta a vrátí na boky bedny);
+             8,6–9 s bedna s dronem je zajištěná (sprayDrone#securedFoldTime = 9 / 10); 9–10 s se zavře víko šachty baterií. -->
         <animation name="foldTrailer">
             <!-- šachta baterií po levém boku nádrže: rozložený vlek = víko otevřené a kabel k elektrocentrále zapojený -->
             <part node="chargerCable" startTime="0" endTime="0.05" startVisibility="true" endVisibility="false"/>
-            <part node="chargerLid" startTime="11" endTime="12" startRot="100 -7e-06 0" endRot="0 -7e-06 0"/>
+            <part node="chargerLid" startTime="9" endTime="10" startRot="100 -7e-06 0" endRot="0 -7e-06 0"/>
+            <!-- druhá sada zadních světel a SPZ na konci plošiny: jen když jsou panely v rovině (D >= 0,38 => čas <= 5,56 s), ve složené
+                 bedně by čelo panelu P mířilo dopředu k nádrži -->
+            <part node="padRearLights" startTime="5.5" endTime="5.6" startVisibility="true" endVisibility="false"/>
 
 
             <!-- zvuky (vanilla šablony): direction -1 = rozkládání, 1 = skládání; bedna a nožičky se hýbou ve skriptu, zvuky jednotlivých kroků viz níž -->
-            <sound template="coverMetalOpen" startTime="11.95" direction="-1" volumeScale="1" pitchScale="1" linkNode="chargerLid"/>
-            <sound template="metalClose" startTime="11.9" direction="1" volumeScale="0.8" pitchScale="1.1" linkNode="chargerLid"/>
-            <!-- boční stěny bedny dosednou na zem při 9,5 s (SprayDronePad: D = 0,14 odpovídá 10,6 - 0,14 * 8 s) -->
-            <sound template="metalClose" startTime="9.55" direction="-1" volumeScale="0.9" pitchScale="0.9" linkNode="padSideL"/>
-            <sound template="metalClose" startTime="9.45" direction="-1" volumeScale="0.9" pitchScale="0.85" linkNode="padSideR"/>
-            <sound template="latchSmall" startTime="9.5" direction="1" volumeScale="0.6" pitchScale="1.1" linkNode="padSideL"/>
-            <sound template="latchSmall" startTime="9.45" direction="1" volumeScale="0.6" pitchScale="1.0" linkNode="padSideR"/>
-            <sound template="latchSmall" startTime="10.7" volumeScale="0.6" pitchScale="1.2" linkNode="padHingeH"/>
-            <sound template="latchSmall" startTime="10.9" volumeScale="0.6" pitchScale="1" linkNode="padHingeH"/>
-            <!-- posloupnost bedny (Pavel 2026-10-13: žádná dlouhá hydraulika): panely skřípou na závěsech (D 0,14-0,38 = 7,6-9,5 s), nožičky vyjedou (D 0,38-0,53 = 6,4-7,6 s),
-                 dron se po plošině posouvá se zvukem po dřevě (D 0,61-0,92 = 3,2-5,7 s) a dosedne cvaknutím -->
-            <sound template="slideOpen" startTime="7.55" direction="-1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
-            <sound template="slideOpen" startTime="6.45" direction="1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
-            <sound template="clackVar1" startTime="6.4" direction="-1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
-            <sound template="clackVar1" startTime="7.6" direction="1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
+            <sound template="coverMetalOpen" startTime="9.95" direction="-1" volumeScale="1" pitchScale="1" linkNode="chargerLid"/>
+            <sound template="metalClose" startTime="9.9" direction="1" volumeScale="0.8" pitchScale="1.1" linkNode="chargerLid"/>
+            <!-- boční stěny bedny dosednou na zem při 7,5 s (SprayDronePad: D = 0,14 odpovídá 8,6 - 0,14 * 8 s) -->
+            <sound template="metalClose" startTime="7.55" direction="-1" volumeScale="0.9" pitchScale="0.9" linkNode="padSideL"/>
+            <sound template="metalClose" startTime="7.45" direction="-1" volumeScale="0.9" pitchScale="0.85" linkNode="padSideR"/>
+            <sound template="latchSmall" startTime="7.5" direction="1" volumeScale="0.6" pitchScale="1.1" linkNode="padSideL"/>
+            <sound template="latchSmall" startTime="7.45" direction="1" volumeScale="0.6" pitchScale="1.0" linkNode="padSideR"/>
+            <sound template="latchSmall" startTime="8.7" volumeScale="0.6" pitchScale="1.2" linkNode="padHingeH"/>
+            <sound template="latchSmall" startTime="8.9" volumeScale="0.6" pitchScale="1" linkNode="padHingeH"/>
+            <!-- posloupnost bedny (Pavel 2026-10-13: žádná dlouhá hydraulika): panely skřípou na závěsech (D 0,14-0,38 = 5,6-7,5 s), nožičky vyjedou (D 0,38-0,53 = 4,4-5,6 s);
+                 dron se s plošinou nepřesouvá (Pavel 2026-10-29), mezi bednou a plošinou ho přenáší hráč -->
+            <sound template="slideOpen" startTime="5.55" direction="-1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
+            <sound template="slideOpen" startTime="4.45" direction="1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
+            <sound template="clackVar1" startTime="4.4" direction="-1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
+            <sound template="clackVar1" startTime="5.6" direction="1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
         </animation>
     </animations>
 
     <foldable>
         <foldingConfigurations>
             <foldingConfiguration>
-                <foldingParts startMoveDirection="1" requiresPower="false" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
+                <foldingParts startMoveDirection="1" requiresPower="false" keepFoldingWhileDetached="true" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
                     <foldingPart animationName="foldTrailer" speedScale="1"/>
                 </foldingParts>
             </foldingConfiguration>
@@ -312,16 +322,11 @@
          0|0 = S, 0|1 = M, 0|2 = L se liší rozevřením kužele, které pak u země dosáhne záběru varianty); skript emitory postaví
          pod trysky (uzly nebo x/z nozzle, jinak pod motory ramen) do výšky nozzleY pod kloubem náklonu -->
     <sprayDrone fillUnitIndex="1" maxRange="750"
-                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.2167"
+                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.0600"
                 cruiseSpeed="10" sprayingSpeed="7" climbSpeed="3" ascentSpeed="5" acceleration="2.5" yawSpeed="90"
                 sprayHeight="3" transitHeight="12" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="0.2"
                 sideClearance="4" turnAcceleration="2.5"
-                litersPerSecond="1" securedFoldTime="0.9167">
-        <sprayDroneConfigurations>
-            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneS" drone="S" price="7000" saveId="S" workingWidth="6" isDefault="true">
-                <objectChange node="Drone_S_Root" visibilityActive="true" visibilityInactive="false"/>
-            </sprayDroneConfiguration>
-        </sprayDroneConfigurations>
+                litersPerSecond="1" securedFoldTime="0.9000">
         <sprayDroneBatteryConfigurations>
             <sprayDroneBatteryConfiguration name="0" count="0" price="0" saveId="0"/>
             <sprayDroneBatteryConfiguration name="1" count="1" price="1500" saveId="1"/>
@@ -329,35 +334,24 @@
             <sprayDroneBatteryConfiguration name="3" count="3" price="4500" saveId="3" isDefault="true"/>
             <sprayDroneBatteryConfiguration name="4" count="4" price="6000" saveId="4"/>
         </sprayDroneBatteryConfigurations>
-        <!-- vzhled vrtulí: kind default = podle modelu (T50 bílé bez proužků, T25 a T100 karbon s oranžovými), paint = barva listů,
-             carbon = karbon; tips: proužky na koncích listů (none = bez nich) -->
-        <sprayDronePropellerConfigurations>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_black" kind="paint" color="0.03 0.03 0.035" price="0" saveId="BLACK"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.85 0.86 0.87" price="0" saveId="WHITE"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_carbon" kind="carbon" price="300" saveId="CARBON"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="150" saveId="GREEN"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="150" saveId="YELLOW"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="150" saveId="ORANGE"/>
-        </sprayDronePropellerConfigurations>
-        <sprayDroneTipsConfigurations>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_none" kind="none" price="0" saveId="NONE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="50" saveId="ORANGE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="50" saveId="YELLOW"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_red" kind="paint" color="0.85 0.02 0.02" price="50" saveId="RED"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="50" saveId="GREEN"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_blue" kind="paint" color="0.05 0.25 0.85" price="50" saveId="BLUE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.90 0.90 0.90" price="50" saveId="WHITE"/>
-        </sprayDroneTipsConfigurations>
+        <!-- hrany paluby: kovové lemy (Rail_*, FrontBeam, RearBeam v deckEdgeSteel) nebo dřevěné desky s kovovými pásy (deckEdgeWood, v i3d skrytá) -->
+        <sprayDroneDeckEdgeConfigurations>
+            <sprayDroneDeckEdgeConfiguration name="$l10n_sdt_deckEdge_steel" price="0" saveId="STEEL" isDefault="true">
+                <objectChange node="deckEdgeSteel" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneDeckEdgeConfiguration>
+            <sprayDroneDeckEdgeConfiguration name="$l10n_sdt_deckEdge_wood" price="0" saveId="WOOD">
+                <objectChange node="deckEdgeWood" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneDeckEdgeConfiguration>
+        </sprayDroneDeckEdgeConfigurations>
         <!-- skládací bedna s dronem (scripts/SprayDronePad.lua): ve složeném stavu stojí bedna vzpřímená celou základnou na palubě
              (panely P/H/Z, padHingeZ/H/P) a dron stojí uvnitř na palubě, otočený o droneYaw navíc; při rozložení se plechové boční stěny
              (padSideL/R, čep na vnější spodní hraně u lemu paluby) vyklopí ven a sklopí k zemi (sideLength = jejich výška od čepu, podle ní se
              sklopení dorovná na terén; pochozí vnitřní strana je pak nahoře), pak se panely sklopí
              řetězem čepů do jedné roviny a vytvoří samostatnou plošinu na šesti nožičkách (padLeg1..6, ve složené bedně skryté),
-             které ji vyrovnají vodorovně o terén; teprve potom se dron (carrier) nadzvedne o liftHeight, otočí zpět o droneYaw a přejede na střed plošiny
-             (droneSettle). Šířka a hloubka plošiny se čtou přímo z uzlů, nejsou tu duplikované -->
-        <pad foldStart="0.8833" foldEnd="0.2167"
+             které ji vyrovnají vodorovně o terén (liftHeight = rezerva nad bednou při kontrole prostoru pro panely). Dron se sám nepřesouvá: v bedně stojí
+             carrier jak je v i3d (přepravní poloha), na plošině (letová poloha, hráč ho tam přendá jako předmět) na jejím středu o droneSettle níž,
+             otočený zpět o droneYaw. Šířka a hloubka plošiny se čtou přímo z uzlů, nejsou tu duplikované -->
+        <pad foldStart="0.8600" foldEnd="0.0600"
              legRest="0.02" legFoot="0.025" maxLegLength="1"
              maxHeightDiff="0.5" checkHeight="1.2"
              liftHeight="0.12" droneSettle="-0.011" droneYaw="90.0000" sideLength="0.819"/>
@@ -429,7 +423,7 @@
 
         <!-- malý „S“ podle DJI T25: 25,4 kg + DB800 6,6 kg (0,81 kWh), 20 l, záběr 6 m, 4 jednoduché vrtule 50″, 2 zadní trysky
              (rozteč 1368 mm); výdrž 9 min s plnou nádrží (výkon ~ m^1,5 / √plocha vrtulí, kalibrováno na T50) -->
-        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" tankCapacity="20" workWidth="6" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
+        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" tankCapacity="20" workWidth="6" sprayMaxWind="5" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
                batteryMinutes="9" chargeMinutes="10" dieselPerHour="1.14" droneRadius="1.35" rotorPitch="1.25" hoseVia="0.145 0.22 0.34">
             <sounds>
                 <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_S_Tilt" innerRadius="6" outerRadius="100" fadeOut="0.3">
@@ -446,18 +440,18 @@
                 <effectNode effectClass="ParticleEffect" filename="effects/sprayMist.i3d" node="0|0" linkNode="Drone_S_Tilt" particleType="SMOKE" materialType="smokeParticle" worldSpace="true" ignoreDistanceLifeSpan="true" useCuttingWidth="false"/>
             </effects>
         <tilt node="Drone_S_Tilt"/>
-        <foldPart node="Drone_S_ArmPivot_1" foldedRot="0 18.431 0" unfoldedRot="0 -90.148 0" startTime="0" endTime="0.6"/>
-        <foldPart node="Drone_S_Blade_1Top0" foldedRot="0 -128.105 0" unfoldedRot="0 -223.105 0" startTime="0.5" endTime="1"/>
-        <foldPart node="Drone_S_Blade_1Top1" foldedRot="0 -138.105 0" unfoldedRot="0 -43.105 0" startTime="0.5" endTime="1"/>
-        <foldPart node="Drone_S_ArmPivot_2" foldedRot="0 161.569 0" unfoldedRot="0 270.148 0" startTime="0" endTime="0.6"/>
-        <foldPart node="Drone_S_Blade_2Top0" foldedRot="0 138.105 0" unfoldedRot="0 43.105 0" startTime="0.5" endTime="1"/>
-        <foldPart node="Drone_S_Blade_2Top1" foldedRot="0 128.105 0" unfoldedRot="0 223.105 0" startTime="0.5" endTime="1"/>
-        <foldPart node="Drone_S_ArmPivot_3" foldedRot="0 -45.431 0" unfoldedRot="0 -90.149 0" startTime="0" endTime="0.6"/>
-        <foldPart node="Drone_S_Blade_3Top0" foldedRot="0 -41.895 0" unfoldedRot="0 -136.895 0" startTime="0.5" endTime="1"/>
-        <foldPart node="Drone_S_Blade_3Top1" foldedRot="0 -51.895 0" unfoldedRot="0 43.105 0" startTime="0.5" endTime="1"/>
-        <foldPart node="Drone_S_ArmPivot_4" foldedRot="0 -134.570 0" unfoldedRot="0 -89.851 0" startTime="0" endTime="0.6"/>
-        <foldPart node="Drone_S_Blade_4Top0" foldedRot="0 51.895 0" unfoldedRot="0 -43.105 0" startTime="0.5" endTime="1"/>
-        <foldPart node="Drone_S_Blade_4Top1" foldedRot="0 41.895 0" unfoldedRot="0 136.895 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_ArmPivot_1" foldedRot="0 44.477 0" unfoldedRot="0 -90.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_1Top0" foldedRot="0 -129.477 0" unfoldedRot="0 -224.477 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_1Top1" foldedRot="0 -139.477 0" unfoldedRot="0 -44.477 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_ArmPivot_2" foldedRot="0 135.523 0" unfoldedRot="0 270.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_2Top0" foldedRot="0 139.477 0" unfoldedRot="0 44.477 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_2Top1" foldedRot="0 129.477 0" unfoldedRot="0 224.477 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_ArmPivot_3" foldedRot="0 127.571 0" unfoldedRot="0 270.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_3Top0" foldedRot="0 -32.571 0" unfoldedRot="0 -127.571 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_3Top1" foldedRot="0 -42.571 0" unfoldedRot="0 52.429 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_ArmPivot_4" foldedRot="0 52.429 0" unfoldedRot="0 -90.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_S_Blade_4Top0" foldedRot="0 42.571 0" unfoldedRot="0 -52.429 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_S_Blade_4Top1" foldedRot="0 32.571 0" unfoldedRot="0 127.571 0" startTime="0.5" endTime="1"/>
         <propSource node="Drone_S_Arm_1"/>
         <propBlade node="Drone_S_Blade_1Top0" tip="Drone_S_Blade_1Top0_Tip"/>
         <propBlade node="Drone_S_Blade_1Top1" tip="Drone_S_Blade_1Top1_Tip"/>
@@ -476,6 +470,12 @@
         <navLight node="Drone_S_Led_3" lightNode="Drone_S_LedLight_3" blink="true"/>
         <navLight node="Drone_S_Led_4" lightNode="Drone_S_LedLight_4" blink="true"/>
         </drone>
+
+        <!-- skenovací „K“ (etapa 0b docs/NAVRH-dron-predmet.md): tělo a rozložení jako S, ale bez nádrže, čerpadla a trysek, s kamerou pod trupem; mise je vždy sken pole,
+             baterie S (batteryVariant); droneMass je bez baterie: 8 + 6,6 kg lítá se stejnou baterií zhruba třikrát déle než S s plnou nádrží -->
+        <!-- skenovací dron K na vleku zanikl (PLAN-airasi-kufr.md D2, je jen v kufru objects/droneCase/scanCase.xml). Blok zůstává jen proto,
+             aby se schoval kořen Drone_K_Root, dokud ho build skript staví do i3d; plošina ho odmítne (getPadsProblem, scan bez portable). -->
+        <drone name="K" prefix="Drone_K_" scan="true"/>
     </sprayDrone>
 
     <foliageBending>
@@ -508,7 +508,7 @@
 
     <!-- Mini: barva bedny (materiál SDT_CrateGreen; polepy značky bez štítku ve dvou sadách: na světlé
          bedně (oranžová, žlutá, šedá, bílá) lockupOnLight, jinak lockupOnDark - {{TONE_*}} vyplní export, design se volí
-         v designConfigurations nahoře); v obchodě je bedna rozložená z půlky (víko a přední stěna do řady se zadní, jedna dlouhá deska s barvou a polepy; SprayDronePad.openInShop) -->
+         v designConfigurations nahoře); v obchodě stojí bedna celá složená (SprayDronePad.openInShop) -->
     <baseColorConfigurations title="$l10n_sdt_cfg_crateColor" useDefaultColors="true" price="0" defaultColorMaterialTemplateName="calibratedPaint">
         <baseColorConfiguration materialTemplateName="ARMATRAC_RED1">
             <objectChange node="brandToneDark_crateH" visibilityActive="true" visibilityInactive="true"/>
@@ -600,340 +600,384 @@
     <i3dMappings>
         <i3dMapping id="sprayDroneTrailerMini_main_component1" node="0>"/>
         <i3dMapping id="sprayDroneTrailerMini_vis" node="0>1"/>
-        <i3dMapping id="attacherJoint" node="0>1|171"/>
-        <i3dMapping id="wheelFrontLeft" node="0>1|217|0"/>
-        <i3dMapping id="wheelFrontRight" node="0>1|217|1"/>
-        <i3dMapping id="jockeyWheel" node="0>1|191"/>
-        <i3dMapping id="chargerLid" node="0>1|182"/>
-        <i3dMapping id="chargerCable" node="0>1|181"/>
-        <i3dMapping id="fillTrigger" node="0>1|187|3"/>
-        <i3dMapping id="exactFillRootNode" node="0>1|187|2"/>
-        <i3dMapping id="concentrateFillRootNode" node="0>1|187|0"/>
-        <i3dMapping id="dieselFillRootNode" node="0>1|187|1"/>
-        <i3dMapping id="mixerMotor" node="0>1|193"/>
-        <i3dMapping id="mixerSoundNode" node="0>1|194"/>
-        <i3dMapping id="toolboxLid" node="0>1|215"/>
-        <i3dMapping id="toolboxActivateNode" node="0>1|205"/>
-        <i3dMapping id="toolboxLid2" node="0>1|216"/>
-        <i3dMapping id="toolboxActivateNode2" node="0>1|206"/>
-        <i3dMapping id="concentrateNeckNode" node="0>1|183"/>
-        <i3dMapping id="dieselNeckNode" node="0>1|184"/>
-        <i3dMapping id="rearLight52_left" node="0>1|202|1"/>
-        <i3dMapping id="rearLight52_right" node="0>1|202|2"/>
-        <i3dMapping id="plateNumberLight03" node="0>1|202|0"/>
-        <i3dMapping id="sideMarker05_left" node="0>1|202|3"/>
-        <i3dMapping id="sideMarker05_right" node="0>1|202|4"/>
-        <i3dMapping id="exitPoint" node="0>1|186|0"/>
-        <i3dMapping id="outdoorCameraTarget" node="0>1|186|1"/>
-        <i3dMapping id="outdoorCamera" node="0>1|186|1|0"/>
-        <i3dMapping id="occlusionAreaStart" node="0>1|204|1"/>
-        <i3dMapping id="occlusionAreaWidth" node="0>1|204|2"/>
-        <i3dMapping id="occlusionAreaHeight" node="0>1|204|0"/>
-        <i3dMapping id="licensePlateBack" node="0>1|192"/>
-        <i3dMapping id="generatorExhaust" node="0>1|190"/>
-        <i3dMapping id="batteryCharger" node="0>1|172"/>
-        <i3dMapping id="padAnchor" node="0>1|195"/>
-        <i3dMapping id="padHingeZ" node="0>1|195|0"/>
-        <i3dMapping id="padHingeH" node="0>1|195|0|5"/>
-        <i3dMapping id="padHingeP" node="0>1|195|0|5|10"/>
-        <i3dMapping id="padHingeEnd" node="0>1|195|0|5|10|9"/>
-        <i3dMapping id="droneCarrier" node="0>1|185"/>
-        <i3dMapping id="padSideL" node="0>1|196"/>
-        <i3dMapping id="padSideR" node="0>1|197"/>
-        <i3dMapping id="fillHoseCoil" node="0>1|189"/>
-        <i3dMapping id="fillHoseStart" node="0>1|188|106"/>
-        <i3dMapping id="fillHoseNozzle" node="0>1|188|8"/>
-        <i3dMapping id="fillHoseParkPos" node="0>1|188|9"/>
-        <i3dMapping id="padLeg1" node="0>1|195|0|5|11"/>
-        <i3dMapping id="padLeg2" node="0>1|195|0|5|12"/>
-        <i3dMapping id="padLeg3" node="0>1|195|0|5|10|10"/>
-        <i3dMapping id="padLeg4" node="0>1|195|0|5|10|11"/>
-        <i3dMapping id="padLeg5" node="0>1|195|0|5|10|9|0"/>
-        <i3dMapping id="padLeg6" node="0>1|195|0|5|10|9|1"/>
-        <i3dMapping id="padLegRod1" node="0>1|195|0|5|11|2"/>
-        <i3dMapping id="padLegRod2" node="0>1|195|0|5|12|2"/>
-        <i3dMapping id="padLegRod3" node="0>1|195|0|5|10|10|2"/>
-        <i3dMapping id="padLegRod4" node="0>1|195|0|5|10|11|2"/>
-        <i3dMapping id="padLegRod5" node="0>1|195|0|5|10|9|0|2"/>
-        <i3dMapping id="padLegRod6" node="0>1|195|0|5|10|9|1|2"/>
-        <i3dMapping id="padLegFoot1" node="0>1|195|0|5|11|1"/>
-        <i3dMapping id="padLegFoot2" node="0>1|195|0|5|12|1"/>
-        <i3dMapping id="padLegFoot3" node="0>1|195|0|5|10|10|1"/>
-        <i3dMapping id="padLegFoot4" node="0>1|195|0|5|10|11|1"/>
-        <i3dMapping id="padLegFoot5" node="0>1|195|0|5|10|9|0|1"/>
-        <i3dMapping id="padLegFoot6" node="0>1|195|0|5|10|9|1|1"/>
-        <i3dMapping id="fillHoseLay1" node="0>1|188|0"/>
-        <i3dMapping id="fillHoseLay2" node="0>1|188|1"/>
-        <i3dMapping id="fillHoseLay3" node="0>1|188|2"/>
-        <i3dMapping id="fillHoseLay4" node="0>1|188|3"/>
-        <i3dMapping id="fillHoseLay5" node="0>1|188|4"/>
-        <i3dMapping id="fillHoseLay6" node="0>1|188|5"/>
-        <i3dMapping id="fillHoseLay7" node="0>1|188|6"/>
-        <i3dMapping id="fillHoseLay8" node="0>1|188|7"/>
-        <i3dMapping id="fillHoseSeg1" node="0>1|188|10"/>
-        <i3dMapping id="fillHoseSeg2" node="0>1|188|21"/>
-        <i3dMapping id="fillHoseSeg3" node="0>1|188|32"/>
-        <i3dMapping id="fillHoseSeg4" node="0>1|188|43"/>
-        <i3dMapping id="fillHoseSeg5" node="0>1|188|54"/>
-        <i3dMapping id="fillHoseSeg6" node="0>1|188|65"/>
-        <i3dMapping id="fillHoseSeg7" node="0>1|188|76"/>
-        <i3dMapping id="fillHoseSeg8" node="0>1|188|87"/>
-        <i3dMapping id="fillHoseSeg9" node="0>1|188|98"/>
-        <i3dMapping id="fillHoseSeg10" node="0>1|188|11"/>
-        <i3dMapping id="fillHoseSeg11" node="0>1|188|12"/>
-        <i3dMapping id="fillHoseSeg12" node="0>1|188|13"/>
-        <i3dMapping id="fillHoseSeg13" node="0>1|188|14"/>
-        <i3dMapping id="fillHoseSeg14" node="0>1|188|15"/>
-        <i3dMapping id="fillHoseSeg15" node="0>1|188|16"/>
-        <i3dMapping id="fillHoseSeg16" node="0>1|188|17"/>
-        <i3dMapping id="fillHoseSeg17" node="0>1|188|18"/>
-        <i3dMapping id="fillHoseSeg18" node="0>1|188|19"/>
-        <i3dMapping id="fillHoseSeg19" node="0>1|188|20"/>
-        <i3dMapping id="fillHoseSeg20" node="0>1|188|22"/>
-        <i3dMapping id="fillHoseSeg21" node="0>1|188|23"/>
-        <i3dMapping id="fillHoseSeg22" node="0>1|188|24"/>
-        <i3dMapping id="fillHoseSeg23" node="0>1|188|25"/>
-        <i3dMapping id="fillHoseSeg24" node="0>1|188|26"/>
-        <i3dMapping id="fillHoseSeg25" node="0>1|188|27"/>
-        <i3dMapping id="fillHoseSeg26" node="0>1|188|28"/>
-        <i3dMapping id="fillHoseSeg27" node="0>1|188|29"/>
-        <i3dMapping id="fillHoseSeg28" node="0>1|188|30"/>
-        <i3dMapping id="fillHoseSeg29" node="0>1|188|31"/>
-        <i3dMapping id="fillHoseSeg30" node="0>1|188|33"/>
-        <i3dMapping id="fillHoseSeg31" node="0>1|188|34"/>
-        <i3dMapping id="fillHoseSeg32" node="0>1|188|35"/>
-        <i3dMapping id="fillHoseSeg33" node="0>1|188|36"/>
-        <i3dMapping id="fillHoseSeg34" node="0>1|188|37"/>
-        <i3dMapping id="fillHoseSeg35" node="0>1|188|38"/>
-        <i3dMapping id="fillHoseSeg36" node="0>1|188|39"/>
-        <i3dMapping id="fillHoseSeg37" node="0>1|188|40"/>
-        <i3dMapping id="fillHoseSeg38" node="0>1|188|41"/>
-        <i3dMapping id="fillHoseSeg39" node="0>1|188|42"/>
-        <i3dMapping id="fillHoseSeg40" node="0>1|188|44"/>
-        <i3dMapping id="fillHoseSeg41" node="0>1|188|45"/>
-        <i3dMapping id="fillHoseSeg42" node="0>1|188|46"/>
-        <i3dMapping id="fillHoseSeg43" node="0>1|188|47"/>
-        <i3dMapping id="fillHoseSeg44" node="0>1|188|48"/>
-        <i3dMapping id="fillHoseSeg45" node="0>1|188|49"/>
-        <i3dMapping id="fillHoseSeg46" node="0>1|188|50"/>
-        <i3dMapping id="fillHoseSeg47" node="0>1|188|51"/>
-        <i3dMapping id="fillHoseSeg48" node="0>1|188|52"/>
-        <i3dMapping id="fillHoseSeg49" node="0>1|188|53"/>
-        <i3dMapping id="fillHoseSeg50" node="0>1|188|55"/>
-        <i3dMapping id="fillHoseSeg51" node="0>1|188|56"/>
-        <i3dMapping id="fillHoseSeg52" node="0>1|188|57"/>
-        <i3dMapping id="fillHoseSeg53" node="0>1|188|58"/>
-        <i3dMapping id="fillHoseSeg54" node="0>1|188|59"/>
-        <i3dMapping id="fillHoseSeg55" node="0>1|188|60"/>
-        <i3dMapping id="fillHoseSeg56" node="0>1|188|61"/>
-        <i3dMapping id="fillHoseSeg57" node="0>1|188|62"/>
-        <i3dMapping id="fillHoseSeg58" node="0>1|188|63"/>
-        <i3dMapping id="fillHoseSeg59" node="0>1|188|64"/>
-        <i3dMapping id="fillHoseSeg60" node="0>1|188|66"/>
-        <i3dMapping id="fillHoseSeg61" node="0>1|188|67"/>
-        <i3dMapping id="fillHoseSeg62" node="0>1|188|68"/>
-        <i3dMapping id="fillHoseSeg63" node="0>1|188|69"/>
-        <i3dMapping id="fillHoseSeg64" node="0>1|188|70"/>
-        <i3dMapping id="fillHoseSeg65" node="0>1|188|71"/>
-        <i3dMapping id="fillHoseSeg66" node="0>1|188|72"/>
-        <i3dMapping id="fillHoseSeg67" node="0>1|188|73"/>
-        <i3dMapping id="fillHoseSeg68" node="0>1|188|74"/>
-        <i3dMapping id="fillHoseSeg69" node="0>1|188|75"/>
-        <i3dMapping id="fillHoseSeg70" node="0>1|188|77"/>
-        <i3dMapping id="fillHoseSeg71" node="0>1|188|78"/>
-        <i3dMapping id="fillHoseSeg72" node="0>1|188|79"/>
-        <i3dMapping id="fillHoseSeg73" node="0>1|188|80"/>
-        <i3dMapping id="fillHoseSeg74" node="0>1|188|81"/>
-        <i3dMapping id="fillHoseSeg75" node="0>1|188|82"/>
-        <i3dMapping id="fillHoseSeg76" node="0>1|188|83"/>
-        <i3dMapping id="fillHoseSeg77" node="0>1|188|84"/>
-        <i3dMapping id="fillHoseSeg78" node="0>1|188|85"/>
-        <i3dMapping id="fillHoseSeg79" node="0>1|188|86"/>
-        <i3dMapping id="fillHoseSeg80" node="0>1|188|88"/>
-        <i3dMapping id="fillHoseSeg81" node="0>1|188|89"/>
-        <i3dMapping id="fillHoseSeg82" node="0>1|188|90"/>
-        <i3dMapping id="fillHoseSeg83" node="0>1|188|91"/>
-        <i3dMapping id="fillHoseSeg84" node="0>1|188|92"/>
-        <i3dMapping id="fillHoseSeg85" node="0>1|188|93"/>
-        <i3dMapping id="fillHoseSeg86" node="0>1|188|94"/>
-        <i3dMapping id="fillHoseSeg87" node="0>1|188|95"/>
-        <i3dMapping id="fillHoseSeg88" node="0>1|188|96"/>
-        <i3dMapping id="fillHoseSeg89" node="0>1|188|97"/>
-        <i3dMapping id="fillHoseSeg90" node="0>1|188|99"/>
-        <i3dMapping id="fillHoseSeg91" node="0>1|188|100"/>
-        <i3dMapping id="fillHoseSeg92" node="0>1|188|101"/>
-        <i3dMapping id="fillHoseSeg93" node="0>1|188|102"/>
-        <i3dMapping id="fillHoseSeg94" node="0>1|188|103"/>
-        <i3dMapping id="fillHoseSeg95" node="0>1|188|104"/>
-        <i3dMapping id="fillHoseSeg96" node="0>1|188|105"/>
-        <i3dMapping id="toolboxCanister1" node="0>1|207"/>
-        <i3dMapping id="toolboxCanister2" node="0>1|208"/>
-        <i3dMapping id="toolboxCanister3" node="0>1|209"/>
-        <i3dMapping id="toolboxCanister4" node="0>1|210"/>
-        <i3dMapping id="toolboxCanister5" node="0>1|211"/>
-        <i3dMapping id="toolboxCanister6" node="0>1|212"/>
-        <i3dMapping id="toolboxCanister7" node="0>1|213"/>
-        <i3dMapping id="toolboxCanister8" node="0>1|214"/>
-        <i3dMapping id="battery1" node="0>1|172|46|0"/>
-        <i3dMapping id="battery2" node="0>1|172|47|0"/>
-        <i3dMapping id="battery3" node="0>1|172|48|0"/>
-        <i3dMapping id="battery4" node="0>1|172|49|0"/>
-        <i3dMapping id="batterySlotDeck1" node="0>1|172|46"/>
-        <i3dMapping id="batterySlotDeck2" node="0>1|172|47"/>
-        <i3dMapping id="batterySlotDeck3" node="0>1|172|48"/>
-        <i3dMapping id="batterySlotDeck4" node="0>1|172|49"/>
-        <i3dMapping id="battery1S" node="0>1|172|46|0|0"/>
-        <i3dMapping id="battery2S" node="0>1|172|47|0|0"/>
-        <i3dMapping id="battery3S" node="0>1|172|48|0|0"/>
-        <i3dMapping id="battery4S" node="0>1|172|49|0|0"/>
-        <i3dMapping id="Charger_Led_1_0" node="0>1|172|12"/>
-        <i3dMapping id="Charger_Led_1_1" node="0>1|172|13"/>
-        <i3dMapping id="Charger_Led_1_2" node="0>1|172|14"/>
-        <i3dMapping id="Charger_Led_1_3" node="0>1|172|15"/>
-        <i3dMapping id="Charger_Led_1_4" node="0>1|172|16"/>
-        <i3dMapping id="Charger_Led_2_0" node="0>1|172|17"/>
-        <i3dMapping id="Charger_Led_2_1" node="0>1|172|18"/>
-        <i3dMapping id="Charger_Led_2_2" node="0>1|172|19"/>
-        <i3dMapping id="Charger_Led_2_3" node="0>1|172|20"/>
-        <i3dMapping id="Charger_Led_2_4" node="0>1|172|21"/>
-        <i3dMapping id="Charger_Led_3_0" node="0>1|172|22"/>
-        <i3dMapping id="Charger_Led_3_1" node="0>1|172|23"/>
-        <i3dMapping id="Charger_Led_3_2" node="0>1|172|24"/>
-        <i3dMapping id="Charger_Led_3_3" node="0>1|172|25"/>
-        <i3dMapping id="Charger_Led_3_4" node="0>1|172|26"/>
-        <i3dMapping id="Charger_Led_4_0" node="0>1|172|27"/>
-        <i3dMapping id="Charger_Led_4_1" node="0>1|172|28"/>
-        <i3dMapping id="Charger_Led_4_2" node="0>1|172|29"/>
-        <i3dMapping id="Charger_Led_4_3" node="0>1|172|30"/>
-        <i3dMapping id="Charger_Led_4_4" node="0>1|172|31"/>
-        <i3dMapping id="relaySlot1" node="0>1|201"/>
-        <i3dMapping id="relaySlot1_pole" node="0>1|201|0"/>
-        <i3dMapping id="plannerScreenNode" node="0>1|199"/>
-        <i3dMapping id="plannerScreenOn" node="0>1|200"/>
-        <i3dMapping id="Drone_S_Root" node="0>1|185|0"/>
-        <i3dMapping id="Drone_S_Tilt" node="0>1|185|0|0"/>
-        <i3dMapping id="Drone_S_ArmPivot_1" node="0>1|185|0|0|0"/>
-        <i3dMapping id="Drone_S_ArmPivot_2" node="0>1|185|0|0|1"/>
-        <i3dMapping id="Drone_S_ArmPivot_3" node="0>1|185|0|0|2"/>
-        <i3dMapping id="Drone_S_ArmPivot_4" node="0>1|185|0|0|3"/>
-        <i3dMapping id="Drone_S_Rotor_1Top" node="0>1|185|0|0|0|4"/>
-        <i3dMapping id="Drone_S_Rotor_2Top" node="0>1|185|0|0|1|4"/>
-        <i3dMapping id="Drone_S_Rotor_3Top" node="0>1|185|0|0|2|5"/>
-        <i3dMapping id="Drone_S_Rotor_4Top" node="0>1|185|0|0|3|5"/>
-        <i3dMapping id="Drone_S_Blade_1Top0" node="0>1|185|0|0|0|4|0"/>
-        <i3dMapping id="Drone_S_Blade_1Top1" node="0>1|185|0|0|0|4|1"/>
-        <i3dMapping id="Drone_S_Blade_2Top0" node="0>1|185|0|0|1|4|0"/>
-        <i3dMapping id="Drone_S_Blade_2Top1" node="0>1|185|0|0|1|4|1"/>
-        <i3dMapping id="Drone_S_Blade_3Top0" node="0>1|185|0|0|2|5|0"/>
-        <i3dMapping id="Drone_S_Blade_3Top1" node="0>1|185|0|0|2|5|1"/>
-        <i3dMapping id="Drone_S_Blade_4Top0" node="0>1|185|0|0|3|5|0"/>
-        <i3dMapping id="Drone_S_Blade_4Top1" node="0>1|185|0|0|3|5|1"/>
-        <i3dMapping id="Drone_S_Blade_1Top0_Tip" node="0>1|185|0|0|0|4|0|0"/>
-        <i3dMapping id="Drone_S_Blade_1Top1_Tip" node="0>1|185|0|0|0|4|1|0"/>
-        <i3dMapping id="Drone_S_Blade_2Top0_Tip" node="0>1|185|0|0|1|4|0|0"/>
-        <i3dMapping id="Drone_S_Blade_2Top1_Tip" node="0>1|185|0|0|1|4|1|0"/>
-        <i3dMapping id="Drone_S_Blade_3Top0_Tip" node="0>1|185|0|0|2|5|0|0"/>
-        <i3dMapping id="Drone_S_Blade_3Top1_Tip" node="0>1|185|0|0|2|5|1|0"/>
-        <i3dMapping id="Drone_S_Blade_4Top0_Tip" node="0>1|185|0|0|3|5|0|0"/>
-        <i3dMapping id="Drone_S_Blade_4Top1_Tip" node="0>1|185|0|0|3|5|1|0"/>
-        <i3dMapping id="Drone_S_Arm_1" node="0>1|185|0|0|0|0"/>
-        <i3dMapping id="Drone_S_Led_1" node="0>1|185|0|0|0|2"/>
-        <i3dMapping id="Drone_S_LedLight_1" node="0>1|185|0|0|0|2|0"/>
-        <i3dMapping id="Drone_S_Led_2" node="0>1|185|0|0|1|2"/>
-        <i3dMapping id="Drone_S_LedLight_2" node="0>1|185|0|0|1|2|0"/>
-        <i3dMapping id="Drone_S_Led_3" node="0>1|185|0|0|2|2"/>
-        <i3dMapping id="Drone_S_LedLight_3" node="0>1|185|0|0|2|2|0"/>
-        <i3dMapping id="Drone_S_Led_4" node="0>1|185|0|0|3|2"/>
-        <i3dMapping id="Drone_S_LedLight_4" node="0>1|185|0|0|3|2|0"/>
-        <i3dMapping id="Drone_S_FillPort" node="0>1|185|0|0|10"/>
-        <i3dMapping id="Drone_S_BatterySlot" node="0>1|185|0|0|6"/>
-        <i3dMapping id="Drone_S_SprayNozzle_1" node="0>1|185|0|0|2|6"/>
-        <i3dMapping id="Drone_S_SprayNozzle_2" node="0>1|185|0|0|3|6"/>
-        <i3dMapping id="brandToneDark_crateH" node="0>1|195|0|5|7"/>
-        <i3dMapping id="brandToneDark_crateL" node="0>1|196|16"/>
-        <i3dMapping id="brandToneDark_crateP" node="0>1|195|0|5|10|2"/>
-        <i3dMapping id="brandToneDark_crateR" node="0>1|197|16"/>
-        <i3dMapping id="brandToneDark_crateZ" node="0>1|195|0|2"/>
-        <i3dMapping id="brandToneLight_crateH" node="0>1|195|0|5|8"/>
-        <i3dMapping id="brandToneLight_crateL" node="0>1|196|17"/>
-        <i3dMapping id="brandToneLight_crateP" node="0>1|195|0|5|10|3"/>
-        <i3dMapping id="brandToneLight_crateR" node="0>1|197|17"/>
-        <i3dMapping id="brandToneLight_crateZ" node="0>1|195|0|3"/>
-        <i3dMapping id="brand_BZUK_Drone_S_TankF" node="0>1|185|0|0|29|0"/>
-        <i3dMapping id="brand_BZUK_Drone_S_TankL" node="0>1|185|0|0|29|1"/>
-        <i3dMapping id="brand_BZUK_Drone_S_TankR" node="0>1|185|0|0|29|2"/>
-        <i3dMapping id="brand_BZUK_crateHDark" node="0>1|195|0|5|7|0"/>
-        <i3dMapping id="brand_BZUK_crateHLight" node="0>1|195|0|5|8|0"/>
-        <i3dMapping id="brand_BZUK_crateInL" node="0>1|196|18"/>
-        <i3dMapping id="brand_BZUK_crateInR" node="0>1|197|18"/>
-        <i3dMapping id="brand_BZUK_crateLDark" node="0>1|196|16|0"/>
-        <i3dMapping id="brand_BZUK_crateLLight" node="0>1|196|17|0"/>
-        <i3dMapping id="brand_BZUK_cratePDark" node="0>1|195|0|5|10|2|0"/>
-        <i3dMapping id="brand_BZUK_cratePLight" node="0>1|195|0|5|10|3|0"/>
-        <i3dMapping id="brand_BZUK_crateRDark" node="0>1|197|16|0"/>
-        <i3dMapping id="brand_BZUK_crateRLight" node="0>1|197|17|0"/>
-        <i3dMapping id="brand_BZUK_crateZDark" node="0>1|195|0|2|0"/>
-        <i3dMapping id="brand_BZUK_crateZLight" node="0>1|195|0|3|0"/>
-        <i3dMapping id="brand_BZUK_padDeck" node="0>1|195|0|5|10|4"/>
-        <i3dMapping id="brand_BZUK_planner" node="0>1|200|0"/>
-        <i3dMapping id="brand_BZUK_toolbox" node="0>1|173"/>
-        <i3dMapping id="brand_BZUK_toolbox2" node="0>1|174"/>
-        <i3dMapping id="brand_KAPKA_Drone_S_TankF" node="0>1|185|0|0|29|3"/>
-        <i3dMapping id="brand_KAPKA_Drone_S_TankL" node="0>1|185|0|0|29|4"/>
-        <i3dMapping id="brand_KAPKA_Drone_S_TankR" node="0>1|185|0|0|29|5"/>
-        <i3dMapping id="brand_KAPKA_crateHDark" node="0>1|195|0|5|7|1"/>
-        <i3dMapping id="brand_KAPKA_crateHLight" node="0>1|195|0|5|8|1"/>
-        <i3dMapping id="brand_KAPKA_crateInL" node="0>1|196|19"/>
-        <i3dMapping id="brand_KAPKA_crateInR" node="0>1|197|19"/>
-        <i3dMapping id="brand_KAPKA_crateLDark" node="0>1|196|16|1"/>
-        <i3dMapping id="brand_KAPKA_crateLLight" node="0>1|196|17|1"/>
-        <i3dMapping id="brand_KAPKA_cratePDark" node="0>1|195|0|5|10|2|1"/>
-        <i3dMapping id="brand_KAPKA_cratePLight" node="0>1|195|0|5|10|3|1"/>
-        <i3dMapping id="brand_KAPKA_crateRDark" node="0>1|197|16|1"/>
-        <i3dMapping id="brand_KAPKA_crateRLight" node="0>1|197|17|1"/>
-        <i3dMapping id="brand_KAPKA_crateZDark" node="0>1|195|0|2|1"/>
-        <i3dMapping id="brand_KAPKA_crateZLight" node="0>1|195|0|3|1"/>
-        <i3dMapping id="brand_KAPKA_padDeck" node="0>1|195|0|5|10|5"/>
-        <i3dMapping id="brand_KAPKA_planner" node="0>1|200|1"/>
-        <i3dMapping id="brand_KAPKA_toolbox" node="0>1|175"/>
-        <i3dMapping id="brand_KAPKA_toolbox2" node="0>1|176"/>
-        <i3dMapping id="brand_ROSA_Drone_S_TankF" node="0>1|185|0|0|29|6"/>
-        <i3dMapping id="brand_ROSA_Drone_S_TankL" node="0>1|185|0|0|29|7"/>
-        <i3dMapping id="brand_ROSA_Drone_S_TankR" node="0>1|185|0|0|29|8"/>
-        <i3dMapping id="brand_ROSA_crateHDark" node="0>1|195|0|5|7|2"/>
-        <i3dMapping id="brand_ROSA_crateHLight" node="0>1|195|0|5|8|2"/>
-        <i3dMapping id="brand_ROSA_crateInL" node="0>1|196|20"/>
-        <i3dMapping id="brand_ROSA_crateInR" node="0>1|197|20"/>
-        <i3dMapping id="brand_ROSA_crateLDark" node="0>1|196|16|2"/>
-        <i3dMapping id="brand_ROSA_crateLLight" node="0>1|196|17|2"/>
-        <i3dMapping id="brand_ROSA_cratePDark" node="0>1|195|0|5|10|2|2"/>
-        <i3dMapping id="brand_ROSA_cratePLight" node="0>1|195|0|5|10|3|2"/>
-        <i3dMapping id="brand_ROSA_crateRDark" node="0>1|197|16|2"/>
-        <i3dMapping id="brand_ROSA_crateRLight" node="0>1|197|17|2"/>
-        <i3dMapping id="brand_ROSA_crateZDark" node="0>1|195|0|2|2"/>
-        <i3dMapping id="brand_ROSA_crateZLight" node="0>1|195|0|3|2"/>
-        <i3dMapping id="brand_ROSA_padDeck" node="0>1|195|0|5|10|6"/>
-        <i3dMapping id="brand_ROSA_planner" node="0>1|200|2"/>
-        <i3dMapping id="brand_ROSA_toolbox" node="0>1|177"/>
-        <i3dMapping id="brand_ROSA_toolbox2" node="0>1|178"/>
-        <i3dMapping id="brand_STRATUS_Drone_S_TankF" node="0>1|185|0|0|29|9"/>
-        <i3dMapping id="brand_STRATUS_Drone_S_TankL" node="0>1|185|0|0|29|10"/>
-        <i3dMapping id="brand_STRATUS_Drone_S_TankR" node="0>1|185|0|0|29|11"/>
-        <i3dMapping id="brand_STRATUS_crateHDark" node="0>1|195|0|5|7|3"/>
-        <i3dMapping id="brand_STRATUS_crateHLight" node="0>1|195|0|5|8|3"/>
-        <i3dMapping id="brand_STRATUS_crateInL" node="0>1|196|21"/>
-        <i3dMapping id="brand_STRATUS_crateInR" node="0>1|197|21"/>
-        <i3dMapping id="brand_STRATUS_crateLDark" node="0>1|196|16|3"/>
-        <i3dMapping id="brand_STRATUS_crateLLight" node="0>1|196|17|3"/>
-        <i3dMapping id="brand_STRATUS_cratePDark" node="0>1|195|0|5|10|2|3"/>
-        <i3dMapping id="brand_STRATUS_cratePLight" node="0>1|195|0|5|10|3|3"/>
-        <i3dMapping id="brand_STRATUS_crateRDark" node="0>1|197|16|3"/>
-        <i3dMapping id="brand_STRATUS_crateRLight" node="0>1|197|17|3"/>
-        <i3dMapping id="brand_STRATUS_crateZDark" node="0>1|195|0|2|3"/>
-        <i3dMapping id="brand_STRATUS_crateZLight" node="0>1|195|0|3|3"/>
-        <i3dMapping id="brand_STRATUS_padDeck" node="0>1|195|0|5|10|7"/>
-        <i3dMapping id="brand_STRATUS_planner" node="0>1|200|3"/>
-        <i3dMapping id="brand_STRATUS_toolbox" node="0>1|179"/>
-        <i3dMapping id="brand_STRATUS_toolbox2" node="0>1|180"/>
+        <i3dMapping id="attacherJoint" node="0>1|230"/>
+        <i3dMapping id="deckEdgeSteel" node="0>1|243"/>
+        <i3dMapping id="deckEdgeWood" node="0>1|244"/>
+        <i3dMapping id="wheelFrontLeft" node="0>1|278|0"/>
+        <i3dMapping id="wheelFrontRight" node="0>1|278|1"/>
+        <i3dMapping id="jockeyWheel" node="0>1|252"/>
+        <i3dMapping id="chargerLid" node="0>1|241"/>
+        <i3dMapping id="chargerCable" node="0>1|240"/>
+        <i3dMapping id="fillTrigger" node="0>1|248|3"/>
+        <i3dMapping id="exactFillRootNode" node="0>1|248|2"/>
+        <i3dMapping id="concentrateFillRootNode" node="0>1|248|0"/>
+        <i3dMapping id="dieselFillRootNode" node="0>1|248|1"/>
+        <i3dMapping id="mixerMotor" node="0>1|254"/>
+        <i3dMapping id="mixerSoundNode" node="0>1|255"/>
+        <i3dMapping id="toolboxLid" node="0>1|276"/>
+        <i3dMapping id="toolboxActivateNode" node="0>1|266"/>
+        <i3dMapping id="toolboxLid2" node="0>1|277"/>
+        <i3dMapping id="toolboxActivateNode2" node="0>1|267"/>
+        <i3dMapping id="concentrateNeckNode" node="0>1|242"/>
+        <i3dMapping id="dieselNeckNode" node="0>1|245"/>
+        <i3dMapping id="rearLight52_left" node="0>1|263|1"/>
+        <i3dMapping id="rearLight52_right" node="0>1|263|2"/>
+        <i3dMapping id="plateNumberLight03" node="0>1|263|0"/>
+        <i3dMapping id="sideMarker05_left" node="0>1|263|3"/>
+        <i3dMapping id="sideMarker05_right" node="0>1|263|4"/>
+        <i3dMapping id="padRearLights" node="0>1|256|0|5|10|9|2"/>
+        <i3dMapping id="padRearLight52_left" node="0>1|256|0|5|10|9|2|5"/>
+        <i3dMapping id="padRearLight52_right" node="0>1|256|0|5|10|9|2|6"/>
+        <i3dMapping id="padPlateNumberLight03" node="0>1|256|0|5|10|9|2|4"/>
+        <i3dMapping id="licensePlateBackPad" node="0>1|256|0|5|10|9|2|3"/>
+        <i3dMapping id="exitPoint" node="0>1|247|0"/>
+        <i3dMapping id="outdoorCameraTarget" node="0>1|247|1"/>
+        <i3dMapping id="outdoorCamera" node="0>1|247|1|0"/>
+        <i3dMapping id="occlusionAreaStart" node="0>1|265|1"/>
+        <i3dMapping id="occlusionAreaWidth" node="0>1|265|2"/>
+        <i3dMapping id="occlusionAreaHeight" node="0>1|265|0"/>
+        <i3dMapping id="licensePlateBack" node="0>1|253"/>
+        <i3dMapping id="generatorExhaust" node="0>1|251"/>
+        <i3dMapping id="batteryCharger" node="0>1|231"/>
+        <i3dMapping id="padAnchor" node="0>1|256"/>
+        <i3dMapping id="padHingeZ" node="0>1|256|0"/>
+        <i3dMapping id="padHingeH" node="0>1|256|0|5"/>
+        <i3dMapping id="padHingeP" node="0>1|256|0|5|10"/>
+        <i3dMapping id="padHingeEnd" node="0>1|256|0|5|10|9"/>
+        <i3dMapping id="droneCarrier" node="0>1|246"/>
+        <i3dMapping id="padSideL" node="0>1|257"/>
+        <i3dMapping id="padSideR" node="0>1|258"/>
+        <i3dMapping id="fillHoseCoil" node="0>1|250"/>
+        <i3dMapping id="fillHoseStart" node="0>1|249|106"/>
+        <i3dMapping id="fillHoseNozzle" node="0>1|249|8"/>
+        <i3dMapping id="fillHoseParkPos" node="0>1|249|9"/>
+        <i3dMapping id="padLeg1" node="0>1|256|0|5|11"/>
+        <i3dMapping id="padLeg2" node="0>1|256|0|5|12"/>
+        <i3dMapping id="padLeg3" node="0>1|256|0|5|10|10"/>
+        <i3dMapping id="padLeg4" node="0>1|256|0|5|10|11"/>
+        <i3dMapping id="padLeg5" node="0>1|256|0|5|10|9|0"/>
+        <i3dMapping id="padLeg6" node="0>1|256|0|5|10|9|1"/>
+        <i3dMapping id="padLegRod1" node="0>1|256|0|5|11|2"/>
+        <i3dMapping id="padLegRod2" node="0>1|256|0|5|12|2"/>
+        <i3dMapping id="padLegRod3" node="0>1|256|0|5|10|10|2"/>
+        <i3dMapping id="padLegRod4" node="0>1|256|0|5|10|11|2"/>
+        <i3dMapping id="padLegRod5" node="0>1|256|0|5|10|9|0|2"/>
+        <i3dMapping id="padLegRod6" node="0>1|256|0|5|10|9|1|2"/>
+        <i3dMapping id="padLegFoot1" node="0>1|256|0|5|11|1"/>
+        <i3dMapping id="padLegFoot2" node="0>1|256|0|5|12|1"/>
+        <i3dMapping id="padLegFoot3" node="0>1|256|0|5|10|10|1"/>
+        <i3dMapping id="padLegFoot4" node="0>1|256|0|5|10|11|1"/>
+        <i3dMapping id="padLegFoot5" node="0>1|256|0|5|10|9|0|1"/>
+        <i3dMapping id="padLegFoot6" node="0>1|256|0|5|10|9|1|1"/>
+        <i3dMapping id="fillHoseLay1" node="0>1|249|0"/>
+        <i3dMapping id="fillHoseLay2" node="0>1|249|1"/>
+        <i3dMapping id="fillHoseLay3" node="0>1|249|2"/>
+        <i3dMapping id="fillHoseLay4" node="0>1|249|3"/>
+        <i3dMapping id="fillHoseLay5" node="0>1|249|4"/>
+        <i3dMapping id="fillHoseLay6" node="0>1|249|5"/>
+        <i3dMapping id="fillHoseLay7" node="0>1|249|6"/>
+        <i3dMapping id="fillHoseLay8" node="0>1|249|7"/>
+        <i3dMapping id="fillHoseSeg1" node="0>1|249|10"/>
+        <i3dMapping id="fillHoseSeg2" node="0>1|249|21"/>
+        <i3dMapping id="fillHoseSeg3" node="0>1|249|32"/>
+        <i3dMapping id="fillHoseSeg4" node="0>1|249|43"/>
+        <i3dMapping id="fillHoseSeg5" node="0>1|249|54"/>
+        <i3dMapping id="fillHoseSeg6" node="0>1|249|65"/>
+        <i3dMapping id="fillHoseSeg7" node="0>1|249|76"/>
+        <i3dMapping id="fillHoseSeg8" node="0>1|249|87"/>
+        <i3dMapping id="fillHoseSeg9" node="0>1|249|98"/>
+        <i3dMapping id="fillHoseSeg10" node="0>1|249|11"/>
+        <i3dMapping id="fillHoseSeg11" node="0>1|249|12"/>
+        <i3dMapping id="fillHoseSeg12" node="0>1|249|13"/>
+        <i3dMapping id="fillHoseSeg13" node="0>1|249|14"/>
+        <i3dMapping id="fillHoseSeg14" node="0>1|249|15"/>
+        <i3dMapping id="fillHoseSeg15" node="0>1|249|16"/>
+        <i3dMapping id="fillHoseSeg16" node="0>1|249|17"/>
+        <i3dMapping id="fillHoseSeg17" node="0>1|249|18"/>
+        <i3dMapping id="fillHoseSeg18" node="0>1|249|19"/>
+        <i3dMapping id="fillHoseSeg19" node="0>1|249|20"/>
+        <i3dMapping id="fillHoseSeg20" node="0>1|249|22"/>
+        <i3dMapping id="fillHoseSeg21" node="0>1|249|23"/>
+        <i3dMapping id="fillHoseSeg22" node="0>1|249|24"/>
+        <i3dMapping id="fillHoseSeg23" node="0>1|249|25"/>
+        <i3dMapping id="fillHoseSeg24" node="0>1|249|26"/>
+        <i3dMapping id="fillHoseSeg25" node="0>1|249|27"/>
+        <i3dMapping id="fillHoseSeg26" node="0>1|249|28"/>
+        <i3dMapping id="fillHoseSeg27" node="0>1|249|29"/>
+        <i3dMapping id="fillHoseSeg28" node="0>1|249|30"/>
+        <i3dMapping id="fillHoseSeg29" node="0>1|249|31"/>
+        <i3dMapping id="fillHoseSeg30" node="0>1|249|33"/>
+        <i3dMapping id="fillHoseSeg31" node="0>1|249|34"/>
+        <i3dMapping id="fillHoseSeg32" node="0>1|249|35"/>
+        <i3dMapping id="fillHoseSeg33" node="0>1|249|36"/>
+        <i3dMapping id="fillHoseSeg34" node="0>1|249|37"/>
+        <i3dMapping id="fillHoseSeg35" node="0>1|249|38"/>
+        <i3dMapping id="fillHoseSeg36" node="0>1|249|39"/>
+        <i3dMapping id="fillHoseSeg37" node="0>1|249|40"/>
+        <i3dMapping id="fillHoseSeg38" node="0>1|249|41"/>
+        <i3dMapping id="fillHoseSeg39" node="0>1|249|42"/>
+        <i3dMapping id="fillHoseSeg40" node="0>1|249|44"/>
+        <i3dMapping id="fillHoseSeg41" node="0>1|249|45"/>
+        <i3dMapping id="fillHoseSeg42" node="0>1|249|46"/>
+        <i3dMapping id="fillHoseSeg43" node="0>1|249|47"/>
+        <i3dMapping id="fillHoseSeg44" node="0>1|249|48"/>
+        <i3dMapping id="fillHoseSeg45" node="0>1|249|49"/>
+        <i3dMapping id="fillHoseSeg46" node="0>1|249|50"/>
+        <i3dMapping id="fillHoseSeg47" node="0>1|249|51"/>
+        <i3dMapping id="fillHoseSeg48" node="0>1|249|52"/>
+        <i3dMapping id="fillHoseSeg49" node="0>1|249|53"/>
+        <i3dMapping id="fillHoseSeg50" node="0>1|249|55"/>
+        <i3dMapping id="fillHoseSeg51" node="0>1|249|56"/>
+        <i3dMapping id="fillHoseSeg52" node="0>1|249|57"/>
+        <i3dMapping id="fillHoseSeg53" node="0>1|249|58"/>
+        <i3dMapping id="fillHoseSeg54" node="0>1|249|59"/>
+        <i3dMapping id="fillHoseSeg55" node="0>1|249|60"/>
+        <i3dMapping id="fillHoseSeg56" node="0>1|249|61"/>
+        <i3dMapping id="fillHoseSeg57" node="0>1|249|62"/>
+        <i3dMapping id="fillHoseSeg58" node="0>1|249|63"/>
+        <i3dMapping id="fillHoseSeg59" node="0>1|249|64"/>
+        <i3dMapping id="fillHoseSeg60" node="0>1|249|66"/>
+        <i3dMapping id="fillHoseSeg61" node="0>1|249|67"/>
+        <i3dMapping id="fillHoseSeg62" node="0>1|249|68"/>
+        <i3dMapping id="fillHoseSeg63" node="0>1|249|69"/>
+        <i3dMapping id="fillHoseSeg64" node="0>1|249|70"/>
+        <i3dMapping id="fillHoseSeg65" node="0>1|249|71"/>
+        <i3dMapping id="fillHoseSeg66" node="0>1|249|72"/>
+        <i3dMapping id="fillHoseSeg67" node="0>1|249|73"/>
+        <i3dMapping id="fillHoseSeg68" node="0>1|249|74"/>
+        <i3dMapping id="fillHoseSeg69" node="0>1|249|75"/>
+        <i3dMapping id="fillHoseSeg70" node="0>1|249|77"/>
+        <i3dMapping id="fillHoseSeg71" node="0>1|249|78"/>
+        <i3dMapping id="fillHoseSeg72" node="0>1|249|79"/>
+        <i3dMapping id="fillHoseSeg73" node="0>1|249|80"/>
+        <i3dMapping id="fillHoseSeg74" node="0>1|249|81"/>
+        <i3dMapping id="fillHoseSeg75" node="0>1|249|82"/>
+        <i3dMapping id="fillHoseSeg76" node="0>1|249|83"/>
+        <i3dMapping id="fillHoseSeg77" node="0>1|249|84"/>
+        <i3dMapping id="fillHoseSeg78" node="0>1|249|85"/>
+        <i3dMapping id="fillHoseSeg79" node="0>1|249|86"/>
+        <i3dMapping id="fillHoseSeg80" node="0>1|249|88"/>
+        <i3dMapping id="fillHoseSeg81" node="0>1|249|89"/>
+        <i3dMapping id="fillHoseSeg82" node="0>1|249|90"/>
+        <i3dMapping id="fillHoseSeg83" node="0>1|249|91"/>
+        <i3dMapping id="fillHoseSeg84" node="0>1|249|92"/>
+        <i3dMapping id="fillHoseSeg85" node="0>1|249|93"/>
+        <i3dMapping id="fillHoseSeg86" node="0>1|249|94"/>
+        <i3dMapping id="fillHoseSeg87" node="0>1|249|95"/>
+        <i3dMapping id="fillHoseSeg88" node="0>1|249|96"/>
+        <i3dMapping id="fillHoseSeg89" node="0>1|249|97"/>
+        <i3dMapping id="fillHoseSeg90" node="0>1|249|99"/>
+        <i3dMapping id="fillHoseSeg91" node="0>1|249|100"/>
+        <i3dMapping id="fillHoseSeg92" node="0>1|249|101"/>
+        <i3dMapping id="fillHoseSeg93" node="0>1|249|102"/>
+        <i3dMapping id="fillHoseSeg94" node="0>1|249|103"/>
+        <i3dMapping id="fillHoseSeg95" node="0>1|249|104"/>
+        <i3dMapping id="fillHoseSeg96" node="0>1|249|105"/>
+        <i3dMapping id="toolboxCanister1" node="0>1|268"/>
+        <i3dMapping id="toolboxCanister2" node="0>1|269"/>
+        <i3dMapping id="toolboxCanister3" node="0>1|270"/>
+        <i3dMapping id="toolboxCanister4" node="0>1|271"/>
+        <i3dMapping id="toolboxCanister5" node="0>1|272"/>
+        <i3dMapping id="toolboxCanister6" node="0>1|273"/>
+        <i3dMapping id="toolboxCanister7" node="0>1|274"/>
+        <i3dMapping id="toolboxCanister8" node="0>1|275"/>
+        <i3dMapping id="battery1" node="0>1|231|46|0"/>
+        <i3dMapping id="battery2" node="0>1|231|47|0"/>
+        <i3dMapping id="battery3" node="0>1|231|48|0"/>
+        <i3dMapping id="battery4" node="0>1|231|49|0"/>
+        <i3dMapping id="batterySlotDeck1" node="0>1|231|46"/>
+        <i3dMapping id="batterySlotDeck2" node="0>1|231|47"/>
+        <i3dMapping id="batterySlotDeck3" node="0>1|231|48"/>
+        <i3dMapping id="batterySlotDeck4" node="0>1|231|49"/>
+        <i3dMapping id="battery1S" node="0>1|231|46|0|0"/>
+        <i3dMapping id="battery2S" node="0>1|231|47|0|0"/>
+        <i3dMapping id="battery3S" node="0>1|231|48|0|0"/>
+        <i3dMapping id="battery4S" node="0>1|231|49|0|0"/>
+        <i3dMapping id="Charger_Led_1_0" node="0>1|231|12"/>
+        <i3dMapping id="Charger_Led_1_1" node="0>1|231|13"/>
+        <i3dMapping id="Charger_Led_1_2" node="0>1|231|14"/>
+        <i3dMapping id="Charger_Led_1_3" node="0>1|231|15"/>
+        <i3dMapping id="Charger_Led_1_4" node="0>1|231|16"/>
+        <i3dMapping id="Charger_Led_2_0" node="0>1|231|17"/>
+        <i3dMapping id="Charger_Led_2_1" node="0>1|231|18"/>
+        <i3dMapping id="Charger_Led_2_2" node="0>1|231|19"/>
+        <i3dMapping id="Charger_Led_2_3" node="0>1|231|20"/>
+        <i3dMapping id="Charger_Led_2_4" node="0>1|231|21"/>
+        <i3dMapping id="Charger_Led_3_0" node="0>1|231|22"/>
+        <i3dMapping id="Charger_Led_3_1" node="0>1|231|23"/>
+        <i3dMapping id="Charger_Led_3_2" node="0>1|231|24"/>
+        <i3dMapping id="Charger_Led_3_3" node="0>1|231|25"/>
+        <i3dMapping id="Charger_Led_3_4" node="0>1|231|26"/>
+        <i3dMapping id="Charger_Led_4_0" node="0>1|231|27"/>
+        <i3dMapping id="Charger_Led_4_1" node="0>1|231|28"/>
+        <i3dMapping id="Charger_Led_4_2" node="0>1|231|29"/>
+        <i3dMapping id="Charger_Led_4_3" node="0>1|231|30"/>
+        <i3dMapping id="Charger_Led_4_4" node="0>1|231|31"/>
+        <i3dMapping id="relaySlot1" node="0>1|262"/>
+        <i3dMapping id="relaySlot1_pole" node="0>1|262|0"/>
+        <i3dMapping id="plannerScreenNode" node="0>1|260"/>
+        <i3dMapping id="plannerScreenOn" node="0>1|261"/>
+        <i3dMapping id="Drone_S_Root" node="0>1|246|1"/>
+        <i3dMapping id="Drone_S_Tilt" node="0>1|246|1|0"/>
+        <i3dMapping id="Drone_S_ArmPivot_1" node="0>1|246|1|0|0"/>
+        <i3dMapping id="Drone_S_ArmPivot_2" node="0>1|246|1|0|1"/>
+        <i3dMapping id="Drone_S_ArmPivot_3" node="0>1|246|1|0|2"/>
+        <i3dMapping id="Drone_S_ArmPivot_4" node="0>1|246|1|0|3"/>
+        <i3dMapping id="Drone_S_Rotor_1Top" node="0>1|246|1|0|0|4"/>
+        <i3dMapping id="Drone_S_Rotor_2Top" node="0>1|246|1|0|1|4"/>
+        <i3dMapping id="Drone_S_Rotor_3Top" node="0>1|246|1|0|2|5"/>
+        <i3dMapping id="Drone_S_Rotor_4Top" node="0>1|246|1|0|3|5"/>
+        <i3dMapping id="Drone_S_Blade_1Top0" node="0>1|246|1|0|0|4|0"/>
+        <i3dMapping id="Drone_S_Blade_1Top1" node="0>1|246|1|0|0|4|1"/>
+        <i3dMapping id="Drone_S_Blade_2Top0" node="0>1|246|1|0|1|4|0"/>
+        <i3dMapping id="Drone_S_Blade_2Top1" node="0>1|246|1|0|1|4|1"/>
+        <i3dMapping id="Drone_S_Blade_3Top0" node="0>1|246|1|0|2|5|0"/>
+        <i3dMapping id="Drone_S_Blade_3Top1" node="0>1|246|1|0|2|5|1"/>
+        <i3dMapping id="Drone_S_Blade_4Top0" node="0>1|246|1|0|3|5|0"/>
+        <i3dMapping id="Drone_S_Blade_4Top1" node="0>1|246|1|0|3|5|1"/>
+        <i3dMapping id="Drone_S_Blade_1Top0_Tip" node="0>1|246|1|0|0|4|0|0"/>
+        <i3dMapping id="Drone_S_Blade_1Top1_Tip" node="0>1|246|1|0|0|4|1|0"/>
+        <i3dMapping id="Drone_S_Blade_2Top0_Tip" node="0>1|246|1|0|1|4|0|0"/>
+        <i3dMapping id="Drone_S_Blade_2Top1_Tip" node="0>1|246|1|0|1|4|1|0"/>
+        <i3dMapping id="Drone_S_Blade_3Top0_Tip" node="0>1|246|1|0|2|5|0|0"/>
+        <i3dMapping id="Drone_S_Blade_3Top1_Tip" node="0>1|246|1|0|2|5|1|0"/>
+        <i3dMapping id="Drone_S_Blade_4Top0_Tip" node="0>1|246|1|0|3|5|0|0"/>
+        <i3dMapping id="Drone_S_Blade_4Top1_Tip" node="0>1|246|1|0|3|5|1|0"/>
+        <i3dMapping id="Drone_S_Arm_1" node="0>1|246|1|0|0|0"/>
+        <i3dMapping id="Drone_S_Led_1" node="0>1|246|1|0|0|2"/>
+        <i3dMapping id="Drone_S_LedLight_1" node="0>1|246|1|0|0|2|0"/>
+        <i3dMapping id="Drone_S_Led_2" node="0>1|246|1|0|1|2"/>
+        <i3dMapping id="Drone_S_LedLight_2" node="0>1|246|1|0|1|2|0"/>
+        <i3dMapping id="Drone_S_Led_3" node="0>1|246|1|0|2|2"/>
+        <i3dMapping id="Drone_S_LedLight_3" node="0>1|246|1|0|2|2|0"/>
+        <i3dMapping id="Drone_S_Led_4" node="0>1|246|1|0|3|2"/>
+        <i3dMapping id="Drone_S_LedLight_4" node="0>1|246|1|0|3|2|0"/>
+        <i3dMapping id="Drone_S_FillPort" node="0>1|246|1|0|10"/>
+        <i3dMapping id="Drone_S_BatterySlot" node="0>1|246|1|0|6"/>
+        <i3dMapping id="Drone_S_SprayNozzle_1" node="0>1|246|1|0|2|6"/>
+        <i3dMapping id="Drone_S_SprayNozzle_2" node="0>1|246|1|0|3|6"/>
+        <i3dMapping id="Drone_K_Root" node="0>1|246|0"/>
+        <i3dMapping id="Drone_K_Tilt" node="0>1|246|0|0"/>
+        <i3dMapping id="Drone_K_ArmPivot_1" node="0>1|246|0|0|0"/>
+        <i3dMapping id="Drone_K_ArmPivot_2" node="0>1|246|0|0|1"/>
+        <i3dMapping id="Drone_K_ArmPivot_3" node="0>1|246|0|0|2"/>
+        <i3dMapping id="Drone_K_ArmPivot_4" node="0>1|246|0|0|3"/>
+        <i3dMapping id="Drone_K_Rotor_1Top" node="0>1|246|0|0|0|4"/>
+        <i3dMapping id="Drone_K_Rotor_2Top" node="0>1|246|0|0|1|4"/>
+        <i3dMapping id="Drone_K_Rotor_3Top" node="0>1|246|0|0|2|4"/>
+        <i3dMapping id="Drone_K_Rotor_4Top" node="0>1|246|0|0|3|4"/>
+        <i3dMapping id="Drone_K_Blade_1Top0" node="0>1|246|0|0|0|4|0"/>
+        <i3dMapping id="Drone_K_Blade_1Top1" node="0>1|246|0|0|0|4|1"/>
+        <i3dMapping id="Drone_K_Blade_2Top0" node="0>1|246|0|0|1|4|0"/>
+        <i3dMapping id="Drone_K_Blade_2Top1" node="0>1|246|0|0|1|4|1"/>
+        <i3dMapping id="Drone_K_Blade_3Top0" node="0>1|246|0|0|2|4|0"/>
+        <i3dMapping id="Drone_K_Blade_3Top1" node="0>1|246|0|0|2|4|1"/>
+        <i3dMapping id="Drone_K_Blade_4Top0" node="0>1|246|0|0|3|4|0"/>
+        <i3dMapping id="Drone_K_Blade_4Top1" node="0>1|246|0|0|3|4|1"/>
+        <i3dMapping id="Drone_K_Blade_1Top0_Tip" node="0>1|246|0|0|0|4|0|0"/>
+        <i3dMapping id="Drone_K_Blade_1Top1_Tip" node="0>1|246|0|0|0|4|1|0"/>
+        <i3dMapping id="Drone_K_Blade_2Top0_Tip" node="0>1|246|0|0|1|4|0|0"/>
+        <i3dMapping id="Drone_K_Blade_2Top1_Tip" node="0>1|246|0|0|1|4|1|0"/>
+        <i3dMapping id="Drone_K_Blade_3Top0_Tip" node="0>1|246|0|0|2|4|0|0"/>
+        <i3dMapping id="Drone_K_Blade_3Top1_Tip" node="0>1|246|0|0|2|4|1|0"/>
+        <i3dMapping id="Drone_K_Blade_4Top0_Tip" node="0>1|246|0|0|3|4|0|0"/>
+        <i3dMapping id="Drone_K_Blade_4Top1_Tip" node="0>1|246|0|0|3|4|1|0"/>
+        <i3dMapping id="Drone_K_Arm_1" node="0>1|246|0|0|0|0"/>
+        <i3dMapping id="Drone_K_Led_1" node="0>1|246|0|0|0|2"/>
+        <i3dMapping id="Drone_K_LedLight_1" node="0>1|246|0|0|0|2|0"/>
+        <i3dMapping id="Drone_K_Led_2" node="0>1|246|0|0|1|2"/>
+        <i3dMapping id="Drone_K_LedLight_2" node="0>1|246|0|0|1|2|0"/>
+        <i3dMapping id="Drone_K_Led_3" node="0>1|246|0|0|2|2"/>
+        <i3dMapping id="Drone_K_LedLight_3" node="0>1|246|0|0|2|2|0"/>
+        <i3dMapping id="Drone_K_Led_4" node="0>1|246|0|0|3|2"/>
+        <i3dMapping id="Drone_K_LedLight_4" node="0>1|246|0|0|3|2|0"/>
+        <i3dMapping id="Drone_K_FillPort" node="0>1|246|0|0|8"/>
+        <i3dMapping id="Drone_K_BatterySlot" node="0>1|246|0|0|6"/>
+        <i3dMapping id="brandToneDark_crateH" node="0>1|256|0|5|7"/>
+        <i3dMapping id="brandToneDark_crateL" node="0>1|257|16"/>
+        <i3dMapping id="brandToneDark_crateP" node="0>1|256|0|5|10|2"/>
+        <i3dMapping id="brandToneDark_crateR" node="0>1|258|16"/>
+        <i3dMapping id="brandToneDark_crateZ" node="0>1|256|0|2"/>
+        <i3dMapping id="brandToneLight_crateH" node="0>1|256|0|5|8"/>
+        <i3dMapping id="brandToneLight_crateL" node="0>1|257|17"/>
+        <i3dMapping id="brandToneLight_crateP" node="0>1|256|0|5|10|3"/>
+        <i3dMapping id="brandToneLight_crateR" node="0>1|258|17"/>
+        <i3dMapping id="brandToneLight_crateZ" node="0>1|256|0|3"/>
+        <i3dMapping id="brand_BZUK_Drone_S_TankF" node="0>1|246|1|0|29|0"/>
+        <i3dMapping id="brand_BZUK_Drone_S_TankL" node="0>1|246|1|0|29|1"/>
+        <i3dMapping id="brand_BZUK_Drone_S_TankR" node="0>1|246|1|0|29|2"/>
+        <i3dMapping id="brand_BZUK_crateHDark" node="0>1|256|0|5|7|0"/>
+        <i3dMapping id="brand_BZUK_crateHLight" node="0>1|256|0|5|8|0"/>
+        <i3dMapping id="brand_BZUK_crateInL" node="0>1|257|18"/>
+        <i3dMapping id="brand_BZUK_crateInR" node="0>1|258|18"/>
+        <i3dMapping id="brand_BZUK_crateLDark" node="0>1|257|16|0"/>
+        <i3dMapping id="brand_BZUK_crateLLight" node="0>1|257|17|0"/>
+        <i3dMapping id="brand_BZUK_cratePDark" node="0>1|256|0|5|10|2|0"/>
+        <i3dMapping id="brand_BZUK_cratePLight" node="0>1|256|0|5|10|3|0"/>
+        <i3dMapping id="brand_BZUK_crateRDark" node="0>1|258|16|0"/>
+        <i3dMapping id="brand_BZUK_crateRLight" node="0>1|258|17|0"/>
+        <i3dMapping id="brand_BZUK_crateZDark" node="0>1|256|0|2|0"/>
+        <i3dMapping id="brand_BZUK_crateZLight" node="0>1|256|0|3|0"/>
+        <i3dMapping id="brand_BZUK_padDeck" node="0>1|256|0|5|10|4"/>
+        <i3dMapping id="brand_BZUK_planner" node="0>1|261|0"/>
+        <i3dMapping id="brand_BZUK_toolbox" node="0>1|232"/>
+        <i3dMapping id="brand_BZUK_toolbox2" node="0>1|233"/>
+        <i3dMapping id="brand_KAPKA_Drone_S_TankF" node="0>1|246|1|0|29|3"/>
+        <i3dMapping id="brand_KAPKA_Drone_S_TankL" node="0>1|246|1|0|29|4"/>
+        <i3dMapping id="brand_KAPKA_Drone_S_TankR" node="0>1|246|1|0|29|5"/>
+        <i3dMapping id="brand_KAPKA_crateHDark" node="0>1|256|0|5|7|1"/>
+        <i3dMapping id="brand_KAPKA_crateHLight" node="0>1|256|0|5|8|1"/>
+        <i3dMapping id="brand_KAPKA_crateInL" node="0>1|257|19"/>
+        <i3dMapping id="brand_KAPKA_crateInR" node="0>1|258|19"/>
+        <i3dMapping id="brand_KAPKA_crateLDark" node="0>1|257|16|1"/>
+        <i3dMapping id="brand_KAPKA_crateLLight" node="0>1|257|17|1"/>
+        <i3dMapping id="brand_KAPKA_cratePDark" node="0>1|256|0|5|10|2|1"/>
+        <i3dMapping id="brand_KAPKA_cratePLight" node="0>1|256|0|5|10|3|1"/>
+        <i3dMapping id="brand_KAPKA_crateRDark" node="0>1|258|16|1"/>
+        <i3dMapping id="brand_KAPKA_crateRLight" node="0>1|258|17|1"/>
+        <i3dMapping id="brand_KAPKA_crateZDark" node="0>1|256|0|2|1"/>
+        <i3dMapping id="brand_KAPKA_crateZLight" node="0>1|256|0|3|1"/>
+        <i3dMapping id="brand_KAPKA_padDeck" node="0>1|256|0|5|10|5"/>
+        <i3dMapping id="brand_KAPKA_planner" node="0>1|261|1"/>
+        <i3dMapping id="brand_KAPKA_toolbox" node="0>1|234"/>
+        <i3dMapping id="brand_KAPKA_toolbox2" node="0>1|235"/>
+        <i3dMapping id="brand_ROSA_Drone_S_TankF" node="0>1|246|1|0|29|6"/>
+        <i3dMapping id="brand_ROSA_Drone_S_TankL" node="0>1|246|1|0|29|7"/>
+        <i3dMapping id="brand_ROSA_Drone_S_TankR" node="0>1|246|1|0|29|8"/>
+        <i3dMapping id="brand_ROSA_crateHDark" node="0>1|256|0|5|7|2"/>
+        <i3dMapping id="brand_ROSA_crateHLight" node="0>1|256|0|5|8|2"/>
+        <i3dMapping id="brand_ROSA_crateInL" node="0>1|257|20"/>
+        <i3dMapping id="brand_ROSA_crateInR" node="0>1|258|20"/>
+        <i3dMapping id="brand_ROSA_crateLDark" node="0>1|257|16|2"/>
+        <i3dMapping id="brand_ROSA_crateLLight" node="0>1|257|17|2"/>
+        <i3dMapping id="brand_ROSA_cratePDark" node="0>1|256|0|5|10|2|2"/>
+        <i3dMapping id="brand_ROSA_cratePLight" node="0>1|256|0|5|10|3|2"/>
+        <i3dMapping id="brand_ROSA_crateRDark" node="0>1|258|16|2"/>
+        <i3dMapping id="brand_ROSA_crateRLight" node="0>1|258|17|2"/>
+        <i3dMapping id="brand_ROSA_crateZDark" node="0>1|256|0|2|2"/>
+        <i3dMapping id="brand_ROSA_crateZLight" node="0>1|256|0|3|2"/>
+        <i3dMapping id="brand_ROSA_padDeck" node="0>1|256|0|5|10|6"/>
+        <i3dMapping id="brand_ROSA_planner" node="0>1|261|2"/>
+        <i3dMapping id="brand_ROSA_toolbox" node="0>1|236"/>
+        <i3dMapping id="brand_ROSA_toolbox2" node="0>1|237"/>
+        <i3dMapping id="brand_STRATUS_Drone_S_TankF" node="0>1|246|1|0|29|9"/>
+        <i3dMapping id="brand_STRATUS_Drone_S_TankL" node="0>1|246|1|0|29|10"/>
+        <i3dMapping id="brand_STRATUS_Drone_S_TankR" node="0>1|246|1|0|29|11"/>
+        <i3dMapping id="brand_STRATUS_crateHDark" node="0>1|256|0|5|7|3"/>
+        <i3dMapping id="brand_STRATUS_crateHLight" node="0>1|256|0|5|8|3"/>
+        <i3dMapping id="brand_STRATUS_crateInL" node="0>1|257|21"/>
+        <i3dMapping id="brand_STRATUS_crateInR" node="0>1|258|21"/>
+        <i3dMapping id="brand_STRATUS_crateLDark" node="0>1|257|16|3"/>
+        <i3dMapping id="brand_STRATUS_crateLLight" node="0>1|257|17|3"/>
+        <i3dMapping id="brand_STRATUS_cratePDark" node="0>1|256|0|5|10|2|3"/>
+        <i3dMapping id="brand_STRATUS_cratePLight" node="0>1|256|0|5|10|3|3"/>
+        <i3dMapping id="brand_STRATUS_crateRDark" node="0>1|258|16|3"/>
+        <i3dMapping id="brand_STRATUS_crateRLight" node="0>1|258|17|3"/>
+        <i3dMapping id="brand_STRATUS_crateZDark" node="0>1|256|0|2|3"/>
+        <i3dMapping id="brand_STRATUS_crateZLight" node="0>1|256|0|3|3"/>
+        <i3dMapping id="brand_STRATUS_padDeck" node="0>1|256|0|5|10|7"/>
+        <i3dMapping id="brand_STRATUS_planner" node="0>1|261|3"/>
+        <i3dMapping id="brand_STRATUS_toolbox" node="0>1|238"/>
+        <i3dMapping id="brand_STRATUS_toolbox2" node="0>1|239"/>
     </i3dMappings>
 </vehicle>

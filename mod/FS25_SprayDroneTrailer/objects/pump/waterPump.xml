@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Pravidla objektu ručně; i3d, obrázek a čísla v i3dMappings dává blender/build_pump.py. Chování viz scripts/SprayDronePump.lua. -->
+<vehicle type="FS25_SprayDroneTrailer.sdtWaterPump">
+    <annotation>Přenosná motorová pumpa na vodu: naftový motor žene odstředivé čerpadlo, sací hadice má ručně přepínaný konec (spojka Storz na IBC / cisternu, nebo sací koš do vody v rybníku, řece, moři) a vodní hadice velkého vleku se připojí na její výtlak.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_pump_name</name>
+        <functions>
+            <function>$l10n_sdt_pump_function</function>
+        </functions>
+        <specs>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/pump/store_waterPump.dds</image>
+        <price>1800</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <rotation>0</rotation>
+        <shopHeight>1.0</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneEquipment</category>
+        <financeCategory>PURCHASE_FERTILIZER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_sdt_pump_name</typeDesc>
+        <filename>objects/pump/waterPump.i3d</filename>
+        <size width="0.9" length="1.1" height="0.8"/>
+        <canBeReset>false</canBeReset>
+        <supportsPickUp>true</supportsPickUp>
+        <components>
+            <component centerOfMass="0 0.30 0" solverIterationCount="10" mass="60"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <mapHotspot available="false"/>
+        <input allowed="false"/>
+    </base>
+
+    <foliageBending>
+        <bendingNode minX="-0.45" maxX="0.45" minZ="-0.6" maxZ="0.6" yOffset="0.2"/>
+    </foliageBending>
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="2" fieldMultiplier="2"/>
+
+    <!-- pořadí fill units: 1 nafta (nalévá se z kanystru jako u mlýnku; exactFillRootNode), 2 voda v tělese čerpadla (jen mezisklad, skript ji
+         doplňuje ze hladiny a vodní hadice vleku z ní odebírá jako z IBC) -->
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="15" showOnHud="true" ignoreFillLimit="true" updateMass="false">
+                        <exactFillRootNode node="exactFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water" capacity="200" showOnHud="false" ignoreFillLimit="true" updateMass="false"/>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <!-- čerpadlo (scripts/SprayDronePump.lua): dieselPerHour = spotřeba za chodu, minDepth = nejmenší hloubka vody pod sacím košem v režimu rybník (m); pourRadius /
+         pourRate = nalévání nafty z kanystru nakloněného nad hrdlem nádrže. Uzly: engine = střed motoru (ovládání B), dieselNeck = hrdlo nafty -->
+    <sprayDronePump dieselFillUnitIndex="1" waterFillUnitIndex="2" dieselPerHour="3" minDepth="0.15" pourRadius="0.3" pourRate="4">
+        <nodes engine="pumpSoundNode" dieselNeck="pumpDieselNeck"/>
+        <sounds>
+            <engine template="riceFieldPump" linkNode="pumpSoundNode" innerRadius="3" outerRadius="45" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.35" outdoor="0.5"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </engine>
+            <flow template="riceFieldWater" linkNode="pumpSoundNode" innerRadius="3" outerRadius="30" fadeIn="0.4" fadeOut="0.6" volumeScale="0.8">
+                <volume indoor="0.1" outdoor="0.6"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </flow>
+        </sounds>
+    </sprayDronePump>
+
+    <!-- dvě tažné hadice pumpy (scripts/SprayDroneWaterHose.lua, stejný systém jako vodní hadice velkých vleků); hráč vezme hadici u spojky (R) a odnese ji:
+         kind inlet = VSTUP, podle režimu pumpy (levé tlačítko myši u spojky, SprayDronePump.pondMode) buď water (konec hadice je spojka Storz hoseEnd, napojí se na výstup
+         IBC / cisterny), nebo pond (konec je sací koš strainerEnd, položí se na dno pod hladinu), sink = VÝSTUP (konec na vodní ventil vleku). Pumpa za chodu motoru plní
+         těleso ze vstupu a z tělesa plní nádrž vleku; rate = nejvyšší průtok hadice (l/s) -->
+    <sprayDroneWaterHose>
+        <hoses>
+            <hose hoseLength="10" rate="16" hoseEnd="inHoseEnd" strainerEnd="inStrainerEnd" segmentPrefix="inHoseSeg" segmentCount="60">
+                <port node="pumpInletPort" kind="inlet"/>
+            </hose>
+            <hose hoseLength="12" rate="16" hoseEnd="outHoseEnd" segmentPrefix="outHoseSeg" segmentCount="72">
+                <port node="pumpOutletPort" kind="sink"/>
+            </hose>
+        </hoses>
+    </sprayDroneWaterHose>
+
+    <i3dMappings>
+        <i3dMapping id="waterPump_main_component1" node="0&gt;"/>
+        <i3dMapping id="waterPump_vis" node="0&gt;141"/>
+        <i3dMapping id="floorCollision01" node="0&gt;0|0"/>
+        <i3dMapping id="exactFillRootNode" node="0&gt;1"/>
+        <i3dMapping id="pumpSoundNode" node="0&gt;140"/>
+        <i3dMapping id="pumpDieselNeck" node="0&gt;137"/>
+        <i3dMapping id="pumpInletPort" node="0&gt;138"/>
+        <i3dMapping id="pumpOutletPort" node="0&gt;139"/>
+        <i3dMapping id="inStrainerEnd" node="0&gt;63"/>
+        <i3dMapping id="inHoseEnd" node="0&gt;2"/>
+        <i3dMapping id="inHoseSeg1" node="0&gt;3"/>
+        <i3dMapping id="inHoseSeg2" node="0&gt;14"/>
+        <i3dMapping id="inHoseSeg3" node="0&gt;25"/>
+        <i3dMapping id="inHoseSeg4" node="0&gt;36"/>
+        <i3dMapping id="inHoseSeg5" node="0&gt;47"/>
+        <i3dMapping id="inHoseSeg6" node="0&gt;58"/>
+        <i3dMapping id="inHoseSeg7" node="0&gt;60"/>
+        <i3dMapping id="inHoseSeg8" node="0&gt;61"/>
+        <i3dMapping id="inHoseSeg9" node="0&gt;62"/>
+        <i3dMapping id="inHoseSeg10" node="0&gt;4"/>
+        <i3dMapping id="inHoseSeg11" node="0&gt;5"/>
+        <i3dMapping id="inHoseSeg12" node="0&gt;6"/>
+        <i3dMapping id="inHoseSeg13" node="0&gt;7"/>
+        <i3dMapping id="inHoseSeg14" node="0&gt;8"/>
+        <i3dMapping id="inHoseSeg15" node="0&gt;9"/>
+        <i3dMapping id="inHoseSeg16" node="0&gt;10"/>
+        <i3dMapping id="inHoseSeg17" node="0&gt;11"/>
+        <i3dMapping id="inHoseSeg18" node="0&gt;12"/>
+        <i3dMapping id="inHoseSeg19" node="0&gt;13"/>
+        <i3dMapping id="inHoseSeg20" node="0&gt;15"/>
+        <i3dMapping id="inHoseSeg21" node="0&gt;16"/>
+        <i3dMapping id="inHoseSeg22" node="0&gt;17"/>
+        <i3dMapping id="inHoseSeg23" node="0&gt;18"/>
+        <i3dMapping id="inHoseSeg24" node="0&gt;19"/>
+        <i3dMapping id="inHoseSeg25" node="0&gt;20"/>
+        <i3dMapping id="inHoseSeg26" node="0&gt;21"/>
+        <i3dMapping id="inHoseSeg27" node="0&gt;22"/>
+        <i3dMapping id="inHoseSeg28" node="0&gt;23"/>
+        <i3dMapping id="inHoseSeg29" node="0&gt;24"/>
+        <i3dMapping id="inHoseSeg30" node="0&gt;26"/>
+        <i3dMapping id="inHoseSeg31" node="0&gt;27"/>
+        <i3dMapping id="inHoseSeg32" node="0&gt;28"/>
+        <i3dMapping id="inHoseSeg33" node="0&gt;29"/>
+        <i3dMapping id="inHoseSeg34" node="0&gt;30"/>
+        <i3dMapping id="inHoseSeg35" node="0&gt;31"/>
+        <i3dMapping id="inHoseSeg36" node="0&gt;32"/>
+        <i3dMapping id="inHoseSeg37" node="0&gt;33"/>
+        <i3dMapping id="inHoseSeg38" node="0&gt;34"/>
+        <i3dMapping id="inHoseSeg39" node="0&gt;35"/>
+        <i3dMapping id="inHoseSeg40" node="0&gt;37"/>
+        <i3dMapping id="inHoseSeg41" node="0&gt;38"/>
+        <i3dMapping id="inHoseSeg42" node="0&gt;39"/>
+        <i3dMapping id="inHoseSeg43" node="0&gt;40"/>
+        <i3dMapping id="inHoseSeg44" node="0&gt;41"/>
+        <i3dMapping id="inHoseSeg45" node="0&gt;42"/>
+        <i3dMapping id="inHoseSeg46" node="0&gt;43"/>
+        <i3dMapping id="inHoseSeg47" node="0&gt;44"/>
+        <i3dMapping id="inHoseSeg48" node="0&gt;45"/>
+        <i3dMapping id="inHoseSeg49" node="0&gt;46"/>
+        <i3dMapping id="inHoseSeg50" node="0&gt;48"/>
+        <i3dMapping id="inHoseSeg51" node="0&gt;49"/>
+        <i3dMapping id="inHoseSeg52" node="0&gt;50"/>
+        <i3dMapping id="inHoseSeg53" node="0&gt;51"/>
+        <i3dMapping id="inHoseSeg54" node="0&gt;52"/>
+        <i3dMapping id="inHoseSeg55" node="0&gt;53"/>
+        <i3dMapping id="inHoseSeg56" node="0&gt;54"/>
+        <i3dMapping id="inHoseSeg57" node="0&gt;55"/>
+        <i3dMapping id="inHoseSeg58" node="0&gt;56"/>
+        <i3dMapping id="inHoseSeg59" node="0&gt;57"/>
+        <i3dMapping id="inHoseSeg60" node="0&gt;59"/>
+        <i3dMapping id="outHoseEnd" node="0&gt;64"/>
+        <i3dMapping id="outHoseSeg1" node="0&gt;65"/>
+        <i3dMapping id="outHoseSeg2" node="0&gt;76"/>
+        <i3dMapping id="outHoseSeg3" node="0&gt;87"/>
+        <i3dMapping id="outHoseSeg4" node="0&gt;98"/>
+        <i3dMapping id="outHoseSeg5" node="0&gt;109"/>
+        <i3dMapping id="outHoseSeg6" node="0&gt;120"/>
+        <i3dMapping id="outHoseSeg7" node="0&gt;131"/>
+        <i3dMapping id="outHoseSeg8" node="0&gt;135"/>
+        <i3dMapping id="outHoseSeg9" node="0&gt;136"/>
+        <i3dMapping id="outHoseSeg10" node="0&gt;66"/>
+        <i3dMapping id="outHoseSeg11" node="0&gt;67"/>
+        <i3dMapping id="outHoseSeg12" node="0&gt;68"/>
+        <i3dMapping id="outHoseSeg13" node="0&gt;69"/>
+        <i3dMapping id="outHoseSeg14" node="0&gt;70"/>
+        <i3dMapping id="outHoseSeg15" node="0&gt;71"/>
+        <i3dMapping id="outHoseSeg16" node="0&gt;72"/>
+        <i3dMapping id="outHoseSeg17" node="0&gt;73"/>
+        <i3dMapping id="outHoseSeg18" node="0&gt;74"/>
+        <i3dMapping id="outHoseSeg19" node="0&gt;75"/>
+        <i3dMapping id="outHoseSeg20" node="0&gt;77"/>
+        <i3dMapping id="outHoseSeg21" node="0&gt;78"/>
+        <i3dMapping id="outHoseSeg22" node="0&gt;79"/>
+        <i3dMapping id="outHoseSeg23" node="0&gt;80"/>
+        <i3dMapping id="outHoseSeg24" node="0&gt;81"/>
+        <i3dMapping id="outHoseSeg25" node="0&gt;82"/>
+        <i3dMapping id="outHoseSeg26" node="0&gt;83"/>
+        <i3dMapping id="outHoseSeg27" node="0&gt;84"/>
+        <i3dMapping id="outHoseSeg28" node="0&gt;85"/>
+        <i3dMapping id="outHoseSeg29" node="0&gt;86"/>
+        <i3dMapping id="outHoseSeg30" node="0&gt;88"/>
+        <i3dMapping id="outHoseSeg31" node="0&gt;89"/>
+        <i3dMapping id="outHoseSeg32" node="0&gt;90"/>
+        <i3dMapping id="outHoseSeg33" node="0&gt;91"/>
+        <i3dMapping id="outHoseSeg34" node="0&gt;92"/>
+        <i3dMapping id="outHoseSeg35" node="0&gt;93"/>
+        <i3dMapping id="outHoseSeg36" node="0&gt;94"/>
+        <i3dMapping id="outHoseSeg37" node="0&gt;95"/>
+        <i3dMapping id="outHoseSeg38" node="0&gt;96"/>
+        <i3dMapping id="outHoseSeg39" node="0&gt;97"/>
+        <i3dMapping id="outHoseSeg40" node="0&gt;99"/>
+        <i3dMapping id="outHoseSeg41" node="0&gt;100"/>
+        <i3dMapping id="outHoseSeg42" node="0&gt;101"/>
+        <i3dMapping id="outHoseSeg43" node="0&gt;102"/>
+        <i3dMapping id="outHoseSeg44" node="0&gt;103"/>
+        <i3dMapping id="outHoseSeg45" node="0&gt;104"/>
+        <i3dMapping id="outHoseSeg46" node="0&gt;105"/>
+        <i3dMapping id="outHoseSeg47" node="0&gt;106"/>
+        <i3dMapping id="outHoseSeg48" node="0&gt;107"/>
+        <i3dMapping id="outHoseSeg49" node="0&gt;108"/>
+        <i3dMapping id="outHoseSeg50" node="0&gt;110"/>
+        <i3dMapping id="outHoseSeg51" node="0&gt;111"/>
+        <i3dMapping id="outHoseSeg52" node="0&gt;112"/>
+        <i3dMapping id="outHoseSeg53" node="0&gt;113"/>
+        <i3dMapping id="outHoseSeg54" node="0&gt;114"/>
+        <i3dMapping id="outHoseSeg55" node="0&gt;115"/>
+        <i3dMapping id="outHoseSeg56" node="0&gt;116"/>
+        <i3dMapping id="outHoseSeg57" node="0&gt;117"/>
+        <i3dMapping id="outHoseSeg58" node="0&gt;118"/>
+        <i3dMapping id="outHoseSeg59" node="0&gt;119"/>
+        <i3dMapping id="outHoseSeg60" node="0&gt;121"/>
+        <i3dMapping id="outHoseSeg61" node="0&gt;122"/>
+        <i3dMapping id="outHoseSeg62" node="0&gt;123"/>
+        <i3dMapping id="outHoseSeg63" node="0&gt;124"/>
+        <i3dMapping id="outHoseSeg64" node="0&gt;125"/>
+        <i3dMapping id="outHoseSeg65" node="0&gt;126"/>
+        <i3dMapping id="outHoseSeg66" node="0&gt;127"/>
+        <i3dMapping id="outHoseSeg67" node="0&gt;128"/>
+        <i3dMapping id="outHoseSeg68" node="0&gt;129"/>
+        <i3dMapping id="outHoseSeg69" node="0&gt;130"/>
+        <i3dMapping id="outHoseSeg70" node="0&gt;132"/>
+        <i3dMapping id="outHoseSeg71" node="0&gt;133"/>
+        <i3dMapping id="outHoseSeg72" node="0&gt;134"/>
+    </i3dMappings>
+</vehicle>

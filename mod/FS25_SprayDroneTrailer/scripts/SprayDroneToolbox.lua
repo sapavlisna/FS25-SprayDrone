@@ -43,6 +43,7 @@ SprayDroneToolbox.HAND_POUR_LYING = 0.6     -- nalévání přes R: víčko polo
 SprayDroneToolbox.HAND_POUR_PLAYER = 2.2    -- hráč (s kanystrem v rukou) nejvýš tak daleko od hrdla nádrže (m)
 SprayDroneToolbox.POUR_INTERVAL_MS = 100
 SprayDroneToolbox.POUR_UP_MAX = 0.2
+SprayDroneToolbox.BAG_SPOUT_DOWN = 0.5      -- pytel sype, když hubice (konec dlouhé osy x) míří aspoň tolik dolů (svislá složka osy, ~30°)
 SprayDroneToolbox.POUR_PLAYER_DISTANCE = 15  -- nalévání z nakloněného kanystru se hledá, jen když je hráč nejvýš tak daleko od bedny (m)
 SprayDroneToolbox.POUR_WARN_MS = 4000
 SprayDroneToolbox.POUR_HOLD_MS = 400         -- zvuk nalévání doběhne tolik ms po posledním přelitém litru (ať nebliká mezi tiky)
@@ -71,6 +72,14 @@ SprayDroneToolbox.CANISTER_FILES = {
     SDT_CONCENTRATE_HERBICIDE = "objects/canister/canisterHerbicide.xml",
     DIESEL = "objects/canister/canisterDiesel.xml"
 }
+
+-- Pytle jemně mletého vápna: vznikají jen vypuštěním koncentrátu na zem (Ctrl+I), do bedny se nevsávají. Velikost pytle (l) -> xml a rozestupy při
+-- skládání na zem (m): sloupce podél vleku podle šířky pytle, řady od vleku podle jeho délky (dlouhá osa pytle je kolmo na vlek), offset = střed první řady od
+-- boku vleku (půl délky pytle a rezerva na kola). Používá se LIME_BAG_LITERS.
+SprayDroneToolbox.LIME_BAGS = {
+    [50] = { file = "objects/limeBag/limeBag50.xml", column = 0.5, row = 0.85, offset = 0.6 }
+}
+SprayDroneToolbox.LIME_BAG_LITERS = 50
 
 SprayDroneToolbox.boxes = {}
 SprayDroneToolbox.numBoxes = 0
@@ -133,6 +142,7 @@ function SprayDroneToolbox.registerXMLPaths(schema, key)
     schema:register(XMLValueType.FLOAT, key .. "#slotLiters", "Kapacita jednoho kanystru (l)", 20)
     schema:register(XMLValueType.STRING, key .. "#activateNode", "i3dMapping referenčního bodu bedny (vzdálenost pro aktivaci, vsátí a místo výdeje)")
     schema:register(XMLValueType.STRING, key .. "#canisterNodePrefix", "Prefix i3dMapping kanystrů (prefix + číslo slotu)", "toolboxCanister")
+    schema:register(XMLValueType.STRING, key .. "#slotNodes", "Čísla modelových pozic kanystrů pro sloty 1..slots oddělená mezerou (ostatní pozice se skryjí); bez údaje slot i = pozice i")
     schema:register(XMLValueType.FLOAT, key .. "#activateDistance", "Nejvyšší vzdálenost hráče od bedny pro aktivaci (m)", 4)
     schema:register(XMLValueType.FLOAT, key .. "#intakeHalfWidth", "Otvor bedny pro vsátí kanystru: polovina šířky (m, po ose X vozidla od referenčního bodu)", 1.05)
     schema:register(XMLValueType.FLOAT, key .. "#intakeHalfLength", "Otvor bedny pro vsátí kanystru: polovina délky (m, po ose Z vozidla od referenčního bodu)", 0.75)
@@ -172,8 +182,9 @@ local function findMapped(self, name)
 end
 
 local function setColorRec(node, r, g, b)
-    -- štítek „SDT 20 l“ (<kanystr>_label) si drží barvu atlasu
-    if getName(node):sub(-6) == "_label" then
+    -- štítek „SDT 20 l“ (<kanystr>_label) si drží barvu atlasu, víčko (<kanystr>_cap) zůstává černé
+    local name = getName(node)
+    if name:sub(-6) == "_label" or name:sub(-4) == "_cap" then
         return
     end
     if getHasClassId(node, ClassIds.SHAPE) and getHasShaderParameter(node, "colorScale") then
@@ -247,13 +258,18 @@ function SprayDroneToolbox.load(self, savegame)
     end
     local prefix = xml:getValue(key .. "#canisterNodePrefix", "toolboxCanister")
     tb.canisterNodes, tb.canisters, tb.canisterShown = {}, {}, {}
+    -- slotNodes: čísla modelových pozic pro sloty 1..slots (jen přední řada skříně), jinak slot i = pozice i
+    local numbers = string.split(xml:getValue(key .. "#slotNodes", ""), " ")
+    local used = {}
     for i = 1, tb.slots do
-        tb.canisterNodes[i] = findMapped(self, prefix .. i)
+        local number = tonumber(numbers[i]) or i
+        used[number] = true
+        tb.canisterNodes[i] = findMapped(self, prefix .. number)
         tb.canisters[i] = { fillType = FillType.UNKNOWN, liters = 0 }
     end
-    -- sloty nad počet z XML nemají kanystr, tedy ani model
-    for i = tb.slots + 1, SprayDroneToolbox.MAX_SLOTS do
-        local node = findMapped(self, prefix .. i)
+    -- pozice modelu, které žádný slot nepoužívá, kanystr nemají
+    for i = 1, SprayDroneToolbox.MAX_SLOTS do
+        local node = not used[i] and findMapped(self, prefix .. i) or nil
         if node ~= nil then
             setVisibility(node, false)
         end
@@ -358,6 +374,10 @@ end
 
 function SprayDroneToolbox.writeState(self, streamId)
     local tb = getSpec(self).toolbox
+    -- kufr skenovacího dronu bednu nemá (obě strany to vědí z XML)
+    if tb == nil then
+        return
+    end
     for _, part in ipairs(tb.parts) do
         streamWriteBool(streamId, part.open)
     end
@@ -377,6 +397,9 @@ end
 
 function SprayDroneToolbox.readState(self, streamId, snap)
     local tb = getSpec(self).toolbox
+    if tb == nil then
+        return
+    end
     for _, part in ipairs(tb.parts) do
         part.open = streamReadBool(streamId)
     end
@@ -667,13 +690,26 @@ end
 -- kanystry jako herní objekty
 
 -- Druh (fillType) kanystru, když je objekt kanystr z modu (podle konce configFileName), jinak nil.
+-- Všechny xml objektů, které mod pozná jako kanystr / pytel: { { název druhu, xml }, ... }.
+function SprayDroneToolbox.getKindFiles()
+    local list = {}
+    for kindName, file in pairs(SprayDroneToolbox.CANISTER_FILES) do
+        table.insert(list, { kindName, file })
+    end
+    for _, bag in pairs(SprayDroneToolbox.LIME_BAGS) do
+        table.insert(list, { "SDT_FINE_LIME", bag.file })
+    end
+    return list
+end
+
 function SprayDroneToolbox.getCanisterKind(object)
     local name = object ~= nil and object.configFileName or nil
     if type(name) ~= "string" then
         return nil
     end
     name = string.lower(name)
-    for kindName, file in pairs(SprayDroneToolbox.CANISTER_FILES) do
+    for _, entry in ipairs(SprayDroneToolbox.getKindFiles()) do
+        local kindName, file = entry[1], entry[2]
         local tail = string.lower(string.match(file, "[^/]+$"))
         if string.sub(name, -#tail) == tail then
             return FillType[kindName]
@@ -709,7 +745,12 @@ function SprayDroneToolbox.getCanisterFilename(fillType)
     if g_storeManager == nil then
         return nil
     end
+    local files = {}
     for kindName, file in pairs(SprayDroneToolbox.CANISTER_FILES) do
+        files[kindName] = file
+    end
+    files.SDT_FINE_LIME = SprayDroneToolbox.LIME_BAGS[SprayDroneToolbox.LIME_BAG_LITERS].file
+    for kindName, file in pairs(files) do
         if FillType[kindName] == fillType then
             local path = (SprayDroneToolbox.modDirectory or "") .. file
             if g_storeManager:getItemByXMLFilename(path) ~= nil then
@@ -814,7 +855,7 @@ function SprayDroneToolbox.findIntakeCanisters(self)
     local held = getHeldNodes()
     for _, v in ipairs(getVehicles()) do
         local kind = getUsableCanisterKind(self, v)
-        if kind ~= nil then
+        if kind ~= nil and isAllowedFillType(kind) then
             local x, y, z = getWorldTranslation(v.rootNode)
             local distance, part = nil, nil
             for _, p in ipairs(getSpec(self).toolbox.parts) do
@@ -859,7 +900,7 @@ end
 
 -- Místo pro n-tý kanystr z vypuštěné nádrže (Ctrl+I): na zemi vedle kol, na boku vleku s mixérem, řada podél vleku kolem
 -- mixéru (po šesti, další řada dál od boku). Bez uzlu mixéru jako getSpawnPosition.
-function SprayDroneToolbox.getGroundSpawnPosition(self, n, part)
+function SprayDroneToolbox.getGroundSpawnPosition(self, n, part, fillType)
     local tb = getSpec(self).toolbox
     if tb.mixerNode == nil then
         return SprayDroneToolbox.getSpawnPosition(self, n, part)
@@ -870,8 +911,13 @@ function SprayDroneToolbox.getGroundSpawnPosition(self, n, part)
     local halfWidth = (self.size ~= nil and self.size.width or 2) / 2
     local column = n % 6
     local row = math.floor(n / 6) % 3
-    local lx = side * (halfWidth + SprayDroneToolbox.SPAWN_SIDE_GAP + row * 0.4)
-    local lz = mz + (column - 2.5) * 0.4
+    local columnGap, rowGap, offset = 0.4, 0.4, SprayDroneToolbox.SPAWN_SIDE_GAP
+    if fillType ~= nil and fillType == FillType.SDT_FINE_LIME then
+        local bag = SprayDroneToolbox.LIME_BAGS[SprayDroneToolbox.LIME_BAG_LITERS]
+        columnGap, rowGap, offset = bag.column, bag.row, bag.offset
+    end
+    local lx = side * (halfWidth + offset + row * rowGap)
+    local lz = mz + (column - 2.5) * columnGap
     local x, _, z = localToWorld(root, lx, 0, lz)
     local y = getTerrainHeightAtWorldPos(g_terrainNode, x, 0, z) + 0.2
     local dx, _, dz = localDirectionToWorld(root, 0, 0, 1)
@@ -1122,7 +1168,7 @@ local function restoreLiters(self, fillType, liters)
         local added = self:addFillUnitFillLevel(self:getOwnerFarmId(), unit, liters, fillType, ToolType.UNDEFINED, nil) or 0
         liters = liters - added
     end
-    if liters > 0.001 then
+    if liters > 0.001 and isAllowedFillType(fillType) then
         local slot = SprayDroneToolbox.getFreeSlot(tb)
         if slot ~= nil then
             tb.canisters[slot].fillType, tb.canisters[slot].liters = fillType, math.min(liters, tb.slotLiters)
@@ -1155,9 +1201,10 @@ function SprayDroneToolbox.doDrain(self, count, isLocal, part, noSlots)
     end
 
     -- kusy se naplánují dopředu z výchozí hladiny (návrat litrů po nezdařeném spawnu smyčku neprodlužuje)
+    local chunkLiters = FillType.SDT_FINE_LIME ~= nil and tankType == FillType.SDT_FINE_LIME and SprayDroneToolbox.LIME_BAG_LITERS or tb.slotLiters
     local chunks, remaining = {}, self:getFillUnitFillLevel(unit)
     while remaining > SprayDroneToolbox.MIN_LITERS and #chunks < count do
-        local liters = math.min(tb.slotLiters, remaining)
+        local liters = math.min(chunkLiters, remaining)
         table.insert(chunks, liters)
         remaining = remaining - liters
     end
@@ -1172,7 +1219,7 @@ function SprayDroneToolbox.doDrain(self, count, isLocal, part, noSlots)
         else
             local at = nil
             if noSlots then
-                at = { SprayDroneToolbox.getGroundSpawnPosition(self, part.spawnCounter, part) }
+                at = { SprayDroneToolbox.getGroundSpawnPosition(self, part.spawnCounter, part, tankType) }
                 part.spawnCounter = part.spawnCounter + 1
             end
             local started, reason = SprayDroneToolbox.spawnCanister(self, tankType, taken, function(success)
@@ -1209,6 +1256,8 @@ function SprayDroneToolbox.command(self, command, fillType, count, noEventSend, 
     local isLocal = not noEventSend
     fillType = fillType or FillType.UNKNOWN
     count = math.clamp(count or 1, 1, tb.slots)
+    SprayDroneSound.noteAction(string.format("příkaz bedny %s (id %s, bedna %s): %s, %s, %d ks", self.configFileNameClean or "?", tostring(self.id), tostring(part.index),
+        SprayDroneSound.getToolboxCommandName(command), tostring(g_fillTypeManager:getFillTypeNameByIndex(fillType)), count))
     if command == SprayDroneToolboxEvent.OPEN then
         SprayDroneToolbox.setOpen(self, true, part)
     elseif command == SprayDroneToolboxEvent.CLOSE then
@@ -1275,6 +1324,38 @@ local function getCapPosition(v)
     return localToWorld(v.rootNode, 0.062, 0.317, 0)
 end
 
+-- Kdo kanystr / pytel drží: hráč nebo nil (jednou za průchod předat getHeldNodes()).
+SprayDroneToolbox.getHeldNodes = getHeldNodes
+SprayDroneToolbox.getHolder = getHolder
+
+-- Jak moc kanystr / pytel míří hrdlem nahoru, ve stupnici POUR_UP_MAX (nejvýš POUR_UP_MAX = teče): kanystr má víčko nahoře, bere se svislá
+-- složka jeho osy y. Pytel jemného vápna má hubici na konci dlouhé osy x: bere se, jak moc míří dolů (hubice BAG_SPOUT_DOWN pod vodorovnou
+-- = POUR_UP_MAX), takže sype hubicí šikmo dolů a převalený na bok (hubice vodorovně, osa y vodorovně) ne.
+function SprayDroneToolbox.getPourUp(v, kind)
+    if FillType.SDT_FINE_LIME ~= nil and kind == FillType.SDT_FINE_LIME then
+        local _, spoutY = localDirectionToWorld(v.rootNode, 1, 0, 0)
+        return spoutY + SprayDroneToolbox.BAG_SPOUT_DOWN + SprayDroneToolbox.POUR_UP_MAX
+    end
+    local _, upY = localDirectionToWorld(v.rootNode, 0, 1, 0)
+    return upY
+end
+
+-- Je kanystr / pytel u hrdla `neck`? Volný (položený, postavený): víčko do `radius` od hrdla a nejvýš `below` pod ním. Držený v rukou:
+-- rozhoduje hráč, který ho drží (do HAND_POUR_PLAYER od hrdla), jako u nalévání přes R. Držený předmět se k hrdlu obklopenému kolizemi
+-- nedostane: vanilla kloub rukou je pružný a při tlaku na překážku se utrhne (HandToolHands.createItemJoint, setBreakable), fyzika ho
+-- od rámu vleku odtlačí (u Maxu ~2 m od hrdla) a ústí násypky od 2026-10-29 kryje podlaha výsypné stolice (stoolFloor).
+function SprayDroneToolbox.isCapAtNeck(v, neck, radius, below, holder)
+    local nx, ny, nz = getWorldTranslation(neck)
+    if holder ~= nil then
+        local px, py, pz = getPlayerPosition(holder)
+        if px ~= nil then
+            return MathUtil.vector3Length(px - nx, py - ny, pz - nz) <= SprayDroneToolbox.HAND_POUR_PLAYER
+        end
+    end
+    local cx, cy, cz = getCapPosition(v)
+    return cy >= ny - below and MathUtil.vector3Length(cx - nx, cy - ny, cz - nz) <= radius
+end
+
 -- Nejbližší hrdlo k bodu x, y, z: koncentrát má jedno, nafta jedno na každou elektrocentrálu (druhé jen u konfigurace se dvěma).
 -- Vrací uzel a vzdálenost.
 local function getNearestNeck(self, diesel, x, y, z)
@@ -1300,28 +1381,29 @@ local function getNearestNeck(self, diesel, x, y, z)
     return best, bestDistance
 end
 
--- NALÉVÁNÍ RUKOU: kanystry z modu, jejichž víčko je těsně nad hrdlem koncentrátové nádrže (neckNode, pourRadius) a které jsou
--- nakloněné hrdlem dolů (svislá složka jejich osy nejvýš POUR_UP_MAX). Vrací seznam { vehicle, kind, liters, upY, holder }.
+-- NALÉVÁNÍ RUKOU: kanystry a pytle z modu u hrdla koncentrátové nádrže (nafta u hrdla elektrocentrály; isCapAtNeck: volné víčkem do
+-- pourRadius, držené podle hráče) nakloněné hrdlem dolů (getPourUp nejvýš POUR_UP_MAX). Vrací seznam { vehicle, kind, liters, upY, holder }.
 function SprayDroneToolbox.findPourCanisters(self)
     local tb = getSpec(self).toolbox
     local result = {}
-    local held = nil
+    local held = getHeldNodes()
     for _, v in ipairs(getVehicles()) do
         local kind = getUsableCanisterKind(self, v)
-        local cx, cy, cz
-        local neck
         if kind ~= nil then
-            cx, cy, cz = getCapPosition(v)
-            neck = getNearestNeck(self, isDiesel(kind), cx, cy, cz)
-        end
-        if neck ~= nil then
-            local nx, ny, nz = getWorldTranslation(neck)
-            if cy >= ny - 0.08 and MathUtil.vector3Length(cx - nx, cy - ny, cz - nz) <= tb.pourRadius then
-                local _, upY = localDirectionToWorld(v.rootNode, 0, 1, 0)
+            local holder = getHolder(v, held)
+            local x, y, z
+            if holder ~= nil then
+                x, y, z = getPlayerPosition(holder)
+            end
+            if x == nil then
+                x, y, z = getCapPosition(v)
+            end
+            local neck = getNearestNeck(self, isDiesel(kind), x, y, z)
+            if neck ~= nil and SprayDroneToolbox.isCapAtNeck(v, neck, tb.pourRadius, 0.08, holder) then
+                local upY = SprayDroneToolbox.getPourUp(v, kind)
                 if upY <= SprayDroneToolbox.POUR_UP_MAX then
-                    held = held or getHeldNodes()
                     table.insert(result, { vehicle = v, kind = kind, liters = v:getFillUnitFillLevel(SprayDroneToolbox.CANISTER_UNIT) or 0,
-                        upY = upY, holder = getHolder(v, held) })
+                        upY = upY, holder = holder })
                 end
             end
         end
@@ -1543,12 +1625,14 @@ function SprayDroneToolbox.actionEventGroundDrain(self, actionName, inputValue, 
     if tb == nil then
         return
     end
+    SprayDroneSound.noteAction("klávesa vypuštění koncentrátu na zem (Ctrl+I): vlek " .. tostring(self.id) .. (tb.groundDrain and " (běží, zastavit)" or ""))
     if tb.groundDrain then
         SprayDroneToolbox.command(self, SprayDroneToolboxEvent.GROUND_DRAIN_STOP)
         return
     end
     local reason = SprayDroneToolbox.getGroundDrainReason(self)
     if reason ~= nil then
+        SprayDroneSound.noteAction("vypouštění na zem odmítnuto: " .. reason)
         g_currentMission:showBlinkingWarning(g_i18n:getText(reason), 2500)
         return
     end
@@ -1726,7 +1810,7 @@ function SprayDroneToolboxActivatable.new(vehicle, part)
 end
 
 function SprayDroneToolboxActivatable:getIsActivatable()
-    -- v nastoupeném vozidle (i ve vleku) se bedna neovládá: její klik je na X (ACTIVATE_HANDTOOL), a to patří rozložení vleku (IMPLEMENT_EXTRA2)
+    -- v nastoupeném vozidle (i ve vleku) se bedna neovládá: ACTIVATE_HANDTOOL je tam i na X, a to patří rozložení vleku (IMPLEMENT_EXTRA2)
     local player = g_localPlayer
     if player ~= nil and player.getCurrentVehicle ~= nil and player:getCurrentVehicle() ~= nil then
         return false
@@ -1739,18 +1823,17 @@ function SprayDroneToolboxActivatable:getIsActivatable()
     self.activateText = g_i18n:getText("sdt_toolbox_menu")
     if self.clickEventId ~= nil then
         g_inputBinding:setActionEventText(self.clickEventId, g_i18n:getText(self.part.open and "sdt_toolbox_dlgClose" or "sdt_toolbox_open"))
+        g_inputBinding:setActionEventTextVisibility(self.clickEventId, SprayDroneLink.mayClick(self))
     end
     return true
 end
 
--- Kliknutí myší (ACTIVATE_HANDTOOL, X se ignoruje) otevře nebo zavře víko, stejně jako u vanilla dveří. Registruje se jen, dokud je
--- tahle aktivace vybraná (hráč je u bedny).
+-- Levé tlačítko (ACTIVATE_HANDTOOL) otevře nebo zavře víko, stejně jako u vanilla dveří; ustoupí zvedání předmětu a bližšímu displeji
+-- (SprayDroneLink.mayClick). Registruje se jen, dokud je tahle aktivace vybraná (hráč je u bedny).
 function SprayDroneToolboxActivatable:registerCustomInput(inputContext)
     local _
-    _, self.clickEventId = g_inputBinding:registerActionEvent(InputAction.ACTIVATE_HANDTOOL, self, self.onClick, false, true, false, true)
-    g_inputBinding:setActionEventTextPriority(self.clickEventId, GS_PRIO_VERY_HIGH)
-    g_inputBinding:setActionEventTextVisibility(self.clickEventId, true)
-    g_inputBinding:setActionEventText(self.clickEventId, g_i18n:getText(self.part.open and "sdt_toolbox_dlgClose" or "sdt_toolbox_open"))
+    self.clickEventId = SprayDroneLink.registerClick(self, self.onClick, g_i18n:getText(self.part.open and "sdt_toolbox_dlgClose" or "sdt_toolbox_open"))
+    SprayDroneLink.setSelected(self, true)
     _, self.menuEventId = g_inputBinding:registerActionEvent(InputAction.ACTIVATE_OBJECT, self, self.run, false, true, false, true)
     g_inputBinding:setActionEventTextPriority(self.menuEventId, GS_PRIO_VERY_HIGH)
     g_inputBinding:setActionEventTextVisibility(self.menuEventId, true)
@@ -1759,36 +1842,30 @@ end
 
 function SprayDroneToolboxActivatable:removeCustomInput(inputContext)
     g_inputBinding:removeActionEventsByTarget(self)
+    SprayDroneLink.setSelected(self, false)
     self.clickEventId = nil
     self.menuEventId = nil
 end
 
 function SprayDroneToolboxActivatable:onClick()
-    -- ACTIVATE_HANDTOOL bývá vedle levého tlačítka myši i na X, které patří rozložení vleku: skříň se otevírá jen myší
-    if Input.isKeyPressed(Input.KEY_x) then
+    if not SprayDroneLink.mayClick(self) then
         return
     end
     local vehicle = self.vehicle
-    local hands = g_localPlayer ~= nil and g_localPlayer.hands or nil
-    if hands ~= nil then
-        if hands:getIsHoldingItem() then
-            return
-        end
-        local targeter = g_localPlayer.targeter
-        if targeter ~= nil and hands:getCanPickUpNode(targeter:getClosestTargetedNodeFromType(HandToolHands)) then
-            return
-        end
-    end
     local part = self.part
+    SprayDroneSound.noteAction(string.format("klik myší na bednu %s (id %s, bedna %s): %s", vehicle.configFileNameClean or "?", tostring(vehicle.id), tostring(part.index),
+        part.open and "zavřít" or "otevřít"))
     SprayDroneToolbox.command(vehicle, part.open and SprayDroneToolboxEvent.CLOSE or SprayDroneToolboxEvent.OPEN, nil, nil, nil, part.index)
 end
 
 function SprayDroneToolboxActivatable:getDistance(x, y, z)
-    local nx, ny, nz = getWorldTranslation(SprayDroneToolbox.getRefNode(self.vehicle, self.part))
-    return MathUtil.vector3Length(x - nx, y - ny, z - nz)
+    local node = SprayDroneToolbox.getRefNode(self.vehicle, self.part)
+    local nx, ny, nz = getWorldTranslation(node)
+    return SprayDroneLink.aimDistance(MathUtil.vector3Length(x - nx, y - ny, z - nz), node)
 end
 
 function SprayDroneToolboxActivatable:run()
+    SprayDroneSound.noteAction(string.format("klávesa R u bedny %s (id %s, bedna %s): nabídka kanystrů", self.vehicle.configFileNameClean or "?", tostring(self.vehicle.id), tostring(self.part.index)))
     SprayDroneToolbox.openDialog(self.vehicle, self.part)
 end
 
@@ -1862,7 +1939,7 @@ function SprayDroneHandPourActivatable:getDistance(x, y, z)
         return math.huge
     end
     local nx, ny, nz = getWorldTranslation(neck)
-    return MathUtil.vector3Length(x - nx, y - ny, z - nz) - 1.5
+    return SprayDroneLink.aimDistance(MathUtil.vector3Length(x - nx, y - ny, z - nz) - 1.5, neck)
 end
 
 function SprayDroneHandPourActivatable:run()

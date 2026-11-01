@@ -13,6 +13,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "mod" / "FS25_SprayDroneTrailer" / "scripts"
 
+# soubory s vlastním spec (mlýnek, pumpa, násypka, hadice), jejich pole se tu neklasifikují
+SKIP_FILES = ("SprayDroneFields.lua", "SprayDroneDrones.lua", "SprayDroneMill.lua", "SprayDronePump.lua",
+              "SprayDroneHopper.lua", "SprayDroneHoseLib.lua", "SprayDroneWaterHose.lua", "SprayDroneItem.lua")
+# pole cizích spec, na která sahá ladění (hadice, pumpa, násypka)
+FOREIGN_FIELDS = {"hoses", "engineNode", "engineOn", "waterUnit", "dieselUnit"}
+
 
 def load_lists():
     text = (ROOT / "SprayDroneFields.lua").read_text(encoding="utf-8")
@@ -30,7 +36,7 @@ def main():
     functions = {}
     func_re = re.compile(r"^(?:local )?function ([A-Za-z0-9_.:]+)\(")
     for path in sorted(ROOT.rglob("*.lua")):
-        if path.name in ("SprayDroneFields.lua", "SprayDroneDrones.lua"):
+        if path.name in SKIP_FILES:
             continue
         current = None
         for line in path.read_text(encoding="utf-8").splitlines():
@@ -43,7 +49,7 @@ def main():
                     functions.setdefault(current, set()).add(field)
     bad = False
     for field in sorted(used):
-        if field not in shared and field not in drone:
+        if field not in shared and field not in drone and field not in FOREIGN_FIELDS:
             print(f"CHYBÍ v seznamech: spec.{field} ({', '.join(sorted(used[field]))})")
             bad = True
     for field in sorted(shared & drone):

@@ -25,13 +25,17 @@ TEX_DIR = os.path.join(VEH_DIR, "textures")
 DECAL_SOURCE = os.path.join(MOD_DIR, "vehicles", "sprayDroneTrailerMiddle", "textures", "sdt_decals.dds")
 
 BATTERY_SLOTS = 10
+STD_INDUCTION = ("Tank_Induction", "Tank_Induction_Stand", "Tank_Induction_Fittings", "Tank_Induction_Lid")   # skrytá běžná nádobka (kvůli polepům)
+
 MAPPED_NODES = [
-    "sprayDroneTrailerMax_main_component1", "sprayDroneTrailerMax_vis", "attacherJoint",
+    "sprayDroneTrailerMax_main_component1", "sprayDroneTrailerMax_vis", "attacherJoint", "deckEdgeSteel", "deckEdgeWood",
     "wheelFrontLeft", "wheelFrontRight", "wheelBackLeft", "wheelBackRight",
     "ladderHinge", "ladderGrab", "jockeyWheel", "chargerLid", "ladderTrigger",
     "drawbarTractorSet", "drawbarCarSet", "airIn", "airIn_detached", "airOut", "airOut_detached", "electric",
     "electric_detached", "hoseLidHinge", "hoseLidHingeB",
-] + [
+    "inductionStd", "inductionLime", "limeInletNode", "limeValveLever", "rearHitchJoint",
+    "waterHosePort3000", "waterHosePort5000", "waterHosePort3000B", "waterHosePort5000B", "waterHoseEnd", "limeHoseEnd",
+] + [f"waterHoseSeg{i}" for i in range(1, 73)] + [f"limeHoseSeg{i}" for i in range(1, 73)] + [
     "fillTrigger", "exactFillRootNode", "tankMain3000", "tankMain5000", "tankMain3000B", "tankMain5000B",
     "concentrateFillRootNode",
     "mixerMotor", "mixerSoundNode", "toolboxActivateNode", "Toolbox_Door", "concentrateNeckNode", "dieselNeckNode",
@@ -42,7 +46,7 @@ MAPPED_NODES = [
     "occlusionAreaStart", "occlusionAreaWidth", "occlusionAreaHeight", "licensePlateBack", "generatorExhaust", "dieselFillRootNode",
 ] + [f"{kind}{i}" for kind in ("battery", "batterySlotDeck") for i in range(1, BATTERY_SLOTS + 1)] + \
     [f"battery{i}{size}" for i in range(1, BATTERY_SLOTS + 1) for size in "SML"] + [
-    "batteryCharger", "antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox", "antennaBoostedTele1", "antennaBoostedTele2", "antennaLargeTele1", "antennaLargeTele2", "gpsRtkBoxTele1", "gpsRtkBoxTele2", "chargerCable", "chargerCable2", "generator2", "dieselNeckNode2", "generatorExhaust2", "fillHoseCoil", "fillHoseStart",
+    "batteryCharger", "antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox", "antennaBoostedTele1", "antennaBoostedTele2", "antennaLargeTele1", "antennaLargeTele2", "gpsRtkBoxTele1", "gpsRtkBoxTele2", "antennaLargeCable", "chestStrutCylL", "chestStrutCylR", "chestStrutRodL", "chestStrutRodR", "chargerCable", "chargerCable2", "generator2", "dieselNeckNode2", "generatorExhaust2", "fillHoseCoil", "fillHoseStart",
 ] + [f"fillHoseLay{i}" for i in range(1, 9)] + [f"fillHoseSeg{i}" for i in range(1, 97)] + [
     "fillHoseNozzle", "fillHoseParkPos", "fillHoseBCoil", "fillHoseBStart",
 ] + [f"fillHoseBLay{i}" for i in range(1, 9)] + [f"fillHoseBSeg{i}" for i in range(1, 97)] + [
@@ -52,7 +56,7 @@ MAPPED_NODES = [
 # v i3d skryté: baterie S a L (podle varianty je ukáže skript) a šachty 6-10, které skript zatím nepoužívá
 BATTERY_HIDDEN = [f"battery{i}{size}" for i in range(1, BATTERY_SLOTS + 1) for size in "SL"] + \
     [f"battery{i}M" for i in range(6, BATTERY_SLOTS + 1)]
-DRONE_B_KEYS = {"S2": "Drone2_S_", "M2": "Drone2_A_", "L2": "Drone2_L_"}
+DRONE_B_KEYS = {"S2": "Drone2_S_", "M2": "Drone2_A_", "L2": "Drone2_L_", "K2": "Drone2_K_"}
 
 
 def load_car_module():
@@ -61,7 +65,7 @@ def load_car_module():
     exec(compile(open(p, encoding="utf-8").read(), p, "exec"), ns)
     # exportní funkce procházejí DRONE_VARIANTS: oba drony v jednom slovníku, druhý s klíči S2, M2, L2
     ns["DRONE_VARIANTS"] = {**ns["DRONE_VARIANTS"], **DRONE_B_KEYS}
-    ns["DRONE_HIDDEN"] = ("S", "L", "S2", "L2")
+    ns["DRONE_HIDDEN"] = ("S", "L", "K", "S2", "L2", "K2")
     return ns
 
 
@@ -147,8 +151,7 @@ def _store_pose(car):
     for prefix in shown:
         parts = car["drone_fold_parts"](prefix)
         car["set_drone_unfold"](0.0, parts, prefix)
-        hinges += [o for o in bpy.data.objects if o.name.startswith(prefix + "ClampHinge_")]
-    hinges += [bpy.data.objects[n] for n in ("hoseLidHinge", "hoseLidHingeB")]
+    hinges += pad_clamp_hinges() + [bpy.data.objects[n] for n in ("hoseLidHinge", "hoseLidHingeB")]
     car["set_ladder"](1.0)
     opened = {o.name: o.rotation_euler.y for o in hinges}
     for o in hinges:
@@ -156,10 +159,15 @@ def _store_pose(car):
     lid = bpy.data.objects["chargerLid"]
     lid_open = lid.rotation_euler.x
     lid.rotation_euler.x = 0.0
+    struts = {n: bpy.data.objects[n].rotation_euler.x for n in STRUT_NODES}
+    for n in STRUT_NODES:
+        bpy.data.objects[n].rotation_euler.x += list(bpy.data.objects[n]["sdt_strut_keys"])[-1]
     hidden = {}
     for o in bpy.data.objects:
         hide = (o.name.startswith(others) or bool(o.get("i3D_nonRenderable")) or o.name.endswith("_Tip")
+                or o.name in STD_INDUCTION or o.name.startswith("Decal_ConcNum")
                 or _under(o, "drawbarCarSet")
+                or (o.parent is not None and o.parent.name == "deckEdgeWood")
                 or o.name in ("Charger_Plug", "Gen_0_ChargePlug")
                 or re.match(r"^battery\d+[SL]$", o.name) is not None
                 or re.match(r"^Tank_Main5000", o.name) is not None
@@ -177,6 +185,8 @@ def _store_pose(car):
         for o in hinges:
             o.rotation_euler.y = opened[o.name]
         lid.rotation_euler.x = lid_open
+        for n, x in struts.items():
+            bpy.data.objects[n].rotation_euler.x = x
         car["set_ladder"](0.0)
     return restore
 
@@ -190,7 +200,7 @@ def build_mod():
     n = export_i3d(car)
     used = apply_vehicle_shader(I3D_PATH)
     print(f"materiály na vehicleShader: {len(used)} ({sorted(set(used.values()))})")
-    hide_nodes(I3D_PATH, hidden_nodes(car) + [f"battery{i}M" for i in range(6, BATTERY_SLOTS + 1)] + ["drawbarCarSet"] + ["antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox"])
+    hide_nodes(I3D_PATH, hidden_nodes(car) + [f"battery{i}M" for i in range(6, BATTERY_SLOTS + 1)] + ["drawbarCarSet", "inductionStd"] + ["antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox", "waterHoseEnd", "limeHoseEnd", "deckEdgeWood"] + [f"waterHoseSeg{i}" for i in range(1, 73)] + [f"limeHoseSeg{i}" for i in range(1, 73)])
     mappings, found = i3d_mappings(I3D_PATH, MAPPED_NODES + drone_nodes(car))
     values = write_vehicle_xml(car, mappings)
     make_images(car)

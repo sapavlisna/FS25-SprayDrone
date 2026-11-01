@@ -5,6 +5,7 @@
         <text name="input_SDT_RETURN_HOME" text="Dron: návrat na vlek"/>
         <text name="sdt_hud_drone" text="Dron: %s"/>
         <text name="sdt_hud_droneTank" text="Nádrž dronu %.0f/%.0f l | baterie %.0f %%"/>
+        <text name="sdt_hud_droneScan" text="Baterie dronu %.0f %%"/>
         <text name="sdt_state_parked" text="na vleku"/>
         <text name="sdt_state_flying" text="letí dávku"/>
         <text name="sdt_state_returning" text="vrací se"/>
@@ -20,7 +21,6 @@
         <text name="sdt_hud_generatorOff" text="stojí"/>
         <text name="sdt_status_noFuel" text="Dron: v elektrocentrále došla nafta a žádná náhradní baterie není nabitá"/>
         <text name="sdt_planner_service" text="Servis na vleku %.1f min, z toho čekání na nabití %.1f min"/>
-        <text name="sdt_planner_diesel" text="Nafta na nabíjení: ~%.1f l, v elektrocentrále %.1f l"/>
         <text name="sdt_planner_noFuel" text="Nafta nestačí – mise skončí, až nebude nabitá náhradní baterie."/>
         <text name="sdt_planner_fuelRunsOut" text="Nafta dojde dřív, než se nabijí všechny baterie – doplň naftu."/>
         <text name="sdt_status_fieldDone" text="Dron: pole je hotové, není co postřikovat"/>
@@ -30,6 +30,9 @@
         <text name="sdt_status_notAllowed" text="Dron: pole už ošetřovat nejde (zakázka skončila nebo pole nepatří farmě)"/>
         <text name="sdt_status_obstacle" text="Dron: v cestě je překážka vyšší, než smí letět – přeparkuj vlek"/>
         <text name="sdt_warning_obstacleTooHigh" text="Překážka v cestě je vyšší, než dron smí letět – přeparkuj vlek"/>
+        <text name="sdt_warning_takeoffRoof" text="Dron nemůže vzlétnout: nad ním je střecha nebo most"/>
+        <text name="sdt_warning_takeoffTree" text="Dron nemůže vzlétnout: nad ním nebo vedle je strom"/>
+        <text name="sdt_warning_takeoffBlocked" text="Dron nemůže vzlétnout: nad ním je překážka"/>
         <text name="sdt_warning_noField" text="Tady není pole"/>
         <text name="sdt_warning_noFieldSelected" text="Nejdřív vyber pole v plánovači letu"/>
         <text name="sdt_warning_notOwned" text="Cizí pole – nepatří tvé farmě a nemáš na něm zakázku"/>
@@ -47,35 +50,26 @@
         <text name="sdt_button_close" text="Zavřít"/>
         <text name="sdt_button_start" text="Spustit let"/>
         <text name="sdt_button_returnHome" text="Návrat domů"/>
-        <text name="sdt_planner_title" text="Plánovač letu dronu"/>
         <text name="sdt_planner_trailerTank" text="Vlek: %.0f l – %s"/>
         <text name="sdt_planner_params" text="Dosah %.0f m (z baterie, přelet ve %.0f m), záběr %.0f m"/>
-        <text name="sdt_planner_noField" text="Pole není vybrané"/>
-        <text name="sdt_planner_hintSelect" text="Klikni na pole v modrém nebo zlatém obrysu uvnitř kruhu dosahu."/>
         <text name="sdt_planner_field" text="Pole %s"/>
         <text name="sdt_planner_ownField" text="Vlastní pole"/>
         <text name="sdt_planner_contract" text="Zakázka"/>
         <text name="sdt_planner_contractInfo" text="Zakázka: %s (hotovo %.0f %%)"/>
-        <text name="sdt_planner_batches" text="Dávek (nádrž + baterie): %d"/>
-        <text name="sdt_planner_time" text="Odhad času letu: %.1f min"/>
-        <text name="sdt_planner_battery" text="Baterie: dávka až %.0f %%, výměn baterie %d"/>
         <text name="sdt_planner_batteryLife" text="Výdrž baterie %.0f min s plnou nádrží, %.0f min prázdný"/>
         <text name="sdt_planner_transit" text="Výška přeletu: %.0f m"/>
         <text name="sdt_planner_transitObstacle" text="Výška přeletu: %.0f m (kvůli překážkám v cestě)"/>
         <text name="sdt_planner_tooHigh" text="Překážka v cestě převyšuje limit %.0f m – přeparkuj vlek."/>
         <text name="sdt_planner_area" text="Plocha k ošetření: %.2f ha"/>
-        <text name="sdt_planner_liters" text="Potřeba: %.0f l, k dispozici %.0f l"/>
         <text name="sdt_planner_notEnough" text="Přípravku nestačí na celé pole – dron skončí, až vlek vyprázdní."/>
         <text name="sdt_planner_product" text="Přípravek: %s"/>
         <text name="sdt_planner_clipped" text="Část pole je mimo dosah – trasa pokrývá jen část uvnitř kruhu."/>
-        <text name="sdt_planner_hover" text="Pod kurzorem: pole %s"/>
         <text name="sdt_planner_clickToSelect" text="Kliknutím ho vybereš"/>
         <text name="sdt_planner_selected" text="Vybráno pole %s"/>
         <text name="sdt_planner_started" text="Let spuštěn"/>
         <text name="sdt_planner_returning" text="Dron se vrací na vlek"/>
         <text name="sdt_planner_highestPoint" text="Nejvyšší bod na dráze: %.0f m nad terénem"/>
         <text name="sdt_planner_highestPointNone" text="Nejvyšší bod na dráze: žádná překážka"/>
-        <text name="sdt_planner_legend" text="Zeleně je ohraničené vybrané pole, fialově letová plocha. Barvy čar trasy = dávky, tenká = přejezd mezi řádky. Červeně je část pole, která se kvůli naftě nebo baterii nenaplánovala."/>
         <text name="sdt_planner_controls" text="Klik = výběr pole, tažení = posun mapy, kolečko = zoom."/>
         <text name="sdt_status_areaNoPath" text="Dron: letová plocha nespojuje vlek s polem – uprav ji, nebo ji smaž"/>
         <text name="sdt_button_drawArea" text="Kreslit letovou plochu"/>
@@ -100,7 +94,7 @@
         <text name="sdt_planner_drawing" text="Kreslení letové plochy: %d bodů"/>
         <text name="sdt_planner_drawHint" text="Obtáhni cestu od vleku k poli mimo budovy a stromy. Klik na první bod plochu uzavře."/>
         <text name="sdt_planner_controlsDraw" text="Klik = přidat bod, tažení = posun mapy, kolečko = zoom."/>
-        <text name="input_SDT_TOGGLE_GENERATOR" text="Elektrocentrála zap./vyp."/>
+        <text name="input_SDT_OPEN_PLANNER" text="Dron: plánovač letu (ve vleku)"/>
         <text name="input_SDT_TOGGLE_LINES" text="Dron: čáry ve světě zap./vyp."/>
         <text name="sdt_state_secured" text="zajištěn na plošině"/>
         <text name="sdt_hud_generatorDisabled" text="vypnutá"/>
@@ -118,10 +112,14 @@
         <text name="sdt_antenna_large" text="Velká směrová anténa (dosah +70 %)"/>
         <text name="sdt_gps_standard" text="Běžná GPS"/>
         <text name="sdt_gps_rtk" text="Přesná GPS s RTK (o 15 % méně postřiku)"/>
+        <text name="sdt_configuration_deckEdge" text="Hrany paluby"/>
+        <text name="sdt_deckEdge_steel" text="Kovové lemy"/>
+        <text name="sdt_deckEdge_wood" text="Dřevěné desky s kovovými pásy"/>
         <text name="sdt_configuration_relayStrength" text="Síla tyče"/>
         <text name="sdt_relay_standard" text="Běžná tyč (dosah 300 m)"/>
         <text name="sdt_relay_strong" text="Silná tyč (dosah 400 m)"/>
         <text name="sdt_storeCategoryTrailers" text="Vleky s drony"/>
+        <text name="sdt_storeCategoryDrones" text="Drony"/>
         <text name="sdt_storeCategoryEquipment" text="Vybavení dronů"/>
         <text name="sdt_storeCategoryCanisters" text="Kanystry"/>
         <text name="sdt_fill_dieselGenerators" text="Nafta (centrály) %s %%"/>
@@ -132,9 +130,57 @@
         <text name="sdt_relaySlot_powered" text="Zapnutou tyč nejde uložit, nejdřív ji vypni"/>
         <text name="sdt_relaySlot_noPole" text="Tuhle tyč teď uložit nejde"/>
         <text name="sdt_relaySlot_spawnFailed" text="Tyč se nepodařilo vyndat, zůstala na vleku"/>
-        <text name="sdt_status_outOfReach" text="Dron: zbytek pole je mimo dosah nebo signál – přesuň vlek nebo tyč a spusť znovu"/>
+        <text name="sdt_pumpslot_store" text="Uložit pumpu na vlek"/>
+        <text name="sdt_pumpslot_take" text="Vyndat pumpu (nafta %.1f l)"/>
+        <text name="sdt_pumpslot_full" text="Na vleku už pumpa je"/>
+        <text name="sdt_pumpslot_running" text="Pumpu s běžícím motorem nejde uložit, nejdřív ji vypni"/>
+        <text name="sdt_pumpslot_noPump" text="Tuhle pumpu teď uložit nejde"/>
+        <text name="sdt_pumpslot_spawnFailed" text="Pumpu se nepodařilo vyndat, zůstala na vleku"/>
+        <text name="sdt_droneItem_nameS" text="Dron BZUK S (postřikový)"/>
+        <text name="sdt_droneItem_nameM" text="Dron BZUK M (postřikový)"/>
+        <text name="sdt_droneItem_nameL" text="Dron BZUK L (postřikový)"/>
+        <text name="sdt_droneItem_nameK" text="Dron BZUK K (skenovací)"/>
+        <text name="sdt_droneItem_functionS" text="Malý postřikový dron, nádrž 20 l. Nasadí se na plošinu vleku (R), nese svou náplň."/>
+        <text name="sdt_droneItem_functionM" text="Střední postřikový dron, nádrž 40 l. Nasadí se na plošinu vleku (R), nese svou náplň."/>
+        <text name="sdt_droneItem_functionL" text="Velký postřikový dron, nádrž 75 l. Nasadí se na plošinu vleku (R), nese svou náplň."/>
+        <text name="sdt_droneItem_functionK" text="Skenovací dron bez nádrže: kamera a multispektrální senzory pod trupem. Nasadí se na plošinu vleku (R), sken pole pak řídí vlek."/>
+        <text name="sdt_padslot_place" text="Nasadit dron na plošinu"/>
+        <text name="sdt_padslot_take" text="Odepnout dron (%s)"/>
+        <text name="sdt_padslot_full" text="Na plošině už dron je"/>
+        <text name="sdt_padslot_noDrone" text="Tenhle dron teď nasadit nejde"/>
+        <text name="sdt_padslot_busy" text="Dron se právě odepíná"/>
+        <text name="sdt_padslot_spawnFailed" text="Dron se nepodařilo odepnout, zůstal na plošině"/>
+        <text name="sdt_padslot_placeBox" text="Uložit dron do bedny"/>
+        <text name="sdt_padslot_placePlate" text="Postavit dron na plošinu"/>
+        <text name="sdt_padslot_moveBox" text="Přendat dron do bedny"/>
+        <text name="sdt_padslot_movePlate" text="Přendat dron na plošinu"/>
+        <text name="sdt_batteryItem_nameS" text="Baterie dronu BZUK S"/>
+        <text name="sdt_batteryItem_nameM" text="Baterie dronu BZUK M"/>
+        <text name="sdt_batteryItem_nameL" text="Baterie dronu BZUK L"/>
+        <text name="sdt_batteryItem_nameC" text="Baterie dronu BZUK C (kufr)"/>
+        <text name="sdt_batteryItem_nameP" text="Baterie dronu BZUK P (kufr)"/>
+        <text name="sdt_batteryItem_functionS" text="Baterie pro dron S a skenovací dron K na vleku. Vloží se do volné šachty nabíječky (R), nese své nabití."/>
+        <text name="sdt_batteryItem_functionM" text="Baterie pro dron M na vleku. Vloží se do volné šachty nabíječky (R), nese své nabití."/>
+        <text name="sdt_batteryItem_functionL" text="Baterie pro dron L na vleku. Vloží se do volné šachty nabíječky (R), nese své nabití."/>
+        <text name="sdt_batteryItem_functionC" text="Baterie skenovacího dronu v kufru. Vloží se do šachty v kufru (R), nese své nabití."/>
+        <text name="sdt_batteryItem_functionP" text="Baterie vzorkovacího dronu v kufru. Vloží se do šachty v kufru (R), nese své nabití."/>
+        <text name="sdt_batteryItem_charge" text="Nabití baterie"/>
+        <text name="sdt_batteryslot_put" text="Vložit baterii do nabíječky"/>
+        <text name="sdt_batteryslot_take" text="Vyndat baterii (%.0f %%)"/>
+        <text name="sdt_batteryslot_folded" text="Nabíječka je zavřená – nejdřív rozlož vlek"/>
+        <text name="sdt_batteryslot_caseClosed" text="Šachta je pod víkem – nejdřív otevři kufr"/>
+        <text name="sdt_batteryslot_wrongSize" text="Sem patří baterie %s"/>
+        <text name="sdt_batteryslot_full" text="Na další baterii tu není místo (jedna šachta zůstává pro baterii z dronu)"/>
+        <text name="sdt_batteryslot_occupied" text="Šachta je obsazená"/>
+        <text name="sdt_batteryslot_empty" text="V šachtě není baterie"/>
+        <text name="sdt_batteryslot_busy" text="Baterie se právě přesouvá"/>
+        <text name="sdt_batteryslot_droneBusy" text="Z dronu, který letí nebo je v obsluze, baterii vyndat nejde"/>
+        <text name="sdt_batteryslot_noBattery" text="Tuhle baterii teď vložit nejde"/>
+        <text name="sdt_batteryslot_spawnFailed" text="Baterii se nepodařilo vyndat, zůstala v nabíječce"/>
+        <text name="sdt_status_outOfReach" text="Dron: zbytek pole je mimo dosah nebo signál – přesuň vlek, kufr nebo tyč (u kufru případně natoč anténu) a spusť znovu"/>
         <text name="sdt_status_noSignal" text="Dron: ztráta signálu, let přerušen"/>
         <text name="sdt_state_waitRelay" text="čeká na relé – tyči dochází baterie"/>
+        <text name="sdt_state_waitClearance" text="čeká na volný prostor nad plošinou"/>
         <text name="sdt_relay_blockedDrone" text="Tyč teď drží spojení s letícím dronem"/>
         <text name="sdt_relay_battery" text="Baterie tyče"/>
         <text name="sdt_relay_batteryEmpty" text="Baterie tyče je vybitá"/>
@@ -146,13 +192,23 @@
         <text name="sdt_hud_noPowerFuel" text="elektrocentrála nemá naftu"/>
         <text name="sdt_warning_noPower" text="Čerpadlo potřebuje proud: %s"/>
         <text name="sdt_hud_generatorPump" text="pohání čerpadlo"/>
-        <text name="sdt_planner_legendSignal" text="Tyrkysově je dosah signálu vleku, oranžově dosah zapnutých tyčí s vlekem spojených (tenký kruh = kam dron doletí na baterii). Barevná ikona tyče = zapnutá, šedá = vypnutá nebo složená."/>
         <text name="sdt_relayPole_name" text="Retranslační tyč"/>
-        <text name="sdt_relayPole_function" text="Prodlužuje dosah rádia vleku s dronem. Postav ji vzpřímeně na zem v dosahu vleku a rozlož (R). Nastup do ní (E), zapni ji (B); vpravo dole uvidíš baterii. Baterie vydrží asi 5 hodin, nabíjí se na vleku s běžící centrálou nebo u nabíjecí stanice."/>
+        <text name="sdt_relayPole_function" text="Prodlužuje dosah rádia vleku s dronem. Postav ji vzpřímeně na zem v dosahu vleku a rozlož (R). Zapni ji klávesou B (obojí zvenku, do tyče se nenastupuje). Baterie vydrží asi 5 hodin, nabíjí se na vleku s běžící centrálou nebo u nabíjecí stanice."/>
+        <text name="sdt_relayPoleDirectional_name" text="Směrová retranslační tyč"/>
+        <text name="sdt_relayPoleDirectional_function" text="Retranslační tyč s panelovou anténou: signál vleku nebo kufru s dronem nese jen ve výseči asi 99° před čelem panelu (žlutý pruh), zato 1,75× dál než běžná tyč. Za tyčí a do stran nepokrývá nic. Postav ji vzpřímeně v dosahu vleku čelem k poli, rozlož (R) a zapni (B). Baterie vydrží asi 5 hodin, nabíjí se na vleku s běžící centrálou nebo u nabíjecí stanice."/>
+        <text name="sdt_relayDir_standard" text="Běžná tyč (výseč 525 m)"/>
+        <text name="sdt_relayDir_strong" text="Silná tyč (výseč 700 m)"/>
         <text name="sdt_droneTablet_name" text="Tablet dronu"/>
-        <text name="sdt_droneTablet_function" text="Mobilní vysílačka: v ruce klávesou R otevře plánovač vleku v dosahu a umožní start a ovládání mise na dálku."/>
+        <text name="sdt_droneTablet_function" text="Mobilní vysílačka: v ruce levým tlačítkem myši otevře plánovač vleku v dosahu a umožní start a ovládání mise na dálku."/>
         <text name="sdt_tablet_open" text="Otevřít plánovač dronu"/>
         <text name="sdt_tablet_noConnection" text="NO CONNECTION"/>
+        <text name="sdt_tablet_openTarget" text="Plánovač: %s"/>
+        <text name="sdt_tablet_target" text="%s – %.0f m, %s"/>
+        <text name="sdt_tablet_stateMission" text="letí"/>
+        <text name="sdt_tablet_stateUnfolded" text="rozloženo"/>
+        <text name="sdt_tablet_stateFolded" text="složeno"/>
+        <text name="sdt_tablet_onlyTarget" text="Ve spojení je jen tento dron"/>
+        <text name="sdt_button_tabletTarget" text="%d/%d  %s · %.0f m"/>
         <text name="sdt_relay_unfold" text="Rozložit tyč"/>
         <text name="sdt_relay_fold" text="Složit tyč"/>
         <text name="sdt_relay_on" text="Zapnout tyč"/>
@@ -177,7 +233,10 @@
         <text name="sdt_planner_noWater" text="Chybí voda: v nádrži koncentrátu je koncentrát, ale hlavní nádrž je prázdná."/>
         <text name="sdt_hud_pumpingToPallet" text="Přečerpávání do IBC: %.0f l/min, ve vleku %.0f l"/>
         <text name="sdt_warning_noPallet" text="Do %.0f m od vleku není IBC, která by přípravek z vleku přijala"/>
-        <text name="sdt_planner_settings" text="Nastavení letu"/>
+        <text name="sdt_warning_drainNotParked" text="Dron musí stát rozložený na plošině a nesmí být v misi"/>
+        <text name="sdt_warning_drainEmpty" text="Nádrž dronu je prázdná"/>
+        <text name="sdt_warning_drainMismatch" text="Nádrž vleku drží jiný přípravek, dron by ho smíchal"/>
+        <text name="sdt_warning_drainFull" text="Nádrž vleku je plná"/>
         <text name="sdt_setting_transitHeight" text="Výška přeletu nejméně: %.0f m"/>
         <text name="sdt_setting_obstacleClearance" text="Odstup nad překážkami: %.0f m"/>
         <text name="sdt_setting_sideClearance" text="Boční odstup od překážek: %.0f m"/>
@@ -185,12 +244,13 @@
         <text name="sdt_setting_start" text="Začít: %s"/>
         <text name="sdt_setting_startRows" text="řádky"/>
         <text name="sdt_setting_startHeadlands" text="úvratí"/>
-        <text name="sdt_planner_settingsHint" text="Klik na – / + nebo kolečko nad řádkem; klik na řádek ho vybere a tlačítka Snížit / Zvýšit vybrané dole ho mění. Dosah se přepočítá z baterie."/>
         <text name="sdt_button_settingDown" text="Snížit vybrané"/>
         <text name="sdt_button_settingUp" text="Zvýšit vybrané"/>
         <text name="sdt_configuration_drone" text="Dron"/>
         <text name="sdt_cfg_crateColor" text="Barva bedny"/>
         <text name="sdt_cfg_tarpColor" text="Barva plachty"/>
+        <text name="sdt_cfg_hopperColor" text="Barva laku"/>
+        <text name="sdt_cfg_hopperYellow" text="Žlutá"/>
         <text name="sdt_cfg_tarpGrey" text="Tmavě šedá"/>
         <text name="sdt_hitch_tractor" text="Oj s okem (traktor, nákladní auto)"/>
         <text name="sdt_hitch_car" text="Kulová spojka (pickup)"/>
@@ -212,11 +272,21 @@
         <text name="sdt_drone_S" text="malý"/>
         <text name="sdt_drone_M" text="střední"/>
         <text name="sdt_drone_L" text="velký"/>
+        <text name="sdt_drone_K" text="skenovací"/>
         <text name="sdt_planner_drone" text="Dron %s: nádrž %.0f l, baterie %.2f kWh × %d ks"/>
+        <text name="sdt_planner_scanDrone" text="Dron %s: baterie %.2f kWh × %d ks"/>
         <text name="sdt_warning_foldFirst" text="Nejdřív vlek slož (rozložený nejde připojit ani odpojit)"/>
         <text name="sdt_foldObject" text="vlek"/>
         <text name="sdt_warning_noDrone" text="Vlek nemá dron – dokup ho v dílně (Přizpůsobit)"/>
-        <text name="sdt_warning_noBatteries" text="Dron nemá baterii, nemůže vzlétnout – dokup baterie v dílně (Přizpůsobit)"/>
+        <text name="sdt_pad_noDrone" text="Na plošině není dron"/>
+        <text name="sdt_pad_busy" text="Dron teď nejde vyměnit – nejdřív ukonči misi a obsluhu vleku"/>
+        <text name="sdt_pad_unfolded" text="Dron na plošině musí být složený – slož vlek"/>
+        <text name="sdt_pad_boxStowed" text="Dron jde nasadit a sundat jen u rozložené bedny – rozlož vlek"/>
+        <text name="sdt_warning_padDroneOnPlate" text="Nejdřív přendej dron do bedny (R u bedny)"/>
+        <text name="sdt_pad_mixed" text="Oba drony na vleku musí být stejné velikosti"/>
+        <text name="sdt_pad_needFirst" text="Druhá plošina jde obsadit jen s dronem na první"/>
+        <text name="sdt_pad_unknown" text="Takový dron se na tuto plošinu nevejde"/>
+        <text name="sdt_warning_noBatteries" text="Dron nemá baterii, nemůže vzlétnout – vlož baterii do nabíječky (R) nebo ji kup v obchodě"/>
         <text name="sdt_state_noDrone" text="vlek bez dronu"/>
         <text name="sdt_state_noBatteries" text="bez baterií, nemůže vzlétnout"/>
         <text name="sdt_hud_noDrone" text="Vlek bez dronu (dokup ho v dílně)"/>
@@ -249,9 +319,79 @@
         <text name="sdt_toolbox_typeNotAllowed" text="Tuto látku kanystr nepřijme"/>
         <text name="fillType_sdtConcentrateFertilizer" text="Koncentrované hnojivo"/>
         <text name="fillType_sdtConcentrateHerbicide" text="Koncentrovaný herbicid"/>
+        <text name="fillType_sdtFineLime" text="Jemně mleté vápno"/>
+        <text name="sdt_limeMill" text="Mlýnek na vápno"/>
+        <text name="sdt_limeMill_function" text="Mele vápno na jemný prášek pro vápnění dronem; hadicí plní nádobku velkého vleku"/>
+        <text name="sdt_limeMill_typeDesc" text="Mlýnkový vozík"/>
+        <text name="sdt_limeMill_cfg" text="Mlýnek na vápno"/>
+        <text name="sdt_mill_start" text="Spustit mlýn"/>
+        <text name="sdt_mill_stop" text="Zastavit mlýn"/>
+        <text name="sdt_mill_hoseConnect" text="Připojit hadici k nádobce na vápno"/>
+        <text name="sdt_mill_hoseDisconnect" text="Odpojit hadici"/>
+        <text name="sdt_mill_noFuel" text="Mlýn nemá naftu"/>
+        <text name="sdt_mill_valveToSpout" text="Ventil na výsypnou rouru"/>
+        <text name="sdt_mill_valveToHose" text="Ventil na hadici"/>
+        <text name="sdt_mill_spoutSide" text="Vyklopit rouru vedle vozíku"/>
+        <text name="sdt_mill_spoutRear" text="Vyklopit rouru za vozík"/>
+        <text name="sdt_mill_spoutFold" text="Složit rouru"/>
+        <text name="sdt_mill_spoutFolded" text="Výsypná roura je složená – vyklop ji (O)"/>
+        <text name="sdt_mill_hoseSpout" text="Výstup mlýnku je přepnutý na rouru, hadice nic nedostane"/>
+        <text name="sdt_limeBigBag_name" text="Big bag na jemné vápno"/>
+        <text name="sdt_limeBigBag_function" text="Big bag 1000 l na jemně mleté vápno. Postav ho pod foukací rouru mlýnku (výstup na big bag), mlýn ho plní zeshora; vyklopí se jako vanilla big bag."/>
+        <text name="sdt_pump_name" text="Přenosná pumpa na vodu"/>
+        <text name="sdt_pump_function" text="Nasává vodu z IBC, cisterny nebo rybníka tažnými hadicemi a čerpá ji do vodní nádrže velkého vleku (spojky VSTUP a VÝSTUP; vstup se přepíná mezi nádrží a rybníkem)"/>
+        <text name="sdt_pump_start" text="Spustit pumpu"/>
+        <text name="sdt_pump_stop" text="Zastavit pumpu"/>
+        <text name="sdt_pump_noFuel" text="Pumpa nemá naftu"/>
+        <text name="sdt_pump_modeToPond" text="Vstup na rybník (sací koš)"/>
+        <text name="sdt_pump_modeToTank" text="Vstup na nádrž (spojka Storz)"/>
+        <text name="sdt_pump_modeEngineOn" text="Nejdřív vypni motor pumpy"/>
+        <text name="sdt_pump_modeHoseAttached" text="Nejdřív odpoj sací hadici od zdroje"/>
+        <text name="sdt_pump_dry" text="Pumpa nic nečerpá – zapoj hadice (vstup, výstup)"/>
+        <text name="sdt_hopper_name" text="Násypka na jemné vápno"/>
+        <text name="sdt_hopper_function" text="Přenosná násypka s vlastním naftovým motorem: sypou se do ní pytle jemně mletého vápna nebo vyklopený big bag a hadice velkého vleku z ní táhne vápno do nádobky na koncentrát"/>
+        <text name="sdt_hopper_start" text="Spustit motor násypky"/>
+        <text name="sdt_hopper_stop" text="Zastavit motor násypky"/>
+        <text name="sdt_hopper_noFuel" text="Násypka nemá naftu"/>
+        <text name="sdt_hopper_legsOut" text="Vysunout opěry"/>
+        <text name="sdt_hopper_legsIn" text="Zasunout opěry"/>
+        <text name="sdt_hopper_legsBag" text="Na stolici leží big bag – nejdřív ho sundej"/>
+        <text name="sdt_hopper_bagLegsIn" text="Opěry násypky jsou zasunuté, big bag nesype: sundej vak, vysuň opěry a polož ho znovu"/>
+        <text name="sdt_mill_noTarget" text="V dosahu hadice není vlek s nádobkou na vápno"/>
+        <text name="sdt_mill_hoseTorn" text="Hadice se odpojila, vozík je příliš daleko"/>
+        <text name="input_SDT_TOGGLE_FOOT" text="Stroj zap./vyp. (pěšky)"/>
+        <text name="sdt_planner_folded" text="Vlek je složený – nejdřív ho rozlož"/>
+        <text name="sdt_planner_droneInBox" text="Dron je uložený v bedně – přendej ho na plošinu"/>
+        <text name="sdt_planner_caseClosed" text="Kufr je zavřený – nejdřív ho otevři"/>
+        <text name="sdt_mill_foldObject" text="vozík"/>
+        <text name="sdt_mill_warning_foldFirst" text="Nejdřív vozík slož (rozložený nejde připojit ani odpojit)"/>
+        <text name="sdt_mill_foldHose" text="Nejdřív odpoj hadici od vleku a pusť ji"/>
+        <text name="sdt_mill_valveOpen" text="Otevřít ventil"/>
+        <text name="sdt_mill_valveClose" text="Zavřít ventil"/>
+        <text name="sdt_mill_hoseLink" text="Připojit hadici z mlýnku"/>
+        <text name="sdt_mill_hoseFar" text="Hadice nedosáhne (%.1f m z %.1f m)"/>
+        <text name="sdt_wh_takeLime" text="Vzít hadici (vápno z mlýnku nebo násypky)"/>
+        <text name="sdt_wh_take" text="Vzít vodní hadici"/>
+        <text name="sdt_wh_connect" text="Připojit hadici ke zdroji vody"/>
+        <text name="sdt_wh_drop" text="Pustit hadici"/>
+        <text name="sdt_wh_takeIn" text="Vzít sací hadici (IBC, cisterna)"/>
+        <text name="sdt_wh_takePond" text="Vzít sací hadici (koš do rybníka)"/>
+        <text name="sdt_wh_takeOut" text="Vzít výstupní hadici (do vleku)"/>
+        <text name="sdt_wh_connectPond" text="Položit sací koš do vody"/>
+        <text name="sdt_wh_connectTrailer" text="Připojit hadici k vodnímu ventilu vleku"/>
+        <text name="sdt_wh_connectTank" text="Připojit hadici k nádrži (napustit vodu)"/>
+        <text name="sdt_wh_tankEmpty" text="Nádrž nemá vodu, nejde z ní čerpat – pustit hadici"/>
+        <text name="sdt_wh_unplug" text="Odpojit vodní hadici"/>
+        <text name="sdt_wh_torn" text="Vodní hadice se utrhla"/>
+        <text name="sdt_wh_mixed" text="Nádrž vleku obsahuje jiný přípravek, voda nepoteče"/>
+        <text name="sdt_mill_hoseGrab" text="Chytit hadici"/>
+        <text name="sdt_mill_hoseDrop" text="Pustit hadici"/>
+        <text name="sdt_mill_hoseReturn" text="Odpojit hadici"/>
         <text name="sdt_canisterFertilizer_name" text="Koncentrované hnojivo – kanystr 20 l"/>
         <text name="sdt_canisterHerbicide_name" text="Koncentrovaný herbicid – kanystr 20 l"/>
         <text name="sdt_canisterDiesel_name" text="Nafta – kanystr 20 l"/>
+        <text name="sdt_limeBag50_name" text="Jemně mleté vápno – pytel 50 l"/>
+        <text name="sdt_limeBag_function" text="Jemně mleté vápno z koncentrátové nádrže servisního vleku (Ctrl+I vypustí nádrž do pytlů). Pytel nakloněný nad hrdlem koncentrátové nádrže se do ní vysype."/>
         <text name="sdt_canister_function" text="Koncentrát pro servisní vlek postřikového dronu. Kanystr vlož do bedny vleku a vylij do koncentrátové nádrže; mixér ho ředí vodou z hlavní nádrže."/>
         <text name="input_SDT_DRONE_VIEW" text="Pohled z dronu (C zpět)"/>
         <text name="sdt_setting_activeDrones" text="Drony v misi: %.0f"/>
@@ -273,5 +413,181 @@
         <text name="sdt_hud_tiltLong" text="podélně %+.1f°"/>
         <text name="sdt_hud_tiltSide" text="příčně %+.1f°"/>
         <text name="sdt_hud_tiltMax" text="   (nejvýš %.0f°)"/>
-</texts>
+        <text name="sdt_status_scanDone" text="Dron: sken pole je hotový, mapa je v plánovači"/>
+        <text name="sdt_status_scanDark" text="Dron: sken přerušen, setmělo se (kamera potřebuje denní světlo)"/>
+        <text name="sdt_status_scanRain" text="Dron: sken přerušen, prší"/>
+        <text name="sdt_status_scanWind" text="Dron: sken přerušen, fouká příliš silný vítr"/>
+        <text name="sdt_warning_scanDark" text="Sken pole jde jen za denního světla"/>
+        <text name="sdt_warning_scanRain" text="Za deště sken pole nejde"/>
+        <text name="sdt_warning_scanWind" text="Na sken pole fouká příliš silný vítr"/>
+        <text name="sdt_weather_dark" text="tma (sken potřebuje světlo)"/>
+        <text name="sdt_weather_rain" text="prší"/>
+        <text name="sdt_weather_wind" text="příliš fouká"/>
+        <text name="sdt_weather_ok" text="lze letět"/>
+        <text name="sdt_planner_weather" text="Počasí: vítr %s m/s (limit %.0f m/s) – %s"/>
+        <text name="sdt_warning_sprayWind" text="Na postřik fouká příliš silný vítr (úlet postřiku)"/>
+        <text name="sdt_warning_sprayRain" text="V dešti dron nestříká"/>
+        <text name="sdt_status_sprayWind" text="Dron: postřik přerušen, fouká příliš silný vítr (úlet postřiku)"/>
+        <text name="sdt_status_sprayRain" text="Dron: postřik přerušen, prší"/>
+        <text name="sdt_warning_scanOwnOnly" text="Skenovat jde jen vlastní pole"/>
+        <text name="sdt_setting_mission" text="Mise: %s"/>
+        <text name="sdt_setting_missionSpray" text="postřik"/>
+        <text name="sdt_setting_missionScan" text="sken pole"/>
+        <text name="sdt_setting_scanCell" text="Sken: %s"/>
+        <text name="sdt_setting_scanCellLow" text="nízko, buňka 5 m"/>
+        <text name="sdt_setting_scanCellMid" text="středně, buňka 10 m"/>
+        <text name="sdt_setting_scanCellHigh" text="vysoko, buňka 20 m"/>
+        <text name="sdt_state_scanning" text="skenuje pole"/>
+        <text name="sdt_planner_scan" text="Sken: buňka %d m, výška %.0f m, záběr %.0f m"/>
+        <text name="sdt_planner_scanMap" text="Mapa pole: naskenováno %.0f %% (buňka %d m), stáří %.1f h"/>
+        <text name="sdt_planner_scanFindings" text="Plevel %.0f %% buněk (neviditelný v %d), slabý porost %.0f %%"/>
+        <text name="sdt_setting_apply" text="Aplikace: %s"/>
+        <text name="sdt_setting_applyField" text="celé pole"/>
+        <text name="sdt_setting_applyScan" text="podle skenu"/>
+        <text name="sdt_spot_cells" text="Podle skenu: %d z %d buněk (nenaskenováno %d), rezerva %.1f m"/>
+        <text name="sdt_spot_compare" text="Celé pole %.0f l / %.0f min · podle skenu %.0f l / %.0f min"/>
+        <text name="sdt_spot_stale" text="Sken je starý %.0f h, stav pole se mohl změnit"/>
+        <text name="sdt_spot_noMap" text="Pole nemá sken, aplikuje se celé pole"/>
+        <text name="sdt_spot_noProduct" text="Tento přípravek podle skenu nejde, aplikuje se celé pole"/>
+        <text name="sdt_scanui_layerOff" text="Vypnuto"/>
+        <text name="sdt_scanui_layerWeed" text="Plevel"/>
+        <text name="sdt_scanui_layerFert" text="Vitalita porostu"/>
+        <text name="sdt_scanui_layerRipe" text="Zralost"/>
+        <text name="sdt_scanui_layerStone" text="Kameny"/>
+        <text name="sdt_scanui_layerNitrogen" text="Dusík (PF)"/>
+        <text name="sdt_scanui_c_nitrogen1" text="dusík pod 30 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen2" text="dusík 30-60 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen3" text="dusík 60-90 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen4" text="dusík 90-120 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen5" text="dusík nad 120 kg/ha"/>
+        <text name="sdt_planner_scanPf" text="Porost (PF): dusík Ø %.0f kg/ha (%.0f-%.0f)"/>
+        <text name="sdt_scanui_layerCover" text="Pokrytí"/>
+        <text name="sdt_scanui_notScanned" text="nenaskenováno"/>
+        <text name="sdt_scanui_ageHours" text="%.0f h"/>
+        <text name="sdt_scanui_ageDays" text="%.0f d"/>
+        <text name="sdt_scanui_unscanned" text="nenaskenováno"/>
+        <text name="sdt_scanui_stale" text="vybledlé = starší než %d h"/>
+        <text name="sdt_scanui_c_weedNone" text="bez plevele"/>
+        <text name="sdt_scanui_c_weedLow" text="plevel do 25 %"/>
+        <text name="sdt_scanui_c_weedHigh" text="plevel nad 25 %"/>
+        <text name="sdt_scanui_c_weedInvisible" text="neviditelný plevel (fáze 1–2)"/>
+        <text name="sdt_scanui_c_fert0" text="slabý porost"/>
+        <text name="sdt_scanui_c_fert1" text="střední vitalita"/>
+        <text name="sdt_scanui_c_fert2" text="plná vitalita"/>
+        <text name="sdt_scanui_c_ripeNone" text="bez plodiny"/>
+        <text name="sdt_scanui_c_ripeYoung" text="mladý porost"/>
+        <text name="sdt_scanui_c_ripeGrowing" text="roste"/>
+        <text name="sdt_scanui_c_ripeReady" text="zralé ke sklizni"/>
+        <text name="sdt_scanui_c_ripeOver" text="po sklizni / uschlé"/>
+        <text name="sdt_scanui_c_stoneNone" text="bez kamenů"/>
+        <text name="sdt_scanui_c_stoneSome" text="kameny"/>
+        <text name="sdt_scanui_c_scanned" text="naskenováno"/>
+        <text name="sdt_scanui_c_treated" text="ošetřeno po skenu"/>
+        <text name="sdt_scanui_c_unscannedCover" text="nenaskenováno"/>
+        <text name="sdt_scanui_notify" text="Pole %s naskenováno: plevel %.0f %% (neviditelný %.0f %%), slabý porost %.0f %%, zralé %.0f %%"/>
+        <text name="sdt_ui_pageFields" text="Pole"/>
+        <text name="sdt_ui_pageMission" text="Mise"/>
+        <text name="sdt_ui_pageFlight" text="Let"/>
+        <text name="sdt_ui_pageMap" text="Mapa skenu"/>
+        <text name="sdt_ui_groupMission" text="Druh mise"/>
+        <text name="sdt_ui_groupTransit" text="Přelet"/>
+        <text name="sdt_ui_groupField" text="Pole"/>
+        <text name="sdt_ui_groupDrones" text="Drony"/>
+        <text name="sdt_ui_sectionNear" text="V dosahu vleku"/>
+        <text name="sdt_ui_sectionOwn" text="Další vlastní pole"/>
+        <text name="sdt_ui_sectionLayer" text="Vrstva mapy skenu"/>
+        <text name="sdt_ui_sectionRoute" text="Trasa a dosah"/>
+        <text name="sdt_ui_legendSelected" text="vybrané pole"/>
+        <text name="sdt_ui_legendContract" text="zakázka"/>
+        <text name="sdt_ui_legendBatches" text="trasa (barva = dávka)"/>
+        <text name="sdt_ui_legendUnplanned" text="nenaplánováno (nafta, baterie)"/>
+        <text name="sdt_ui_legendArea" text="letová plocha"/>
+        <text name="sdt_ui_legendRange" text="dosah signálu vleku"/>
+        <text name="sdt_ui_legendRelay" text="dosah relé tyčí"/>
+        <text name="sdt_ui_legendTarget" text="ovládaný vlek / kufr a jeho dron"/>
+        <text name="sdt_ui_legendOtherTarget" text="jiný dron ve spojení (klik = přepnout)"/>
+        <text name="sdt_ui_cardTitle" text="Plán letu"/>
+        <text name="sdt_ui_noField" text="Vyber pole"/>
+        <text name="sdt_ui_noFieldHint" text="Klikni na pole v mapě nebo ho vyber na stránce Pole vlevo."/>
+        <text name="sdt_ui_batches" text="Dávky"/>
+        <text name="sdt_ui_time" text="Čas letu"/>
+        <text name="sdt_ui_area" text="Plocha"/>
+        <text name="sdt_ui_liquid" text="Potřeba / zásoba"/>
+        <text name="sdt_ui_scanCell" text="Buňka · výška"/>
+        <text name="sdt_ui_diesel" text="Nafta"/>
+        <text name="sdt_ui_battery" text="Baterie / výměny"/>
+        <text name="sdt_ui_transit" text="Přelet"/>
+        <text name="sdt_ui_weather" text="Vítr / limit"/>
+        <text name="sdt_ui_spotTitle" text="Podle skenu"/>
+        <text name="sdt_ui_spotFull" text="celé pole %.0f l · %.0f min, úspora %.0f %%"/>
+        <text name="sdt_ui_trailer" text="Vlek"/>
+        <text name="sdt_ui_findNone" text="Bez nálezů"/>
+        <text name="sdt_ui_findWeed" text="Plevel %.0f %%"/>
+        <text name="sdt_ui_findRipe" text="Zralé %.0f %%"/>
+        <text name="sdt_ui_findFert" text="Nehnojeno %.0f %%"/>
+        <text name="sdt_ui_screenTitle" text="Plánovač letu"/>
+        <text name="sdt_ui_noFieldsNear" text="V dosahu vleku není vlastní pole ani přijatá zakázka."/>
+        <text name="sdt_ui_pagePrev" text="Předchozí stránka"/>
+        <text name="sdt_ui_pageNext" text="Další stránka"/>
+        <text name="sdt_status_noCharge" text="Dron: baterie kufru se nemá kde nabít – kufr musí ležet u budovy farmy nebo u běžící elektrocentrály vleku"/>
+        <text name="sdt_planner_noCharge" text="Kufr nemá zdroj nabíjení (budova farmy nebo běžící centrála do 15 m): na náhradní nabití nedojde"/>
+        <text name="sdt_case_name" text="Skenovací dron v kufru"/>
+        <text name="sdt_case_function" text="Přenosná sada: kufr, malý multispektrální dron a baterie. Kufr se položí kamkoli s volným nebem, otevře (R) a sken pole se řídí tabletem. Baterie se nabíjí jen u budovy farmy nebo u běžící elektrocentrály vleku."/>
+        <text name="sdt_case_open" text="Otevřít kufr"/>
+        <text name="sdt_case_close" text="Zavřít kufr"/>
+        <text name="sdt_case_closeToCarry" text="Kufr jde zvednout až zavřený"/>
+        <text name="sdt_case_battery" text="Baterie kufru: %s"/>
+        <text name="sdt_case_source" text="Nabíjení: %s (zdroj do %.0f m)"/>
+        <text name="sdt_case_sourceNone" text="bez zdroje"/>
+        <text name="sdt_case_sourceBuilding" text="zásuvka v budově farmy"/>
+        <text name="sdt_case_sourceGenerator" text="elektrocentrála vleku"/>
+        <text name="sdt_drone_C" text="skenovací (kufr)"/>
+        <text name="sdt_scanui_c_fertNone" text="bez porostu (nejde poznat)"/>
+        <text name="sdt_sampler_name" text="Vzorkovací dron v kufru (AIRASI)"/>
+        <text name="sdt_sampler_function" text="Přenosná sada pro Precision Farming: kufr, vzorkovací dron se sondou a baterie. Dron sám odebírá vzorky půdy v bodech pole (2 na let) a nosí je do bedničky v kufru; vzorky odešleš do laboratoře kliknutím na bedničku v kufru nebo tlačítkem v plánovači. Jen s Precision Farming."/>
+        <text name="sdt_drone_P" text="vzorkovací (kufr)"/>
+        <text name="sdt_status_samplesDone" text="Dron: vzorky z pole jsou odebrané, pošli je do laboratoře"/>
+        <text name="sdt_status_samplesBoxFull" text="Dron: bednička na vzorky je plná – odešli vzorky do laboratoře"/>
+        <text name="sdt_status_samplesNoPF" text="Dron: vzorky půdy jdou odebírat jen s Precision Farming"/>
+        <text name="sdt_warning_samplerOwnOnly" text="Vzorky jde odebírat jen na vlastních polích"/>
+        <text name="sdt_state_sampling" text="odebírá vzorky"/>
+        <text name="sdt_sampler_noPF" text="Bez Precision Farming vzorkovač nepracuje"/>
+        <text name="sdt_sampler_boxFull" text="Bednička na vzorky je plná – nejdřív vzorky odešli"/>
+        <text name="sdt_sampler_boxEmpty" text="V bedničce nejsou žádné vzorky"/>
+        <text name="sdt_sampler_sent" text="Odesláno %d vzorků do laboratoře, cena %s (zaplatí se po rozboru)"/>
+        <text name="sdt_sampler_sentShort" text="Vzorky odeslány do laboratoře"/>
+        <text name="sdt_sampler_send" text="Odeslat vzorky (%d)"/>
+        <text name="sdt_sampler_box" text="Krabičky: plné v bedničce %d / %d · v dronu plné %d z %d"/>
+        <text name="sdt_sampler_points" text="Body odběru: %d · odebráno %d · zbývá %d · mimo dosah %d · vysoký porost %d"/>
+        <text name="sdt_sampler_lab" text="Laboratoř PF: v rozboru %d vzorků · %s za vzorek"/>
+        <text name="sdt_sampler_boxLimited" text="Bednička pojme jen část bodů – po jejím naplnění vzorky odešli a spusť znovu"/>
+        <text name="sdt_ui_samplePoints" text="Body zbývá / celkem"/>
+        <text name="sdt_ui_sampleBox" text="Bednička"/>
+        <text name="sdt_button_sendSamples" text="Odeslat vzorky"/>
+        <text name="sdt_status_samplesStuck" text="Dron: několik letů po sobě bez jediného vzorku, mise ukončena (podívej se do logu)"/>
+        <text name="sdt_status_samplesTall" text="Dron: zbývající body jsou ve vysokém porostu – vzorky po sklizni nebo v rané fázi růstu"/>
+        <text name="sdt_sampler_tallCrop" text="Body k odběru jsou jen ve vysokém porostu – vzorky jdou po sklizni, na obdělané půdě nebo do 2. fáze růstu"/>
+        <text name="sdt_sampler_noPoints" text="Žádné body odběru – naklikej je do pole levým tlačítkem, nebo zapni automatické body (Mise)"/>
+        <text name="sdt_sampler_pickNoField" text="Nejdřív vyber pole"/>
+        <text name="sdt_sampler_pickOutside" text="Bod odběru musí ležet ve vybraném poli"/>
+        <text name="sdt_sampler_pickFar" text="Bod je mimo dosah kufru (baterie nebo signál)"/>
+        <text name="sdt_sampler_pickExists" text="Tady už bod odběru je"/>
+        <text name="sdt_sampler_pickMax" text="Víc bodů na jedno pole nejde"/>
+        <text name="sdt_sampler_pickNone" text="Tady žádný bod odběru není"/>
+        <text name="sdt_sampler_pickTall" text="Bod přidán, ale je ve vysokém porostu – dron ho zatím přeskočí"/>
+        <text name="sdt_sampler_pickAdded" text="Bod odběru přidán"/>
+        <text name="sdt_sampler_pickRemoved" text="Bod odběru odebrán"/>
+        <text name="sdt_sampler_pickHint" text="Body odběru: levý klik přidá · pravý klik odebere"/>
+        <text name="sdt_sampler_picks" text="Ručně: přidáno %d · odebráno z mřížky %d"/>
+        <text name="sdt_setting_samplerAuto" text="Automatické body: %s"/>
+        <text name="sdt_setting_samplerAutoOff" text="ne, jen naklikané"/>
+        <text name="sdt_setting_samplerAutoOn" text="ano (mřížka PF)"/>
+        <text name="sdt_ui_groupSamples" text="Body odběru"/>
+        <text name="sdt_ui_legendSamplePending" text="automatický bod"/>
+        <text name="sdt_ui_legendSampleCustom" text="naklikaný bod"/>
+        <text name="sdt_ui_legendSampleDone" text="odebraný bod"/>
+        <text name="sdt_ui_legendSampleTall" text="teď neodebratelný (vysoký porost, mimo dosah)"/>
+        <text name="sdt_ui_legendSampleFar" text="bod mimo dosah"/>
+        <text name="sdt_ui_legendSampleCover" text="oblast pokrytá body"/>
+    </texts>
 </l10n>

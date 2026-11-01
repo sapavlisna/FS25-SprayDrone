@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Jemné vápno jako výškový typ jen kvůli indexu v poli textur výplní (výsyp big bagu a plochy jako vanilla LIME); na zem se
+     vysypat nedá (canBeTipped="false"), stejně jako dosud. -->
+<map>
+    <densityMapHeightTypes>
+        <densityMapHeightType fillTypeName="SDT_FINE_LIME" maxSurfaceAngle="40" fillToGroundScale="1.0" allowsSmoothing="false" canBeTipped="false">
+            <collision scale="1.0" baseOffset="0.05" minOffset="0.0" maxOffset="0.05"/>
+        </densityMapHeightType>
+    </densityMapHeightTypes>
+</map>

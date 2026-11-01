@@ -9,6 +9,8 @@ SprayDroneCommandEvent.START = 2
 SprayDroneCommandEvent.RETURN_HOME = 3
 SprayDroneCommandEvent.SET_GENERATOR = 4
 SprayDroneCommandEvent.RESET_FIELD = 5
+-- odeslání vzorků z bedničky kufru AIRASI do laboratoře PF (SprayDroneSamples.sendSamples)
+SprayDroneCommandEvent.SEND_SAMPLES = 6
 SprayDroneCommandEvent.NUM_BITS = 3
 SprayDroneCommandEvent.DRONE_BITS = 2
 

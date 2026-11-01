@@ -10,10 +10,11 @@ local function getMappedNode(self, name)
 end
 SprayDroneStation.getMappedNode = getMappedNode
 
-local function getVariantClamps(self, prefix)
+-- Úchyty lyžin patří plošině (uzly padClampL/R, u druhé plošiny Maxu s příponou 2), ne variantě dronu.
+local function getPadClamps(self, suffix)
     local clamps = {}
-    for i = 1, SprayDroneStation.CLAMPS do
-        local node = getMappedNode(self, prefix .. "Clamp_" .. i)
+    for _, name in ipairs(SprayDroneStation.CLAMP_NODES) do
+        local node = getMappedNode(self, name .. suffix)
         if node ~= nil then
             table.insert(clamps, node)
         end
@@ -36,6 +37,16 @@ local function applyBatteryMeshes(self, root, index, variant)
     end
 end
 
+-- Modely baterií ve všech slotech podle spec.batteryVariant (i po výměně dronu na plošině).
+function SprayDroneStation.applyBatteryVariant(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    for i = 1, spec.numBatterySlots do
+        if spec.batteryNodes[i] ~= nil then
+            applyBatteryMeshes(self, spec.batteryNodes[i], i, spec.batteryVariant or SprayDroneStation.DEFAULT_DRONE)
+        end
+    end
+end
+
 function SprayDroneStation.loadServiceParts(self, xml, key)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local default = SprayDroneStation.DEFAULT_DRONE
@@ -43,10 +54,8 @@ function SprayDroneStation.loadServiceParts(self, xml, key)
     for i = 1, spec.numBatterySlots do
         spec.batteryNodes[i] = getMappedNode(self, "battery" .. i)
         spec.batterySlotDeck[i] = getMappedNode(self, "batterySlotDeck" .. i)
-        if spec.batteryNodes[i] ~= nil then
-            applyBatteryMeshes(self, spec.batteryNodes[i], i, spec.batteryVariant or default)
-        end
     end
+    SprayDroneStation.applyBatteryVariant(self)
     spec.chargerLeds, spec.chargerLedShown = {}, {}
     for k = 1, spec.numBatterySlots do
         spec.chargerLeds[k], spec.chargerLedShown[k] = {}, {}
@@ -72,26 +81,12 @@ function SprayDroneStation.loadDroneService(self, xml, key)
     local prefix = spec.dronePrefix
     local isFirst = SprayDroneDrones.getIndex(self) == 1
     spec.clamps = {}
+    local padClamps = getPadClamps(self, isFirst and "" or "2")
     if spec.hasDrone then
-        spec.clamps = getVariantClamps(self, prefix)
-    end
-    -- úchyty ostatních variant (a u vleku bez dronu všechny) zůstanou skryté
-    local others = {}
-    for _, v in ipairs(spec.variants or {}) do
-        if isFirst then
-            table.insert(others, v)
-        end
-    end
-    if not isFirst then
-        for _, v in pairs(spec.secondVariants or {}) do
-            table.insert(others, v)
-        end
-    end
-    for _, v in ipairs(others) do
-        if v.prefix ~= prefix or not spec.hasDrone then
-            for _, node in ipairs(getVariantClamps(self, v.prefix)) do
-                setVisibility(node, false)
-            end
+        spec.clamps = padClamps
+    else
+        for _, node in ipairs(padClamps) do
+            setVisibility(node, false)
         end
     end
     spec.batterySlotDrone = nil
@@ -111,7 +106,8 @@ function SprayDroneStation.loadDroneService(self, xml, key)
     spec.hose = nil
     if start ~= nil and nozzle ~= nil and park ~= nil and #segments >= 2 then
         spec.hose = { start = start, segments = segments, lay = lay, nozzle = nozzle, park = park, coil = getMappedNode(self, tag .. "Coil"),
-            port = spec.hasDrone and getMappedNode(self, prefix .. "FillPort") or nil, appliedKey = nil, shown = nil }
+            port = spec.hasDrone and getMappedNode(self, prefix .. "FillPort") or nil, appliedKey = nil, shown = nil,
+            spray = SprayDroneStation.getHasSprayDrone(self) }
         -- bod na přední hraně trupu mezi předními rameny: hadice přes něj přechází nahoru k hrdlu, ne skrz dron
         local tilt, vx, vy, vz = nil, nil, nil, nil
         if spec.hose.port ~= nil then
@@ -126,6 +122,51 @@ function SprayDroneStation.loadDroneService(self, xml, key)
         end
     end
     spec.hoseT = 0
+end
+
+-- Max s prázdnou plošinou 2 po načtení: dron 2 se nenačte a jeho díly by zůstaly, jak jsou v i3d (všechny vidět), proto úchyty
+-- pryč a hadice B jen namotaná na navíječi, stejně jako po sundání dronu 2 za hry (removeSecondDrone).
+function SprayDroneStation.stowSecondPad(self, xml)
+    local spec = SprayDroneDrones.getRoot(self)
+    if spec.numPads < 2 or spec.numDrones >= 2 then
+        return
+    end
+    for _, node in ipairs(getPadClamps(self, "2")) do
+        setVisibility(node, false)
+    end
+    local _, variant = next(spec.secondVariants or {})
+    local tag = variant ~= nil and xml:getValue(variant.key .. "#hosePrefix") or nil
+    if tag == nil then
+        return
+    end
+    local coil, nozzle = getMappedNode(self, tag .. "Coil"), getMappedNode(self, tag .. "Nozzle")
+    if coil ~= nil then
+        setVisibility(coil, true)
+    end
+    if nozzle ~= nil then
+        setVisibility(nozzle, false)
+    end
+    for i = 1, SprayDroneStation.HOSE_SEGMENTS do
+        local node = getMappedNode(self, tag .. "Seg" .. i)
+        if node ~= nil then
+            setVisibility(node, false)
+        end
+    end
+end
+
+-- Stojí v tomto kontextu postřikový dron (ne prázdná plošina ani skenovací dron)? Dron 2 má vždy variantu dronu 1.
+function SprayDroneStation.getHasSprayDrone(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if not spec.hasDrone then
+        return false
+    end
+    local root = SprayDroneDrones.getRoot(self)
+    for _, v in ipairs(root.variants or {}) do
+        if v.name == root.droneName then
+            return not v.scan
+        end
+    end
+    return true
 end
 
 -- Kontrolky šachet nabíječky: svítí jen šachta s vloženou (dosedlou) baterií, počet čárek odpovídá nabití (po 1/CHARGER_LED_BARS, aspoň
@@ -161,7 +202,7 @@ function SprayDroneStation.updateChargerLeds(self)
     end
 end
 
--- Úchyty jen se složeným dronem, baterie ve svých slotech (nabíječka v truhle, v dronu), hadice jen na rozloženém vleku;
+-- Úchyty jen se složeným dronem, baterie ve svých slotech (nabíječka v truhle, v dronu), hadice jen u rozloženého postřikového dronu;
 -- koncovka jede k hrdlu dronu, dokud je dron v servisu nebo se vypouští.
 -- Všechno plyne ze synchronizovaného stavu, takže server i klienti kreslí totéž.
 function SprayDroneStation.updateServiceVisuals(self, dt)
@@ -198,7 +239,8 @@ function SprayDroneStation.updateDroneServiceVisuals(self, dt)
     if hose == nil then
         return
     end
-    local shown = spec.unfold > 0
+    -- odvinutá hadice jen k postřikovému dronu: bez něj (prázdná plošina, dron v bedně Mini) zůstává namotaná na navíječi
+    local shown = hose.spray == true and spec.unfold > 0
     local connect = shown and hose.port ~= nil and spec.isLinked and spec.unfold >= 1
         and (spec.state == SprayDroneStation.STATE_SERVICING
             or (spec.transferMode == SprayDroneStation.TRANSFER_DRAIN_DRONE and (spec.transferDrone or 1) == SprayDroneDrones.getIndex(self)))
@@ -712,6 +754,8 @@ function SprayDroneStation:setSprayDroneTransfer(mode, noEventSend, droneIndex)
         mode = SprayDroneStation.TRANSFER_NONE
     end
     if mode ~= spec.transferMode then
+        SprayDroneSound.noteAction(string.format("vlek %s: přečerpávání režim %s -> %s", self.configFileNameClean or "?", tostring(spec.transferMode),
+            tostring(mode)))
         spec.transferMode = mode
         if mode == SprayDroneStation.TRANSFER_DRAIN_DRONE then
             spec.transferDrone = k
@@ -745,7 +789,7 @@ end
 function SprayDroneStation.getCanTransfer(self, mode)
     local spec = self[SprayDroneStation.SPEC_NAME]
     if mode == SprayDroneStation.TRANSFER_DRAIN_DRONE then
-        return spec.isLinked and spec.state == SprayDroneStation.STATE_PARKED and not spec.missionActive and spec.unfold >= 1
+        return spec.isLinked and spec.state == SprayDroneStation.STATE_PARKED and not spec.missionActive and not spec.foldHold and spec.unfold >= 1
             and spec.droneFillLevel > 0.001 and spec.droneFillType ~= FillType.UNKNOWN
             and SprayDroneStation.getCanAcceptDrained(self)
             and self:getFillUnitFreeCapacity(spec.fillUnitIndex) > 0.001
@@ -839,9 +883,42 @@ function SprayDroneStation.updateTransferDrone(self, dt)
     end
 end
 
+-- Proč se dron (v kontextu dronu) nedá vypustit do vleku: klíč hlášky a hladina v dronu; nil, když může.
+function SprayDroneStation.getDrainBlocker(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    local level = spec.droneFillLevel
+    if not (spec.isLinked and spec.state == SprayDroneStation.STATE_PARKED and not spec.missionActive and spec.unfold >= 1) then
+        return "sdt_warning_drainNotParked", level
+    elseif level <= 0.001 or spec.droneFillType == FillType.UNKNOWN then
+        return "sdt_warning_drainEmpty", level
+    elseif not SprayDroneStation.getCanAcceptDrained(self) then
+        return "sdt_warning_drainMismatch", level
+    elseif self:getFillUnitFreeCapacity(spec.fillUnitIndex) <= 0.001 then
+        return "sdt_warning_drainFull", level
+    end
+    return nil, level
+end
+
+-- Důvod, proč nejde vypustit žádný dron (bere se dron s největší náplní, ať hláška sedí na ten, který hráč čeká); nil, když některý jde.
+function SprayDroneStation.getDrainBlockReason(self)
+    local root = SprayDroneDrones.getRoot(self)
+    local reason, best = nil, -1
+    for k = 1, root.numDrones do
+        local r, level = SprayDroneDrones.runAs(self, k, SprayDroneStation.getDrainBlocker)
+        if r == nil then
+            return nil
+        end
+        if (level or 0) > best then
+            reason, best = r, level or 0
+        end
+    end
+    return reason
+end
+
 function SprayDroneStation.actionEventDrainDrone(self, actionName, inputValue, callbackState, isAnalog)
     local spec = SprayDroneDrones.getRoot(self)
     local mode = SprayDroneStation.TRANSFER_DRAIN_DRONE
+    SprayDroneSound.noteAction("klávesa vypuštění dronu do vleku (Alt+1): vlek " .. tostring(self.id) .. (spec.transferMode == mode and " (běží, zastavit)" or ""))
     if spec.transferMode == mode then
         self:setSprayDroneTransfer(SprayDroneStation.TRANSFER_STOP)
         return
@@ -849,12 +926,19 @@ function SprayDroneStation.actionEventDrainDrone(self, actionName, inputValue, c
     local k = SprayDroneStation.pickDrainDrone(self)
     if k ~= nil and not SprayDroneStation.showNoPowerWarning(self) then
         self:setSprayDroneTransfer(mode, nil, k)
+    elseif k == nil then
+        local reason = SprayDroneStation.getDrainBlockReason(self)
+        if reason ~= nil then
+            SprayDroneSound.noteAction("vypuštění dronu odmítnuto: " .. reason)
+            g_currentMission:showBlinkingWarning(g_i18n:getText(reason), 2500)
+        end
     end
 end
 
 function SprayDroneStation.actionEventPumpToPallet(self, actionName, inputValue, callbackState, isAnalog)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local mode = SprayDroneStation.TRANSFER_TO_PALLET
+    SprayDroneSound.noteAction("klávesa přečerpání do IBC (Alt+2): vlek " .. tostring(self.id) .. (spec.transferMode == mode and " (běží, zastavit)" or ""))
     if spec.transferMode ~= mode and self:getFillUnitFillLevel(spec.fillUnitIndex) <= 0.001 then
         return
     end

@@ -20,7 +20,7 @@ MATERIALS = {
     "SDT_Frame": ((0.025, 0.025, 0.028), 0.6, 0.45),
     "SDT_DeckWood": ((0.52, 0.40, 0.26), 0.0, 0.8),
     "SDT_TopDeck": ((0.82, 0.82, 0.80), 0.0, 0.6),
-    "SDT_TankWhite": ((0.88, 0.88, 0.84), 0.0, 0.35),
+    "SDT_TankWhite": ((0.78, 0.78, 0.75), 0.0, 0.5),
     "SDT_TankBlack": ((0.03, 0.03, 0.03), 0.0, 0.5),
     "SDT_Rubber": ((0.015, 0.015, 0.015), 0.0, 0.9),
     "SDT_Rim": ((0.05, 0.05, 0.05), 0.8, 0.35),
@@ -30,14 +30,22 @@ MATERIALS = {
     "SDT_EngineRed": ((0.6, 0.03, 0.03), 0.1, 0.4),
     "SDT_TapeRed": ((0.7, 0.02, 0.02), 0.0, 0.3),
     "SDT_TapeWhite": ((0.9, 0.9, 0.9), 0.0, 0.3),
+    "SDT_TapeAmber": ((0.95, 0.42, 0.02), 0.0, 0.3),
     "SDT_Mesh": ((0.08, 0.08, 0.09), 0.5, 0.5),
     "SDT_HoseBlue": ((0.05, 0.2, 0.6), 0.0, 0.5),
     "SDT_HoseBlack": ((0.02, 0.02, 0.02), 0.0, 0.6),
+    "SDT_HoseWhite": ((0.85, 0.85, 0.82), 0.0, 0.6),
     "SDT_Steel": ((0.6, 0.62, 0.64), 0.9, 0.3),
     "SDT_LampRed": ((0.8, 0.02, 0.02), 0.0, 0.2),
     "SDT_LampAmber": ((0.9, 0.45, 0.02), 0.0, 0.2),
     "SDT_NavLed": ((0.55, 0.55, 0.55), 0.0, 0.15),
-    "SDT_PaintWhite": ((0.92, 0.92, 0.92), 0.0, 0.5),
+    "SDT_PaintWhite": ((0.78, 0.78, 0.78), 0.0, 0.6),
+    "SDT_PaintGrey": ((0.34, 0.35, 0.36), 0.0, 0.6),
+    "SDT_DeckPlate": ((0.16, 0.16, 0.17), 0.5, 0.5),
+    "SDT_AluCast": ((0.34, 0.35, 0.36), 0.5, 0.6),
+    "SDT_HoseSpiral": ((0.012, 0.012, 0.012), 0.0, 0.45),
+    "SDT_HoseSpiralBlue": ((0.04, 0.16, 0.5), 0.0, 0.45),
+    "SDT_HoseSpiralRed": ((0.45, 0.02, 0.02), 0.0, 0.45),
     "SDT_PaintDark": ((0.06, 0.065, 0.07), 0.0, 0.7),
     "SDT_BatteryGrey": ((0.06, 0.06, 0.065), 0.1, 0.5),
     "SDT_ChargerGrey": ((0.16, 0.165, 0.17), 0.2, 0.45),
@@ -49,7 +57,7 @@ MATERIALS = {
     "SDT_PaintYellow": ((0.90, 0.68, 0.03), 0.0, 0.4),
     "SDT_Plastic": ((0.03, 0.03, 0.03), 0.0, 0.5),
     "SDT_Decal": ((1.0, 1.0, 1.0), 0.0, 0.45),
-    "SDT_TankPE": ((0.86, 0.87, 0.84), 0.0, 0.5),
+    "SDT_TankPE": ((0.70, 0.71, 0.69), 0.0, 0.6),
     "SDT_Brass": ((0.78, 0.56, 0.20), 0.9, 0.35),
     "SDT_Alu": ((0.72, 0.74, 0.76), 0.85, 0.5),
     "SDT_PumpBlue": ((0.04, 0.16, 0.42), 0.1, 0.4),
@@ -96,7 +104,7 @@ def begin(collection_name, root_name):
 
 # materiály, které hra přebarvuje podle jména slotu (materialSlotName v XML): barva bedny Mini, barva plachet a vrat Middle/Max
 # a barva ráfků; exportér slot zapíše do .shapes
-MATERIAL_SLOT_NAMES = {"SDT_CrateGreen": "SDT_CrateGreen", "SDT_Tarp": "SDT_Tarp", "SDT_RimPaint": "rim_outer_mat"}
+MATERIAL_SLOT_NAMES = {"SDT_CrateGreen": "SDT_CrateGreen", "SDT_Tarp": "SDT_Tarp", "SDT_RimPaint": "rim_outer_mat", "SDT_PaintYellow": "SDT_PaintYellow"}
 
 
 def material(name):
@@ -368,10 +376,21 @@ def chamfer_box(name, x0, x1, y0, y1, z0, z1, mat, ch):
     return _finish(name, bm, Matrix.Translation(center), mat)
 
 
+BATTERY_BAND = {"S": "SDT_ValveBlue", "M": "SDT_GenOrange", "L": "SDT_PaintRed"}   # barevný pruh a štítek čela podle velikosti
+# madlo podle velikosti: výška sloupků (podíl tloušťky, od-do), polohy příček (podíl tloušťky), poloměr příčky, šířka mezi sloupky
+BATTERY_HANDLE = {"S": ((0.34, 0.66), (0.50,), 0.009, 0.52), "M": ((0.36, 0.64), (0.50,), 0.011, 0.74),
+                  "L": ((0.16, 0.70), (0.28, 0.57), 0.0125, 0.80)}
+BATTERY_VENTS = {"S": 3, "M": 5, "L": 7}
+
+
 def battery(name, size=BATTERY_SIZE):
     """Baterie podle DJI DB800 / DB1560 / DB2160: černý zkosený blok, konektor na čele -X (deska se 5 kontakty, dva
-    šrouby, patky), na čele +X oranžový štítek s diodami a madlo (baterie se do nabíječky i dronu zasouvá
-    konektorem napřed a nese se za madlo), na bocích větrací štěrbiny a pojistná lišta.
+    šrouby, patky), na čele +X štítek v barvě velikosti, mřížka a madlo (baterie se do nabíječky i dronu zasouvá
+    konektorem napřed a nese se za madlo), na horní straně velké písmeno velikosti, čtyřdiodový ukazatel stavu s tlačítkem,
+    na bocích barevný pruh, větrací štěrbiny a pojistná lišta.
+
+    Velikost je poznat z písmene S/M/L nahoře a na boku, z barvy (S modrá, M oranžová, L červená), z madla (S nízké
+    s jednou příčkou, M střední, L vysoké se dvěma příčkami) a z počtu žeber.
 
     Jeden mesh (díly sloučené, materiály jako sloty). Rámec slotu = rámec M: u M je počátek uprostřed dole,
     menší a větší baterie jsou posunuté podle battery_frame_offset, takže ve stejném slotu sedí konektorem
@@ -380,24 +399,38 @@ def battery(name, size=BATTERY_SIZE):
     lx, ly, lz = size[0] / 2, size[1] / 2, size[2]
     fx, fy, fz = (s / m for s, m in zip(size, BATTERY_SIZE))
     hz = lz / 2
+    key = next(k for k, s in BATTERY_SIZES.items() if tuple(s) == tuple(size))
+    band = BATTERY_BAND[key]
+    (post_z0, post_z1), bars, bar_r, post_span = BATTERY_HANDLE[key]
     parts = [chamfer_box(f"{name}_Body", -lx, lx, -ly, ly, 0.0, lz, "SDT_BatteryGrey", 0.008)]
     label_a = box(f"{name}_LabelA", -0.12 * fx, 0.12 * fx, ly, ly + 0.002, 0.025 * fz, 0.09 * fz, "SDT_Decal")
     label_b = box(f"{name}_LabelB", -0.12 * fx, 0.12 * fx, -ly - 0.002, -ly, 0.025 * fz, 0.09 * fz, "SDT_Decal")
-    parts += [label_a, label_b]
+    ts = 1.0 * ly                                     # čtvercový štítek s písmenem na horní straně
+    tcx = 0.10 * lx
+    top_label = box(f"{name}_TopLabel", tcx - ts / 2, tcx + ts / 2, -ts / 2, ts / 2, lz + 0.003, lz + 0.0045, "SDT_Decal")
+    parts += [label_a, label_b, top_label]
     parts += [
-        # horní kryt a pojistné lišty na bocích
+        # horní kryt, barevný pruh a pojistné lišty na bocích
         box(f"{name}_Top", -lx * 0.86, lx * 0.80, -ly * 0.84, ly * 0.84, lz - 0.003, lz + 0.003, "SDT_TankBlack"),
-        box(f"{name}_RailA", -lx * 0.78, lx * 0.62, ly, ly + 0.005, 0.62 * lz, 0.72 * lz, "SDT_TankBlack"),
-        box(f"{name}_RailB", -lx * 0.78, lx * 0.62, -ly - 0.005, -ly, 0.62 * lz, 0.72 * lz, "SDT_TankBlack"),
-        # čelo +X: oranžový štítek, diody a madlo na dvou sloupcích
-        box(f"{name}_EndPlate", lx, lx + 0.004, -0.55 * ly, 0.55 * ly, 0.58 * lz, 0.82 * lz, "SDT_GenOrange"),
-        box(f"{name}_Leds", lx, lx + 0.003, -0.55 * ly, 0.55 * ly, 0.20 * lz, 0.30 * lz, "SDT_LedGreen"),
-        chamfer_box(f"{name}_HandlePostA", lx, lx + 0.026, -0.86 * ly, -0.62 * ly, hz - 0.14 * lz, hz + 0.14 * lz,
-                    "SDT_TankBlack", 0.004),
-        chamfer_box(f"{name}_HandlePostB", lx, lx + 0.026, 0.62 * ly, 0.86 * ly, hz - 0.14 * lz, hz + 0.14 * lz,
-                    "SDT_TankBlack", 0.004),
-        tube(f"{name}_HandleBar", (lx + 0.022, -0.74 * ly, hz), (lx + 0.022, 0.74 * ly, hz), 0.011, "SDT_Rubber",
-             segments=10),
+        box(f"{name}_BandA", -lx * 0.78, lx * 0.62, ly, ly + 0.004, 0.72 * lz, 0.82 * lz, band),
+        box(f"{name}_BandB", -lx * 0.78, lx * 0.62, -ly - 0.004, -ly, 0.72 * lz, 0.82 * lz, band),
+        box(f"{name}_RailA", -lx * 0.78, lx * 0.62, ly, ly + 0.005, 0.84 * lz, 0.89 * lz, "SDT_TankBlack"),
+        box(f"{name}_RailB", -lx * 0.78, lx * 0.62, -ly - 0.005, -ly, 0.84 * lz, 0.89 * lz, "SDT_TankBlack"),
+        # ukazatel stavu: pouzdro, čtyři diody (tři svítí) a tlačítko u čela +X
+        box(f"{name}_LedBezel", lx * 0.62, lx * 0.80, -0.72 * ly, 0.72 * ly, lz + 0.003, lz + 0.0045, "SDT_TankBlack"),
+        cylinder_z(f"{name}_PowerButton", (lx * 0.71, -0.50 * ly, lz + 0.0045 + 0.002), 0.0105, 0.004, "SDT_Rubber", segments=8),
+    ]
+    for i in range(4):
+        parts.append(box(f"{name}_Led{i}", lx * 0.69, lx * 0.73, (-0.12 + 0.22 * i) * ly - 0.065 * ly,
+                         (-0.12 + 0.22 * i) * ly + 0.065 * ly, lz + 0.0045, lz + 0.0062,
+                         "SDT_LedGreen" if i < 3 else "SDT_ScreenOff"))
+    parts += [
+        # čelo +X: štítek, mřížka a madlo na dvou sloupcích
+        box(f"{name}_EndPlate", lx, lx + 0.004, -0.55 * ly, 0.55 * ly, 0.72 * lz, 0.90 * lz, band),
+        chamfer_box(f"{name}_HandlePostA", lx, lx + 0.026, -post_span * ly - 0.12 * ly, -post_span * ly + 0.12 * ly,
+                    post_z0 * lz, post_z1 * lz, "SDT_TankBlack", 0.004),
+        chamfer_box(f"{name}_HandlePostB", lx, lx + 0.026, post_span * ly - 0.12 * ly, post_span * ly + 0.12 * ly,
+                    post_z0 * lz, post_z1 * lz, "SDT_TankBlack", 0.004),
         # čelo -X: konektorová deska s pěti kontakty, dvě patky
         chamfer_box(f"{name}_Connector", -lx - 0.012, -lx, -0.55 * ly, 0.55 * ly, hz - 0.30 * lz, hz + 0.30 * lz,
                     "SDT_TankBlack", 0.003),
@@ -406,18 +439,29 @@ def battery(name, size=BATTERY_SIZE):
         box(f"{name}_FootA", -lx - 0.010, -lx, -0.92 * ly, -0.70 * ly, 0.0, 0.16 * lz, "SDT_TankBlack"),
         box(f"{name}_FootB", -lx - 0.010, -lx, 0.70 * ly, 0.92 * ly, 0.0, 0.16 * lz, "SDT_TankBlack"),
     ]
+    for i, bz in enumerate(bars):
+        parts.append(tube(f"{name}_HandleBar{i}", (lx + 0.022, -post_span * ly, bz * lz), (lx + 0.022, post_span * ly, bz * lz),
+                          bar_r, "SDT_Rubber", segments=8))
+    for i in range(4):   # mřížka na čele +X pod štítkem
+        py = (i - 1.5) * 0.30 * ly
+        parts.append(box(f"{name}_Grille{i}", lx, lx + 0.002, py - 0.10 * ly, py + 0.10 * ly, 0.08 * lz, 0.18 * lz, "SDT_Mesh"))
     for i in range(5):
         py = (i - 2) * 0.17 * ly
         parts.append(box(f"{name}_Pin{i}", -lx - 0.018, -lx - 0.014, py - 0.006, py + 0.006, hz - 0.13 * lz,
                          hz + 0.13 * lz, "SDT_Steel"))
-    for i in range(5):  # větrací štěrbiny na obou bocích u čela +X
-        z0 = (0.18 + 0.11 * i) * lz
-        parts.append(box(f"{name}_VentA{i}", lx * 0.74, lx * 0.94, ly, ly + 0.002, z0, z0 + 0.05 * lz, "SDT_Mesh"))
-        parts.append(box(f"{name}_VentB{i}", lx * 0.74, lx * 0.94, -ly - 0.002, -ly, z0, z0 + 0.05 * lz, "SDT_Mesh"))
-    key = next(k for k, s in BATTERY_SIZES.items() if tuple(s) == tuple(size))
+    nv = BATTERY_VENTS[key]
+    # žebra větrání na obou bocích u čela +X, jejich počet roste s velikostí
+    for i in range(nv):
+        z0 = 0.08 * lz + 0.37 * lz * i / max(nv - 1, 1)
+        h = min(0.05 * lz, 0.30 * lz / nv)
+        parts.append(box(f"{name}_VentA{i}", lx * 0.74, lx * 0.94, ly, ly + 0.002, z0, z0 + h, "SDT_Mesh"))
+        parts.append(box(f"{name}_VentB{i}", lx * 0.74, lx * 0.94, -ly - 0.002, -ly, z0, z0 + h, "SDT_Mesh"))
     lw, lh, lz0 = 0.24 * fx, 0.065 * fz, 0.025 * fz
     planar_uv(label_a, (0.12 * fx, ly, lz0), (-1, 0, 0), (0, 0, 1), lw, lh, "battery" + key)
     planar_uv(label_b, (-0.12 * fx, -ly, lz0), (1, 0, 0), (0, 0, 1), lw, lh, "battery" + key)
+    # písmeno nahoře čte obsluha od madla (nahoře obrazu je -X)
+    planar_uv(top_label, (tcx + ts / 2, -ts / 2, lz + 0.0045), (0, 1, 0), (-1, 0, 0), ts, ts, "battery" + key,
+              sub=L.BATTERY_TILE_SUB)
     dx, dz = battery_frame_offset(size)
     return merge(name, parts, Matrix.Translation((dx, 0.0, dz)))
 
@@ -799,6 +843,7 @@ def brand_decal_set(place, kind, center, normal, up, width, height=None, parent=
 # (startMoveDirection 1) a ve kterém je obrázek do obchodu. Ve foldLadder je čas 0 = rozloženo = srolováno, konec = zavřeno;
 # tarp(fold_time=...) uloží hotové řádky <part> do vlastnosti sdt_fold_parts uzlu <name>, export je vyplní do {{TARP_PARTS}}.
 
+TARP_FOLD_TIME = (2.6, 5.0)       # s ve foldLadder: zavírání plachet po složení žebříku, je to konec celé animace (délka 5 s)
 TARP_FOLD = (0.006, 0.22)          # amplituda a perioda skladů harmoniky (m)
 TARP_DECAL_OFFSET = 0.010          # polep nad plachtou: nad sklady, pod popruhy
 TARP_STRAP_OFFSET = 0.016
@@ -851,13 +896,13 @@ def _x_cyl(name, x, radius, length, mat, segments=32):
 
 def tarp(name, parent, top_center, along, normal, width, height, drop_fn=None, straps=(), strap_top=None, buckles=True,
          hem=0.05, rows=0.15, fold=TARP_FOLD, roll_radius=0.075, roll_out=0.045, roll_gap=0.005, roll_loops=None,
-         fold_time=(2.6, 3.0), rolled_scale=None, roll_closed_scale=ROLL_CLOSED_SCALE, closed_drop=None):
+         fold_time=None, rolled_scale=None, roll_closed_scale=ROLL_CLOSED_SCALE, closed_drop=None):
     """Rolovací plachta s rolí. top_center = střed horní hrany ve světě, along = směr podél plachty (lokální X),
     normal = ven z vleku (tam jdou popruhy, polepy i role), width x height (m).
     drop_fn(x) -> výška plachty v místě x (x od -width/2 do width/2), např. výřez nad blatníky; jinak všude height.
     straps = polohy x popruhů; strap_top = výška popruhu od spodní hrany (None = celá výška); buckles = spony a háčky.
     roll_loops = polohy x poutek na roli (výchozí = straps). fold_time = (t0, t1) v animaci foldLadder (s) -> <part> pro
-    {{TARP_PARTS}} (výchozí 2,6-3,0 s = po složení žebříku, délka animace 3 s se nemění); rolled_scale = měřítko srolované plachty (výchozí: spodní hrana skončí v ose role);
+    {{TARP_PARTS}} (výchozí TARP_FOLD_TIME = po složení žebříku, plachty končí animaci); rolled_scale = měřítko srolované plachty (výchozí: spodní hrana skončí v ose role);
     closed_drop = výška pod horní hranou, kde leží zavřená role (výchozí nejmenší výška plachty, ať nenarazí do blatníku).
     Vrací (pivot plachty, role)."""
     along = Vector(along).normalized()
@@ -920,7 +965,7 @@ def tarp(name, parent, top_center, along, normal, width, height, drop_fn=None, s
 
     s_rolled = rolled_scale if rolled_scale is not None else max(0.02, (roll_radius + roll_gap) / height)
     pinv = roll.parent.matrix_world.inverted() if roll.parent else Matrix.Identity(4)
-    t0, t1 = fold_time
+    t0, t1 = fold_time or TARP_FOLD_TIME
     c = roll_closed_scale
     pivot["sdt_fold_parts"] = "\n".join((
         f'            <part node="{name}" startTime="{t0:g}" endTime="{t1:g}" startScale="1 {s_rolled:.4g} 1" '

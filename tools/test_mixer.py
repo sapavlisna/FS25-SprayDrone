@@ -22,6 +22,10 @@ s = M.resolve("water", 300, "cherb", 20, r2, "water", prod); p("mixProduct", s.k
 s = M.resolve("herb", 100, "cherb", 20, r2, "water", prod); p("directProduct", s.kind, s.fillType, tostring(s.concentrateType))
 s = M.resolve(nil, 0, "cfert", 20, r2, "water", prod); p("noWaterProduct", s.kind, s.reason, s.fillType)
 s = M.resolve("water", 300, "other", 20, r2, "water", prod); p("unknownConc", s.kind, s.reason, tostring(s.fillType))
+-- vápno: SDT_FINE_LIME 0,20 -> vanilla lime; 600 l vody a 100 l vápna dá 500 l přípravku (omezuje vápno), spotřeba 400 l vody a 100 l vápna
+local r3, prod3 = { fine = 0.20 }, { fine = "lime" }
+s = M.resolve("water", 600, "fine", 100, r3, "water", prod3); p("lime", s.kind, s.fillType, s.liters, s.limit)
+w, c = M.getParts(0.20, 500); p("limeParts", w, c)
 p("drain", tostring(M.canAcceptDrained("water", 10, "fert")), tostring(M.canAcceptDrained("fert", 10, "fert")), tostring(M.canAcceptDrained(nil, 0, "fert")))
 return table.concat(out, ";")
 '''))

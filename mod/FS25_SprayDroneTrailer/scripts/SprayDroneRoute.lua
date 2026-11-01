@@ -106,15 +106,19 @@ function SprayDroneRoute.getObstacleHeightAt(x, z)
     return probe.hit and math.max(probe.y - terrainY, 0) or 0
 end
 
--- Nejvyšší překážka v pásu šířky ±halfWidth napříč směrem (dirX, dirZ) v bodě (x, z): výška nad terénem a místo.
-function SprayDroneRoute.getBandObstacle(x, z, dirX, dirZ, halfWidth)
+-- Nejvyšší překážka v pásu šířky ±halfWidth napříč směrem (dirX, dirZ) v bodě (x, z): výška nad terénem a místo. Body blíž než
+-- skip.r od skip (sloup nad plošinou, ten hlídá SprayDroneLaunch před vzletem) se vynechají.
+function SprayDroneRoute.getBandObstacle(x, z, dirX, dirZ, halfWidth, skip)
     local n = math.max(math.ceil(halfWidth / SprayDroneRoute.LATERAL_STEP), 1)
     local sideX, sideZ = dirZ, -dirX
     local best, bx, bz = 0, x, z
     for i = -n, n do
         local off = halfWidth * i / n
         local px, pz = x + sideX * off, z + sideZ * off
-        local h = SprayDroneRoute.getObstacleHeightAt(px, pz)
+        local h = 0
+        if skip == nil or MathUtil.vector2Length(px - skip.x, pz - skip.z) >= skip.r then
+            h = SprayDroneRoute.getObstacleHeightAt(px, pz)
+        end
         if h > best then
             best, bx, bz = h, px, pz
         end
@@ -276,6 +280,9 @@ function SprayDroneRoute.getIsWorkable(x, z, sprayType, farmlandId)
     local isOnField = FSDensityMapUtil.getFieldDataAtWorldPosition(x, 0, z)
     if not isOnField then
         return false
+    end
+    if sprayType.isScan then
+        return true
     end
 
     local fruitIndex, growthState = FSDensityMapUtil.getFruitTypeIndexAtWorldPos(x, z)
@@ -996,11 +1003,27 @@ function SprayDroneRoute.appendParts(target, ax, az, bx, bz, needsAt)
     end
     local step = SprayDroneRoute.SAMPLE_STEP
     local n = math.max(math.floor(len / step), 1)
-    local runStart = nil
+    local mask = SprayDroneRoute.mask
+    local acrossX, acrossZ = (bz - az) / len, -(bx - ax) / len
+    -- vzorky: true = stříkat, MASK_GAP = smí se, ale maska skenu to nechce (krátká taková mezera mezi úseky se přeletí se stříkáním)
+    local samples = {}
     for i = 0, n do
         local t = i / n
         local px, pz = ax + (bx - ax) * t, az + (bz - az) * t
-        local needs = needsAt(px, pz, t) and not SprayDroneRoute.isReserved(px, pz) and SprayDroneRoute.isInSignal(px, pz)
+        local base = needsAt(px, pz, t) and not SprayDroneRoute.isReserved(px, pz) and SprayDroneRoute.isInSignal(px, pz)
+        if base and mask ~= nil and not SprayDroneRoute.isSwathInMask(mask, px, pz, acrossX, acrossZ) then
+            samples[i] = SprayDroneRoute.MASK_GAP
+        else
+            samples[i] = base
+        end
+    end
+    if mask ~= nil then
+        SprayDroneRoute.bridgeMaskGaps(samples, n, mask.gap / math.max(len / n, 0.01))
+    end
+    local runStart = nil
+    for i = 0, n do
+        local t = i / n
+        local needs = samples[i] == true
         if needs and runStart == nil then
             runStart = t
         end
@@ -1517,10 +1540,12 @@ local function sampleTransitPath(dense)
 end
 
 -- Svislé paprsky po OBSTACLE_STEP v pásu kolem dráhy: req[i] = výška, kterou body kroků vyžadují nad překážkou (+ odstup),
--- obstacles = nalezené překážky, scan = indexy kroků, ve kterých se paprsky vypouštěly.
-local function scanTransitObstacles(S, s, p)
+-- obstacles = nalezené překážky, scan = indexy kroků, ve kterých se paprsky vypouštěly. Strop nad plošinou (home, do
+-- poloměru dronu) se nepočítá: vzlet hlídá SprayDroneLaunch, jinak by střecha nad vlekem zvedla celý přelet nebo ho zakázala.
+local function scanTransitObstacles(S, s, p, home)
     local n = #S
     local halfWidth = p.droneRadius + p.sideClearance
+    local skip = home ~= nil and { x = home.x, z = home.z, r = p.droneRadius } or nil
     local req, obstacles, scan = {}, {}, {}
     local nextS = 0
     for i = 1, n do
@@ -1534,7 +1559,7 @@ local function scanTransitObstacles(S, s, p)
         local a, b = S[math.max(i - 1, 1)], S[math.min(i + 1, n)]
         local dl = MathUtil.vector2Length(b.x - a.x, b.z - a.z)
         if dl > 0.01 then
-            local h, ox, oz = SprayDroneRoute.getBandObstacle(S[i].x, S[i].z, (b.x - a.x) / dl, (b.z - a.z) / dl, halfWidth)
+            local h, ox, oz = SprayDroneRoute.getBandObstacle(S[i].x, S[i].z, (b.x - a.x) / dl, (b.z - a.z) / dl, halfWidth, skip)
             if h > 0 then
                 req[i] = h + p.obstacleClearance
                 table.insert(obstacles, { x = ox, z = oz, h = h })
@@ -1674,7 +1699,7 @@ function SprayDroneRoute.buildTransit(pts, minHeight, startH, endH, p, outbound,
     local dense = SprayDroneRoute.roundCorners(pts, rDesired, p.turnAcceleration, check)
     local S, s, L = sampleTransitPath(dense)
     local n = #S
-    local req, obstacles, scan = scanTransitObstacles(S, s, p)
+    local req, obstacles, scan = scanTransitObstacles(S, s, p, outbound and S[1] or S[n])
 
     local segH = {}
     for k = 1, math.max(#pts - 1, 1) do
@@ -2276,6 +2301,10 @@ function SprayDroneRoute.isInSignal(x, z)
     if circles == nil then
         return true
     end
+    -- oblasti s výsečí (směrová relé tyč, SprayDroneLink.getRelayShape)
+    if SprayDroneLink ~= nil and SprayDroneLink.isInCircles ~= nil then
+        return SprayDroneLink.isInCircles(circles, x, z)
+    end
     for _, c in ipairs(circles) do
         local dx, dz = x - c.x, z - c.z
         if dx * dx + dz * dz <= c.r * c.r then
@@ -2283,6 +2312,106 @@ function SprayDroneRoute.isInSignal(x, z)
         end
     end
     return false
+end
+
+---------------------------------------------------------------------------------------------------
+-- aplikace podle skenu (docs/DRON.md, „Aplikace podle skenu“): maska z mapy skenu na dobu stavby legů
+-- (nastavuje SprayDroneStation.buildAllLegs), nil = celé pole
+
+SprayDroneRoute.mask = nil
+SprayDroneRoute.MASK_GAP = "gap"
+
+-- Maska z mapy skenu: select(buňka, druhy ošetření, mapa, index) říká, jestli buňka přípravek potřebuje; nenaskenovaná buňka (nil) se ošetří
+-- (bezpečná volba), dokud ji tento přípravek už jednou neošetřil, buňky se středem mimo pole přeberou výběr od sousedů v poli (okraj pole). Bod je v masce do margin m od vybrané
+-- buňky; mezery mezi úseky kratší než gap m se přeletí se stříkáním.
+function SprayDroneRoute.newMask(map, select, margin, gap)
+    local sel, selected, unscanned = {}, 0, 0
+    for index in pairs(map.inside) do
+        local value = map.values[index]
+        local on = select(value ~= nil and SprayDroneScanMap.decode(value) or nil, map.treatedKinds[index] or 0, map, index)
+        if value == nil then
+            unscanned = unscanned + 1
+        end
+        if on then
+            sel[index] = true
+            selected = selected + 1
+        end
+    end
+    local nx, nz = map.nx, map.nz
+    local edge = {}
+    for iz = 0, nz - 1 do
+        for ix = 0, nx - 1 do
+            local index = iz * nx + ix + 1
+            if not map.inside[index] then
+                for jz = math.max(iz - 1, 0), math.min(iz + 1, nz - 1) do
+                    for jx = math.max(ix - 1, 0), math.min(ix + 1, nx - 1) do
+                        local j = jz * nx + jx + 1
+                        if map.inside[j] and sel[j] then
+                            edge[index] = true
+                        end
+                    end
+                end
+            end
+        end
+    end
+    for index in pairs(edge) do
+        sel[index] = true
+    end
+    return { map = map, sel = sel, margin = margin, gap = gap, reach = math.ceil(margin / map.cellSize),
+        cells = map.numInside, selected = selected, unscanned = unscanned }
+end
+
+function SprayDroneRoute.isInMask(mask, x, z)
+    local map = mask.map
+    local size = map.cellSize
+    local rx, rz = x - map.originX, z - map.originZ
+    local ix, iz = math.floor(rx / size), math.floor(rz / size)
+    local r, m2 = mask.reach, mask.margin * mask.margin
+    for jz = math.max(iz - r, 0), math.min(iz + r, map.nz - 1) do
+        for jx = math.max(ix - r, 0), math.min(ix + r, map.nx - 1) do
+            if mask.sel[jz * map.nx + jx + 1] then
+                local dx = math.max(jx * size - rx, 0, rx - (jx + 1) * size)
+                local dz = math.max(jz * size - rz, 0, rz - (jz + 1) * size)
+                if dx * dx + dz * dz <= m2 then
+                    return true
+                end
+            end
+        end
+    end
+    return false
+end
+
+-- Je v masce některé místo záběru napříč pruhem v bodě (x, z)? Záběr (±mask.halfWidth po směru across) se zkouší po půl buňce.
+function SprayDroneRoute.isSwathInMask(mask, x, z, acrossX, acrossZ)
+    local hw = mask.halfWidth or 0
+    local steps = math.max(math.ceil(hw / (mask.map.cellSize * 0.5)), 0)
+    for k = -steps, steps do
+        local o = steps > 0 and hw * k / steps or 0
+        if SprayDroneRoute.isInMask(mask, x + acrossX * o, z + acrossZ * o) then
+            return true
+        end
+    end
+    return false
+end
+
+-- Vzorky MASK_GAP mezi dvěma úseky ke stříkání, kterých je nejvýš maxSamples, se stříkají taky (dron necuká tryskami), ostatní ne.
+function SprayDroneRoute.bridgeMaskGaps(samples, n, maxSamples)
+    local i = 0
+    while i <= n do
+        if samples[i] == SprayDroneRoute.MASK_GAP then
+            local j = i
+            while j + 1 <= n and samples[j + 1] == SprayDroneRoute.MASK_GAP do
+                j = j + 1
+            end
+            local fill = i > 0 and j < n and samples[i - 1] == true and samples[j + 1] == true and (j - i + 1) <= maxSamples
+            for k = i, j do
+                samples[k] = fill
+            end
+            i = j + 1
+        else
+            i = i + 1
+        end
+    end
 end
 
 function SprayDroneRoute.isReserved(x, z)

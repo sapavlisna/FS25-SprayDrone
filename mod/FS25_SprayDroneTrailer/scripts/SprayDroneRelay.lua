@@ -1,12 +1,16 @@
--- Retranslační tyč na stativu (objects/relay/relayPole.xml, vehicle type sdtRelayPole = pallet + enterable + tahle specializace).
+-- Retranslační tyč na stativu (objects/relay/relayPole.xml všesměrová, relayPoleDirectional.xml směrová; vehicle type sdtRelayPole =
+-- pallet + tahle specializace).
 -- Je to samostatný předmět z obchodu: hráč ji složenou nese v rukou, postaví na zem a R ji rozloží (nohy stativu se rozevřou
--- a teleskopický stožár vyjede, 3 s). Do rozložené tyče jde nastoupit (E): kamera obíhá stožár, vpravo dole je baterie
--- (fillUnit ELECTRICCHARGE) a B tyč zapne / vypne. Rozložená tyč stojí pevně (kinematická fyzika) a nejde zvednout do ruky.
+-- a teleskopický stožár vyjede, 3 s), B ji u rozložené tyče zapne / vypne (obojí pěšky zvenku, do tyče se nenastupuje; baterie je
+-- fillUnit ELECTRICCHARGE). Rozložená tyč stojí pevně (kinematická fyzika) a nejde zvednout do ruky.
 -- Zapnutá tyč vybíjí baterii (5 h provozu), vybitá se sama vypne. Nabíjí se vanilla nabíjecí stanicí (nastoupit, R u stanice)
 -- nebo zvenku přes SprayDroneRelay.charge (např. na vleku). Složená, vypnutá nebo vybitá tyč dosah nezvětšuje; dosah počítá
 -- SprayDroneLink (SprayDroneRelay.isOperating + nikdo ji nedrží).
 -- Stav (rozloženo, zapnuto) se ukládá do savegame a jde po síti stavem vozidla; baterii ukládá a synchronizuje FillUnit.
 -- Příkazy z klienta posílá SprayDroneRelayEvent, server je ověří (getChangeBlock) a provede.
+-- Směrová tyč má #sectorAngle a #sectorFactor: pokrývá jen výseč kolem osy +Z (čelo panelu) s dosahem radius × sectorFactor
+-- (SprayDroneLink.getRelayShape). Bez fill unitu ELECTRICCHARGE by tyč běžela bez baterie (getBatteryFraction 1); texty berou
+-- předponu #l10nPrefix.
 
 SprayDroneRelay = {}
 SprayDroneRelay.MOD_NAME = g_currentModName
@@ -42,6 +46,9 @@ function SprayDroneRelay.initSpecialization()
     schema:register(XMLValueType.VECTOR_TRANS, key .. ".slide(?)#foldedTrans", "Posun dílu ve složeném stavu vůči rozloženému")
     schema:register(XMLValueType.NODE_INDEX, key .. ".led#node", "Kontrolka zapnutí")
     schema:register(XMLValueType.NODE_INDEX, key .. ".batteryLed(?)#node", "Dioda stavu baterie (zdola nahoru)")
+    schema:register(XMLValueType.ANGLE, key .. "#sectorAngle", "Směrová tyč: plný úhel výseče (stupně) kolem osy +Z; bez něj všesměrová")
+    schema:register(XMLValueType.FLOAT, key .. "#sectorFactor", "Směrová tyč: dosah ve výseči jako násobek poloměru (síly) tyče", 1.75)
+    schema:register(XMLValueType.STRING, key .. "#l10nPrefix", "Předpona textů akcí a hlášek (<předpona>_unfold, _fold, _on, _off, _notUpright, ...)", "sdt_relay")
     schema:register(XMLValueType.FLOAT, string.format("vehicle.%sConfigurations.%sConfiguration(?)#radius", SprayDroneStation.RELAY_CONFIG,
         SprayDroneStation.RELAY_CONFIG), "Dosah tyče (m) pro danou variantu v obchodě")
     schema:setXMLSpecializationType()
@@ -59,14 +66,12 @@ end
 
 function SprayDroneRelay.registerOverwrittenFunctions(vehicleType)
     SpecializationUtil.registerOverwrittenFunction(vehicleType, "getCanBePickedUp", SprayDroneRelay.getCanBePickedUp)
-    SpecializationUtil.registerOverwrittenFunction(vehicleType, "getIsEnterable", SprayDroneRelay.getIsEnterable)
-    SpecializationUtil.registerOverwrittenFunction(vehicleType, "getDistanceToNode", SprayDroneRelay.getDistanceToNode)
     SpecializationUtil.registerOverwrittenFunction(vehicleType, "getIsMapHotspotVisible", SprayDroneRelay.getIsMapHotspotVisible)
 end
 
 function SprayDroneRelay.registerEventListeners(vehicleType)
     for _, name in ipairs({ "onLoad", "onPostLoad", "onDelete", "onUpdate", "onReadStream", "onWriteStream", "onReadUpdateStream",
-        "onWriteUpdateStream", "onRegisterActionEvents", "onFillUnitFillLevelChanged", "onEnterVehicle", "onLeaveVehicle" }) do
+        "onWriteUpdateStream", "onFillUnitFillLevelChanged" }) do
         SpecializationUtil.registerEventListener(vehicleType, name, SprayDroneRelay)
     end
 end
@@ -79,6 +84,17 @@ local function warn(key)
     if g_currentMission ~= nil and g_i18n ~= nil then
         g_currentMission:showBlinkingWarning(g_i18n:getText(key), 2500)
     end
+end
+
+-- Klíč textu pro tento předmět (#l10nPrefix .. "_" .. suffix); chybí-li, text relé tyče.
+local function textKey(self, suffix)
+    local state = getSpec(self)
+    local prefix = state ~= nil and state.l10nPrefix or "sdt_relay"
+    local key = prefix .. "_" .. suffix
+    if prefix ~= "sdt_relay" and g_i18n ~= nil and g_i18n.hasText ~= nil and not g_i18n:hasText(key) then
+        return "sdt_relay_" .. suffix
+    end
+    return key
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -179,22 +195,22 @@ end
 function SprayDroneRelay.getChangeBlock(self, unfolded, powered)
     local state = getSpec(self)
     if unfolded and not state.unfolded and not SprayDroneRelay.isUpright(self) then
-        return "sdt_relay_notUpright"
+        return textKey(self, "notUpright")
     end
     if powered and not state.powered then
         if not state.unfolded or state.progress < 1 then
-            return "sdt_relay_notUnfolded"
+            return textKey(self, "notUnfolded")
         end
         if SprayDroneRelay.getBatteryFraction(self) <= 0 then
-            return "sdt_relay_batteryEmpty"
+            return textKey(self, "batteryEmpty")
         end
         if not SprayDroneRelay.isUpright(self) then
-            return "sdt_relay_notUpright"
+            return textKey(self, "notUpright")
         end
     end
     if state.unfolded and not unfolded then
         if isControlled(self) then
-            return "sdt_relay_occupied"
+            return textKey(self, "occupied")
         end
         return SprayDroneRelay.blockReason(self, "fold")
     end
@@ -287,8 +303,13 @@ function SprayDroneRelay:onLoad(savegame)
             table.insert(state.batteryLeds, node)
         end
     end)
+    state.l10nPrefix = xml:getValue(key .. "#l10nPrefix", "sdt_relay")
     state.chargingUntil = 0
     state.actionEvents = {}
+    local sectorAngle = xml:getValue(key .. "#sectorAngle")
+    if sectorAngle ~= nil and sectorAngle > 0 then
+        state.sector = { angle = sectorAngle, factor = xml:getValue(key .. "#sectorFactor", 1.75) }
+    end
     state.radius = SprayDroneStation.getConfigValue(self, xml, "vehicle", SprayDroneStation.RELAY_CONFIG, "radius", SprayDroneLink.RELAY_RADIUS)
     state.unfolded, state.powered = false, false
     if savegame ~= nil and not savegame.resetVehicles then
@@ -377,6 +398,7 @@ function SprayDroneRelay.setState(self, unfolded, powered, noEventSend, force)
         return true
     end
     state.unfolded, state.powered = unfolded, powered
+    SprayDroneSound.noteAction(string.format("relé tyč id %s: %s, %s", tostring(self.id), unfolded and "rozložena" or "složena", powered and "zapnuta" or "vypnuta"))
     if self.isServer then
         self:raiseDirtyFlags(state.dirtyFlag)
     end
@@ -475,12 +497,14 @@ function SprayDroneRelay:onUpdate(dt)
         SprayDroneRelay.updateBattery(self, dt)
     end
     if self.isClient then
-        if state.lastPowered and not state.powered and SprayDroneRelay.getBatteryFraction(self) <= 0
-            and self.getIsEntered ~= nil and self:getIsEntered() then
-            warn("sdt_relay_batteryEmpty")
+        if state.lastPowered and not state.powered and SprayDroneRelay.getBatteryFraction(self) <= 0 and g_localPlayer ~= nil then
+            local px, py, pz = g_localPlayer:getPosition()
+            local x, y, z = getWorldTranslation(self.rootNode)
+            if px ~= nil and MathUtil.vector3Length(px - x, py - y, pz - z) <= SprayDroneRelay.ACTIVATE_DISTANCE + 8 then
+                warn("sdt_relay_batteryEmpty")
+            end
         end
         SprayDroneRelay.updateBatteryLeds(self)
-        SprayDroneRelay.updateActionEvents(self)
     end
     state.lastPowered = state.powered
     if state.powered or state.chargingUntil > g_time then
@@ -496,14 +520,6 @@ function SprayDroneRelay:onFillUnitFillLevelChanged(fillUnitIndex, fillLevelDelt
         end
         self:raiseActive()
     end
-end
-
-function SprayDroneRelay:onEnterVehicle(isControlling)
-    self:raiseActive()
-end
-
-function SprayDroneRelay:onLeaveVehicle(wasEntered)
-    self:raiseActive()
 end
 
 -- Vanilla nabíjecí stanice (LoadTrigger) nabíjí nejvýš rychlostí plné nabití za CHARGE_TIME (l/ms); stanice sama dává 0,015 l/s.
@@ -524,69 +540,13 @@ function SprayDroneRelay:getCanBePickedUp(superFunc, byPlayer)
     return superFunc(self, byPlayer)
 end
 
-local function canEnter(self)
-    local state = getSpec(self)
-    return state ~= nil and state.unfolded and state.progress >= 1
-end
-
-function SprayDroneRelay:getIsEnterable(superFunc)
-    return canEnter(self) and superFunc(self)
-end
-
--- Nabídka „nastoupit“ (E) jen u rozložené tyče; složená se jen nese v rukou.
-function SprayDroneRelay:getDistanceToNode(superFunc, node)
-    if not canEnter(self) and not isControlled(self) then
-        self.interactionFlag = Vehicle.INTERACTION_FLAG_NONE
-        return math.huge
-    end
-    return superFunc(self, node)
-end
-
 -- Pallet ikonu na mapě skrývá; tyč ji má (kromě chvíle, kdy v ní někdo sedí: pak je tam značka hráče).
 function SprayDroneRelay:getIsMapHotspotVisible(superFunc)
     return not isControlled(self)
 end
 
 ---------------------------------------------------------------------------------------------------
--- ovládání po nástupu: B (IMPLEMENT_EXTRA) zapne / vypne
-
-function SprayDroneRelay:onRegisterActionEvents(isActiveForInput, isActiveForInputIgnoreSelection)
-    if not self.isClient then
-        return
-    end
-    local state = getSpec(self)
-    self:clearActionEventsTable(state.actionEvents)
-    state.powerEventId = nil
-    if isActiveForInputIgnoreSelection then
-        local _, id = self:addActionEvent(state.actionEvents, InputAction.IMPLEMENT_EXTRA, self, SprayDroneRelay.actionEventPower, false, true,
-            false, true, nil)
-        state.powerEventId = id
-        g_inputBinding:setActionEventTextPriority(id, GS_PRIO_VERY_HIGH)
-        SprayDroneRelay.updateActionEvents(self)
-    end
-end
-
-function SprayDroneRelay.updateActionEvents(self)
-    local state = getSpec(self)
-    if state.powerEventId ~= nil then
-        g_inputBinding:setActionEventText(state.powerEventId, g_i18n:getText(state.powered and "sdt_relay_off" or "sdt_relay_on"))
-        g_inputBinding:setActionEventActive(state.powerEventId, state.unfolded and state.progress >= 1)
-    end
-end
-
-function SprayDroneRelay.actionEventPower(self, actionName, inputValue, callbackState, isAnalog)
-    local state = getSpec(self)
-    local powered = not state.powered
-    local reason = SprayDroneRelay.getChangeBlock(self, true, powered)
-    if reason ~= nil then
-        warn(reason)
-        return
-    end
-    self:setSprayDroneRelayState(true, powered)
-end
-
----------------------------------------------------------------------------------------------------
--- ovládání zvenku: R (ACTIVATE_OBJECT) rozloží / složí; E je nástup (Enterable), proto se rozklad na něj nedává
+-- ovládání zvenku (pěšky): R (ACTIVATE_OBJECT) rozloží / složí, B (SDT_TOGGLE_FOOT, tatáž akce jako u mlýnku a pumpy) zapne / vypne rozloženou tyč
 
 SprayDroneRelayActivatable = {}
 local RelayActivatable_mt = Class(SprayDroneRelayActivatable)
@@ -594,7 +554,7 @@ local RelayActivatable_mt = Class(SprayDroneRelayActivatable)
 function SprayDroneRelayActivatable.new(vehicle)
     local self = setmetatable({}, RelayActivatable_mt)
     self.vehicle = vehicle
-    self.activateText = g_i18n:getText("sdt_relay_unfold")
+    self.activateText = g_i18n:getText(textKey(vehicle, "unfold"))
     return self
 end
 
@@ -620,9 +580,15 @@ function SprayDroneRelayActivatable:getIsActivatable()
         return false
     end
     local state = getSpec(vehicle)
-    self.activateText = g_i18n:getText(state.unfolded and "sdt_relay_fold" or "sdt_relay_unfold")
+    self.activateText = g_i18n:getText(textKey(vehicle, state.unfolded and "fold" or "unfold"))
     if self.foldEventId ~= nil then
         g_inputBinding:setActionEventText(self.foldEventId, self.activateText)
+    end
+    if self.toggleEventId ~= nil then
+        local ready = state.unfolded and state.progress >= 1 and SprayDroneLink.mayToggle(self)
+        g_inputBinding:setActionEventActive(self.toggleEventId, ready)
+        g_inputBinding:setActionEventTextVisibility(self.toggleEventId, ready)
+        g_inputBinding:setActionEventText(self.toggleEventId, g_i18n:getText(textKey(vehicle, state.powered and "off" or "on")))
     end
     return true
 end
@@ -633,11 +599,36 @@ function SprayDroneRelayActivatable:registerCustomInput(inputContext)
     g_inputBinding:setActionEventTextPriority(self.foldEventId, GS_PRIO_VERY_HIGH)
     g_inputBinding:setActionEventTextVisibility(self.foldEventId, true)
     g_inputBinding:setActionEventText(self.foldEventId, self.activateText)
+    self.toggleEventId = SprayDroneLink.registerToggle(self, self.togglePower, nil)
+    if self.toggleEventId ~= nil then
+        g_inputBinding:setActionEventTextVisibility(self.toggleEventId, false)
+        g_inputBinding:setActionEventActive(self.toggleEventId, false)
+    end
+    SprayDroneLink.setSelected(self, true)
 end
 
 function SprayDroneRelayActivatable:removeCustomInput(inputContext)
     g_inputBinding:removeActionEventsByTarget(self)
+    SprayDroneLink.setSelected(self, false)
     self.foldEventId = nil
+    self.toggleEventId = nil
+end
+
+-- B: zapnout / vypnout rozloženou tyč (pojistky a vybitá baterie v getChangeBlock).
+function SprayDroneRelayActivatable:togglePower()
+    local vehicle = self.vehicle
+    local state = getSpec(vehicle)
+    if not (state.unfolded and state.progress >= 1) or not SprayDroneLink.mayToggle(self) then
+        return
+    end
+    local powered = not state.powered
+    SprayDroneSound.noteAction(string.format("relé tyč id %s: B pěšky, %s", tostring(vehicle.id), powered and "zapnout" or "vypnout"))
+    local reason = SprayDroneRelay.getChangeBlock(vehicle, true, powered)
+    if reason ~= nil then
+        warn(reason)
+        return
+    end
+    vehicle:setSprayDroneRelayState(true, powered)
 end
 
 -- Rozložit (jen vzpřímená tyč) / složit (složení ji i vypne; pojistky letu mohou složení zakázat).
@@ -654,8 +645,9 @@ function SprayDroneRelayActivatable:run()
 end
 
 function SprayDroneRelayActivatable:getDistance(x, y, z)
-    local nx, ny, nz = getWorldTranslation(self.vehicle.rootNode)
-    return MathUtil.vector3Length(x - nx, y - ny, z - nz)
+    local node = self.vehicle.rootNode
+    local nx, ny, nz = getWorldTranslation(node)
+    return SprayDroneLink.aimDistance(MathUtil.vector3Length(x - nx, y - ny, z - nz), node)
 end
 
 function SprayDroneRelayActivatable:activate() end

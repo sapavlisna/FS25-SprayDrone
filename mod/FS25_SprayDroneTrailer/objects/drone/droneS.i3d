@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<i3D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="droneS" version="1.6" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="i3dConverter" version="1.0" />
+  </Asset>
+
+  <Files>
+  <File fileId="1" filename="$data/shaders/vehicleShader.xml" /><File fileId="2" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubberBlack_diffuse.png" /><File fileId="3" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_normal.png" /><File fileId="4" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_specular.png" /><File fileId="5" filename="$data/shared/white_diffuse.png" /><File fileId="6" filename="$data/shared/default_normal.png" /><File fileId="7" filename="$data/shared/default_vmask.png" /><File fileId="8" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_diffuse.png" /><File fileId="9" filename="$data/shared/detailLibrary/flat_normal.png" /><File fileId="10" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_specular.png" /><File fileId="11" filename="$data/shared/detailLibrary/metallic/metalGalvanized_diffuse.png" /><File fileId="12" filename="$data/shared/detailLibrary/metallic/metalGalvanized_normal.png" /><File fileId="13" filename="$data/shared/detailLibrary/metallic/metalGalvanized_specular.png" /></Files>
+
+
+  <Materials>
+    <Material name="Carbon" materialId="8" diffuseColor="0.0431373 0.0431373 0.054902 1" specularColor="0.6 1 0.25098">
+    </Material>
+    <Material name="default" materialId="1" diffuseColor="0.501961 0.501961 0.501961 1">
+    </Material>
+    <Material name="Drone_Accent_A" materialId="7" diffuseColor="0.74902 0.278431 0.0196078 1" specularColor="0.65098 1 0.101961">
+    </Material>
+    <Material name="Drone_Grey" materialId="2" diffuseColor="0.270588 0.278431 0.301961 1" specularColor="0.501961 1 0.0509804">
+    </Material>
+    <Material name="Drone_GreyDark" materialId="4" diffuseColor="0.129412 0.133333 0.141176 1" specularColor="0.501961 1 0.101961">
+    </Material>
+    <Material name="Drone_White" materialId="3" diffuseColor="0.839216 0.85098 0.858824 1" specularColor="0.678431 1 0">
+    </Material>
+    <Material name="Glass_Dark" materialId="6" diffuseColor="0.0117647 0.0196078 0.0196078 1" specularColor="0.85098 1 0">
+    </Material>
+    <Material name="Prop_Blade" materialId="11" diffuseColor="0.0588235 0.0588235 0.0666667 1" specularColor="0.619608 1 0">
+    </Material>
+    <Material name="Prop_Tip" materialId="12" diffuseColor="0.901961 0.4 0.0313726 1" specularColor="0.701961 1 0">
+    </Material>
+    <Material name="SDT_HoseBlack" materialId="13" diffuseColor="0.0196078 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.01 0.01 0.01" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_LampAmber" materialId="9" diffuseColor="0.901961 0.45098 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.9 0.45 0.02" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_NavLed" materialId="10" diffuseColor="0.54902 0.54902 0.54902 1" customShaderId="1" customShaderVariation="staticLight_vertex">
+    <CustomParameter name="colorScale" value="0.35 0.35 0.35" /><CustomParameter name="lightIds0" value="0 0 0 0" /><CustomParameter name="lightTypeBitMask" value="0" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Rubber" materialId="15" diffuseColor="0.0156863 0.0156863 0.0156863 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.03" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Steel" materialId="14" diffuseColor="0.6 0.619608 0.639216 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_TankBlack" materialId="5" diffuseColor="0.0313726 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.02 0.02" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="droneS.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <Shape name="droneS_main_component1" shapeId="1" dynamic="true" compound="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfffffbff" staticFriction="1" dynamicFriction="1" density="0" clipDistance="150" nodeId="20" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1">
+      <TransformGroup name="collisions" clipDistance="10" nodeId="21">
+        <Shape name="floorCollision01" shapeId="2" compoundChild="true" collisionFilterGroup="0x10000" collisionFilterMask="0xfffdfbff" staticFriction="1" dynamicFriction="1" density="0" nodeId="22" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      </TransformGroup>
+      <Shape name="droneS_vis" shapeId="3" clipDistance="100" nodeId="23" castsShadows="true" receiveShadows="true" materialIds="2,3,4,5,6,7,8,9,10,11,12,13,14,15" />
+    </Shape>
+  </Scene>
+
+</i3D>

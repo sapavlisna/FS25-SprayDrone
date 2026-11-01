@@ -26,8 +26,14 @@ def check(path):
                 missing.setdefault(value, []).append(line)
     for name, lines in sorted(missing.items()):
         print(f"  CHYBÍ v i3dMappings: {name} (řádky {lines[:4]})")
-    print(f"{'CHYBA' if missing else 'OK   '} {path.name}: {len(ids)} mapování")
-    return bool(missing)
+    # Enterable:leaveVehicle -> deactivate -> Foldable:onDeactivate zastaví rozkládání, když hráč vystoupí dřív, než doběhne;
+    # vlek pak zůstane mezi stavy a getIsUnfolded() je false (nabíječka, držák tyčí, start letu).
+    fold_stops = "<enterable" in body and "<foldingParts " in body and 'keepFoldingWhileDetached="true"' not in body
+    if fold_stops:
+        print('  CHYBÍ foldingParts keepFoldingWhileDetached="true" (vystoupení z vleku zastaví rozkládání)')
+    bad = bool(missing) or fold_stops
+    print(f"{'CHYBA' if bad else 'OK   '} {path.name}: {len(ids)} mapování")
+    return bad
 
 
 def main():

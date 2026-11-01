@@ -34,6 +34,11 @@ _source = _source.replace("    ox0, ox1, oy0, oy1, _ = chest_box()\n", "    ox0,
 _source = _source.replace("REAR_CROSS_OFFSET = 0.14", "REAR_CROSS_OFFSET = 0.04")
 exec(compile(_source, _big, "exec"), globals())
 
+import sdt_lime as LIME  # noqa: E402
+importlib.reload(LIME)
+import sdt_mlyn as MILL  # noqa: E402
+importlib.reload(MILL)
+
 # ---------------------------------------------------------------------------------------------------------- konstanty
 V = T.V
 
@@ -145,7 +150,7 @@ TOP_FRONT_Y = -1.90                          # přední hrana prodloužené desk
 POST_FRONT_Y = BASE_Y0 + POST / 2            # přední sloupky Post_LF/RF stojí na čelním nosníku
 
 # rolovací plachta na bocích a vpředu (sdt_parts.tarp): vně sloupků, od nové přední hrany po zadní líc Post_L4/R4, nad
-# blatníky tandemu sedí na jejich horní ploše (_side_bottom); srolovaná role je pod horní hranou (foldLadder 2,6-3,0 s, čas 0 = rozloženo = srolováno)
+# blatníky tandemu sedí na jejich horní ploše (_side_bottom); srolovaná role je pod horní hranou (foldLadder P.TARP_FOLD_TIME, čas 0 = rozloženo = srolováno)
 TARP_X = 1.105
 TARP_FRONT_Y = TOP_FRONT_Y + 0.015
 TARP_Y = (TARP_FRONT_Y, POST_Y[-1] + POST / 2)
@@ -156,8 +161,7 @@ TARP_ROLL_GAP = 0.02                         # role pod vodicí lištou (lišta 
 TARP_STRAP_TOP = TARP_STRIPE_Z[1] + 0.14     # popruhy jen dole (nad pruh), lockupy designu začínají nad nimi
 SERVICE_Y = (PAD_Y[0] + PAD_Y[1]) / 2
 DRONE_Y = PAD_Y[0]
-DRONE_VARIANTS_B = {"S": "Drone2_S_", "M": "Drone2_A_", "L": "Drone2_L_"}
-CLAMP_Y = (DRONE_Y - 0.075, DRONE_Y + 0.075)
+DRONE_VARIANTS_B = {"S": "Drone2_S_", "M": "Drone2_A_", "L": "Drone2_L_", "K": "Drone2_K_"}
 
 # nabíječka: deset šachet (5 řad po dvou; pátá řada byla do 2026-10-15 ovládací panel a výplň). Staví se v základní poloze (řady
 # po Y, víko na přední straně) kolem počátku a pak se otočí o 90° a posune k levému okraji paluby, víko se otevírá ven přes okraj
@@ -330,7 +334,8 @@ def build_wheel_previews():
         for side, sx in (("L", 1), ("R", -1)):
             c = Vector((sx * TRACK_X, ay, WHEEL_R))
             _revolve_x(f"Wheel_{i}{side}", tire, c, "SDT_Rubber", seg=72, mirror=sx < 0)
-            rim = RIMS.build_rim(RIM_KIND, f"Rim_{i}{side}", sx)
+            rim = PL.call(RIMS.build_rim, RIM_KIND, "Rim", 1, at=PL.Place(mirror_x=True) if sx < 0 else None,
+                          rename=lambda n, i=i, side=side: f"Rim_{i}{side}")
             rim.matrix_world = Matrix.Translation(c)
 
 
@@ -400,273 +405,13 @@ def build_chassis():
 
 
 # ------------------------------------------------------------------------------------------------------------------ oj
-def _flat_beam(name, p0, p1, w, z0, z1, mat):
-    """Vodorovná hranatá pásnice šířky w mezi body p0 a p1 (x, y), ve výšce z0..z1; konce kolmé na osu."""
-    a, b = Vector((p0[0], p0[1])), Vector((p1[0], p1[1]))
-    d = (b - a).normalized()
-    n = Vector((-d.y, d.x)) * (w / 2)
-    quad = [a + n, b + n, b - n, a - n]
-    bm = bmesh.new()
-    lo = [bm.verts.new((q.x, q.y, z0)) for q in quad]
-    hi = [bm.verts.new((q.x, q.y, z1)) for q in quad]
-    bm.faces.new(list(reversed(lo)))
-    bm.faces.new(hi)
-    for i in range(4):
-        j = (i + 1) % 4
-        bm.faces.new((lo[i], lo[j], hi[j], hi[i]))
-    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    return P._finish(name, bm, Matrix.Identity(4), mat)
-
-
-def drawbar_x(y):
-    """Osa pásnice A-rámu (kladná strana) v místě y: přímka z kořene ke konci sbíhání."""
-    y_root, y_conv = BASE_Y0 + 0.05, COUPLER_Y + DRAWBAR_CONVERGE
-    t = (y - y_root) / (y_conv - y_root)
-    return DRAWBAR_ROOT_X + t * (DRAWBAR_TIP_X - DRAWBAR_ROOT_X)
-
-
-def _adopt(parent, objs):
-    for o in objs:
-        w = o.matrix_world.copy()
-        o.parent = parent
-        o.matrix_parent_inverse = Matrix.Identity(4)
-        o.matrix_world = w
-
-
-def _chain(name, p0, p1, sag, pitch=0.042, wire=0.0045):
-    """Řetěz z oválných článků prověšený mezi p0 a p1 (parabola), články střídavě ve svislé a vodorovné rovině."""
-    p0, p1 = Vector(p0), Vector(p1)
-    path = [p0.lerp(p1, t) + Vector((0, 0, -4 * sag * t * (1 - t))) for t in (i / 40 for i in range(41))]
-    pts = P.resample(path, max(int(P.path_length(path) / pitch), 2) + 1)
-    links = []
-    for k in range(len(pts) - 1):
-        a, b = pts[k], pts[k + 1]
-        d = (b - a).normalized()
-        side = d.cross(Vector((0, 0, 1))).normalized() if k % 2 == 0 else Vector((0, 0, 1)).cross(d).cross(d).normalized()
-        c = (a + b) / 2
-        half = (b - a).length / 2 + wire * 1.5
-        ring = [c + d * half * math.cos(t) + side * 0.011 * math.sin(t) for t in (2 * math.pi * i / 14 for i in range(15))]
-        links.append(P.sweep(f"{name}_L{k}", ring, wire, "SDT_Steel", segments=6))
-    return P.merge(name, links)
-
-
-def _coupling_head(name, pos, along, mat, hose_from=None):
-    """Spojka vzduchové / elektrické hadice zaparkovaná v držáku: tělo spojky, víčko, kousek hadice k držáku."""
-    pos, along = Vector(pos), Vector(along).normalized()
-    parts = [tube(f"{name}_Body", pos - along * 0.030, pos + along * 0.022, 0.017, mat, segments=12),
-             tube(f"{name}_Lip", pos + along * 0.022, pos + along * 0.030, 0.021, mat, segments=12),
-             box(f"{name}_Palm", pos.x - 0.006, pos.x + 0.006, pos.y - 0.020, pos.y + 0.020, pos.z - 0.030, pos.z - 0.012,
-                 mat)]
-    if hose_from is not None:
-        start = Vector(hose_from)
-        mid = start.lerp(pos - along * 0.03, 0.5) + Vector((0, 0, -0.07))
-        parts.append(P.sweep(f"{name}_Hose", P.hermite_path([tuple(start), tuple(mid), tuple(pos - along * 0.03)],
-                                                            samples=8), 0.0085, "SDT_HoseBlack", segments=8))
-    return P.merge(name, parts)
-
-
-def build_drawbar_tractor(y_conv, z0, z1, extra=()):
-    """Varianta za traktor / nákladní auto (konfigurace TRACTOR, skupina drawbarTractorSet): tažné oko na přírubě se čtyřmi
-    šrouby, pojistný řetěz s hákem pod hlavou, držák vzduchových spojek (airIn červená, airOut žlutá) s vedením podél
-    pravé pásnice. Uzly airIn / airOut jsou začátky hadic, které hra kreslí k tahači; *_detached jsou zaparkované spojky."""
-    steel = "SDT_Steel"
-    parts = []
-    hy0 = COUPLER_Y + 0.07
-    parts.append(P.ring_z("Drawbar_Eye", (0, COUPLER_Y, COUPLER_Z), 0.042, 0.078, 0.05, steel))
-    parts.append(_flat_beam("Drawbar_EyeNeck", (0, hy0 + 0.02), (0, COUPLER_Y + 0.02), 0.06, COUPLER_Z - 0.025,
-                            COUPLER_Z + 0.025, steel))
-    for k, (fy0, fy1) in enumerate(((hy0 - 0.004, hy0 + 0.014), (hy0 + 0.018, hy0 + 0.036))):
-        parts.append(box(f"Drawbar_EyeFlange{k}", -0.072, 0.072, fy0, fy1, COUPLER_Z - 0.062, COUPLER_Z + 0.062,
-                         "SDT_CastIron" if k == 0 else "SDT_Frame"))
-    for bx in (-0.050, 0.050):
-        for bz in (-0.040, 0.040):
-            c = Vector((bx, hy0, COUPLER_Z + bz))
-            parts.append(tube(f"Drawbar_EyeBolt{bx:+.2f}{bz:+.2f}", c + Vector((0, -0.016, 0)), c + Vector((0, 0.05, 0)),
-                              0.009, steel, segments=6))
-            parts.append(tube(f"Drawbar_EyeNut{bx:+.2f}{bz:+.2f}", c + Vector((0, -0.024, 0)), c + Vector((0, -0.010, 0)),
-                              0.015, steel, segments=6))
-
-    lug = Vector((0, COUPLER_Y + 0.22, z0 - 0.012))
-    hook = Vector((0, y_conv + 0.06, z0 - 0.012))
-    parts.append(box("Drawbar_ChainLug", -0.012, 0.012, lug.y - 0.025, lug.y + 0.025, z0 - 0.035, z0, steel))
-    parts.append(box("Drawbar_HookLug", -0.012, 0.012, hook.y - 0.025, hook.y + 0.025, z0 - 0.035, z0, steel))
-    parts.append(_chain("Drawbar_Chain", lug + Vector((0, 0, -0.03)), hook + Vector((0, 0, -0.07)), 0.12))
-    hook_path = [hook + Vector((0, 0, -0.02)), hook + Vector((0, 0, -0.07)), hook + Vector((0, -0.025, -0.10)),
-                 hook + Vector((0, -0.045, -0.075)), hook + Vector((0, -0.040, -0.055))]
-    parts.append(P.sweep("Drawbar_ChainHook", P.hermite_path([tuple(p) for p in hook_path], samples=6), 0.008, steel,
-                         segments=8))
-
-    by0, by1 = y_conv - 0.035, y_conv - 0.015
-    top = z1 + 0.012
-    parts.append(box("Drawbar_AirBracket", -0.115, -0.010, by0, by1, top, top + 0.110, "SDT_Frame"))
-    parts.append(box("Drawbar_AirBracketFoot", -0.115, -0.010, by0, by1 + 0.06, top, top + 0.008, "SDT_Frame"))
-    lines = []
-    for tag, x, mat in (("airIn", -0.085, "SDT_PaintRed"), ("airOut", -0.040, "SDT_PaintYellow")):
-        z = top + 0.075
-        parts.append(tube(f"{tag}_Socket", (x, by0 - 0.028, z), (x, by1, z), 0.016, mat, segments=12))
-        parts.append(tube(f"{tag}_SocketLid", (x, by0 - 0.034, z), (x, by0 - 0.028, z), 0.019, "SDT_Rubber", segments=12))
-        empty(tag, (x, by0 - 0.034, z))
-        _coupling_head(f"{tag}_detached", (x, by1 + 0.095, top + 0.040), (0, 1, 0), mat,
-                       hose_from=(x, by1 + 0.005, top + 0.060))
-        # vedení od čela rámu po horní hraně pravé pásnice k zadní straně držáku
-        ys = [BASE_Y0 + 0.02, BASE_Y0 - 0.25, -1.9, -2.2, y_conv + 0.08]
-        pts = [(-0.26 + (x + 0.06) * 0.3, BASE_Y0 + 0.02, DECK_TOP - DECK_PLATE - 0.20)]
-        pts += [(-drawbar_x(y) + (x + 0.06) * 0.25 + 0.01, y, z1 + 0.012) for y in ys[1:-1]]
-        pts += [(x, ys[-1], z1 + 0.014), (x, by1 + 0.002, z - 0.03)]
-        lines.append(P.sweep(f"{tag}_Line", P.hermite_path(pts, samples=8), 0.0065, "SDT_HoseBlack", segments=8))
-    parts += lines
-    for k, y in enumerate((-1.55, -2.0)):
-        bx = -drawbar_x(y)
-        parts.append(box(f"Drawbar_LineClip{k}", bx - 0.035, bx + 0.035, y - 0.012, y + 0.012, z1, z1 + 0.026, steel))
-    grp = empty("drawbarTractorSet", (0, 0, 0))
-    _adopt(grp, parts + list(extra) + [bpy.data.objects[n] for n in ("airIn", "airOut", "airIn_detached", "airOut_detached")])
-    return grp
-
-
-def build_drawbar_car(y_conv, z1):
-    """Varianta za auto / pickup (konfigurace CAR, skupina drawbarCarSet): kulová hlava s nájezdovou brzdou jako
-    build_coupler z build_trailer_middle.py, rozměry vztažené k COUPLER_Y (Middle má spojku na y -3,55). Střed koule
-    tažného zařízení = attacherJoint. Kabel 13pin je společný (build_electric)."""
-    by, bz = COUPLER_Y, COUPLER_Z
-    az = bz + 0.027
-    parts = []
-    parts.append(P.loft_y("Coupler_Head", [
-        (by - 0.062, 0.020, bz + 0.015, bz + 0.050, 2.5), (by - 0.050, 0.036, bz, bz + 0.066, 3.0),
-        (by - 0.020, 0.046, bz - 0.008, bz + 0.074, 3.5), (by + 0.030, 0.046, bz - 0.008, bz + 0.076, 3.5),
-        (by + 0.060, 0.040, bz, bz + 0.066, 3.0), (by + 0.080, 0.030, bz + 0.005, bz + 0.050, 2.5)], "SDT_CastIron"))
-    parts.append(tube("Coupler_Handle", (0, by - 0.045, bz + 0.072), (0, by + 0.12, bz + 0.107), 0.011, "SDT_CastIron",
-                      segments=10))
-    parts.append(tube("Coupler_HandleGrip", (0, by + 0.10, bz + 0.103), (0, by + 0.165, bz + 0.116), 0.016, "SDT_PaintRed",
-                      segments=12))
-    parts.append(cylinder_x("Coupler_WearRing", (0.047, by + 0.005, bz + 0.042), 0.012, 0.008, "SDT_Plastic", segments=16))
-    parts.append(cylinder_x("Coupler_WearIndicator", (0.052, by + 0.005, bz + 0.042), 0.008, 0.006, "SDT_LedGreen",
-                            segments=12))
-    hy1 = by + 0.67
-    parts.append(tube("Coupler_DrawTube", (0, by + 0.07, az), (0, by + 0.25, az), 0.025, "SDT_Steel", segments=14))
-    pleats = []
-    y0, y1, n = by + 0.095, by + 0.185, 8
-    for k in range(2 * n + 1):
-        r = 0.031 if k % 2 == 0 else 0.042
-        pleats.append((y0 + (y1 - y0) * k / (2 * n), r, az - r, az + r, 2.0))
-    parts.append(P.loft_y("Coupler_Bellows", pleats, "SDT_Rubber", segments=18))
-    parts.append(P.loft_y("Coupler_Housing", [
-        (y1, 0.046, az - 0.050, az + 0.050, 6.0), (y1 + 0.02, 0.052, az - 0.055, az + 0.055, 6.0),
-        (hy1 - 0.07, 0.052, az - 0.058, az + 0.058, 6.0), (hy1, 0.044, az - 0.040, az + 0.040, 5.0)], "SDT_Steel"))
-    for side, sx in (("L", 1), ("R", -1)):
-        parts.append(box(f"Coupler_Flange_{side}", sx * 0.050, sx * 0.058, by + 0.29, by + 0.59, az - 0.07, az + 0.06,
-                         "SDT_Steel"))
-        for k, fy in enumerate((by + 0.35, by + 0.53)):
-            parts.append(cylinder_x(f"Coupler_Bolt_{side}{k}", (sx * 0.062, fy, az), 0.011, 0.01, "SDT_Steel", segments=6))
-    top = az + 0.058
-    px, py = 0.0, by + 0.50
-    parts.append(box("Coupler_BrakePivot", px - 0.022, px + 0.022, py - 0.03, py + 0.03, top - 0.005, top + 0.03,
-                     "SDT_Steel"))
-    lever_end = Vector((px, by + 0.77, top + 0.19))
-    parts.append(tube("Coupler_BrakeLever", (px, py, top + 0.02), lever_end, 0.013, "SDT_Frame", segments=10))
-    grip_dir = (lever_end - Vector((px, py, top + 0.02))).normalized()
-    parts.append(tube("Coupler_BrakeGrip", lever_end - grip_dir * 0.03, lever_end + grip_dir * 0.07, 0.019, "SDT_Rubber",
-                      segments=12))
-    lever_mid = Vector((px, py, top + 0.02)).lerp(lever_end, 0.4)
-    spring_foot = Vector((0.03, by + 0.31, az + 0.035))
-    parts.append(tube("Coupler_GasSpring", spring_foot, spring_foot.lerp(lever_mid, 0.6), 0.011, "SDT_Frame", segments=10))
-    parts.append(tube("Coupler_GasSpringRod", spring_foot.lerp(lever_mid, 0.6), lever_mid, 0.005, "SDT_Steel", segments=8))
-    # táhlo brzdy po horní straně příček (pod nimi by procházelo pásnicemi) k čelu rámu
-    # podpěrné kolečko (objímka a trubka) stojí v ose oje: táhlo ho obejde obloukem nad objímkou a vedle trubky
-    jy = JOCKEY_Y
-    rod = [(0, hy1 + 0.005, az - 0.01), (0, y_conv + 0.25, z1 + 0.018), (0, jy - 0.20, z1 + 0.018), (0.08, jy - 0.12, bz + 0.13),
-           (0.08, jy + 0.12, bz + 0.13), (0, jy + 0.20, z1 + 0.018), (0, BASE_Y0 - 0.30, z1 + 0.018),
-           (0, BASE_Y0 - 0.02, DECK_TOP - DECK_PLATE - 0.12)]
-    parts.append(P.sweep("Coupler_BrakeRod", P.hermite_path(rod, samples=8), 0.008, "SDT_Steel", segments=8))
-    cable = P.hermite_path([(0.024, py + 0.02, top + 0.02), (0.06, by + 0.48, az + 0.04), (0.075, by + 0.33, az - 0.04),
-                            (0.07, by + 0.18, bz - 0.07), (0.045, by + 0.07, bz - 0.095), (0.035, by + 0.045, bz - 0.10)],
-                           samples=10)
-    parts.append(P.sweep("Coupler_BreakawayCable", cable, 0.0035, "SDT_Steel", segments=6))
-    end = cable[-1]
-    ring = [end + Vector((0, 0.018 * math.sin(a), -0.018 - 0.028 * math.cos(a)))
-            for a in (2 * math.pi * k / 16 for k in range(17))]
-    parts.append(P.sweep("Coupler_Carabiner", ring, 0.0035, "SDT_Steel", segments=6))
-    grp = empty("drawbarCarSet", (0, 0, 0))
-    _adopt(grp, parts)
-    return grp
-
-
-def build_electric(y_conv, z1):
-    """Elektrická přípojka společná oběma variantám: kabel od zásuvky na čele rámu po levé pásnici k držáku na hlavě oje
-    (uzel electric = začátek kabelu, který hra kreslí k tahači; electric_detached = zaparkovaná zástrčka v držáku)."""
-    top = z1 + 0.012
-    x = 0.090
-    by0, by1 = y_conv - 0.035, y_conv - 0.015
-    box("Drawbar_ElecBracket", x - 0.032, x + 0.032, by0, by1, top, top + 0.110, "SDT_Frame")
-    box("Drawbar_ElecDock", 0.40, 0.46, BASE_Y0 - 0.005, BASE_Y0 + 0.001, DECK_TOP - 0.16, DECK_TOP - 0.08, "SDT_Plastic")
-    z = top + 0.075
-    tube("Drawbar_ElecSocket", (x, by0 - 0.026, z), (x, by1, z), 0.022, "SDT_Plastic", segments=14)
-    tube("Drawbar_ElecSocketLid", (x, by0 - 0.032, z), (x, by0 - 0.026, z), 0.025, "SDT_ChargerGrey", segments=14)
-    empty("electric", (x, by0 - 0.032, z))
-    ys = [BASE_Y0 - 0.25, -1.9, -2.2]
-    pts = [(0.43, BASE_Y0 + 0.001, DECK_TOP - 0.12)] + [(drawbar_x(y) - 0.012, y, z1 + 0.012) for y in ys]
-    pts += [(x, y_conv + 0.08, z1 + 0.014), (x, by1 + 0.002, z - 0.03)]
-    P.sweep("Drawbar_ElecCable", P.hermite_path(pts, samples=8), 0.006, "SDT_HoseBlack", segments=8)
-    _coupling_head("electric_detached", (x, by1 + 0.095, top + 0.040), (0, 1, 0), "SDT_Plastic",
-                   hose_from=(x, by1 + 0.005, top + 0.060))
-
-
 def build_drawbar():
-    """Pevná oj podle DPW 1800: dvě pásnice A-rámu z čela rámu, tři příčky, hlava (střed oka nebo koule = attacherJoint),
-    podpěrné kolečko uprostřed (pohyblivá skupina jockeyWheel, kterou animace moveSupport zvedá). Spojka podle konfigurace
-    v obchodě: tažné oko za traktor (drawbarTractorSet) nebo kulová hlava za auto (drawbarCarSet), elektrika je společná."""
-    frame, steel = "SDT_Frame", "SDT_Steel"
-    zb = DECK_TOP - DECK_PLATE
-    z0, z1 = COUPLER_Z - DRAWBAR_BEAM_H / 2, COUPLER_Z + DRAWBAR_BEAM_H / 2
-    y_root, y_conv = BASE_Y0 + 0.05, COUPLER_Y + DRAWBAR_CONVERGE
-    for side, sx in (("L", 1), ("R", -1)):
-        root = (sx * DRAWBAR_ROOT_X, y_root)
-        conv = (sx * DRAWBAR_TIP_X, y_conv)
-        _flat_beam(f"Drawbar_{side}", root, conv, DRAWBAR_BEAM_W, z0, z1, frame)
-        box(f"DrawbarMount_{side}", sx * DRAWBAR_ROOT_X - 0.10, sx * DRAWBAR_ROOT_X + 0.10, BASE_Y0 - 0.03, BASE_Y0 + 0.55,
-            z1, zb - IBEAM_H + 0.03, frame)
-        box(f"DrawbarGusset_{side}", sx * DRAWBAR_ROOT_X - 0.012, sx * DRAWBAR_ROOT_X + 0.012, BASE_Y0 - 0.03,
-            BASE_Y0 + 0.80, z0 - 0.11, z0, frame)
-        for k, dy in enumerate((0.07, 0.40)):
-            cylinder_z(f"DrawbarBolt_{side}{k}", (sx * DRAWBAR_ROOT_X, BASE_Y0 + dy, zb - IBEAM_H + 0.036), 0.016, 0.014, steel,
-                       segments=6)
-    for n, t in enumerate((0.31, 0.63, 0.95)):
-        y = y_root + t * (y_conv - y_root)
-        hx = drawbar_x(y) - DRAWBAR_BEAM_W / 2 + 0.01
-        _flat_beam(f"Drawbar_Cross{n}", (-hx, y), (hx, y), 0.06, COUPLER_Z - 0.02, COUPLER_Z + 0.02, frame)
-    hy0, hy1 = COUPLER_Y + 0.07, y_conv + 0.10
-    _flat_beam("Drawbar_Head", (0, hy1), (0, hy0), 0.07, z0, z1, frame)
-    # deska hlavy a šrouby jen u varianty za traktor (kulová hlava za auto má na tomtéž místě skříň nájezdové brzdy)
-    head = [_flat_beam("Drawbar_HeadPlate", (0, y_conv + 0.14), (0, y_conv - 0.10), 0.26, z1, z1 + 0.012, frame)]
-    for dy in (-0.05, 0.03):
-        head.append(cylinder_z(f"Drawbar_HeadBolt{dy:+.2f}", (0, y_conv + dy, z1 + 0.012 + 0.007), 0.013, 0.014, steel,
-                               segments=6))
-    build_drawbar_tractor(y_conv, z0, z1, head)
-    build_drawbar_car(y_conv, z1)
-    build_electric(y_conv, z1)
-
-    jx, jy = JOCKEY_X, JOCKEY_Y
-    bx = drawbar_x(jy)
-    bz = COUPLER_Z
-    box("Jockey_Bridge", -bx, bx, jy - 0.05, jy + 0.05, bz - 0.025, bz + 0.025, frame)
-    box("Jockey_Clamp", jx - 0.11, jx + 0.11, jy - 0.09, jy + 0.09, bz + 0.025, bz + 0.095, frame)
-    moving = [
-        tube("Jockey_Tube", (jx, jy, 0.30), (jx, jy, bz + 0.40), 0.045, steel, segments=14),
-        tube("Jockey_Crank", (jx - 0.20, jy, bz + 0.40), (jx + 0.20, jy, bz + 0.40), 0.014, frame, segments=8),
-        tube("Jockey_CrankGrip", (jx + 0.12, jy, bz + 0.40), (jx + 0.22, jy, bz + 0.40), 0.022, "SDT_Rubber", segments=10),
-        box("Jockey_Fork", jx - 0.075, jx + 0.075, jy - 0.035, jy + 0.035, 0.12, 0.31, steel),
-        cylinder_x("Jockey_Wheel", (jx, jy, 0.14), 0.14, 0.09, "SDT_Rubber", segments=24),
-    ]
-    pivot = empty("jockeyWheel", (jx, jy, DRAWBAR_Z))
-    for o in moving:
-        w = o.matrix_world.copy()
-        o.parent = pivot
-        o.matrix_parent_inverse = Matrix.Identity(4)
-        o.matrix_world = w
-    cx, cy, cz = JOCKEY_COL
-    _shape_box("colJockeyWheel", pivot, jx - cx, jx + cx, jy - cy, jy + cy, 0.0, cz, COL_VEHICLE,
-               compoundChild=True, density=0.001)
-    aj = empty("attacherJoint", (0, COUPLER_Y, COUPLER_Z))
-    aj.rotation_euler = (0, 0, math.radians(90))
+    """Pevná oj podle DPW 1800 (díl sdt_drawbar.part_drawbar_max): dvě pásnice A-rámu z čela rámu, tři příčky, hlava (střed oka
+    nebo koule = attacherJoint), podpěrné kolečko uprostřed (pohyblivá skupina jockeyWheel, kterou animace moveSupport zvedá).
+    Spojka podle konfigurace v obchodě: tažné oko za traktor (drawbarTractorSet) nebo kulová hlava za auto (drawbarCarSet),
+    elektrika je společná."""
+    PL.call(DB.part_drawbar_max, BASE_Y0, COUPLER_Y, COUPLER_Z, JOCKEY_X, JOCKEY_Y, JOCKEY_COL, DECK_TOP, DECK_PLATE, IBEAM_H,
+            DRAWBAR_ROOT_X, DRAWBAR_TIP_X, DRAWBAR_BEAM_W, DRAWBAR_BEAM_H, DRAWBAR_CONVERGE, at=PL.Place.at(0.0, BASE_Y0, 0.0))
 
 
 # ------------------------------------------------------------------------------------------------------- dvě nádrže
@@ -680,7 +425,8 @@ def build_round_tank(size, z):
     BT._vent(t, fit, 152, t.mid + 0.16 * t.kf)
     BT._relief(t, fit, 212, t.mid - 0.12 * t.kf)
     BT._outlet(t, fit)
-    BT._rear_drain(t, fit)
+    BT._gauge_tank(t, fit)
+    drain_end = BT._rear_drain(t, fit)
     BT._frame(t, frm)
     meshes = [m.finish() for m in (shell, fit, lid, frm)]
     bpy.context.view_layer.update()
@@ -690,7 +436,9 @@ def build_round_tank(size, z):
     for o in meshes + decals:
         o.data.transform(squash)
         o.data.update()
-    return P.group(f"tankMain{size}", meshes + decals)
+    port = P.empty(f"waterHosePort{size}", squash @ Vector(drain_end))
+    port.empty_display_size = 0.06
+    return P.group(f"tankMain{size}", meshes + decals + [port])
 
 
 def build_two_tanks(z):
@@ -715,26 +463,63 @@ def build_two_tanks(z):
 
 
 GEN_CABLE_ENDS = [None, None]               # konce průchodek kabelů na zadních stěnách centrál (svět)
+LIME_INFO = {}                              # polohy vápenné nádobky (hrdlo, vstup hadice) pro export (export_max_mod.lime_values)
+
+
+def build_lime_options(ix, iy, z):
+    """Nádobka na koncentrát a vápno (sdt_lime) na místě bývalé indukční nádobky a zadní kulový věšák pro mlýnkový vozík. Obě
+    nádobky jsou pod vlastním uzlem (inductionStd / inductionLime); běžná zůstává jen kvůli polepům a export ji skrývá."""
+    lime = PL.call(LIME.build_lime_vessel, "Tank_InductionLime", 0.0, 0.0, 0.0, at=PL.Place.at(ix, iy, z))
+    lime["top"] += z
+    hitch = PL.call(LIME.build_rear_hitch, 0.0, DECK_TOP - DECK_PLATE - IBEAM_H, at=PL.Place.at(0.0, BASE_Y1, 0.0))
+    LIME_INFO.update(lime)
+    LIME_INFO["ball"] = hitch["ball"]
+    inlet = P.empty("limeInletNode", lime["inlet"])
+    inlet.empty_display_size = 0.10
+    aj = empty("rearHitchJoint", hitch["ball"])
+    aj.rotation_euler = (0, 0, math.radians(90))
+
+
+def group_lime_options():
+    """Po sestavení všech polepů: díly běžné nádobky (včetně číslic stupnice) pod inductionStd, díly vápenné pod inductionLime."""
+    std = [o for o in bpy.data.objects if o.type == "MESH" and (o.name in ("Tank_Induction", "Tank_Induction_Stand", "Tank_Induction_Fittings",
+                                                                          "Tank_Induction_Lid") or o.name.startswith("Decal_ConcNum"))]
+    lime = [o for o in bpy.data.objects if o.type == "MESH" and o.name.startswith("Tank_InductionLime")]
+    assert std and lime
+    neck = bpy.data.objects["concentrateNeckNode"]
+    LIME_INFO["std_neck"] = neck.matrix_world.translation.copy()
+    lime_neck = Vector((LIME_INFO["inlet"].x + LIME.LIME_R + LIME.PORT_REACH, LIME_INFO["inlet"].y - LIME.PORT_DY, LIME_INFO["top"] - 0.012))
+    neck.matrix_world = Matrix.Translation(lime_neck)
+    P.group("inductionStd", std)
+    P.group("inductionLime", lime)
+
+
+def _gen2_name(name):
+    """Druhá centrála je stejný díl jako první, jen zrcadlově umístěný a pod jmény Gen_1_* / generatorExhaust2."""
+    if name.startswith("Gen_0_"):
+        return "Gen_1_" + name[len("Gen_0_"):]
+    return "generatorExhaust2" if name == "generatorExhaust" else name
 
 
 def build_equipment():
     z = DECK_TOP
     build_two_tanks(z)
     ix, iy = T.INDUCTION_XY
-    T.build_induction_tank("Tank_Induction", ix, iy, z, T.INDUCTION_R, stand_h=T.INDUCTION_STAND_H,
-                           cone_h=T.INDUCTION_CONE_H, body_h=T.INDUCTION_BODY_H)
-    gen = G.build_generator((GEN_X, GEN_Y), z, None, tag="0", rear_socket=True)
+    PL.call(T.build_induction_tank, "Tank_Induction", 0.0, 0.0, 0.0, T.INDUCTION_R, stand_h=T.INDUCTION_STAND_H,
+            cone_h=T.INDUCTION_CONE_H, body_h=T.INDUCTION_BODY_H, at=PL.Place.at(ix, iy, z))
+    build_lime_options(ix, iy, z)
+    gen = PL.call(G.build_generator, rear_socket=True, at=PL.Place.at(GEN_X, GEN_Y, z))
     neck = P.empty("dieselNeckNode", Vector(gen["cap"]))
     neck.empty_display_size = 0.10
     GEN_CABLE_ENDS[0] = gen["cable"]
-    gen2 = G.build_generator((-GEN_X, GEN_Y), z, None, tag="1", mirror=True, rear_socket=True)
+    gen2 = PL.call(G.build_generator, rear_socket=True, at=PL.Place.at(-GEN_X, GEN_Y, z, mirror_x=True), rename=_gen2_name)
     neck2 = P.empty("dieselNeckNode2", Vector(gen2["cap"]))
     neck2.empty_display_size = 0.10
     GEN_CABLE_ENDS[1] = gen2["cable"]
     # druhá centrála se zapíná konfigurací v obchodě (objectChange), proto je celá pod jedním uzlem
     P.group("generator2", gen2["objects"] + [gen2["exhaust_node"], neck2])
     px, py = T.PUMP_XY
-    T.build_pump("Pump", px, py, z)
+    PL.call(T.build_pump, "Pump", 0.0, 0.0, 0.0, at=PL.Place.at(px, py, z))
     tb_x0, tb_x1, _, _ = T.TOOLBOX_XY
     cy0, cy1 = cabinet_y_range()
     build_canister_cabinet("Toolbox", tb_x0, tb_x1, cy0, cy1, z, ceiling=cabinet_ceiling())
@@ -1023,9 +808,9 @@ def equipment_collisions():
         **cabinet_collisions("Toolbox", tb_x0, tb_x1, tb_y0, tb_y1, z, ceiling=cabinet_ceiling()),
         "colGenerator": (GEN_X - G.FX - 0.023, GEN_X + G.FX + 0.023, GEN_Y - G.FY - 0.023, GEN_Y + G.FY + 0.023, z, z + 0.84),
         "colGenerator2": (-GEN_X - G.FX - 0.023, -GEN_X + G.FX + 0.023, GEN_Y - G.FY - 0.023, GEN_Y + G.FY + 0.023, z, z + 0.84),
-        "colInductionTank": (ix - T.INDUCTION_R - 0.015, ix + T.INDUCTION_R + 0.015, iy - T.INDUCTION_R - 0.015,
-                             iy + T.INDUCTION_R + 0.015, z,
-                             z + T.INDUCTION_STAND_H + T.INDUCTION_CONE_H + T.INDUCTION_BODY_H),
+        "colInductionTank": (ix - LIME.LIME_R - 0.015, ix + LIME.LIME_R + 0.015, iy - LIME.LIME_R - 0.015,
+                             iy + LIME.LIME_R + 0.015, z,
+                             z + LIME.LIME_STAND_H + LIME.LIME_CONE_H + LIME.LIME_BODY_H),
         "colPump": (px - 0.262, px + 0.316, py - 0.185, py + 0.185, z, z + T.PUMP_AXIS_H + 0.25),
         "colMixer": (tee.x - 0.150, tee.x + 0.150, tee.y - 0.100, tee.y + 0.250, z, tee.z + 0.47),
         # truhla nabíječky nad horní palubou (Pavel 2026-10-07: chyběla u Middle, stejná díra u Max)
@@ -1050,7 +835,9 @@ def build_i3d_structure(vis):
     vis.matrix_parent_inverse = Matrix.Identity(4)
     cols = _group("collisions", comp)
     child = dict(compoundChild=True, density=0.001)
-    _shape_box("colChassis", cols, -BASE_W / 2, BASE_W / 2, BASE_Y0, BASE_Y1, rail_z0, DECK_TOP, COL_VEHICLE, **child)
+    # hustý souměrný rám určuje hlavní osy setrvačnosti (= osy komponenty): z lehkých dětských tvarů vycházelo Ix ~ Iy a engine
+    # po přepnutí na kinematické těleso natočil celý kompaund kolizí o hlavní osy (Middle ~30° do strany, dron propadal palubou)
+    _shape_box("colChassis", cols, -BASE_W / 2, BASE_W / 2, BASE_Y0, BASE_Y1, rail_z0, DECK_TOP, COL_VEHICLE, **{**child, "density": CHASSIS_DENSITY})
     _shape_box("colTopDeck", cols, -TOP_W / 2, TOP_W / 2, TOP_FRONT_Y, TOP_Y1, POST_TOP, TOP_SURF, COL_VEHICLE, **child)
     for suffix in ("", "B"):
         for size in TANK_SIZES_MAX:
@@ -1085,7 +872,8 @@ def build_i3d_structure(vis):
     y_b = TANK_B_Y_FRONT + max(tank_extent(s)[1] for s in TANK_SIZES_MAX)
     _shape_box("exactFillRootNode", fill, -TANK_R, TANK_R, y_a, y_b, DECK_TOP + 0.12, DECK_TOP + TANK_TOP, COL_FILL_ROOT,
                kinematic=True, compound=True)
-    _shape_box("concentrateFillRootNode", fill, *T.induction_fill_box(*T.INDUCTION_XY, DECK_TOP), COL_FILL_ROOT,
+    _shape_box("concentrateFillRootNode", fill, *T.induction_fill_box(*T.INDUCTION_XY, DECK_TOP, radius=LIME.LIME_R,
+                                                                       cone_h=LIME.LIME_CONE_H, body_h=LIME.LIME_BODY_H), COL_FILL_ROOT,
                kinematic=True, compound=True)
     fb1, fb2 = G.fuel_fill_box((GEN_X, GEN_Y), DECK_TOP), G.fuel_fill_box((-GEN_X, GEN_Y), DECK_TOP)
     _shape_box("dieselFillRootNode", fill, fb2[0], fb1[1], fb1[2], fb1[3], fb1[4], fb1[5], COL_FILL_ROOT, kinematic=True, compound=True)
@@ -1189,18 +977,17 @@ def build_drones():
 
 
 def build_drone_unit(variants, y, suffix):
-    """Posadí drony jedné plochy na její střed (nosem dopředu, -Y) s úchyty lyží, servisními díly a heliport; heliport druhé
-    plochy dostane příponu."""
-    global DRONE_Y, CLAMP_Y
+    """Posadí drony jedné plochy na její střed (nosem dopředu, -Y) se servisními díly; úchyty lyží a heliport druhé plochy
+    dostanou příponu."""
+    global DRONE_Y
     DRONE_Y = y
-    CLAMP_Y = (y - 0.075, y + 0.075)
     for prefix in variants.values():
         place_drone(prefix)
         build_drone_leds(prefix)
-        build_drone_clamps(prefix)
         build_drone_service_parts(prefix)
         build_drone_decals(prefix)
     before = {o.name for o in bpy.data.objects}
+    build_pad_clamps()
     build_heliport()
     if suffix:
         _rename_new(before, suffix)
@@ -1218,7 +1005,7 @@ def rotate_drones(variants, y):
 
 def dirt_atlas(obj):
     prefixes = tuple(DRONE_VARIANTS.values()) + tuple(DRONE_VARIANTS_B.values())
-    if obj.name.startswith(prefixes) and "Clamp" not in obj.name:
+    if obj.name.startswith(prefixes):
         return "drone"
     return "trailer"
 
@@ -1685,6 +1472,22 @@ def build_planner_tablet():
     return node
 
 
+WATER_HOSE_SEGMENTS = 72
+
+
+def build_water_hose_nodes():
+    """Články vodní hadice (válec délky 1 m podél -Y Blenderu = +Z i3d, skript ho natáčí a natahuje) a její koncovka: hadice se
+    vykresluje jen když je vytažená z výpustního ventilu vodní nádrže (SprayDroneWaterHose)."""
+    for prefix, mat in (("waterHose", "SDT_HoseBlack"), ("limeHose", "SDT_HoseWhite")):
+        for i in range(1, WATER_HOSE_SEGMENTS + 1):
+            s = BT.Mesh(f"{prefix}Seg{i}")
+            s.cyl(V(0, 0, 0), V(0, -1.0, 0), 0.05, mat, seg=10)
+            s.finish()
+        end = BT.Mesh(f"{prefix}End")
+        MILL._hose_end(end, V(0, 0, 0), V(0, -1, 0))
+        end.finish()
+
+
 def build():
     coll, vis = P.begin(COLLECTION_NAME, ROOT_NAME)
     build_chassis()
@@ -1710,8 +1513,12 @@ def build():
     build_planner_tablet()
     build_tarps()
     build_rear()
+    build_water_hose_nodes()
+    group_lime_options()
     set_tarps(1.0)
     set_ladder(0.0)
+    build_eu_reflectors()
+    build_deck_edges()
     bpy.context.view_layer.update()
     build_dirt_uvs()
     print(f"{COLLECTION_NAME}: {len(coll.objects)} objektů")

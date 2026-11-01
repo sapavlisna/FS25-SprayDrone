@@ -34,6 +34,7 @@ MUFFLER = (-0.26, 0.04, 0.685, 0.058)      # y od, y do, střed z, poloměr
 TAIL_R, TAIL_TILT_DEG = 0.023, 12.0
 TAIL_TURN = (-0.36, 0.84)                   # y a z kolena, kde trubka přejde do vodorovného ústí
 TAIL_LEN = 0.16
+SOCKET_LOCAL = (0.33, -0.10, 0.43)          # střed zásuvky nabíječky na levém boku (lokálně)
 
 _O = Vector((0.0, 0.0, 0.0))
 _count = itertools.count()
@@ -173,33 +174,15 @@ def exhaust_geometry():
     return mouth, d
 
 
-def mirror_objects(objs, x0):
-    """Zrcadlí díly podle roviny x = x0 (svět): vrcholy, převrácené plochy a UV každé plochy zpět, aby nálepky zůstaly čitelné."""
-    for o in objs:
-        bm = bmesh.new()
-        bm.from_mesh(o.data)
-        for v in bm.verts:
-            v.co.x = 2 * x0 - v.co.x
-        bmesh.ops.reverse_faces(bm, faces=bm.faces)
-        for layer in bm.loops.layers.uv.values():
-            for f in bm.faces:
-                us = [l[layer].uv.x for l in f.loops]
-                lo, hi = min(us), max(us)
-                for l in f.loops:
-                    l[layer].uv.x = lo + hi - l[layer].uv.x
-        bm.to_mesh(o.data)
-        bm.free()
-        o.data.update()
-
-
-def build_generator(gen_pos, z0, socket, tag="0", mirror=False, rear_socket=False):
-    """Postaví agregát na desce v z0 se středem půdorysu gen_pos (x, y); socket = střed zásuvky nabíječky na levém boku
-    (svět, lícová rovina panelu je o 5 mm za ním). Vrací {'exhaust': poloha ústí (svět), 'cap': hrdlo nádrže (svět)}.
-    tag pojmenuje díly (Gen_<tag>_*), mirror zrcadlí agregát podle jeho středu (panel a nádrž jsou pak na pravém boku, nálepky se
-    nezrcadlí), rear_socket dává napájecí kabel napevno do zadní stěny (uzdu kabelu) místo zásuvky na boku; vrací pak i 'cable' =
-    konec uzdy kabelu (svět)."""
+def build_generator(rear_socket=False):
+    """Postaví agregát v lokálním počátku (střed půdorysu v x = y = 0, deska ve z = 0); do vleku se umisťuje přes parts_lib.Place
+    (posun, otočení, zrcadlení). Vrací {'exhaust': poloha ústí, 'cap': hrdlo nádrže} v lokálních souřadnicích.
+    Díly se jmenují Gen_0_* (druhá centrála Maxu se přejmenuje při umístění). rear_socket dává napájecí kabel napevno do zadní stěny
+    (uzdu kabelu) místo zásuvky na levém boku (zásuvka SOCKET_LOCAL, lícová rovina panelu je o 5 mm za ní); vrací pak i 'cable' =
+    konec uzdy kabelu."""
     global _O
-    _O = Vector((gen_pos[0], gen_pos[1], z0))
+    _O = Vector((0.0, 0.0, 0.0))
+    socket, tag = SOCKET_LOCAL, "0"
     frame, body, exh, decals = [], [], [], []
 
     # ---------------------------------------------------------------- rám
@@ -228,10 +211,40 @@ def build_generator(gen_pos, z0, socket, tag="0", mirror=False, rear_socket=Fals
     for y in (ty0 + 0.05, ty1 - 0.05):
         body.append(_box(-HX + 0.01, tx - 0.01, y - 0.012, y + 0.012, tz, tz + 0.004, "SDT_Steel"))
     cx, cy = CAP_XY
-    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.015), 0.030, 0.030, "SDT_Steel", segments=16))
-    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.045), 0.038, 0.030, "SDT_Plastic", segments=16))
-    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.061), 0.025, 0.004, "SDT_LampAmber", segments=16))
+    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.004), 0.046, 0.008, "SDT_Steel", segments=16))
+    for k in range(4):
+        a_ = math.pi / 4 + k * math.pi / 2
+        body.append(P.cylinder_z(_nm("n"), _w(cx + 0.039 * math.cos(a_), cy + 0.039 * math.sin(a_), tz + 0.010), 0.0045, 0.004,
+                                 "SDT_Steel", segments=6))
+    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.020), 0.032, 0.024, "SDT_Steel", segments=12))
+    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.045), 0.037, 0.030, "SDT_Plastic", segments=14))
+    for k in range(10):
+        a_ = 2.0 * math.pi * k / 10
+        rad = Vector((math.cos(a_), math.sin(a_), 0.0))
+        body.append(_bb((cx + 0.0385 * rad.x, cy + 0.0385 * rad.y, tz + 0.045), rad, Vector((-rad.y, rad.x, 0.0)),
+                        Vector((0, 0, 1)), (0.004, 0.008, 0.026), "SDT_Plastic"))
+    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.0625), 0.034, 0.004, "SDT_Steel", segments=14))
+    body.append(P.cylinder_z(_nm("n"), _w(cx, cy, tz + 0.0645), 0.020, 0.003, "SDT_LampAmber", segments=10))
     body.append(_box(cx - 0.030, cx + 0.030, cy - 0.006, cy + 0.006, tz + 0.061, tz + 0.067, "SDT_Plastic"))
+    body.append(_sweep([(cx + 0.036, cy + 0.010, tz + 0.034), (cx + 0.052, cy + 0.030, tz + 0.016), (cx + 0.060, cy + 0.058, tz + 0.006),
+                        (cx + 0.060, cy + 0.075, tz + 0.003)], 0.0022, "SDT_Rubber", 6))
+    gx = 0.03
+    body.append(_box(gx - 0.052, gx + 0.052, cy - 0.017, cy + 0.017, tz, tz + 0.005, "SDT_Frame"))
+    body.append(_box(gx - 0.046, gx + 0.046, cy - 0.011, cy + 0.011, tz + 0.005, tz + 0.0075, "SDT_PaintDark"))
+    body.append(_box(gx - 0.044, gx - 0.020, cy - 0.009, cy + 0.009, tz + 0.0075, tz + 0.0085, "SDT_LampRed"))
+    body.append(_box(gx - 0.020, gx + 0.044, cy - 0.009, cy + 0.009, tz + 0.0075, tz + 0.0085, "SDT_LedGreen"))
+    for k in range(6):
+        body.append(_box(gx - 0.040 + k * 0.016 - 0.0008, gx - 0.040 + k * 0.016 + 0.0008, cy - 0.009, cy - 0.004, tz + 0.0085,
+                         tz + 0.0092, "SDT_PaintWhite"))
+    body.append(_box(gx + 0.016 - 0.0015, gx + 0.016 + 0.0015, cy - 0.011, cy + 0.011, tz + 0.0085, tz + 0.0105, "SDT_PaintWhite"))
+    ky, kz = 0.335, 0.125
+    body.append(_box(tx, tx + 0.004, ky - 0.022, ky + 0.022, kz - 0.022, kz + 0.022, "SDT_Steel"))
+    body.append(P.cylinder_x(_nm("c"), _w(tx + 0.019, ky, kz), 0.011, 0.030, "SDT_Brass", segments=8))
+    body.append(P.cylinder_x(_nm("c"), _w(tx + 0.012, ky, kz), 0.0155, 0.008, "SDT_Brass", segments=6))
+    body.append(P.cylinder_x(_nm("c"), _w(tx + 0.036, ky, kz), 0.0075, 0.006, "SDT_Steel", segments=8))
+    body.append(_box(tx + 0.036, tx + 0.043, ky - 0.0045, ky + 0.0045, kz - 0.004, kz + 0.050, "SDT_LampRed"))
+    body.append(P.cylinder_z(_nm("c"), _w(tx + 0.019, ky, kz - 0.027), 0.0105, 0.028, "SDT_LampAmber", segments=8))
+    body.append(P.cylinder_z(_nm("c"), _w(tx + 0.019, ky, kz - 0.043), 0.0125, 0.004, "SDT_Steel", segments=8))
     # ukazatel hladiny: tmavé lůžko, průhledná trubice s naftou, kovové koncovky (stupnice je nálepka vpravo od ní)
     gy_, gz0, gz1 = 0.222, 0.14, 0.42
     body.append(_box(tx, tx + 0.004, gy_ - 0.011, gy_ + 0.011, gz0 - 0.012, gz1 + 0.012, "SDT_Plastic"))
@@ -259,45 +272,89 @@ def build_generator(gen_pos, z0, socket, tag="0", mirror=False, rear_socket=Fals
     body.append(_box(HX, px + 0.006, py0 - lip, py0 + pw + lip, pz0 - lip, pz0, "SDT_Frame"))
     body.append(_box(HX, px + 0.006, py0 - lip, py0, pz0, pz0 + ph, "SDT_Frame"))
     body.append(_box(HX, px + 0.006, py0 + pw, py0 + pw + lip, pz0, pz0 + ph, "SDT_Frame"))
+    for sy_, sz_ in ((0.010, 0.010), (0.470, 0.010), (0.010, 0.270), (0.470, 0.270)):
+        body.append(P.cylinder_x(_nm("v"), _w(px + 0.002, py0 + sy_, pz0 + sz_), 0.0045, 0.004, "SDT_Steel", segments=6))
 
     def at(name):
         u, v = L.GEN_PANEL[name]
         return py0 + u, pz0 + v
 
     X = Vector((1, 0, 0))
-    y, z = at("volt")
-    body.append(_ring((px + 0.006, y, z), X, 0.0275, 0.034, 0.012, "SDT_TankBlack", 24))
-    y, z = at("hours")
+    y, z = at("display")
+    hy, hz = 0.072, 0.024
     for sgn in (1, -1):
-        z0_, z1_ = sorted((z + sgn * 0.014, z + sgn * 0.021))
-        body.append(_box(px, px + 0.007, y - 0.041, y + 0.041, z0_, z1_, "SDT_Frame"))
-        y0_, y1_ = sorted((y + sgn * 0.035, y + sgn * 0.041))
-        body.append(_box(px, px + 0.007, y0_, y1_, z - 0.021, z + 0.021, "SDT_Frame"))
+        z0_, z1_ = sorted((z + sgn * hz, z + sgn * (hz + 0.007)))
+        body.append(_box(px, px + 0.007, y - hy - 0.007, y + hy + 0.007, z0_, z1_, "SDT_Frame"))
+        y0_, y1_ = sorted((y + sgn * hy, y + sgn * (hy + 0.007)))
+        body.append(_box(px, px + 0.007, y0_, y1_, z - hz, z + hz, "SDT_Frame"))
     for name, mat in (("ledRun", "SDT_LedGreen"), ("ledOil", "SDT_LampRed"), ("ledTemp", "SDT_LampAmber")):
         y, z = at(name)
-        body.append(_ring((px + 0.0035, y, z), X, 0.0075, 0.0115, 0.007, "SDT_Frame", 14))
-        body.append(P.cylinder_x(_nm("l"), _w(px + 0.0035, y, z), 0.0078, 0.006, mat, segments=14))
+        body.append(P.cylinder_x(_nm("l"), _w(px + 0.0035, y, z), 0.0115, 0.007, "SDT_Frame", segments=12))
+        body.append(P.cylinder_x(_nm("l"), _w(px + 0.0045, y, z), 0.0078, 0.006, mat, segments=12))
     y, z = at("key")
     body.append(P.cylinder_x(_nm("k"), _w(px + 0.004, y, z), 0.021, 0.008, "SDT_Steel", segments=20))
     body.append(P.cylinder_x(_nm("k"), _w(px + 0.012, y, z), 0.014, 0.010, "SDT_TankBlack", segments=16))
     body.append(_box(px + 0.016, px + 0.026, y - 0.0035, y + 0.0035, z - 0.004, z + 0.020, "SDT_Steel"))
-    body.append(_box(px + 0.026, px + 0.032, y - 0.011, y + 0.011, z + 0.014, z + 0.030, "SDT_LampRed"))
+    body.append(_box(px + 0.026, px + 0.032, y - 0.011, y + 0.011, z + 0.012, z + 0.024, "SDT_LampRed"))
+    y, z = at("estop")
+    body.append(P.cylinder_x(_nm("h"), _w(px + 0.004, y, z), 0.026, 0.008, "SDT_PaintYellow", segments=16))
+    body.append(P.cylinder_x(_nm("h"), _w(px + 0.012, y, z), 0.016, 0.010, "SDT_TankBlack", segments=12))
+    body.append(P.cylinder_x(_nm("h"), _w(px + 0.0245, y, z), 0.0215, 0.015, "SDT_LampRed", segments=16))
+    body.append(P.cylinder_x(_nm("h"), _w(px + 0.0335, y, z), 0.0165, 0.004, "SDT_LampRed", segments=14))
     y, z = at("preheat")
-    body.append(_ring((px + 0.003, y, z), X, 0.0125, 0.0165, 0.006, "SDT_Frame", 18))
-    body.append(P.cylinder_x(_nm("p"), _w(px + 0.008, y, z), 0.0125, 0.010, "SDT_LampAmber", segments=18))
-    y, z = at("rocker")
-    body.append(_box(px, px + 0.008, y - 0.024, y + 0.024, z - 0.015, z + 0.015, "SDT_Frame"))
-    a = math.radians(12)
-    body.append(_bb((px + 0.014, y, z), Vector((math.cos(a), math.sin(a), 0)), Vector((-math.sin(a), math.cos(a), 0)),
-                    Vector((0, 0, 1)), (0.012, 0.038, 0.024), "SDT_TankBlack"))
+    body.append(P.cylinder_x(_nm("p"), _w(px + 0.003, y, z), 0.0165, 0.006, "SDT_Frame", segments=14))
+    body.append(P.cylinder_x(_nm("p"), _w(px + 0.008, y, z), 0.0125, 0.010, "SDT_LampAmber", segments=14))
+    y, z = at("stop")
+    body.append(P.cylinder_x(_nm("s"), _w(px + 0.003, y, z), 0.0145, 0.006, "SDT_Frame", segments=14))
+    body.append(P.cylinder_x(_nm("s"), _w(px + 0.016, y, z), 0.0035, 0.026, "SDT_Steel", segments=8))
+    body.append(P.cylinder_x(_nm("s"), _w(px + 0.0225, y, z), 0.0145, 0.003, "SDT_LampRed", segments=16))
+    body.append(P.cylinder_x(_nm("s"), _w(px + 0.0335, y, z), 0.0125, 0.019, "SDT_TankBlack", segments=16))
     y, z = at("mcb")
     body.append(_box(px, px + 0.018, y - 0.018, y + 0.018, z - 0.028, z + 0.028, "SDT_ChargerGrey"))
     body.append(_box(px + 0.018, px + 0.026, y - 0.007, y + 0.007, z + 0.002, z + 0.024, "SDT_TankBlack"))
     body.append(_box(px + 0.026, px + 0.029, y - 0.007, y + 0.007, z + 0.018, z + 0.024, "SDT_LampAmber"))
     y, z = at("earth")
-    body.append(P.cylinder_x(_nm("e"), _w(px + 0.008, y, z), 0.0055, 0.016, "SDT_Steel", segments=10))
-    body.append(P.cylinder_x(_nm("e"), _w(px + 0.004, y, z), 0.010, 0.008, "SDT_Steel", segments=6))
-    body.append(P.cylinder_x(_nm("e"), _w(px + 0.014, y, z), 0.009, 0.005, "SDT_Steel", segments=6))
+    body.append(P.cylinder_x(_nm("e"), _w(px + 0.009, y, z), 0.0055, 0.018, "SDT_Brass", segments=10))
+    body.append(P.cylinder_x(_nm("e"), _w(px + 0.004, y, z), 0.010, 0.008, "SDT_Brass", segments=6))
+    body.append(P.cylinder_x(_nm("e"), _w(px + 0.0135, y, z), 0.009, 0.005, "SDT_Brass", segments=6))
+    body.append(_box(px + 0.0165, px + 0.0235, y - 0.016, y + 0.016, z - 0.0045, z + 0.0045, "SDT_Brass"))
+    y, z = at("dc12")
+    body.append(P.cylinder_x(_nm("d"), _w(px + 0.004, y, z), 0.0185, 0.008, "SDT_Frame", segments=14))
+    body.append(P.cylinder_x(_nm("d"), _w(px + 0.0095, y, z), 0.0165, 0.003, "SDT_Rubber", segments=14))
+    body.append(_box(px + 0.0105, px + 0.0135, y - 0.003, y + 0.003, z - 0.0185, z - 0.0085, "SDT_Rubber"))
+    for name in ("schuko1", "schuko2"):
+        y, z = at(name)
+        body.append(_box(px, px + 0.016, y - 0.033, y + 0.033, z - 0.033, z + 0.033, "SDT_HoseBlue"))
+        body.append(P.cylinder_x(_nm("u"), _w(px + 0.0175, y, z), 0.0215, 0.003, "SDT_PaintWhite", segments=12))
+        for dy in (-0.0095, 0.0095):
+            body.append(P.cylinder_x(_nm("u"), _w(px + 0.0195, y + dy, z), 0.0036, 0.002, "SDT_TankBlack", segments=6))
+        for dz in (-0.0205, 0.0205):
+            body.append(_box(px + 0.0185, px + 0.0205, y - 0.0045, y + 0.0045, z + dz - 0.0015, z + dz + 0.0015, "SDT_Steel"))
+        a = math.radians(105.0)
+        d = Vector((math.sin(a), 0.0, -math.cos(a)))
+        n_l = Vector((math.cos(a), 0.0, math.sin(a)))
+        hinge = Vector((px + 0.018, y, z + 0.033))
+        body.append(_bb(tuple(hinge + d * 0.031 - n_l * 0.0), n_l, Vector((0, 1, 0)), -d, (0.005, 0.062, 0.062), "SDT_HoseBlue"))
+        body.append(_bb(tuple(hinge + d * 0.052 + n_l * 0.004), n_l, Vector((0, 1, 0)), -d, (0.004, 0.014, 0.012), "SDT_HoseBlue"))
+        body.append(_cyl((px + 0.018, y, z + 0.033), (0, 1, 0), 0.0045, 0.050, "SDT_Rubber", 6))
+    if rear_socket:
+        y, z = at("socket")
+        body.append(P.cylinder_x(_nm("s"), _w(px - 0.003, y, z), 0.038, 0.004, "SDT_PaintDark", segments=16))
+        body.append(_ring((px + 0.006, y, z), X, 0.022, 0.030, 0.016, "SDT_HoseBlue", 16))
+        body.append(P.cylinder_x(_nm("s"), _w(px + 0.003, y, z), 0.022, 0.002, "SDT_Plastic", segments=14))
+        body.append(P.cylinder_x(_nm("s"), _w(px + 0.0185, y, z), 0.031, 0.007, "SDT_HoseBlue", segments=16))
+        body.append(_box(px + 0.014, px + 0.020, y - 0.012, y + 0.012, z + 0.030, z + 0.040, "SDT_HoseBlue"))
+
+    # ---------------------------------------------------------------- větrací mřížka na střeše
+    vx0, vx1, vy0, vy1 = -0.13, 0.10, 0.058, 0.142
+    body.append(_box(vx0, vx1, vy0, vy1, HZ1, HZ1 + 0.002, "SDT_PaintDark"))
+    for yy in (vy0, vy1 - 0.008):
+        body.append(_box(vx0, vx1, yy, yy + 0.008, HZ1, HZ1 + 0.006, "SDT_Frame"))
+    for xx in (vx0, vx1 - 0.008):
+        body.append(_box(xx, xx + 0.008, vy0, vy1, HZ1, HZ1 + 0.006, "SDT_Frame"))
+    for k in range(5):
+        yy = vy0 + 0.014 + k * 0.0125
+        body.append(_box(vx0 + 0.008, vx1 - 0.008, yy, yy + 0.006, HZ1, HZ1 + 0.0065, "SDT_Mesh"))
 
     # ---------------------------------------------------------------- vzduchový filtr na střeše
     fx, fy = -0.18, -0.24
@@ -315,6 +372,18 @@ def build_generator(gen_pos, z0, socket, tag="0", mirror=False, rear_socket=Fals
     for y in (my0 + 0.05, my1 - 0.05):
         exh.append(_tube((EXH_X, y - 0.008, mz), (EXH_X, y + 0.008, mz), mr + 0.004, "SDT_Steel", 20))
         exh.append(_box(EXH_X - 0.034, EXH_X + 0.034, y - 0.02, y + 0.02, HZ1, mz - mr + 0.006, "SDT_Frame"))
+    rg = mr + 0.013
+    ang = [math.radians(a_) for a_ in (-35, -5, 25, 58)]
+    for a_ in ang:
+        exh.append(_tube((EXH_X + rg * math.cos(a_), my0 + 0.035, mz + rg * math.sin(a_)),
+                         (EXH_X + rg * math.cos(a_), my1 - 0.060, mz + rg * math.sin(a_)), 0.0033, "SDT_Steel", 6))
+    for yy in (my0 + 0.035, my1 - 0.060):
+        arc = [Vector((EXH_X + rg * math.cos(a_), yy, mz + rg * math.sin(a_)))
+               for a_ in (math.radians(-35 + 93 * k / 5) for k in range(6))]
+        exh.append(_sweep([tuple(q) for q in arc], 0.0033, "SDT_Steel", 6))
+    for yy in (my0 + 0.035, my1 - 0.060):
+        exh.append(_tube((EXH_X + rg * math.cos(ang[0]), yy, mz + rg * math.sin(ang[0])),
+                         (EXH_X + mr, yy, mz + 0.0), 0.0033, "SDT_Steel", 6))
     exh.append(P.cylinder_z(_nm("x"), _w(EXH_X, 0.10, HZ1 + 0.004), 0.040, 0.008, "SDT_Steel", segments=16))
     exh.append(_sweep(_fillet([(EXH_X, 0.10, HZ1), (EXH_X, 0.10, mz), (EXH_X, my1 + 0.03, mz)], 0.035, 6),
                       TAIL_R, "SDT_Steel", 12))
@@ -359,8 +428,6 @@ def build_generator(gen_pos, z0, socket, tag="0", mirror=False, rear_socket=Fals
         decals.append(_decal_tri(_nm("d"), _w(HX, -0.335 + k * 0.09, 0.219), (0, 1, 0), (0, 0, 1), tri_w, tri_h, "genWarn",
                                  (k / 3.0, 0.0, (k + 1) / 3.0, 1.0)))
     decals.append(P.decal_quad(_nm("d"), _w(HX, 0.02, 0.215), (0, 1, 0), (0, 0, 1), 0.11, 0.0688, "genPlate"))
-    decals.append(P.decal_quad(_nm("d"), _w(tx, 0.185, 0.445), (0, 1, 0), (0, 0, 1), 0.18, 0.12, "dieselLabel"))
-    decals.append(P.decal_quad(_nm("d"), _w(tx, 0.238, gz0), (0, 1, 0), (0, 0, 1), 0.064, 0.256, "genGauge"))
 
     # ---------------------------------------------------------------- sloučení do meshů
     merged = [P.merge(f"Gen_{tag}_Frame", frame), P.merge(f"Gen_{tag}_Body", body), P.merge(f"Gen_{tag}_Exhaust", exh),
@@ -374,14 +441,7 @@ def build_generator(gen_pos, z0, socket, tag="0", mirror=False, rear_socket=Fals
     result = {"exhaust": _w(*mouth), "cap": _w(cx, cy, tz + 0.067), "objects": merged}
     if cable_end is not None:
         result["cable"] = cable_end
-    if mirror:
-        x0 = _O.x
-        mirror_objects(merged, x0)
-        exhaust_pos.x = 2 * x0 - exhaust_pos.x
-        for key in ("exhaust", "cap", "cable"):
-            if key in result:
-                result[key].x = 2 * x0 - result[key].x
-    e = P.empty("generatorExhaust" if tag == "0" else f"generatorExhaust{int(tag) + 1}", exhaust_pos)
+    e = P.empty("generatorExhaust", exhaust_pos)
     e.matrix_world = Matrix.Translation(exhaust_pos) @ Matrix.Rotation(math.radians(-TAIL_TILT_DEG), 4, "X")
     result["exhaust_node"] = e
     return result

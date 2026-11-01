@@ -1,13 +1,11 @@
 -- Držáky relé tyčí na vleku (docs/PLAN-rele-energie.md, bod 3). Vlek má v i3d sloty `relaySlot{i}` (prázdný uzel) s dítětem
 -- `relaySlot{i}_pole` = maketa uložené tyče; počet slotů dává i3d (Mini 1, Middle 2, Max 4). Princip jako kanystry v bedně
--- (SprayDroneToolbox): tyč (vozidlo sdtRelayPole) se při uložení smaže a slot si zapíše její stav (baterie 0..1, konfigurace
--- síly, farma); při vyndání se z něj vyrobí nové vozidlo tyče (VehicleLoadingData) a slot se uvolní až po úspěšném načtení.
+-- (SprayDroneToolbox): tyč (vozidlo sdtRelayPole, všesměrová i směrová) se při uložení smaže a slot si zapíše její stav (druh tyče
+-- podle POLE_FILES, baterie 0..1, konfigurace síly, farma); maketa v držáku je pro oba druhy stejná; při vyndání se z něj vyrobí nové vozidlo tyče (VehicleLoadingData) a slot se uvolní až po úspěšném načtení.
 --
--- Obsluha (vanilla „Aktivovat objekt“, R) pěšky u slotu:
---  * ULOŽIT: hráč drží složenou tyč v rukou, nebo složená tyč leží do STORE_POLE_DISTANCE od hráče → tyč jde do prvního volného
---    slotu. Rozloženou ani zapnutou tyč uložit nejde, plný vlek hlásí, že není místo.
---  * SAMO: s tyčí v rukou stačí přijít k držáku (do ACTIVATE_DISTANCE) a uloží se bez R. Jen když hráč do té doby byl s tyčí
---    dál než AUTO_REARM_DISTANCE (getAutoStore), ať se právě vyndaná a zvednutá tyč hned nevrátí zpátky.
+-- Obsluha (vanilla „Aktivovat objekt“, R) pěšky u slotu, stejně jako u držáku pumpy:
+--  * ULOŽIT: hráč drží složenou tyč v rukou, nebo složená tyč leží do STORE_POLE_DISTANCE od hráče → R ji dá do prvního volného
+--    slotu. Rozloženou ani zapnutou tyč uložit nejde, plný vlek hlásí, že není místo. Sama (bez R) se tyč neukládá.
 --  * VYNDAT: jinak R vyndá tyč z nejbližšího obsazeného slotu; tyč se objeví na zemi metr od hráče (dál od vleku). Do rukou ji
 --    hráč zvedne sám (vanilla pickUpTarget běží jen u vlastníka rukou, ze serveru to pro vzdáleného hráče nejde).
 --  * NABÍJENÍ: uložené tyče nabíjí centrála vleku (SprayDroneStation.updatePower / getPowerShares, pole relays): nenabitá tyč
@@ -23,6 +21,7 @@ SprayDroneRelaySlots.MAX_SLOTS = 8
 SprayDroneRelaySlots.SLOT_BITS = 3
 SprayDroneRelaySlots.CONFIG_BITS = 3
 SprayDroneRelaySlots.BATTERY_BITS = 8
+SprayDroneRelaySlots.KIND_BITS = 2
 SprayDroneRelaySlots.ACTIVATE_DISTANCE = 2.5    -- hráč nejvýš tak daleko od uzlu slotu (m, vodorovně)
 SprayDroneRelaySlots.ACTIVATE_HEIGHT = 3        -- … a slot nejvýš tolik m nad nebo pod jeho polohou (slot pod plachtou je vysoko)
 SprayDroneRelaySlots.STORE_POLE_DISTANCE = 2.5  -- ležící tyč nejvýš tak daleko od hráče (m)
@@ -31,17 +30,35 @@ SprayDroneRelaySlots.SPAWN_GAP = 1              -- vyndaná tyč: o tolik m dál
 SprayDroneRelaySlots.SPAWN_SIDE_MIN = 0.6       -- … a aspoň tolik m za bokem vleku
 SprayDroneRelaySlots.LYING_IGNORE_MS = 15000    -- po vyndání se ležící tyče chvíli nenabízejí k uložení (ať jde vyndat další)
 SprayDroneRelaySlots.CANDIDATE_INTERVAL_MS = 200
-SprayDroneRelaySlots.AUTO_REARM_DISTANCE = 4    -- samouložení se znovu nabije, až je hráč s tyčí v rukou dál než tohle (m)
-SprayDroneRelaySlots.AUTO_RETRY_MS = 1500       -- po samouložení se další pokus nejdřív za tohle
-SprayDroneRelaySlots.POLE_FILE = "objects/relay/relayPole.xml"
+-- druhy tyčí do držáku (index = slot.kind): všesměrová a směrová
+SprayDroneRelaySlots.POLE_FILES = { "objects/relay/relayPole.xml", "objects/relay/relayPoleDirectional.xml" }
 SprayDroneRelaySlots.modDirectory = g_currentModDirectory
 
 local function getSpec(self)
     return self[SprayDroneStation.SPEC_NAME]
 end
 
+-- Druh tyče podle konce názvu souboru (index v POLE_FILES), nebo nil.
+function SprayDroneRelaySlots.getPoleKind(filename)
+    if type(filename) ~= "string" then
+        return nil
+    end
+    local name = string.lower(filename)
+    for kind, file in ipairs(SprayDroneRelaySlots.POLE_FILES) do
+        local tail = string.lower(string.match(file, "[^/]+$"))
+        if string.sub(name, -#tail - 1) == "/" .. tail or name == tail then
+            return kind
+        end
+    end
+    return nil
+end
+
+-- Stav relé tyče (do držáku patří jen soubory z POLE_FILES), nebo nil.
 local function getRelayState(v)
-    return SprayDroneRelay ~= nil and v ~= nil and v[SprayDroneRelay.SPEC_NAME] or nil
+    if SprayDroneRelay == nil or v == nil or SprayDroneRelaySlots.getPoleKind(v.configFileName) == nil then
+        return nil
+    end
+    return v[SprayDroneRelay.SPEC_NAME]
 end
 
 local function isAlive(v)
@@ -51,23 +68,9 @@ end
 ---------------------------------------------------------------------------------------------------
 -- čistá logika (testy tmp/f/test_relayslots.lua)
 
--- Samouložení: armed = hráč s tyčí v rukou už byl daleko. Vrací nové armed a jestli uložit teď (jen jednou za příchod).
-function SprayDroneRelaySlots.getAutoStore(armed, holding, distance)
-    if not holding then
-        return armed, false
-    end
-    if distance > SprayDroneRelaySlots.AUTO_REARM_DISTANCE then
-        return true, false
-    end
-    if armed and distance <= SprayDroneRelaySlots.ACTIVATE_DISTANCE then
-        return false, true
-    end
-    return armed, false
-end
-
--- Slot: { occupied, battery (0..1), config (index konfigurace síly), farmId }.
+-- Slot: { occupied, kind (index v POLE_FILES), battery (0..1), config (index konfigurace síly), farmId }.
 function SprayDroneRelaySlots.newSlot()
-    return { occupied = false, battery = 0, config = 1, farmId = 0 }
+    return { occupied = false, kind = 1, battery = 0, config = 1, farmId = 0 }
 end
 
 -- První volný slot (slot, ze kterého se právě vyrábí tyč, je pořád obsazený).
@@ -160,6 +163,7 @@ function SprayDroneRelaySlots.registerSavegamePaths(savegame, saveKey)
     saveKey = saveKey .. ".relaySlots.slot(?)"
     savegame:register(XMLValueType.INT, saveKey .. "#index", "Číslo držáku tyče na vleku (relaySlot{i})")
     savegame:register(XMLValueType.FLOAT, saveKey .. "#battery", "Nabití uložené tyče (0..1)")
+    savegame:register(XMLValueType.INT, saveKey .. "#kind", "Druh uložené tyče (1 všesměrová, 2 směrová)", 1)
     savegame:register(XMLValueType.INT, saveKey .. "#config", "Konfigurace síly uložené tyče (index sprayDroneRelayStrength)", 1)
     savegame:register(XMLValueType.INT, saveKey .. "#farmId", "Farma, které uložená tyč patří")
 end
@@ -190,6 +194,8 @@ function SprayDroneRelaySlots.load(self, savegame)
             if slot ~= nil and battery ~= nil then
                 slot.occupied = true
                 slot.battery = math.clamp(battery, 0, 1)
+                local kind = savegame.xmlFile:getValue(slotKey .. "#kind", 1)
+                slot.kind = SprayDroneRelaySlots.POLE_FILES[kind] ~= nil and kind or 1
                 slot.config = math.max(savegame.xmlFile:getValue(slotKey .. "#config", 1), 1)
                 slot.farmId = savegame.xmlFile:getValue(slotKey .. "#farmId", self:getOwnerFarmId())
             end
@@ -213,6 +219,7 @@ function SprayDroneRelaySlots.save(self, xmlFile, key)
             local slotKey = string.format("%s.relaySlots.slot(%d)", key, n)
             xmlFile:setValue(slotKey .. "#index", i)
             xmlFile:setValue(slotKey .. "#battery", slot.battery)
+            xmlFile:setValue(slotKey .. "#kind", slot.kind)
             xmlFile:setValue(slotKey .. "#config", slot.config)
             xmlFile:setValue(slotKey .. "#farmId", slot.farmId)
             n = n + 1
@@ -250,6 +257,7 @@ function SprayDroneRelaySlots.writeState(self, streamId)
         if streamWriteBool(streamId, slot.occupied) then
             streamWriteUIntN(streamId, math.floor(math.clamp(slot.battery, 0, 1) * 255 + 0.5), SprayDroneRelaySlots.BATTERY_BITS)
             streamWriteUIntN(streamId, math.clamp(slot.config - 1, 0, 2 ^ SprayDroneRelaySlots.CONFIG_BITS - 1), SprayDroneRelaySlots.CONFIG_BITS)
+            streamWriteUIntN(streamId, math.clamp(slot.kind - 1, 0, 2 ^ SprayDroneRelaySlots.KIND_BITS - 1), SprayDroneRelaySlots.KIND_BITS)
         end
     end
 end
@@ -261,6 +269,7 @@ function SprayDroneRelaySlots.readState(self, streamId)
         if slot.occupied then
             slot.battery = streamReadUIntN(streamId, SprayDroneRelaySlots.BATTERY_BITS) / 255
             slot.config = streamReadUIntN(streamId, SprayDroneRelaySlots.CONFIG_BITS) + 1
+            slot.kind = streamReadUIntN(streamId, SprayDroneRelaySlots.KIND_BITS) + 1
         end
     end
     SprayDroneRelaySlots.updateVisuals(self)
@@ -364,7 +373,7 @@ function SprayDroneRelaySlots.getHeldPole(player)
     return nil
 end
 
--- Tyč, kterou hráč u vleku uloží: drží-li tyč v rukou, ta; jinak nejbližší složená ležící do STORE_POLE_DISTANCE (s ignoreLying
+-- Tyč, kterou hráč u vleku uloží: drží-li tyč v rukou, ta; jinak nejbližší složená ležící (ne stojící) do STORE_POLE_DISTANCE (s ignoreLying
 -- se ležící nehledají). Vrací tyč a vzdálenost od hráče, nebo nil.
 function SprayDroneRelaySlots.findStorePole(self, player, ignoreLying)
     local x, y, z = getPlayerPosition(player)
@@ -382,7 +391,8 @@ function SprayDroneRelaySlots.findStorePole(self, player, ignoreLying)
     local vehicles = g_currentMission.vehicleSystem ~= nil and g_currentMission.vehicleSystem.vehicles or {}
     for _, v in ipairs(vehicles) do
         local state = getRelayState(v)
-        if state ~= nil and isAlive(v) and not state.unfolded and state.progress <= 0 and not isMounted(v) then
+        -- stojící tyč nechá R rozložení (SprayDroneRelayActivatable); uložit jde v rukou nebo ležící
+        if state ~= nil and isAlive(v) and not state.unfolded and state.progress <= 0 and not isMounted(v) and not SprayDroneRelay.isUpright(v) then
             local vx, vy, vz = getWorldTranslation(v.rootNode)
             local d = MathUtil.vector3Length(x - vx, y - vy, z - vz)
             if d <= bestDistance then
@@ -402,18 +412,18 @@ local function notifyLocal(self, isLocal, key)
     end
 end
 
--- Cesta k xml tyče, jen když je v obchodě (VehicleLoadingData:setFilename hledá storeItem podle xml).
-function SprayDroneRelaySlots.getPoleFilename()
-    if g_storeManager == nil then
+-- Cesta k xml tyče druhu kind, jen když je v obchodě (VehicleLoadingData:setFilename hledá storeItem podle xml).
+function SprayDroneRelaySlots.getPoleFilename(kind)
+    local file = SprayDroneRelaySlots.POLE_FILES[kind or 1]
+    if g_storeManager == nil or file == nil then
         return nil
     end
-    local path = (SprayDroneRelaySlots.modDirectory or "") .. SprayDroneRelaySlots.POLE_FILE
+    local path = (SprayDroneRelaySlots.modDirectory or "") .. file
     if g_storeManager:getItemByXMLFilename(path) ~= nil then
         return path
     end
-    local tail = string.lower(SprayDroneRelaySlots.POLE_FILE)
     for key, item in pairs(g_storeManager.xmlFilenameToItem or {}) do
-        if string.sub(string.lower(key), -#tail) == tail then
+        if SprayDroneRelaySlots.getPoleKind(key) == kind then
             return item.xmlFilename or key
         end
     end
@@ -449,6 +459,7 @@ function SprayDroneRelaySlots.doStore(self, player, pole, isLocal)
     local index = SprayDroneRelaySlots.getFreeSlot(rs.slots)
     local slot = rs.slots[index]
     slot.occupied = true
+    slot.kind = SprayDroneRelaySlots.getPoleKind(pole.configFileName) or 1
     slot.battery = SprayDroneRelay.getBatteryFraction(pole)
     slot.config = pole.configurations ~= nil and pole.configurations[SprayDroneStation.RELAY_CONFIG] or 1
     local farmId = pole.getOwnerFarmId ~= nil and pole:getOwnerFarmId() or nil
@@ -469,9 +480,9 @@ function SprayDroneRelaySlots.doTake(self, player, index, isLocal)
     if slot == nil or not slot.occupied or rs.spawning[index] then
         return
     end
-    local filename = SprayDroneRelaySlots.getPoleFilename()
+    local filename = SprayDroneRelaySlots.getPoleFilename(slot.kind)
     if filename == nil then
-        Logging.warning("SDT: tyč nejde vyrobit (chybí %s v obchodě)", SprayDroneRelaySlots.POLE_FILE)
+        Logging.warning("SDT: tyč nejde vyrobit (chybí %s v obchodě)", tostring(SprayDroneRelaySlots.POLE_FILES[slot.kind]))
         notifyLocal(self, isLocal, "sdt_relaySlot_spawnFailed")
         return
     end
@@ -530,7 +541,7 @@ function SprayDroneRelaySlots.doTake(self, player, index, isLocal)
             end
         end
         if slot.occupied then
-            slot.occupied, slot.battery, slot.config, slot.farmId = false, 0, 1, 0
+            slot.occupied, slot.kind, slot.battery, slot.config, slot.farmId = false, 1, 0, 1, 0
         end
         if isAlive(self) then
             raiseDirty(self)
@@ -615,7 +626,6 @@ function SprayDroneRelaySlotsActivatable:evaluate()
         return nil
     end
     local distances, best = SprayDroneRelaySlots.getSlotDistances(vehicle, x, y, z)
-    SprayDroneRelaySlots.updateAutoStore(vehicle, rs, player, best)
     if best > SprayDroneRelaySlots.ACTIVATE_DISTANCE then
         rs.lyingIgnoreUntil = 0
         return nil
@@ -625,38 +635,16 @@ function SprayDroneRelaySlotsActivatable:evaluate()
         rs.candidate, rs.candidateDistance = SprayDroneRelaySlots.findStorePole(vehicle, player, g_time < rs.lyingIgnoreUntil)
     end
     if rs.candidate ~= nil and isAlive(rs.candidate) then
-        self.distance = math.max((rs.candidateDistance or 0) - 0.1, 0)
+        self.distance = SprayDroneLink.aimDistance(math.max((rs.candidateDistance or 0) - 0.1, 0), rs.nodes[SprayDroneRelaySlots.getFreeSlot(rs.slots) or 1])
         return "store", rs.candidate
     end
     rs.candidate = nil
     local index = SprayDroneRelaySlots.getTakeSlot(rs.slots, distances, rs.spawning)
     if index ~= nil then
-        self.distance = distances[index]
+        self.distance = SprayDroneLink.aimDistance(distances[index], rs.nodes[index])
         return "take", index
     end
     return nil
-end
-
--- Tyč v rukou místního hráče u držáku se uloží sama (getAutoStore); co uložit nejde (rozložená, zapnutá, plno), jen jednou ohlásí.
-function SprayDroneRelaySlots.updateAutoStore(vehicle, rs, player, best)
-    local pole = SprayDroneRelaySlots.getHeldPole(player)
-    local armed, store = SprayDroneRelaySlots.getAutoStore(rs.autoArmed, pole ~= nil, best)
-    rs.autoArmed = armed
-    if not store then
-        return
-    end
-    if g_time < (rs.autoRetryTime or 0) then
-        rs.autoArmed = true
-        return
-    end
-    rs.autoRetryTime = g_time + SprayDroneRelaySlots.AUTO_RETRY_MS
-    local reason = SprayDroneRelaySlots.getStoreBlock(rs.slots, getRelayState(pole))
-    if reason ~= nil then
-        g_currentMission:showBlinkingWarning(g_i18n:getText(reason), 2500)
-        return
-    end
-    rs.candidate = nil
-    SprayDroneRelaySlots.command(vehicle, SprayDroneRelaySlotEvent.STORE, pole, 1)
 end
 
 function SprayDroneRelaySlotsActivatable:getIsActivatable()
@@ -719,3 +707,14 @@ function SprayDroneRelaySlotsActivatable:activate() end
 function SprayDroneRelaySlotsActivatable:deactivate() end
 
 function SprayDroneRelaySlotsActivatable:draw() end
+
+-- Pomocné funkce sdílí SprayDronePumpSlots (držák pumpy).
+SprayDroneRelaySlots.helpers = {
+    isAlive = isAlive,
+    getHeldNode = getHeldNode,
+    getHolder = getHolder,
+    isMounted = isMounted,
+    isInVehicle = isInVehicle,
+    getPlayerPosition = getPlayerPosition,
+    notifyLocal = notifyLocal
+}

@@ -109,6 +109,39 @@ SprayDroneSound.DRIVERS = {
 
 SprayDroneSound.UNFOLD_STAGES = { 0.98 }   -- spec.unfold, při kterém cvakne dron (rozložen / začátek skládání); Pavel 2026-10-13: stačí jedno kliknutí
 
+-- Záznam zvuků do log.txt (Pavel 2026-10-22: hledá se zvuk, který zůstal hrát po odpojení hadice). SoundManager:playSample a stopSample
+-- se obalí a zapíše se každé spuštění a zastavení vzorku, který patří vozidlu z tohoto modu (i zvuky z XML: animace, spojky, WaterTrailer,
+-- podvozek): vozidlo, název a soubor vzorku, uzel, důvod a poslední akce. Důvod (stav, který zvuk řídí) předává skript přes because();
+-- bez něj zůstane prázdný. Smyčky se zapisují jen při změně (start / stop), jednorázové zvuky při každém přehrání.
+SprayDroneSound.MOD_NAME = g_currentModName
+
+function SprayDroneSound.noteAction(text)
+    SprayDroneSound.lastAction = text
+    SprayDroneSound.lastActionTime = g_time
+end
+
+-- Důvod dalšího spuštění / zastavení (platí pro nejbližší volání playSample / stopSample, pak se smaže).
+function SprayDroneSound.because(text)
+    SprayDroneSound.reason = text
+end
+
+-- Informační řádek o změně řídicího stavu (vzorek se přitom nespouští ani nezastavuje).
+function SprayDroneSound.log(vehicle, sample, what, text)
+end
+
+-- Spuštění / zastavení vzorku s udaným důvodem (logují se v obalu SoundManageru).
+function SprayDroneSound.play(vehicle, sample, reason, delay)
+    SprayDroneSound.because(reason)
+    g_soundManager:playSample(sample, delay)
+    SprayDroneSound.reason = nil
+end
+
+function SprayDroneSound.stop(vehicle, sample, reason)
+    SprayDroneSound.because(reason)
+    g_soundManager:stopSample(sample)
+    SprayDroneSound.reason = nil
+end
+
 function SprayDroneSound.registerXMLPaths(schema, key)
     for _, channel in ipairs(SprayDroneSound.CHANNELS) do
         SoundManager.registerSampleXMLPaths(schema, key .. ".sounds", channel.name)
@@ -165,6 +198,37 @@ function SprayDroneSound.getDriver(self, driver)
     return root[driver] == true
 end
 
+-- Změny stavu vleku do log.txt (řádky "SDT děj:"), aby šlo k akci ("SDT akce:") dohledat, co se po ní stalo: nastoupení a vystoupení, skládání vleku,
+-- stav dronu a mise, přečerpávání, míchání, bedna, centrála a pohyb hladin v nádržích (začátek a konec změny). První průchod stav jen převezme.
+-- Jen klient, porovnává se každý snímek; vlek se po dobu pohybu hladiny drží vzhůru.
+SprayDroneSound.STATE_NAMES = { [0] = "dron na vleku", [1] = "dron letí dávku", [2] = "dron se vrací", [3] = "servis dronu na plošině" }
+SprayDroneSound.FLOW_QUIET_MS = 800
+SprayDroneSound.FLOW_EPSILON = 0.01
+
+function SprayDroneSound.getCommandName(command)
+    for name, v in pairs(SprayDroneCommandEvent) do
+        if type(name) == "string" and type(v) == "number" and v == command and name:find("^[A-Z_]+$") and not name:find("BITS") then
+            return name
+        end
+    end
+    return tostring(command)
+end
+
+function SprayDroneSound.getToolboxCommandName(command)
+    for name, v in pairs(SprayDroneToolboxEvent) do
+        if type(name) == "string" and type(v) == "number" and v == command and name:find("^[A-Z_]+$") and not name:find("BITS") then
+            return name
+        end
+    end
+    return tostring(command)
+end
+
+-- Akce hráče, které řeší vanilla skript (skládání vleku klávesou X): doplní se řádek "SDT akce:", ať je v logu vidět, kdo a odkud je spustil.
+local vanillaFold = Foldable.actionEventFold
+Foldable.actionEventFold = function(self, ...)
+    return vanillaFold(self, ...)
+end
+
 function SprayDroneSound.updateSounds(self, dt)
     if not self.isClient then
         return
@@ -188,6 +252,13 @@ function SprayDroneSound.updateSounds(self, dt)
             end
             local step = dt / (target and def.upTime or def.downTime)
             channel.level = target and math.min(channel.level + step, 1) or math.max(channel.level - step, 0)
+            if channel.target ~= target then
+                channel.target = target
+                if channel.running or target then
+                    SprayDroneSound.log(self, sample, target and "ZAPNUTO" or "VYPNUTO",
+                        string.format("řídicí stav %s = %s, úroveň %.2f", def.driver, tostring(target), channel.level))
+                end
+            end
             if channel.level > 0 then
                 local level = channel.level
                 -- rychlý nárůst otáček na začátku, pak dosedání do volnoběhu
@@ -195,10 +266,19 @@ function SprayDroneSound.updateSounds(self, dt)
                 g_soundManager:setSamplePitchOffset(sample, pitch - 1)
                 g_soundManager:setSampleVolumeScale(sample, channel.baseVolume * level ^ def.volumeExponent)
                 if not g_soundManager:getIsSamplePlaying(sample) then
+                    if not channel.running then
+                        SprayDroneSound.because(string.format("řídicí stav %s = %s", def.driver, tostring(target)))
+                    end
                     g_soundManager:playSample(sample)
+                    SprayDroneSound.reason = nil
                 end
-            elseif g_soundManager:getIsSamplePlaying(sample) then
+                channel.running = true
+            elseif channel.running or g_soundManager:getIsSamplePlaying(sample) then
+                SprayDroneSound.because(string.format("řídicí stav %s = %s, doběh skončil, hrálo %s", def.driver, tostring(target),
+                    tostring(g_soundManager:getIsSamplePlaying(sample))))
                 g_soundManager:stopSample(sample)
+                SprayDroneSound.reason = nil
+                channel.running = false
             end
             busy = busy or target or channel.level > 0
         end
@@ -214,7 +294,9 @@ function SprayDroneSound.updateSounds(self, dt)
                 fire = event.value ~= current and current == event.def.rising
             end
             if fire then
+                SprayDroneSound.because(string.format("%s: %s -> %s", event.def.driver, tostring(event.value), tostring(current)))
                 g_soundManager:playSample(event.sample)
+                SprayDroneSound.reason = nil
             end
         end
         event.value = current

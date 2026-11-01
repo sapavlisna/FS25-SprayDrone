@@ -21,7 +21,7 @@ BLENDER = sdt_paths.BLENDER
 TRAILERS = ("mini", "middle", "max")
 # známé mezery oficiálních XSD: vlastní blok modu u Middle a <storeType> (vlastní záložka obchodu, schéma ho nezná, hra
 # i mody jako LSFM ho používají)
-KNOWN_XSD = re.compile(r"Element '(sprayDrone|storeType)': This element is not expected")
+KNOWN_XSD = re.compile(r"Element '(sprayDrone|sprayDroneWaterHose|storeType)': This element is not expected")
 BAD_TEXT = re.compile(r"Traceback|^CHYBA|\bSELHAL[OA]?\s+[1-9]|\bFAIL\b", re.M)
 # Blender při startu i ukončení hlásí chybu odhlášení cizího doplňku (blender_i3d_importer); build ani export se jí neřídí
 KNOWN_BLENDER_EXIT = re.compile(r"Traceback[^\n]*\n(?:[ \t]+[^\n]*\n)*?UnboundLocalError: cannot access local variable 'bpy'[^\n]*\n?")
@@ -81,7 +81,8 @@ def main():
     run("check_compound", [py, os.path.join(tools, "check_compound.py")])
     run("lua_check", [py, os.path.join(tools, "lua_check.py")])
     run("audit_spec_fields", [py, os.path.join(tools, "audit_spec_fields.py")], check=check_audit)
-    for t in ("test_split", "test_mixer", "test_headlands"):
+    for t in ("test_split", "test_mixer", "test_headlands", "test_pf", "test_launch", "test_case", "test_case_lid", "test_batteries", "test_samples", "test_tablet", "test_mini_pad",
+              "test_mill_flow", "test_hopper", "test_relay_sector"):
         run(t, [py, os.path.join(tools, t + ".py")])
     toolbox_test = os.path.join(PROJECT, "tmp", "test_toolbox_parts.py")
     if os.path.exists(toolbox_test):

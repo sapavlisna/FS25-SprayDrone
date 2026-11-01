@@ -12,6 +12,7 @@ Spuštění v Blenderu (se scénou z spraydrone_trailer_middle.blend):
 """
 
 import contextlib
+import hashlib
 import importlib
 import io
 import math
@@ -42,20 +43,21 @@ import sdt_paths  # noqa: E402
 GAME_DIR = sdt_paths.GAME_DIR
 
 MAPPED_NODES = [
-    "sprayDroneTrailerMiddle_main_component1", "sprayDroneTrailerMiddle_vis", "attacherJoint",
+    "sprayDroneTrailerMiddle_main_component1", "sprayDroneTrailerMiddle_vis", "attacherJoint", "deckEdgeSteel", "deckEdgeWood",
     "wheelFrontLeft", "wheelFrontRight", "wheelBackLeft", "wheelBackRight",
     "ladderHinge", "ladderGrab", "jockeyWheel", "chargerLid", "ladderTrigger",
     "fillTrigger", "exactFillRootNode", "tankMain800", "tankMain1000", "tankMain1500", "tankMain3000", "tankMain5000",
     "concentrateFillRootNode",
-    "mixerMotor", "mixerSoundNode", "toolboxActivateNode", "Toolbox_Door", "concentrateNeckNode", "dieselNeckNode",
+    "mixerMotor", "mixerSoundNode", "toolboxActivateNode", "Toolbox_Door", "concentrateNeckNode", "dieselNeckNode", "limeInletNode", "limeValveLever",
     "colTank800", "colTank1000", "colTank1500", "colTank3000", "colTank5000",
-] + [f"toolboxCanister{i}" for i in range(1, 49)] + [
+    "waterHosePort800", "waterHosePort1000", "waterHosePort1500", "waterHosePort3000", "waterHosePort5000", "waterHoseEnd", "limeHoseEnd",
+] + [f"waterHoseSeg{i}" for i in range(1, 73)] + [f"limeHoseSeg{i}" for i in range(1, 73)] + [f"toolboxCanister{i}" for i in range(1, 49)] + [
     "rearLight52_left", "rearLight52_right", "plateNumberLight03", "sideMarker05_left", "sideMarker05_right",
     "exitPoint", "outdoorCameraTarget", "outdoorCamera",
     "occlusionAreaStart", "occlusionAreaWidth", "occlusionAreaHeight", "licensePlateBack", "generatorExhaust", "dieselFillRootNode",
 ] + [f"{kind}{i}" for kind in ("battery", "batterySlotDeck") for i in range(1, 7)] + \
     [f"battery{i}{size}" for i in range(1, 7) for size in "SML"] + [
-    "batteryCharger", "antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox", "antennaBoostedTele1", "antennaBoostedTele2", "antennaLargeTele1", "antennaLargeTele2", "gpsRtkBoxTele1", "gpsRtkBoxTele2", "chargerCable", "fillHoseCoil", "fillHoseStart",
+    "batteryCharger", "antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox", "antennaBoostedTele1", "antennaBoostedTele2", "antennaLargeTele1", "antennaLargeTele2", "gpsRtkBoxTele1", "gpsRtkBoxTele2", "antennaLargeCable", "chestStrutCylL", "chestStrutCylR", "chestStrutRodL", "chestStrutRodR", "chargerCable", "fillHoseCoil", "fillHoseStart",
 ] + [f"fillHoseLay{i}" for i in range(1, 9)] + [f"fillHoseSeg{i}" for i in range(1, 97)] + [
     "fillHoseNozzle", "fillHoseParkPos",
 ] + [f"Charger_Led_{k}_{n}" for k in range(1, 7) for n in range(5)] + \
@@ -69,6 +71,14 @@ TEMPLATES_XML = os.path.join(GAME_DIR, "data", "shared", "detailLibrary", "mater
 BASE_MAPS = {"Texture": "$data/shared/white_diffuse.png", "Normalmap": "$data/shared/default_normal.png",
              "Glossmap": "$data/shared/default_vmask.png"}
 TEX_DIR = os.path.join(VEH_DIR, "textures")
+# materiály s vlastní normálovou texturou (tools/make_hose_normal.py); soubor leží v textures/ v kořeni módu
+NORMAL_MAPS = {name: os.path.join(MOD_DIR, "textures", "sdt_hose_normal.dds") for name in ("SDT_HoseSpiral", "SDT_HoseSpiralBlue", "SDT_HoseSpiralRed")}
+
+
+def normal_map_ref(i3d_path, base):
+    return os.path.relpath(NORMAL_MAPS[base], os.path.dirname(os.path.abspath(i3d_path))).replace("\\", "/")
+
+
 # vmask (R škrábance, G AO, B špína) na druhé UV (DirtUV, varianta vmaskUV2); kreslí ho bake_vmasks
 VMASK = {"trailer": "textures/sdt_vmask_trailer.dds", "drone": "textures/sdt_vmask_drone.dds"}
 VMASK_SIZE = {"trailer": 2048, "drone": 1024}
@@ -79,7 +89,7 @@ MATERIAL_MAP = {
     "SDT_Frame": ("metalPaintedGraphite", (0.03, 0.03, 0.032), {}),
     "SDT_DeckWood": ("wood1", (0.42, 0.28, 0.16), {}),
     "SDT_TopDeck": ("steelTreadPlate", (0.62, 0.63, 0.64), {}),
-    "SDT_TankWhite": ("plasticPainted", (0.85, 0.85, 0.82), {}),
+    "SDT_TankWhite": ("plasticPainted", (0.74, 0.74, 0.71), {"smoothnessScale": "0.6"}),
     "SDT_TankBlack": ("plasticPainted", (0.02, 0.02, 0.02), {}),
     "SDT_Rubber": ("rubberBlack", (0.03, 0.03, 0.03), {}),
     "SDT_Rim": ("metalPainted", (0.03, 0.03, 0.03), {}),
@@ -89,13 +99,21 @@ MATERIAL_MAP = {
     "SDT_EngineRed": ("calibratedPaint", (0.55, 0.03, 0.03), {}),
     "SDT_TapeRed": ("reflectorRed", None, {}),
     "SDT_TapeWhite": ("reflectorWhite", None, {}),
+    "SDT_TapeAmber": ("reflectorOrange", None, {}),
     "SDT_Mesh": ("metalPaintedGraphite", (0.06, 0.06, 0.07), {}),
     "SDT_HoseBlue": ("rubber", (0.05, 0.20, 0.60), {}),
     "SDT_HoseBlack": ("rubberBlackHoses", None, {}),
+    "SDT_HoseWhite": ("rubber", (0.85, 0.85, 0.82), {}),
     "SDT_Steel": ("metalGalvanized", None, {}),
     "SDT_LampRed": ("plasticPainted", (0.80, 0.02, 0.02), {}),
     "SDT_LampAmber": ("plasticPainted", (0.90, 0.45, 0.02), {}),
-    "SDT_PaintWhite": ("powderCoatMatte", (0.85, 0.85, 0.85), {}),
+    "SDT_PaintWhite": ("powderCoatMatte", (0.74, 0.74, 0.74), {"smoothnessScale": "0.7"}),
+    "SDT_PaintGrey": ("powderCoatMatte", (0.22, 0.225, 0.23), {"smoothnessScale": "0.7"}),
+    "SDT_DeckPlate": ("steelTreadPlate", (0.12, 0.12, 0.125), {}),
+    "SDT_AluCast": ("calibratedMatPaint", (0.16, 0.163, 0.168), {}),
+    "SDT_HoseSpiral": ("rubberBlackHoses", None, {"clearCoatIntensity": "0.45", "clearCoatSmoothness": "0.6"}),
+    "SDT_HoseSpiralBlue": ("rubber", (0.06, 0.26, 0.70), {"clearCoatIntensity": "0.45", "clearCoatSmoothness": "0.6"}),
+    "SDT_HoseSpiralRed": ("rubber", (0.70, 0.03, 0.03), {"clearCoatIntensity": "0.45", "clearCoatSmoothness": "0.6"}),
     "SDT_PaintDark": ("powderCoatMatte", (0.05, 0.055, 0.06), {}),
     "SDT_BatteryGrey": ("plasticGraniteGrainSmall", (0.05, 0.05, 0.055), {}),
     "SDT_ChargerGrey": ("plasticGraniteGrainSmall", (0.13, 0.135, 0.14), {}),
@@ -106,7 +124,7 @@ MATERIAL_MAP = {
     "SDT_PaintRed": ("calibratedPaint", (0.60, 0.02, 0.02), {}),
     "SDT_PaintYellow": ("calibratedPaint", (0.85, 0.62, 0.02), {}),
     "SDT_Plastic": ("plasticGraniteGrainSmall", (0.03, 0.03, 0.03), {}),
-    "SDT_TankPE": ("plasticGraniteGrainSmall", (0.80, 0.81, 0.78), {}),
+    "SDT_TankPE": ("plasticGraniteGrainSmall", (0.66, 0.67, 0.65), {"smoothnessScale": "0.6"}),
     "SDT_Brass": ("brassScratched", None, {}),
     "SDT_Alu": ("silverRough", None, {}),
     "SDT_PumpBlue": ("calibratedPaint", (0.04, 0.17, 0.45), {}),
@@ -121,7 +139,7 @@ MATERIAL_MAP = {
     "SDT_TarpHem": ("fabric1", (0.046, 0.053, 0.062), {}),
     "SDT_TarpStrap": ("fabric1", (0.021, 0.025, 0.028), {}),
     "Carbon": ("carbonPattern02", None, {}),
-    "Prop_Blade": ("calibratedGlossPaint", (0.06, 0.06, 0.065), {}),
+    "Prop_Blade": ("plasticPainted", (0.06, 0.06, 0.065), {"smoothnessScale": "0.55"}),
     "Prop_Tip": ("calibratedPaint", (0.90, 0.40, 0.03), {}),
     "Drone_White": ("calibratedGlossPaint", (0.80, 0.81, 0.82), {}),
     "Drone_Grey": ("plasticPainted", (0.27, 0.28, 0.30), {}),
@@ -212,9 +230,16 @@ def spray_nozzles(prefix):
     return sorted(o.name for o in bpy.data.objects if o.name.startswith(prefix + "SprayNozzle_"))
 
 
+PAD_CLAMP = re.compile(r"^padClamp(Hinge)?[LR]\d*$")
+
+
+def pad_clamp_hinges():
+    return sorted((o for o in bpy.data.objects if re.match(r"^padClampHinge[LR]\d*$", o.name)), key=lambda o: o.name)
+
+
 def drone_nodes(car):
-    """Mapované uzly všech tří dronů (kontrakt docs/PLAN-0.9.md) včetně úchytů lyžin."""
-    out = []
+    """Mapované uzly všech tří dronů (kontrakt docs/PLAN-0.9.md) a úchytů lyžin na plošinách (nezávisí na variantě dronu)."""
+    out = sorted(o.name for o in bpy.data.objects if PAD_CLAMP.match(o.name))
     for prefix in car["DRONE_VARIANTS"].values():
         levels = car["rotor_levels"](prefix)
         out += [prefix + "Root", prefix + "Tilt"] + [f"{prefix}ArmPivot_{i}" for i in range(1, 5)]
@@ -224,16 +249,14 @@ def drone_nodes(car):
         out.append(prefix + "Arm_1")
         out += [f"{prefix}{kind}_{i}" for i in range(1, 5) for kind in ("Led", "LedLight")]
         out += [prefix + "FillPort", prefix + "BatterySlot"] + spray_nozzles(prefix)
-        out += [f"{prefix}{kind}_{i}" for i in range(1, 5) for kind in ("Clamp", "ClampHinge")]
     return out
 
 
 def hidden_nodes(car):
-    """Uzly, které mají v i3d visibility false: drony a úchyty mimo výchozí variantu, baterie S a L."""
+    """Uzly, které mají v i3d visibility false: drony mimo výchozí variantu, baterie S a L."""
     out = list(BATTERY_HIDDEN)
     for key in car["DRONE_HIDDEN"]:
-        prefix = car["DRONE_VARIANTS"][key]
-        out += [prefix + "Root"] + [f"{prefix}Clamp_{i}" for i in range(1, 5)]
+        out.append(car["DRONE_VARIANTS"][key] + "Root")
     return out
 
 
@@ -449,6 +472,8 @@ def apply_vehicle_shader(path):
         for m in ("detailDiffuse", "detailNormal", "detailSpecular"):
             ET.SubElement(mat, "Custommap", name=m, fileId=file_id(tpl[m]))
         maps = dict(BASE_MAPS, Glossmap=VMASK[atlas])
+        if base in NORMAL_MAPS:
+            maps["Normalmap"] = normal_map_ref(path, base)
         if base in DECAL_MATERIALS:
             maps["Texture"] = DECAL_TEXTURE
         if base in BRAND_DECAL_MATERIALS:
@@ -490,22 +515,48 @@ def ladder_values(car):
         "LID_END": "%g" % car["CHEST_LID_TIME"][1],
         "CABLE_START": "%g" % car["CHEST_CABLE_TIME"][0],
         "CABLE_END": "%g" % car["CHEST_CABLE_TIME"][1],
+        "STRUT_PARTS": strut_parts_xml(car),
+        "ANTENNA_CABLE_SCALE": "%.4f" % bpy.data.objects["antennaLargeCable"]["sdt_scale_end"],
     }
 
 
+STRUT_NODES = ("chestStrutCylL", "chestStrutCylR", "chestStrutRodL", "chestStrutRodR")
+
+
+def strut_parts_xml(car):
+    """Plynové vzpěry víka truhly v animaci foldLadder: válec (chestStrutCyl*) a pístnice (chestStrutRod*) se natáčejí kolem svých čepů
+    po úsecích stejně dlouho jako víko; klíče (natočení kolem X oproti otevřené poloze v i3d) leží v custom vlastnosti uzlů, viz
+    build_chest_struts. Euler se řetězí s předchozím klíčem, ať se úhly nepřetáčejí oklikou."""
+    dcc = importlib.import_module("io_export_i3d_reworked.dcc.dccBlender")
+    t0, t1 = car["CHEST_LID_TIME"]
+    out = []
+    for name in STRUT_NODES:
+        o = bpy.data.objects[name]
+        base = o.matrix_local.to_3x3()
+        prev, rots = None, []
+        for d in o["sdt_strut_keys"]:
+            e = dcc.bakeTransformMatrix((base @ Matrix.Rotation(d, 3, "X")).to_4x4()).to_euler("XYZ", prev) if prev else \
+                dcc.bakeTransformMatrix((base @ Matrix.Rotation(d, 3, "X")).to_4x4()).to_euler("XYZ")
+            prev = e
+            rots.append(fmt((math.degrees(e.x), math.degrees(e.y), math.degrees(e.z))))
+        n = len(rots) - 1
+        for k in range(n):
+            a, b = t0 + (t1 - t0) * k / n, t0 + (t1 - t0) * (k + 1) / n
+            out.append(f'            <part node="{name}" startTime="{a:g}" endTime="{b:g}" startRot="{rots[k]}" endRot="{rots[k + 1]}"/>')
+    return "\n".join(out)
+
+
 def clamp_parts_xml(car):
-    """Úchyty lyžin dronu v animaci foldLadder: z otevřené polohy (stav v i3d) do zavřené."""
+    """Úchyty lyžin na plošinách v animaci foldLadder: z otevřené polohy (stav v i3d) do zavřené."""
     dcc = importlib.import_module("io_export_i3d_reworked.dcc.dccBlender")
     t0, t1 = car["CLAMP_TIME"]
     out = []
-    for prefix in car["DRONE_VARIANTS"].values():
-        for i in range(1, 5):
-            hinge = bpy.data.objects[f"{prefix}ClampHinge_{i}"]
-            rot = hinge.matrix_local.to_quaternion().to_matrix().to_4x4()
-            e = dcc.bakeTransformMatrix(rot).to_euler("XYZ")
-            opened = fmt((math.degrees(e.x), math.degrees(e.y), math.degrees(e.z)))
-            out.append(f'            <part node="{hinge.name}" startTime="{t0:g}" endTime="{t1:g}" startRot="{opened}" '
-                       f'endRot="0 0 0"/>')
+    for hinge in pad_clamp_hinges():
+        rot = hinge.matrix_local.to_quaternion().to_matrix().to_4x4()
+        e = dcc.bakeTransformMatrix(rot).to_euler("XYZ")
+        opened = fmt((math.degrees(e.x), math.degrees(e.y), math.degrees(e.z)))
+        out.append(f'            <part node="{hinge.name}" startTime="{t0:g}" endTime="{t1:g}" startRot="{opened}" '
+                   f'endRot="0 0 0"/>')
     return "\n".join(out)
 
 
@@ -790,7 +841,82 @@ def _merged_copy(objs, name):
     return ob
 
 
+BAKE_CACHE = os.path.join(HERE, "parts", "bake")
+BAKE_INFO = {}
+
+
+def bake_key(car):
+    """Otisk všeho, na čem závisí vmask: meshe průchodů (poloha, geometrie, normály, DirtUV, materiály), materiály
+    (barvy a parametry) a zdroj exportu (nastavení pečení, uzly)."""
+    import numpy as np
+    h = hashlib.sha1()
+    for src in sorted({os.path.abspath(__file__), os.path.join(HERE, "export_middle_mod.py")}):
+        with open(src, "rb") as fh:
+            h.update(fh.read())
+    h.update(repr((VMASK_SIZE, DRONE_SUFFIX, os.environ.get("SDT_BAKE_SEPARATE"))).encode())
+    _, passes = bake_groups(car)
+    mats = set()
+    for key in sorted(passes):
+        h.update(repr(key).encode())
+        for o in sorted(passes[key], key=lambda o: o.name):
+            me = o.data
+            h.update(o.name.encode())
+            h.update(np.array([x for row in o.matrix_world for x in row], dtype=np.float64).tobytes())
+            co = np.empty(len(me.vertices) * 3, dtype=np.float32)
+            me.vertices.foreach_get("co", co)
+            h.update(co.tobytes())
+            idx = np.empty(len(me.loops), dtype=np.int32)
+            me.loops.foreach_get("vertex_index", idx)
+            h.update(idx.tobytes())
+            nor = np.empty(len(me.loops) * 3, dtype=np.float32)
+            me.corner_normals.foreach_get("vector", nor)
+            h.update(nor.tobytes())
+            uv = me.uv_layers.get("DirtUV")
+            if uv is not None:
+                d = np.empty(len(me.loops) * 2, dtype=np.float32)
+                uv.data.foreach_get("uv", d)
+                h.update(d.tobytes())
+            mi = np.empty(len(me.polygons), dtype=np.int32)
+            me.polygons.foreach_get("material_index", mi)
+            h.update(mi.tobytes())
+            for m in me.materials:
+                h.update((m.name if m else "-").encode())
+                if m is not None:
+                    mats.add(m)
+    for m in sorted(mats, key=lambda m: m.name):
+        h.update(repr((m.name, tuple(m.diffuse_color), m.metallic, m.roughness, dict(m.items()) if m.keys() else {})).encode())
+    return h.hexdigest()[:20]
+
+
 def bake_vmasks(car):
+    """vmask z cache (blender/parts/bake/<atlas>_<otisk>.dds), když se od posledního pečení nezměnilo nic, na čem závisí;
+    jinak upeče a výsledek do cache uloží. SDT_FORCE_BAKE=1 nebo --force-bake peče vždy."""
+    t = time.time()
+    key = bake_key(car)
+    files = {atlas: (os.path.join(BAKE_CACHE, f"{atlas}_{key}.dds"), os.path.join(BAKE_CACHE, f"{atlas}_{key}.png"))
+             for atlas in VMASK}
+    force = os.environ.get("SDT_FORCE_BAKE") == "1" or "--force-bake" in sys.argv
+    BAKE_INFO.update(key=key, hash_s=round(time.time() - t, 2))
+    if not force and all(os.path.exists(d) and os.path.exists(p) for d, p in files.values()):
+        os.makedirs(SHOT_DIR, exist_ok=True)
+        for atlas, (dds, png) in files.items():
+            dst = os.path.join(VEH_DIR, VMASK[atlas])
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy(dds, dst)
+            shutil.copy(png, os.path.join(SHOT_DIR, f"sdt_vmask_{atlas}.png"))
+        BAKE_INFO.update(cached=True)
+        print(f"vmask z cache ({key}), otisk {BAKE_INFO['hash_s']} s")
+        return
+    t = time.time()
+    _bake_vmasks(car)
+    os.makedirs(BAKE_CACHE, exist_ok=True)
+    for atlas, (dds, png) in files.items():
+        shutil.copy(os.path.join(VEH_DIR, VMASK[atlas]), dds)
+        shutil.copy(os.path.join(SHOT_DIR, f"sdt_vmask_{atlas}.png"), png)
+    BAKE_INFO.update(cached=False, bake_s=round(time.time() - t, 1))
+
+
+def _bake_vmasks(car):
     """Upeče vmask obou atlasů do PNG (out/mod_build) a převede je na DDS do textures/ (DXT1, mipmapy)."""
     import numpy as np
     sc = bpy.context.scene
@@ -902,16 +1028,20 @@ def _store_pose(car):
     parts = car["drone_fold_parts"](prefix)
     car["set_drone_unfold"](0.0, parts, prefix)
     car["set_ladder"](1.0)
-    hinges = [o for o in bpy.data.objects if o.name.startswith(prefix + "ClampHinge_")]
+    hinges = pad_clamp_hinges()
     opened = {o.name: o.rotation_euler.y for o in hinges}
     for o in hinges:
         o.rotation_euler.y = 0.0
     lid = bpy.data.objects["chargerLid"]
     lid_open = lid.rotation_euler.x
     lid.rotation_euler.x = 0.0
+    struts = {n: bpy.data.objects[n].rotation_euler.x for n in STRUT_NODES}
+    for n in STRUT_NODES:
+        bpy.data.objects[n].rotation_euler.x += list(bpy.data.objects[n]["sdt_strut_keys"])[-1]
     hidden = {}
     for o in bpy.data.objects:
         hide = (o.name.startswith(others) or bool(o.get("i3D_nonRenderable")) or o.name.endswith("_Tip")
+                or (o.parent is not None and o.parent.name == "deckEdgeWood")
                 or re.match(r"^battery\d+[SL]$", o.name) is not None
                 or re.match(r"^Tank_Main(?!1000)\d+", o.name) is not None
                 or re.match(r"^(fillHoseSeg\d+|HoseNozzle_\w+)$", o.name) is not None)
@@ -928,6 +1058,8 @@ def _store_pose(car):
         for o in hinges:
             o.rotation_euler.y = opened[o.name]
         lid.rotation_euler.x = lid_open
+        for n, x in struts.items():
+            bpy.data.objects[n].rotation_euler.x = x
         car["set_ladder"](0.0)
     return restore
 
@@ -1036,7 +1168,7 @@ def build_mod():
     n = export_i3d(car)
     used = apply_vehicle_shader(I3D_PATH)
     print(f"materiály na vehicleShader: {len(used)} ({sorted(set(used.values()))})")
-    hide_nodes(I3D_PATH, hidden_nodes(car) + ["antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox"])
+    hide_nodes(I3D_PATH, hidden_nodes(car) + ["antennaBase", "antennaBoosted", "antennaLarge", "gpsRtkBox", "waterHoseEnd", "limeHoseEnd", "deckEdgeWood"] + [f"waterHoseSeg{i}" for i in range(1, 73)] + [f"limeHoseSeg{i}" for i in range(1, 73)])
     mappings, found = i3d_mappings(I3D_PATH, MAPPED_NODES + drone_nodes(car))
     values = write_vehicle_xml(car, mappings)
     make_images(car)

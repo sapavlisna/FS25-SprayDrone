@@ -30,19 +30,27 @@ import sdt_parts as P  # noqa: E402
 import sdt_tanks as T  # noqa: E402
 import sdt_bigtank as BT  # noqa: E402
 import sdt_labels as SL  # noqa: E402
+import sdt_mlyn as MILL  # noqa: E402
 import build_drone as D  # noqa: E402
 import sdt_nozzle as N  # noqa: E402
 import sdt_generator as G  # noqa: E402
 import sdt_rims as RIMS  # noqa: E402
+import sdt_drawbar as DB  # noqa: E402
+import sdt_deckedge as DE  # noqa: E402
+import parts_lib as PL  # noqa: E402
 
 importlib.reload(P)
 importlib.reload(T)
 importlib.reload(BT)
 importlib.reload(SL)
+importlib.reload(MILL)
 importlib.reload(D)
 importlib.reload(N)
 importlib.reload(G)
 importlib.reload(RIMS)
+importlib.reload(DB)
+importlib.reload(DE)
+importlib.reload(PL)
 
 COLLECTION_NAME = "SprayDroneTrailerMiddle"
 PREVIEW_COLLECTION = "SprayDroneTrailerMiddle_Preview"   # jen do Blenderu, neexportuje se
@@ -51,6 +59,7 @@ ROOT_NAME = "sprayDroneTrailerMiddle_vis"
 
 # kolizní skupiny a masky převzaté z vanilla ABI Water Trailer 550
 COL_VEHICLE = (0x10004, 0xfe3ffb83)
+CHASSIS_DENSITY = 10.0        # hustota colChassis vůči 0,001 ostatních kolizí (hlavní osy setrvačnosti, build_i3d_structure)
 COL_TRIGGER = (0x20000000, 0x40000000)
 COL_FILL_ROOT = (0x40000000, 0x20000000)
 
@@ -187,22 +196,25 @@ LADDER_TRIGGER_UP = 0.70
 
 DRONE_Y = 0.0
 # tři velikosti dronu (build_drone.SPECS), všechny v i3d na středu heliportu, viditelnost řídí konfigurace
-DRONE_VARIANTS = {"S": "Drone_S_", "M": "Drone_A_", "L": "Drone_L_"}
+DRONE_VARIANTS = {"S": "Drone_S_", "M": "Drone_A_", "L": "Drone_L_", "K": "Drone_K_"}
 DRONE_PREFIX = DRONE_VARIANTS["M"]
-DRONE_HIDDEN = ("S", "L")         # v i3d skryté (visibility false), výchozí je M
+DRONE_HIDDEN = ("S", "L", "K")    # v i3d skryté (visibility false), výchozí je M
 DRONE_COLLECTION = "SprayDrone"
-DRONE_TILT_Z = {"S": 0.53, "M": 0.55, "L": 0.65}   # kloub náklonu za letu, nad lyžinami
-# LED pod motory: přední ramena (1, 2) červená, zadní (3, 4) zelená jako u DJI Agras; barva jde do barvy vrcholů,
-# svit řídí skript parametrem lightIds0 (vehicleShader staticLight_vertex)
-LED_COLORS = {1: (1.0, 0.03, 0.02), 2: (1.0, 0.03, 0.02), 3: (0.03, 1.0, 0.08), 4: (0.03, 1.0, 0.08)}
-LED_SIZE = (0.07, 0.07, 0.025)
+DRONE_TILT_Z = {"S": 0.53, "M": 0.55, "L": 0.65, "K": 0.53}   # kloub náklonu za letu, nad lyžinami
+# poziční světla dronu: čočky z build_drone.py (D.LED_COLORS: vpředu vlevo červená, vpravo zelená, vzadu bílá); barva je v barvě
+# vrcholů, svit řídí skript parametrem lightIds0 (vehicleShader, varianta staticLight_vertex), před čočkou je bodové světlo
 LED_LIGHT_RANGE = 3.0
-# úchyty lyžin dronu: dva na každé lyžině mezi příčkou a nohami, čelist se při skládání vleku překlopí přes trubku
-CLAMP_Y = (-0.075, 0.075)
-CLAMP_W = 0.07
-CLAMP_POST = 0.04
-CLAMP_GAP = 0.01
-CLAMP_JAW_T = 0.02
+LED_LIGHT_OFFSET = 0.03
+# úchyty lyžin patří plošině vleku, ne dronu: na každé straně jedna překlápěcí příčka (žlutá s gumovým podkladem) nad lyžinami
+# všech velikostí (S, M, L mají lyžiny 0,34 / 0,42 / 0,56 m od osy), uložená v pantu venku a dosedající na sedlo uvnitř; příčka je
+# vedle příčky mezi lyžinami (ta je v ose dronu), proto je posunutá o CLAMP_Y_OFF podél lyžin
+CLAMP_X_HINGE = 0.665
+CLAMP_X_SEAT = 0.262
+CLAMP_Y_OFF = 0.115
+CLAMP_W = 0.12
+CLAMP_REST_Z = 0.061
+CLAMP_RUBBER_T = 0.007
+CLAMP_BAR_T = 0.02
 CLAMP_OPEN_DEG = 100
 CLAMP_TIME = (2.0, 2.4)            # s ve foldLadder: po složení dronu (0–2 s), souběžně s vyklopením žebříku
 GEN_POS = (0.55, -1.35)
@@ -226,8 +238,8 @@ HELI_LAYER = 0.003
 # baterie: držák u centrály (stojí konektorem dolů, po Y za sebou) a nabíječka v levém předním rohu horní paluby
 BATTERY_COUNT = 6
 BATTERY_MAX = P.BATTERY_SIZES["L"]  # držák i šachty nabíječky musí pojmout největší (DB2160)
-DRONE_BATTERY = {"S": (0.0, 0.18), "M": (0.0, 0.215), "L": (0.0, 0.24)}      # xy baterie na hřbetu trupu (vzadu, napříč)
-DRONE_FILL_PORT = {"S": (-0.145, -0.04), "M": (-0.17, -0.10), "L": (-0.20, -0.12)}  # plnicí hrdlo na straně hadice (vpravo, -X), vedle radaru
+DRONE_BATTERY = {"S": (0.0, 0.18), "M": (0.0, 0.215), "L": (0.0, 0.24), "K": (0.0, 0.18)}      # xy baterie na hřbetu trupu (vzadu, napříč)
+DRONE_FILL_PORT = {"S": (-0.145, -0.04), "M": (-0.17, -0.10), "L": (-0.20, -0.12), "K": (-0.145, -0.04)}  # plnicí hrdlo na straně hadice (vpravo, -X), vedle radaru
 
 # nabíječka: šachty 2 × 3 (baterie stojí konektorem dolů, rukojetí nahoru); šikmý ovládací panel v šesté buňce zrušen
 # (Pavel 2026-10-15), je tam šestá šachta. U každé šachty 5 diod Charger_Led_<šachta>_<n> (n 0 červená, 1-2 oranžová, 3-4 zelená),
@@ -323,8 +335,11 @@ def build_chassis():
     for i, ay in enumerate(AXLE_Y, 1):
         for side, sx in (("L", 1), ("R", -1)):
             c = Vector((sx * TRACK_X, ay, WHEEL_R))
-            RIMS.build_tire(f"Wheel_{i}{side}", sx, WHEEL_R, WHEEL_W, RIMS.RIMS[RIM_KIND]["bead"]).matrix_world = Matrix.Translation(c)
-            RIMS.build_rim(RIM_KIND, f"Rim_{i}{side}", sx).matrix_world = Matrix.Translation(c)
+            mirror = PL.Place(mirror_x=True) if sx < 0 else None       # pravé kolo je zrcadlový obraz levého (jeden díl)
+            PL.call(RIMS.build_tire, "Wheel", 1, WHEEL_R, WHEEL_W, RIMS.RIMS[RIM_KIND]["bead"], at=mirror,
+                    rename=lambda n, i=i, side=side: f"Wheel_{i}{side}").matrix_world = Matrix.Translation(c)
+            PL.call(RIMS.build_rim, RIM_KIND, "Rim", 1, at=mirror,
+                    rename=lambda n, i=i, side=side: f"Rim_{i}{side}").matrix_world = Matrix.Translation(c)
 
 
 def _cover_prism(name, y_c, z_c, r0, r1, a0, a1, x0, x1, mat, steps=32):
@@ -430,100 +445,10 @@ def build_wheel_arches():
 
 
 def build_drawbar():
-    tip = Vector((0, COUPLER_Y + 0.25, DRAWBAR_Z))
-    for side, sx in (("L", 1), ("R", -1)):
-        root = Vector((sx * DRAWBAR_ROOT_X, BASE_Y0 + 0.40, DRAWBAR_Z))
-        tube(f"Drawbar_{side}", root, tip, 0.045, "SDT_Frame", segments=8)
-        box(f"DrawbarMount_{side}", root.x - 0.06, root.x + 0.06, BASE_Y0, BASE_Y0 + 0.45,
-            DRAWBAR_Z - 0.05, DECK_TOP - DECK_PLATE, "SDT_Frame")
-    build_coupler(tip)
-    # opěrné kolečko: pevná objímka + pohyblivá skupina jockeyWheel (animace moveSupport ji zvedá)
-    jx, jy = JOCKEY_X, JOCKEY_Y
-    box("Jockey_Clamp", jx - 0.14, jx + 0.04, jy - 0.05, jy + 0.05, DRAWBAR_Z - 0.04, DRAWBAR_Z + 0.06, "SDT_Frame")
-    moving = [
-        tube("Jockey_Tube", (jx, jy, 0.20), (jx, jy, DRAWBAR_Z + 0.30), 0.03, "SDT_Steel", segments=12),
-        tube("Jockey_Crank", (jx, jy, DRAWBAR_Z + 0.30), (jx, jy, DRAWBAR_Z + 0.36), 0.012, "SDT_Frame", segments=8),
-        box("Jockey_Fork", jx - 0.05, jx + 0.05, jy - 0.03, jy + 0.03, 0.08, 0.21, "SDT_Steel"),
-        cylinder_x("Jockey_Wheel", (jx, jy, 0.10), 0.10, 0.07, "SDT_Rubber", segments=20),
-    ]
-    pivot = empty("jockeyWheel", (jx, jy, DRAWBAR_Z))
-    for o in moving:
-        w = o.matrix_world.copy()
-        o.parent = pivot
-        o.matrix_parent_inverse = Matrix.Identity(4)
-        o.matrix_world = w
-    cx, cy, cz = JOCKEY_COL
-    _shape_box("colJockeyWheel", pivot, jx - cx, jx + cx, jy - cy, jy + cy, 0.0, cz, COL_VEHICLE,
-               compoundChild=True, density=0.001)
-    # vanilla přívěsy mají attacherJoint v i3d natočený "0 90 0" (osa Y i3d = osa Z Blenderu)
-    aj = empty("attacherJoint", (0, COUPLER_Y, COUPLER_Z))
-    aj.rotation_euler = (0, 0, math.radians(90))
-
-
-def build_coupler(tip):
-    """Nájezdová brzda s kulovou hlavou (styl přívěsů za auto): střed koule tažného zařízení = attacherJoint
-    (0, COUPLER_Y, COUPLER_Z). Hlava s rukojetí a ukazatelem opotřebení, táhlo v gumovém měchu, skříň nájezdu na
-    vrcholu oje, ruční brzda s pákou a plynovou vzpěrou, táhlo brzdy, pojistné lanko s karabinou a kabel 13pin
-    se zástrčkou. Jen vizuál: kolize colDrawbar a geometrie tažení se nemění."""
-    by, bz = COUPLER_Y, COUPLER_Z
-    az = bz + 0.027                                   # osa táhla a skříně
-    P.loft_y("Coupler_Head", [
-        (by - 0.062, 0.020, bz + 0.015, bz + 0.050, 2.5), (by - 0.050, 0.036, bz, bz + 0.066, 3.0),
-        (by - 0.020, 0.046, bz - 0.008, bz + 0.074, 3.5), (by + 0.030, 0.046, bz - 0.008, bz + 0.076, 3.5),
-        (by + 0.060, 0.040, bz, bz + 0.066, 3.0), (by + 0.080, 0.030, bz + 0.005, bz + 0.050, 2.5)],
-        "SDT_CastIron")
-    tube("Coupler_Handle", (0, by - 0.045, bz + 0.072), (0, by + 0.12, bz + 0.107), 0.011, "SDT_CastIron", segments=10)
-    tube("Coupler_HandleGrip", (0, by + 0.10, bz + 0.103), (0, by + 0.165, bz + 0.116), 0.016, "SDT_PaintRed",
-         segments=12)
-    cylinder_x("Coupler_WearRing", (0.047, by + 0.005, bz + 0.042), 0.012, 0.008, "SDT_Plastic", segments=16)
-    cylinder_x("Coupler_WearIndicator", (0.052, by + 0.005, bz + 0.042), 0.008, 0.006, "SDT_LedGreen", segments=12)
-    tube("Coupler_DrawTube", (0, by + 0.07, az), (0, tip.y + 0.02, az), 0.025, "SDT_Steel", segments=14)
-    pleats = []
-    y0, y1, n = by + 0.095, by + 0.185, 8
-    for k in range(2 * n + 1):
-        r = 0.031 if k % 2 == 0 else 0.042
-        pleats.append((y0 + (y1 - y0) * k / (2 * n), r, az - r, az + r, 2.0))
-    P.loft_y("Coupler_Bellows", pleats, "SDT_Rubber", segments=18)
-    hy0, hy1 = y1, -2.88
-    P.loft_y("Coupler_Housing", [
-        (hy0, 0.046, az - 0.050, az + 0.050, 6.0), (hy0 + 0.02, 0.052, az - 0.055, az + 0.055, 6.0),
-        (hy1 - 0.07, 0.052, az - 0.058, az + 0.058, 6.0), (hy1, 0.044, az - 0.040, az + 0.040, 5.0)], "SDT_Steel")
-    for side, sx in (("L", 1), ("R", -1)):
-        box(f"Coupler_Flange_{side}", sx * 0.050, sx * 0.058, -3.26, -2.96, az - 0.07, az + 0.06, "SDT_Steel")
-        for k, fy in enumerate((-3.20, -3.02)):
-            cylinder_x(f"Coupler_Bolt_{side}{k}", (sx * 0.062, fy, az), 0.011, 0.01, "SDT_Steel", segments=6)
-    top = az + 0.058
-    px, py = 0.0, -3.05
-    box("Coupler_BrakePivot", px - 0.022, px + 0.022, py - 0.03, py + 0.03, top - 0.005, top + 0.03, "SDT_Steel")
-    lever_end = Vector((px, -2.78, top + 0.19))
-    tube("Coupler_BrakeLever", (px, py, top + 0.02), lever_end, 0.013, "SDT_Frame", segments=10)
-    grip_dir = (lever_end - Vector((px, py, top + 0.02))).normalized()
-    tube("Coupler_BrakeGrip", lever_end - grip_dir * 0.03, lever_end + grip_dir * 0.07, 0.019, "SDT_Rubber", segments=12)
-    lever_mid = Vector((px, py, top + 0.02)).lerp(lever_end, 0.4)
-    spring_foot = Vector((0.03, -3.24, az + 0.035))
-    tube("Coupler_GasSpring", spring_foot, spring_foot.lerp(lever_mid, 0.6), 0.011, "SDT_Frame", segments=10)
-    tube("Coupler_GasSpringRod", spring_foot.lerp(lever_mid, 0.6), lever_mid, 0.005, "SDT_Steel", segments=8)
-    tube("Coupler_BrakeRod", (0, hy1 + 0.005, az - 0.01), (0, BASE_Y0 - 0.02, az - 0.01), 0.008, "SDT_Steel", segments=8)
-    cable = P.hermite_path([(0.024, py + 0.02, top + 0.02), (0.06, -3.07, az + 0.04), (0.075, -3.22, az - 0.04),
-                            (0.07, -3.37, bz - 0.07), (0.045, by + 0.07, bz - 0.095), (0.035, by + 0.045, bz - 0.10)],
-                           samples=10)
-    P.sweep("Coupler_BreakawayCable", cable, 0.0035, "SDT_Steel", segments=6)
-    end = cable[-1]
-    ring = [end + Vector((0, 0.018 * math.sin(a), -0.018 - 0.028 * math.cos(a)))
-            for a in (2 * math.pi * k / 16 for k in range(17))]
-    P.sweep("Coupler_Carabiner", ring, 0.0035, "SDT_Steel", segments=6)
-
-    root = Vector((DRAWBAR_ROOT_X, BASE_Y0 + 0.40, DRAWBAR_Z))
-    along = [root.lerp(tip, t) + Vector((-0.012, 0, 0.07)) for t in (0.3, 0.55, 0.8)]
-    plug_a, plug_b = Vector((0.08, -3.30, bz - 0.005)), Vector((0.074, -3.39, bz - 0.04))
-    wire = P.hermite_path([(0.42, BASE_Y0 + 0.03, DECK_TOP - 0.12)] + [tuple(p) for p in along] +
-                          [(0.09, -3.18, bz + 0.02), tuple(plug_a)], samples=10)
-    P.sweep("Coupler_13PinCable", wire, 0.006, "SDT_HoseBlack", segments=8)
-    d = (plug_b - plug_a).normalized()
-    tube("Coupler_13PinPlug", plug_a - d * 0.01, plug_b, 0.021, "SDT_Plastic", segments=14)
-    tube("Coupler_13PinCap", plug_b, plug_b + d * 0.012, 0.024, "SDT_ChargerGrey", segments=14)
-    box("Coupler_13PinDock", 0.40, 0.46, BASE_Y0 - 0.005, BASE_Y0 + 0.001, DECK_TOP - 0.16, DECK_TOP - 0.08,
-        "SDT_Plastic")
+    """Oj do A s nájezdovou brzdou a kulovou hlavou, podpěrné kolečko a attacherJoint: díl sdt_drawbar.part_drawbar_car
+    (Mini ho staví s delší ojí přes své BASE_Y0 a COUPLER_Y)."""
+    PL.call(DB.part_drawbar_car, BASE_Y0, COUPLER_Y, JOCKEY_Y, COUPLER_Z, DRAWBAR_Z, DRAWBAR_ROOT_X, JOCKEY_X, JOCKEY_COL,
+            DECK_TOP, DECK_PLATE, at=PL.Place.at(0.0, BASE_Y0, 0.0))
 
 
 def build_upper_structure():
@@ -836,6 +761,8 @@ def build_canister_cabinet(prefix, x0, x1, y0, y1, z0, rows=CABINET_ROWS, cols=C
     yw1 = y0 + w + rows * sd                        # zadní hrana přihrádek (u vrat dál k y1 je volná předsíňka)
     top_shelves = z0 + level_h * levels
     top = ceiling if (ceiling is not None and ceiling > top_shelves) else top_shelves
+    if top == ceiling:
+        top -= 0.003                                # horní plocha o 3 mm pod horní příčník (TopCross) a desku: souběžné plochy z-fightovaly
     mat, steel = "SDT_PaintDark", "SDT_Steel"
     box(f"{prefix}_Back", x0, x1, y0, y0 + w, z0, top, mat)
     box(f"{prefix}_Left", x1 - w, x1, y0, y1, z0, top, mat)
@@ -944,15 +871,16 @@ def cabinet_collisions(prefix, x0, x1, y0, y1, z0, rows=CABINET_ROWS, levels=CAB
 
 def build_equipment():
     z = DECK_TOP
-    BT.build_main_tanks(z)                            # tankMain800 / 1000 / 1500 / 3000 / 5000, v i3d všechny viditelné
+    PL.call(BT.build_main_tanks, z)                   # tankMain800 / 1000 / 1500 / 3000 / 5000, v i3d všechny viditelné
     ix, iy = T.INDUCTION_XY                           # ~50 l indukční
-    T.build_induction_tank("Tank_Induction", ix, iy, z, T.INDUCTION_R, stand_h=T.INDUCTION_STAND_H,
-                           cone_h=T.INDUCTION_CONE_H, body_h=T.INDUCTION_BODY_H)
-    gen = G.build_generator(GEN_POS_MIDDLE, z, GEN_SOCKET)
+    SL.CONC_Y_OFF = T.INDUCTION_HOSE_SCALE_Y          # má přívod hadice: stupnice a čísla jsou vedle přípojky
+    PL.call(T.build_induction_tank, "Tank_Induction", 0.0, 0.0, 0.0, T.INDUCTION_R, stand_h=T.INDUCTION_STAND_H,
+            cone_h=T.INDUCTION_CONE_H, body_h=T.INDUCTION_BODY_H, hose_inlet=True, at=PL.Place.at(ix, iy, z))
+    gen = PL.call(G.build_generator, at=PL.Place.at(*GEN_POS_MIDDLE, z))
     neck = P.empty("dieselNeckNode", Vector(gen["cap"]))
     neck.empty_display_size = 0.10
     px, py = T.PUMP_XY
-    T.build_pump("Pump", px, py, z)
+    PL.call(T.build_pump, "Pump", 0.0, 0.0, 0.0, at=PL.Place.at(px, py, z))
     tb_x0, tb_x1, _, _ = T.TOOLBOX_XY
     cy0, cy1 = cabinet_y_range()
     build_canister_cabinet("Toolbox", tb_x0, tb_x1, cy0, cy1, z, ceiling=cabinet_ceiling())
@@ -1120,84 +1048,66 @@ def place_drone(prefix=DRONE_PREFIX):
 
 
 def build_drone_leds(prefix=DRONE_PREFIX):
-    """LED pod motorem každého ramene (dítě kloubu ramene, skládá se s ním) a malé bodové světlo pod ní.
-
-    Objekty jsou v kolekci vleku, takže je každé sestavení smaže a postaví znovu.
+    """Bodové světlo před čočkou každého ramene (<prefix>LedLight_i, dítě čočky <prefix>Led_i z build_drone.py, skládá se s
+    ramenem). Objekty jsou v kolekci vleku, takže je každé sestavení smaže a postaví znovu.
     """
     bpy.context.view_layer.update()
     for i in range(1, 5):
-        pivot = bpy.data.objects[f"{prefix}ArmPivot_{i}"]
-        motor = bpy.data.objects[f"{prefix}Motor_{i}"]
-        pts = [motor.matrix_world @ Vector(c) for c in motor.bound_box]
-        cx, cy = sum(p.x for p in pts) / 8, sum(p.y for p in pts) / 8
-        z1 = min(p.z for p in pts)
-        sx, sy, sz = LED_SIZE
-        # pod motorem může viset náboj nebo tryska, LED pak patří pod ně
-        for under in ("HubBottom", "Nozzle"):
-            ob = bpy.data.objects.get(f"{prefix}{under}_{i}")
-            if ob is not None and ob.type == "MESH":
-                for v in ob.data.vertices:
-                    w = ob.matrix_world @ v.co
-                    if abs(w.x - cx) < sx / 2 and abs(w.y - cy) < sy / 2:
-                        z1 = min(z1, w.z)
-        led = box(f"{prefix}Led_{i}", cx - sx / 2, cx + sx / 2, cy - sy / 2, cy + sy / 2, z1 - sz, z1, "SDT_NavLed")
-        attr = led.data.color_attributes.new("Col", "BYTE_COLOR", "CORNER")
-        for d in attr.data:
-            d.color_srgb = (*LED_COLORS[i], 1.0)
-        led.data.color_attributes.render_color_index = 0
-        _set_parent(led, pivot, led.matrix_world.copy())
+        led = bpy.data.objects[f"{prefix}Led_{i}"]
+        pts = [led.matrix_world @ Vector(c) for c in led.bound_box]
+        center = sum(pts, Vector()) / 8
         data = bpy.data.lights.get(f"{prefix}LedLight_{i}") or bpy.data.lights.new(f"{prefix}LedLight_{i}", "POINT")
-        data.color = LED_COLORS[i]
+        data.color = D.LED_COLORS[i]
         data.use_shadow = False
         data.use_custom_distance = True
         data.cutoff_distance = LED_LIGHT_RANGE
         light = bpy.data.objects.new(f"{prefix}LedLight_{i}", data)
         bpy.data.collections[COLLECTION_NAME].objects.link(light)
-        _set_parent(light, led, Matrix.Translation((cx, cy, z1 - sz - 0.03)))
+        _set_parent(light, led, Matrix.Translation(center + Vector((0, 0, -LED_LIGHT_OFFSET))))
 
 
 def clamp_open_angle(sx):
-    """Otevřená čelist úchytu: sklopená nahoru a ven od lyžiny (kolem osy Y, podél lyžiny)."""
+    """Otevřená příčka úchytu: sklopená nahoru a ven (kolem osy Y, podél lyžin)."""
     return sx * math.radians(CLAMP_OPEN_DEG)
 
 
-def build_drone_clamps(prefix=DRONE_PREFIX):
-    """Úchyty lyžin dronu: pevný sloupek vedle lyžiny a čelist na závěsu (<prefix>ClampHinge_i), která ve skládací
-    animaci vleku (po složení dronu) překlopí přes trubku lyžiny. V i3d je čelist otevřená (vlek rozložený).
-    Celý úchyt je pod <prefix>Clamp_i (kvůli skrývání).
+def build_pad_clamps():
+    """Úchyty lyžin na plošině (střed DRONE_Y): pro každou stranu <padClamp{L,R}> (pevná část: pant a sedlo, kvůli skrývání) a
+    <padClampHinge{L,R}> s příčkou, která se ve skládací animaci vleku (po složení dronu) překlopí přes lyžiny. V i3d je
+    příčka otevřená (vlek rozložený). Nezávisí na variantě dronu.
     """
-    bpy.context.view_layer.update()
-    names = []
-    i = 0
+    z0 = TOP_SURF
+    y = DRONE_Y + CLAMP_Y_OFF
+    y0, y1 = y - CLAMP_W / 2, y + CLAMP_W / 2
+    hinge_z = z0 + CLAMP_REST_Z + CLAMP_RUBBER_T + CLAMP_BAR_T / 2
     for side, sx in (("L", 1), ("R", -1)):
-        skid = bpy.data.objects[f"{prefix}Skid_{side}"]
-        pts = [skid.matrix_world @ Vector(c) for c in skid.bound_box]
-        x_in, x_out = (min(p.x for p in pts), max(p.x for p in pts))[::sx]
-        z_top = max(p.z for p in pts)
-        hinge_x = x_out + sx * (CLAMP_GAP + CLAMP_POST / 2)
-        hinge_z = z_top + CLAMP_JAW_T / 2 + 0.003
-        for y in CLAMP_Y:
-            i += 1
-            y0, y1 = y - CLAMP_W / 2, y + CLAMP_W / 2
-            clamp = empty(f"{prefix}Clamp_{i}", (hinge_x, y, TOP_SURF))
-            post = box(f"{prefix}ClampPost_{i}", hinge_x - CLAMP_POST / 2, hinge_x + CLAMP_POST / 2, y0, y1, TOP_SURF,
-                       hinge_z, "SDT_Frame")
-            hinge = empty(f"{prefix}ClampHinge_{i}", (hinge_x, y, hinge_z))
-            for o in (post, hinge):
-                _set_parent(o, clamp, o.matrix_world.copy())
-            tip = x_in - sx * 0.012
-            parts = [
-                box(f"{prefix}ClampJaw_{i}", min(hinge_x, tip), max(hinge_x, tip), y0, y1, hinge_z - CLAMP_JAW_T / 2,
-                    hinge_z + CLAMP_JAW_T / 2, "SDT_LampAmber"),
-                box(f"{prefix}ClampLip_{i}", min(tip, tip + sx * 0.012), max(tip, tip + sx * 0.012), y0, y1,
-                    z_top - 0.045, hinge_z, "SDT_LampAmber"),
-            ]
-            for o in parts:
-                _set_parent(o, hinge, o.matrix_world.copy())
-            hinge.rotation_euler.y = clamp_open_angle(sx)
-            names.append(hinge.name)
+        xh = sx * CLAMP_X_HINGE
+        xs = sx * CLAMP_X_SEAT
+        root = empty(f"padClamp{side}", (xh, y, z0))
+        parts = [
+            box(f"padClampBracket{side}", min(xh, xh + sx * 0.05), max(xh, xh + sx * 0.05), y0 - 0.006, y1 + 0.006, z0,
+                hinge_z + 0.03, "SDT_Frame"),
+            box(f"padClampSeat{side}", min(xs, xs - sx * 0.04), max(xs, xs - sx * 0.04), y - 0.035, y + 0.035, z0,
+                z0 + CLAMP_REST_Z, "SDT_Frame"),
+        ]
+        for o in parts:
+            _set_parent(o, root, o.matrix_world.copy())
+        hinge = empty(f"padClampHinge{side}", (xh, y, hinge_z))
+        _set_parent(hinge, root, hinge.matrix_world.copy())
+        xi = xs - sx * 0.03
+        bar = [
+            box(f"padClampBar{side}", min(xi, xh), max(xi, xh), y0, y1, hinge_z - CLAMP_BAR_T / 2, hinge_z + CLAMP_BAR_T / 2,
+                "SDT_LampAmber"),
+            box(f"padClampRubber{side}", min(xi, xh - sx * 0.02), max(xi, xh - sx * 0.02), y0 + 0.008, y1 - 0.008,
+                hinge_z - CLAMP_BAR_T / 2 - CLAMP_RUBBER_T, hinge_z - CLAMP_BAR_T / 2, "SDT_Rubber"),
+            box(f"padClampTab{side}", min(xi, xi + sx * 0.025), max(xi, xi + sx * 0.025), y - 0.02, y + 0.02,
+                hinge_z - CLAMP_BAR_T / 2, hinge_z + CLAMP_BAR_T / 2 + 0.022, "SDT_LampAmber"),
+            tube(f"padClampPin{side}", (xh, y0 - 0.014, hinge_z), (xh, y1 + 0.014, hinge_z), 0.013, "SDT_Steel", segments=12),
+        ]
+        for o in bar:
+            _set_parent(o, hinge, o.matrix_world.copy())
+        hinge.rotation_euler.y = clamp_open_angle(sx)
     bpy.context.view_layer.update()
-    return names
 
 
 def build_heliport():
@@ -1226,7 +1136,8 @@ def build_batteries():
     k šachtám nabíječky (batterySlotDeck) nebo do dronu; do šachty je v Blenderu zavěsí attach_batteries()."""
     vis = bpy.data.objects[ROOT_NAME]
     for k in range(BATTERY_COUNT):
-        meshes = [P.battery(f"battery{k + 1}{key}", P.BATTERY_SIZES[key]) for key in DRONE_VARIANTS]
+        meshes = [PL.call(P.battery, "battery", P.BATTERY_SIZES[key], rename=lambda n, k=k, key=key: f"battery{k + 1}{key}")
+                  for key in DRONE_VARIANTS if not D.SPECS[key].get("scan")]
         P.group(f"battery{k + 1}", meshes)
 
 
@@ -1389,7 +1300,128 @@ def build_charger_chest():
         _set_parent(o, pivot, o.matrix_world.copy())
     pivot.rotation_euler.x = math.radians(CHEST_OPEN_DEG)
     bpy.context.view_layer.update()
+    build_chest_struts(vis, pivot, ox0, ox1, hy, zw)
     return pivot
+
+
+CHEST_STRUT_R = 0.011
+CHEST_STRUT_EYE = 0.012            # čep na víku leží o tolik pod jeho spodní plochou
+CHEST_STRUT_X_IN = 0.022           # osa vzpěry od vnitřního líce boční stěny (mezera mezi nabíječkou a stěnou je 6 cm)
+CHEST_STRUT_KEYS = 4               # úseků animace: natočení válce a pístnice není lineární v úhlu víka, jeden úsek by je rozjel až o ~9°
+
+
+def _strut_lengths(open_deg, d_b, a_y, a_z):
+    """(zavřeno, otevřeno) délka mezi čepy vzpěry a přibližně nejmenší rameno momentu na závěsu (v rovině YZ, závěs v počátku;
+    čep na víku se otáčí s víkem, čep na truhle je pevný)."""
+    th = math.radians(open_deg)
+    out = []
+    for t in (0.0, th):
+        b = (d_b * math.cos(t) + CHEST_STRUT_EYE * math.sin(t), d_b * math.sin(t) - CHEST_STRUT_EYE * math.cos(t))
+        d = (b[0] - a_y, b[1] + a_z)
+        ln = math.hypot(*d)
+        out.append((ln, b[0] * d[1] / ln - b[1] * d[0] / ln))
+    return out
+
+
+def chest_strut_pins(open_deg):
+    """Čepy plynové vzpěry hledané mřížkou: délka zavřená 0,34-0,50 m (válec se vejde pod víko), zdvih tak, aby pístnice v zavřeném
+    stavu nevyjela ze zadního konce válce, otevřená do 0,72 m; z nich ta s největším momentem, kterým vzpěra odklápí víko.
+    Vrací (d_b, a_y, a_z): čep na víku od závěsu po víku, čep na truhle dozadu od závěsu a dolů pod spodní plochu víka."""
+    best = None
+    for d_b in (x / 100 for x in range(20, 71, 2)):
+        for a_y in (x / 100 for x in range(2, 61, 2)):
+            for a_z in (x / 100 for x in range(4, 15)):
+                (lc, tc), (lo, to) = _strut_lengths(open_deg, d_b, a_y, a_z)
+                if not 0.34 <= lc <= 0.50 or lo > 2 * lc - 0.09 or lo / lc < 1.45 or lo > 0.72:
+                    continue
+                score = min(tc, to * 1.5)
+                if best is None or score > best[0]:
+                    best = (score, d_b, a_y, a_z)
+    return best[1:]
+
+
+def build_chest_struts(vis, pivot, ox0, ox1, hy, zw):
+    """Dvě plynové vzpěry víka truhly (vlevo a vpravo v mezeře mezi nabíječkou a stěnou), každá ze dvou dílů: válec na čepu ve stěně
+    truhly (uzel chestStrutCyl<L|R>, pevný rodič vis) a pístnice na čepu pod víkem (chestStrutRod<L|R>, dítě chargerLid). Oba uzly
+    se při zavírání víka natáčejí kolem svého čepu k protějšímu čepu (animace foldLadder jako víko, po úsecích; úhly klíčů v
+    custom vlastnosti sdt_strut_keys = natočení kolem X oproti otevřené poloze), takže vzpěra sedí v otevřeném i zavřeném stavu."""
+    th_o = math.radians(CHEST_OPEN_DEG)
+    d_b, a_y, a_z = chest_strut_pins(CHEST_OPEN_DEG)
+    ay_abs, az_abs = hy + a_y, zw - a_z
+
+    def b_rel(t):
+        return (d_b * math.cos(t) + CHEST_STRUT_EYE * math.sin(t), d_b * math.sin(t) - CHEST_STRUT_EYE * math.cos(t))
+
+    def phi(t):
+        b = b_rel(t)
+        return math.atan2(b[1] + a_z, b[0] - a_y)
+
+    def dist(t):
+        b = b_rel(t)
+        return math.hypot(b[0] - a_y, b[1] + a_z)
+
+    lc, lo = dist(0.0), dist(th_o)
+    l_cyl = lc - 0.03
+    l_rod = lo - l_cyl + 0.045
+    assert l_rod <= lc - 0.012, (l_rod, lc)
+    keys_cyl, keys_rod = [], []
+    for k in range(CHEST_STRUT_KEYS + 1):
+        s = k / CHEST_STRUT_KEYS                              # podíl zavření víka
+        t = th_o * (1 - s)
+        keys_cyl.append(phi(t) - phi(th_o))
+        keys_rod.append((phi(t) + math.pi - t) - (phi(th_o) + math.pi - th_o))
+    by_open, bz_open = b_rel(th_o)
+    b_abs = Vector((0, hy + by_open, zw + bz_open))
+    a_abs = Vector((0, ay_abs, az_abs))
+    ph_o = phi(th_o)
+    u = Vector((0, math.cos(ph_o), math.sin(ph_o)))          # od čepu na truhle k čepu na víku (otevřeno)
+    hinge = Vector((0, hy, zw))
+    hinge_open = Matrix.Translation(hinge) @ Matrix.Rotation(th_o, 4, "X") @ Matrix.Translation(-hinge)
+    for side, x_w, into in (("L", ox1 - CHEST_WALL, -1), ("R", ox0 + CHEST_WALL, 1)):
+        xs = x_w + into * CHEST_STRUT_X_IN
+        a, b = a_abs + Vector((xs, 0, 0)), b_abs + Vector((xs, 0, 0))
+        cyl = _group(f"chestStrutCyl{side}", vis, a)
+        cyl.matrix_world = Matrix.Translation(a) @ Matrix.Rotation(ph_o, 4, "X")
+        rod = _group(f"chestStrutRod{side}", pivot, b)
+        rod.matrix_world = Matrix.Translation(b) @ Matrix.Rotation(ph_o + math.pi, 4, "X")
+        cyl["sdt_strut_keys"] = keys_cyl
+        rod["sdt_strut_keys"] = keys_rod
+        cyl["sdt_strut_len"] = l_cyl
+        rod["sdt_strut_len"] = l_rod
+        bpy.context.view_layer.update()
+        r = CHEST_STRUT_R
+        cyl_parts = [
+            tube(f"Chest_Strut{side}_Cyl", a + u * 0.012, a + u * l_cyl, r, "SDT_TankBlack", segments=10),
+            tube(f"Chest_Strut{side}_CylCap", a + u * (l_cyl - 0.012), a + u * l_cyl, r * 0.7, "SDT_Steel", segments=10),
+            cylinder_x(f"Chest_Strut{side}_EyeA", a, 0.009, 0.014, "SDT_Steel", segments=10),
+        ]
+        rod_parts = [
+            tube(f"Chest_Strut{side}_Rod", b - u * 0.01, b - u * l_rod, r * 0.5, "SDT_Steel", segments=8),
+            cylinder_x(f"Chest_Strut{side}_EyeB", b, 0.009, 0.014, "SDT_Steel", segments=10),
+        ]
+        for o in cyl_parts:
+            _set_parent(o, cyl, o.matrix_world.copy())
+        for o in rod_parts:
+            _set_parent(o, rod, o.matrix_world.copy())
+        # pevné díly: příruba se čepem na stěně truhly a konzola s uchy pod víkem
+        fixed = [
+            box(f"Chest_Strut{side}_WallPlate", x_w, x_w + into * 0.006, ay_abs - 0.025, ay_abs + 0.025, az_abs - 0.025,
+                az_abs + 0.025, "SDT_Steel"),
+            tube(f"Chest_Strut{side}_WallPin", Vector((x_w + into * 0.006, ay_abs, az_abs)),
+                 Vector((xs + into * 0.005, ay_abs, az_abs)), 0.004, "SDT_Steel", segments=8),
+        ]
+        for o in fixed:
+            _set_parent(o, vis, o.matrix_world.copy())
+        yb = hy + d_b
+        lidb = [box(f"Chest_Strut{side}_LidPlate", xs - 0.02, xs + 0.02, yb - 0.03, yb + 0.03, zw - 0.004, zw, "SDT_Steel")]
+        for e, dx in enumerate((-0.011, 0.011)):
+            lidb.append(box(f"Chest_Strut{side}_LidEar{e}", xs + dx - 0.002, xs + dx + 0.002, yb - 0.012, yb + 0.012,
+                            zw - 0.022, zw - 0.004, "SDT_Steel"))
+        for o in lidb:
+            o.matrix_world = hinge_open @ o.matrix_world
+            _set_parent(o, pivot, o.matrix_world.copy())
+        pin = cylinder_x(f"Chest_Strut{side}_LidPin", b, 0.004, 0.030, "SDT_Steel", segments=8)
+        _set_parent(pin, pivot, pin.matrix_world.copy())
 
 
 def _rounded_polyline(pts, r=0.06, steps=6):
@@ -1595,11 +1627,11 @@ def build_drone_service_parts(prefix=DRONE_PREFIX):
     Slot je posunutý tak, aby baterie jeho velikosti (rámec slotu = rámec M, viz P.battery) ležela na lůžku
     konektorem k zásuvce (-X) a uprostřed lůžka.
     """
-    key, _ = drone_spec(prefix)
+    key, spec = drone_spec(prefix)
     tilt = bpy.data.objects[prefix + "Tilt"]
     body = bpy.data.objects[prefix + "Body"]
     top = max((body.matrix_world @ Vector(c)).z for c in body.bound_box)
-    size = P.BATTERY_SIZES[key]
+    size = P.BATTERY_SIZES[spec.get("battery", key)]
     lx, ly = size[0] / 2, size[1] / 2
     bx, by = DRONE_BATTERY[key]
     # šachta zapuštěná do hřbetu trupu a otevřená dozadu (baterie se zasouvá zezadu), z trupu čnívá jen její horní hrana
@@ -1621,7 +1653,8 @@ def build_drone_service_parts(prefix=DRONE_PREFIX):
     ]
     px, py = DRONE_FILL_PORT[key]
     port_top = top + 0.046        # o 4 mm níž než dřív: složený list vrtule S (nad hřbetem) by jinak zajel do jantarového lemu
-    parts += N.fill_port_parts(prefix, px, py, top, port_top)
+    if not spec.get("scan"):      # skenovací dron nemá nádrž, uzel plnicího hrdla zůstává jen kvůli kontraktu uzlů
+        parts += N.fill_port_parts(prefix, px, py, top, port_top)
     for o in parts:
         _set_parent(o, tilt, o.matrix_world.copy())
     dx, dz = P.battery_frame_offset(size)
@@ -1794,9 +1827,9 @@ def equipment_collisions():
     rr = REEL_R + 0.06
     cx0, cx1, cy0, cy1, czw = chest_box()
     tb_x0, tb_x1, _, _ = T.TOOLBOX_XY
-    cy0, cy1 = cabinet_y_range()
+    tb_y0, tb_y1 = cabinet_y_range()
     return {
-        **cabinet_collisions("Toolbox", tb_x0, tb_x1, cy0, cy1, z, ceiling=cabinet_ceiling()),
+        **cabinet_collisions("Toolbox", tb_x0, tb_x1, tb_y0, tb_y1, z, ceiling=cabinet_ceiling()),
         "colGenerator": (gx - G.FX - 0.023, gx + G.FX + 0.023, gy - G.FY - 0.023, gy + G.FY + 0.023, z, z + 0.84),
         "colInductionTank": (ix - T.INDUCTION_R - 0.015, ix + T.INDUCTION_R + 0.015, iy - T.INDUCTION_R - 0.015,
                              iy + T.INDUCTION_R + 0.015, z,
@@ -1823,7 +1856,9 @@ def build_i3d_structure(vis):
 
     cols = _group("collisions", comp)
     child = dict(compoundChild=True, density=0.001)
-    _shape_box("colChassis", cols, -BASE_W / 2, BASE_W / 2, FRONT_Y + 0.01, BASE_Y1, rail_z0, DECK_TOP, COL_VEHICLE, **child)
+    # hustý souměrný rám určuje hlavní osy setrvačnosti (= osy komponenty): z lehkých dětských tvarů vycházelo Ix ~ Iy a engine
+    # po přepnutí na kinematické těleso natočil celý kompaund kolizí o hlavní osy (Middle ~30° do strany, dron propadal palubou)
+    _shape_box("colChassis", cols, -BASE_W / 2, BASE_W / 2, FRONT_Y + 0.01, BASE_Y1, rail_z0, DECK_TOP, COL_VEHICLE, **{**child, "density": CHASSIS_DENSITY})
     _shape_box("colTopDeck", cols, -TOP_W / 2, TOP_W / 2, TOP_Y0, TOP_Y1, POST_TOP, TOP_SURF, COL_VEHICLE, **child)
     for size in BT.TANK_SIZES:
         hw, ln, top = BT.tank_envelope(size)
@@ -1917,6 +1952,8 @@ def build_decals():
 def build_drone_decals(prefix=DRONE_PREFIX):
     """Označení na obou bocích trupu dronu (pod barevným pásem), přitisknuté na zakřivený trup."""
     key, spec = drone_spec(prefix)
+    if spec.get("scan"):
+        return
     bpy.context.view_layer.update()
     body = bpy.data.objects[prefix + "Body"]
     tilt = bpy.data.objects[prefix + "Tilt"]
@@ -1937,7 +1974,7 @@ DRONE_MATERIAL_SUFFIX = "__D"
 
 def dirt_atlas(obj):
     """Do které vmask patří mesh: 'drone' (trup, ramena, lůžko baterie, nálepky dronu), jinak 'trailer'."""
-    if obj.name.startswith(tuple(DRONE_VARIANTS.values())) and "Clamp" not in obj.name:
+    if obj.name.startswith(tuple(DRONE_VARIANTS.values())):
         return "drone"
     return "trailer"
 
@@ -2133,22 +2170,95 @@ def build_radio_gear(ant_xy=None, gps_xy=None):
         cylinder_z("antennaBase_Cap", (ax, base_y, zb + 0.758), 0.010, 0.016, "SDT_Rubber", segments=10)]
     rig("antennaBase", ax, base_y, [base_parts])
 
+    # rádiová skříňka na palubě vedle paty (-Y od stožáru) a ztužidla: objímka na pevné sekci a tři tyčové vzpěry k očkům na palubě
+    # (čtvrtý směr, -Y, patří skříňce a kabelu); koaxiální kabel z antény končí průchodkou na víku skříňky
+    box_cy = base_y - 0.13
+    gland_y = base_y - 0.075
+    cable_y = base_y - 0.034
+
+    def radio_box(prefix):
+        z = zb
+        return [
+            box(f"{prefix}_BoxFlange", ax - 0.065, ax + 0.065, box_cy - 0.08, box_cy + 0.08, z, z + 0.004, "SDT_Steel"),
+            P.chamfer_box(f"{prefix}_RadioBox", ax - 0.055, ax + 0.055, box_cy - 0.07, box_cy + 0.07, z + 0.004, z + 0.07,
+                          "SDT_ChargerGrey", 0.005),
+            box(f"{prefix}_RadioBoxBand", ax - 0.0555, ax + 0.0555, box_cy - 0.0705, box_cy + 0.0705, z + 0.034, z + 0.044,
+                "SDT_PaintYellow"),
+            cylinder_z(f"{prefix}_Gland", (ax, gland_y, z + 0.076), 0.008, 0.012, "SDT_Plastic", segments=8),
+            cylinder_z(f"{prefix}_GlandNut", (ax, gland_y, z + 0.071), 0.0105, 0.004, "SDT_Steel", segments=6),
+        ]
+
+    def brace_rig(prefix, r_root, z_ring):
+        ring_r = r_root + 0.009
+        parts = [P.ring_z(f"{prefix}_BraceRing", (ax, base_y, zb + z_ring), r_root + 0.0005, ring_r, 0.03, "SDT_Steel",
+                          segments=16)]
+        for k, (dx, dy) in enumerate(((1, 0), (-1, 0), (0, 1))):
+            anchor = (ax + dx * 0.17, base_y + dy * 0.17, zb + 0.012)
+            parts += [tube(f"{prefix}_Brace{k}", (ax + dx * ring_r, base_y + dy * ring_r, zb + z_ring - 0.004), anchor, 0.0045,
+                           "SDT_Steel", segments=6),
+                      box(f"{prefix}_BraceFoot{k}", anchor[0] - 0.022, anchor[0] + 0.022, anchor[1] - 0.022, anchor[1] + 0.022,
+                          zb, zb + 0.004, "SDT_Steel"),
+                      cylinder_z(f"{prefix}_BraceEye{k}", (anchor[0], anchor[1], zb + 0.011), 0.0065, 0.014, "SDT_Steel",
+                                 segments=8)]
+        return parts
+
+    def coax(name, pts, radius=0.0035):
+        return P.sweep(name, _rounded_polyline(pts, r=0.03, steps=5), radius, "SDT_HoseBlack", segments=6)
+
     levels, top = sections("antennaBoosted", TELE_SECTIONS["antennaBoosted"], ax, base_y, zb + 0.056)
     levels[0] = mount("antennaBoosted") + levels[0]
     levels[2].append(cylinder_z("antennaBoosted_Cap", (ax, base_y, top + 0.008), 0.010, 0.016, "SDT_Rubber", segments=10))
+    # pruh je napájený u paty: konektor v boku botky a krátký kabel obloukem do skříňky
+    levels[0] += brace_rig("antennaBoosted", TELE_SECTIONS["antennaBoosted"][0][0], 0.45) + radio_box("antennaBoosted") + [
+        tube("antennaBoosted_Connector", (ax, base_y - 0.018, zb + 0.045), (ax, base_y - 0.034, zb + 0.045), 0.0065,
+             "SDT_Brass", segments=8),
+        coax("antennaBoosted_Coax", [(ax, base_y - 0.034, zb + 0.045), (ax, base_y - 0.052, zb + 0.045),
+                                     (ax, base_y - 0.052, zb + 0.105), (ax, gland_y, zb + 0.105), (ax, gland_y, zb + 0.084)])]
     rig("antennaBoosted", ax, base_y, levels)
 
     levels, top = sections("antennaLarge", TELE_SECTIONS["antennaLarge"], ax, base_y, zb + 0.056)
     levels[0] = mount("antennaLarge") + levels[0]
     yz = top - 0.06
-    levels[2] += [box("antennaLarge_Clamp", ax - 0.02, ax + 0.02, base_y - 0.03, base_y + 0.03, yz - 0.03, yz + 0.03, "SDT_Frame"),
+    # Yagi: objímka stožáru s třmenovými šrouby a sedlo výložníku místo dvou černých kostek, průchodky prvků, napájecí hlava s
+    # konektorem; kabel vede z hlavy pod výložníkem ke stožáru (pevně na Tele2) a pak dolů (uzel antennaLargeCable)
+    levels[2] += [P.ring_z("antennaLarge_MastClamp", (ax, base_y, yz), 0.0095, 0.0185, 0.045, "SDT_Steel", segments=14),
+                  box("antennaLarge_BoomSaddle", ax - 0.016, ax + 0.016, base_y - 0.028, base_y + 0.028, yz - 0.017, yz - 0.009,
+                      "SDT_Steel"),
                   tube("antennaLarge_Boom", (ax, base_y - 0.35, yz), (ax, base_y + 0.35, yz), 0.008, "SDT_Alu", segments=10),
                   box("antennaLarge_Feed", ax - 0.03, ax + 0.03, base_y - 0.24, base_y - 0.20, yz - 0.025, yz + 0.025,
-                      "SDT_Rubber")]
+                      "SDT_Rubber"),
+                  tube("antennaLarge_FeedConnector", (ax, base_y - 0.22, yz - 0.02), (ax, base_y - 0.22, yz - 0.04), 0.0065,
+                       "SDT_Brass", segments=8)]
+    for k, dy in enumerate((-0.016, 0.016)):
+        levels[2].append(tube(f"antennaLarge_UBolt{k}", (ax, base_y + dy, yz - 0.017), (ax, base_y + dy, yz + 0.012), 0.0025,
+                              "SDT_Steel", segments=6))
     for k, (dy, half) in enumerate(((-0.32, 0.17), (-0.22, 0.15), (-0.08, 0.14), (0.06, 0.13), (0.20, 0.12), (0.33, 0.11))):
         levels[2].append(tube(f"antennaLarge_Element{k + 1}", (ax - half, base_y + dy, yz), (ax + half, base_y + dy, yz),
                               0.004, "SDT_Alu", segments=6))
+        levels[2].append(cylinder_z(f"antennaLarge_Bush{k + 1}", (ax, base_y + dy, yz), 0.0075, 0.018, "SDT_Plastic", segments=8))
+    z_b = zb + 0.14
+    z_t = yz - 0.10
+    levels[0] += brace_rig("antennaLarge", TELE_SECTIONS["antennaLarge"][0][0], 0.45) + radio_box("antennaLarge") + [
+        coax("antennaLarge_CoaxLow", [(ax, cable_y, z_b), (ax, cable_y, zb + 0.115), (ax, gland_y, zb + 0.11),
+                                       (ax, gland_y, zb + 0.084)])]
+    levels[2].append(coax("antennaLarge_CoaxTop", [(ax, base_y - 0.22, yz - 0.038), (ax, base_y - 0.22, yz - 0.055),
+                                                   (ax, cable_y, yz - 0.055), (ax, cable_y, z_t)]))
     rig("antennaLarge", ax, base_y, levels)
+    # svislý úsek kabelu je uzel s měřítkem po výšce: při zasouvání teleskopu (foldLadder) se zkracuje stejně, jak klesá horní konec
+    # Tele2, takže kabel vždy visí od hlavy k paty (délka kabelu v zasunutém stavu nikoho nezajímá, vypadá jako stažený)
+    root = bpy.data.objects["antennaLarge"]
+    cable = _group("antennaLargeCable", root, (ax, cable_y, z_b))
+    retract = sum(a - b for n, a, b in tele_fold_parts() if n.startswith("antennaLargeTele"))
+    cable["sdt_scale_end"] = 1.0 - retract / (z_t - z_b)
+    bpy.context.view_layer.update()
+    cable_parts = [tube("antennaLarge_CoaxMid", (ax, cable_y, z_b), (ax, cable_y, z_t), 0.0035, "SDT_HoseBlack", segments=6)]
+    for k, zc in enumerate((0.30, 0.62, 0.98, 1.34, 1.70)):
+        cable_parts += [box(f"antennaLarge_CoaxStrap{k}", ax - 0.0065, ax + 0.0065, cable_y - 0.0065, cable_y + 0.0065,
+                            zb + zc - 0.007, zb + zc + 0.007, "SDT_Steel"),
+                        box(f"antennaLarge_CoaxArm{k}", ax - 0.004, ax + 0.004, base_y - 0.008, cable_y, zb + zc - 0.005,
+                            zb + zc + 0.005, "SDT_Steel")]
+    for o in cable_parts:
+        _set_parent(o, cable, o.matrix_world.copy())
 
     gx, gy = gps_xy if gps_xy is not None else (ax - 0.30, base_y)
     px = gx + 0.055
@@ -2199,7 +2309,7 @@ def tarp_bottom(y):
 
 def build_front_extension():
     """Middle: nová přední hrana FRONT_Y nad ojí - prodloužené podélníky a paluba, dolní přední příčník pod předními sloupky;
-    zásuvka 13pin s kabelem se přestěhuje pod nový příčník (Coupler_13PinDock a Coupler_13PinCable z build_coupler zmizí)."""
+    zásuvka 13pin s kabelem se přestěhuje pod nový příčník (Coupler_13PinDock a Coupler_13PinCable z dílu oje sdt_drawbar.part_drawbar_car zmizí)."""
     rail_z0 = 0.58
     y0 = FRONT_Y + 0.01
     old = bpy.data.objects.get("FrontBeam")                 # dřívější čelo je teď uprostřed paluby: pod desku, ať nevyčnívá
@@ -2229,6 +2339,74 @@ def build_front_extension():
     P.sweep("Coupler_13PinCable", wire, 0.006, "SDT_HoseBlack", segments=8)
 
 
+def plate_xz(name, y, thickness, pts_xz, mat):
+    """Plech v rovině XZ (trojúhelníková odrazka), vytažený do tloušťky po Y od y."""
+    bm = bmesh.new()
+    front = [bm.verts.new((x, y, z)) for x, z in pts_xz]
+    back = [bm.verts.new((x, y + thickness, z)) for x, z in pts_xz]
+    bm.faces.new(front)
+    bm.faces.new(list(reversed(back)))
+    n = len(pts_xz)
+    for i in range(n):
+        j = (i + 1) % n
+        bm.faces.new((front[i], front[j], back[j], back[i]))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    return P._finish(name, bm, Matrix.Identity(4), mat)
+
+
+def side_reflector_ys(front_y):
+    """Polohy bočních odrazek po délce lemu: mimo zónu kol (včetně vůle pro blatník) a mimo zadní roh se světlem, rozteč nejvýš 1,6 m."""
+    zone = (min(AXLE_Y) - WHEEL_R - 0.35, max(AXLE_Y) + WHEEL_R + 0.35)
+    spans = [(front_y + 0.15, zone[0]), (zone[1], BASE_Y1 - 0.30)]
+    ys = []
+    for a, b in spans:
+        if b - a < 0.2:
+            continue
+        n = math.ceil((b - a) / 1.6)
+        ys += [a + (b - a) * k / n for k in range(n + 1)]
+    return ys
+
+
+def build_eu_reflectors():
+    """Odrazky podle předpisů EU: vpředu dvě bílé kulaté na čele rámu, vzadu dvě červené trojúhelníkové (hrot nahoru, rozteč přes 0,6 m,
+    do 0,4 m od boku) zavěšené na pásku na zadním nosníku, po bocích oranžové obdélníkové po délce na konzolách pod lemem
+    (na lemu je červeno-bílý pás a u plachty by lem zakrývala). Světla jsou sdílené uzly hry (LIGHT_NODES), odrazky jsou vedle nich:
+    vzadu pod nosníkem, ne ve výšce světel."""
+    rail_z0 = DECK_TOP - RAIL_H
+    hw = BASE_W / 2
+    front = bpy.data.objects.get("FrontBeamOuter") or bpy.data.objects["FrontBeam"]
+    front_y = min((front.matrix_world @ Vector(c)).y for c in front.bound_box)
+    for side, sx in (("L", 1), ("R", -1)):
+        x = sx * (hw - 0.15)
+        zc = rail_z0 + RAIL_H / 2
+        tube(f"Reflector_Front{side}_Base", (x, front_y - 0.001, zc), (x, front_y - 0.005, zc), 0.036, "SDT_Plastic", segments=14)
+        tube(f"Reflector_Front{side}", (x, front_y - 0.005, zc), (x, front_y - 0.010, zc), 0.028, "SDT_TapeWhite", segments=14)
+        x = sx * (hw - 0.38)
+        s = 0.15
+        apex = rail_z0 - 0.015
+        z0 = apex - s * 0.866
+        box(f"Reflector_Rear{side}_Strap", x - 0.012, x + 0.012, BASE_Y1, BASE_Y1 + 0.004, apex - 0.06, rail_z0 + 0.05, "SDT_Steel")
+        plate_xz(f"Reflector_Rear{side}", BASE_Y1 + 0.004, 0.008, [(x - s / 2, z0), (x + s / 2, z0), (x, apex)], "SDT_PaintRed")
+        k = 0.62
+        plate_xz(f"Reflector_Rear{side}_Face", BASE_Y1 + 0.012, 0.002,
+                 [(x - s / 2 * k, z0 + 0.025), (x + s / 2 * k, z0 + 0.025), (x, z0 + 0.025 + s * 0.866 * k)], "SDT_TapeRed")
+        x_out = sx * hw
+        for i, y in enumerate(side_reflector_ys(front_y)):
+            zr = rail_z0 - 0.04
+            box(f"Reflector_Side{side}{i}_Tab", x_out - sx * 0.04, x_out + sx * 0.025, y - 0.03, y + 0.03, rail_z0 - 0.004, rail_z0,
+                "SDT_Steel")
+            box(f"Reflector_Side{side}{i}_Plate", x_out + sx * 0.019, x_out + sx * 0.025, y - 0.045, y + 0.045, rail_z0 - 0.075,
+                rail_z0, "SDT_Frame")
+            box(f"Reflector_Side{side}{i}", x_out + sx * 0.025, x_out + sx * 0.0275, y - 0.037, y + 0.037, zr - 0.017, zr + 0.017,
+                "SDT_TapeAmber")
+
+
+def build_deck_edges():
+    """Hrany paluby ve dvou variantách pro konfiguraci v obchodě (kovové lemy deckEdgeSteel, dřevěné desky deckEdgeWood); viz
+    sdt_deckedge. Volá se na konci stavby, až jsou všechny lemy (i prodloužená přední hrana) na místě."""
+    DE.build_deck_edges(DECK_TOP)
+
+
 def build_tarp_frame():
     """Pevné díly kolem plachty: kolejnice pod TopBeam (boky a předek), svislé rohové lišty vpředu a na zadním konci boku
     a konzoly pozičních světel sideMarker05 za koncem plachty."""
@@ -2250,7 +2428,7 @@ def build_tarp_frame():
 
 def build_tarps():
     """Rolovací plachty (sdt_parts.tarp): boky od přední hrany po zadní konec paluby s výřezem nad koly a předek; krátké
-    popruhy jen dole. Postavené zavřené (stav složeného vleku), ve foldLadder se zavírají 2,6-3 s. Vrací {L, R, F: (pivot, role)}."""
+    popruhy jen dole. Postavené zavřené (stav složeného vleku), ve foldLadder se zavírají v P.TARP_FOLD_TIME (2,6-5 s). Vrací {L, R, F: (pivot, role)}."""
     vis = bpy.data.objects[ROOT_NAME]
     z0, z1 = TARP_Z
     yc = (FRONT_Y + TARP_Y1) / 2
@@ -2288,7 +2466,7 @@ def _tarp_col_spans(y0, y1, bottom_fn, n=400):
     return [(a, b, z) for a, b, z, _ in spans]
 
 
-def build_tarp_collisions(x, y0, y1, top, bottom_fn, front_y, front_bottom, fold_time=(2.6, 3.0)):
+def build_tarp_collisions(x, y0, y1, top, bottom_fn, front_y, front_bottom, fold_time=None):
     """Kolize zavřených plachet (Middle i Max): tenké kvádry COL_VEHICLE na vnitřní straně roviny plachty, boky po úsecích
     podle spodní hrany, předek vcelku. Visí pod závěsy colTarpHinge{L,R,F} u horní hrany ve skupině "collisions". Při rolování
     (foldLadder, fold_time jako plachta) se závěs sklopí o 90° dovnitř a kvádry si lehnou do horní desky - kolize se jen
@@ -2306,7 +2484,7 @@ def build_tarp_collisions(x, y0, y1, top, bottom_fn, front_y, front_bottom, fold
     hinge = _group("colTarpHingeF", cols, (0.0, front_y, top))
     _shape_box("colTarpF", hinge, -x, x, front_y, front_y + t, front_bottom, top, COL_VEHICLE, **child)
     hinges.append((hinge, "X", 90))
-    t0, t1 = fold_time
+    t0, t1 = fold_time or P.TARP_FOLD_TIME
     for hinge, axis, deg in hinges:
         rot = _TO_I3D @ Matrix.Rotation(math.radians(deg), 4, axis) @ _TO_I3D.inverted()
         hinge["sdt_mapped"] = 1
@@ -2386,6 +2564,23 @@ def build_rear_door_brand():
     _set_parent(warn, pivot, warn.matrix_world.copy())
 
 
+WATER_HOSE_SEGMENTS = 72
+
+
+def build_water_hose_nodes():
+    """Články vodní hadice (válec délky 1 m podél -Y Blenderu = +Z i3d, skript ho natáčí a natahuje) a její koncovka: hadice se
+    vykresluje jen když je vytažená z ventilu nebo vstupu (SprayDroneWaterHose)."""
+    V = T.V
+    for prefix, mat in (("waterHose", "SDT_HoseBlack"), ("limeHose", "SDT_HoseWhite")):
+        for i in range(1, WATER_HOSE_SEGMENTS + 1):
+            s = BT.Mesh(f"{prefix}Seg{i}")
+            s.cyl(V(0, 0, 0), V(0, -1.0, 0), 0.05, mat, seg=10)
+            s.finish()
+        end = BT.Mesh(f"{prefix}End")
+        MILL._hose_end(end, V(0, 0, 0), V(0, -1, 0))
+        end.finish()
+
+
 def build():
     coll, vis = P.begin(COLLECTION_NAME, ROOT_NAME)
     build_chassis()
@@ -2401,7 +2596,7 @@ def build():
     for prefix in DRONE_VARIANTS.values():
         place_drone(prefix)
         build_drone_leds(prefix)
-        build_drone_clamps(prefix)
+    build_pad_clamps()
     build_heliport()
     build_batteries()
     build_charger()
@@ -2413,12 +2608,15 @@ def build():
         build_drone_service_parts(prefix)
         build_drone_decals(prefix)
     build_fill_hose()
+    build_water_hose_nodes()
     build_decals()
     build_rear_door_brand()
     build_relay_holders()
     build_planner_tablet()
     build_tarp_frame()
     build_tarp_brand(build_tarps())
+    build_eu_reflectors()
+    build_deck_edges()
     bpy.context.view_layer.update()
     build_dirt_uvs()
     print(f"{COLLECTION_NAME}: {len(coll.objects)} objektů")

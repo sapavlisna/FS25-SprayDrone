@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<i3D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="samplerCase" version="1.6" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="i3dConverter" version="1.0" />
+  </Asset>
+
+  <Files>
+    <File fileId="1" filename="$data/shaders/vehicleShader.xml" /><File fileId="2" filename="$data/shared/detailLibrary/mixed/carbonPattern02_diffuse.png" /><File fileId="3" filename="$data/shared/detailLibrary/mixed/carbonPattern02_normal.png" /><File fileId="4" filename="$data/shared/detailLibrary/mixed/carbonPattern02_specular.png" /><File fileId="5" filename="$data/shared/white_diffuse.png" /><File fileId="6" filename="$data/shared/default_normal.png" /><File fileId="7" filename="$data/shared/default_vmask.png" /><File fileId="8" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_diffuse.png" /><File fileId="9" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_normal.png" /><File fileId="10" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_specular.png" /><File fileId="11" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_diffuse.png" /><File fileId="12" filename="$data/shared/detailLibrary/flat_normal.png" /><File fileId="13" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_specular.png" /><File fileId="14" filename="$data/shared/detailLibrary/metallic/clear_diffuse.png" /><File fileId="15" filename="$data/shared/detailLibrary/metallic/clear_specular.png" /><File fileId="16" filename="$data/shared/detailLibrary/metallic/rough_specular.png" /><File fileId="17" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_diffuse.png" /><File fileId="18" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_specular.png" /><File fileId="19" filename="../../vehicles/sprayDroneTrailerMiddle/textures/sdt_brand.dds" /><File fileId="20" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubberBlack_diffuse.png" /><File fileId="21" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_normal.png" /><File fileId="22" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_specular.png" /><File fileId="23" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPainted_diffuse.png" /><File fileId="24" filename="$data/shared/detailLibrary/nonMetallic/metal/powderCoatMatte_specular.png" /><File fileId="25" filename="$data/shared/detailLibrary/metallic/metalGalvanized_diffuse.png" /><File fileId="26" filename="$data/shared/detailLibrary/metallic/metalGalvanized_normal.png" /><File fileId="27" filename="$data/shared/detailLibrary/metallic/metalGalvanized_specular.png" /></Files>
+
+
+  <Materials>
+    <Material name="Carbon" materialId="17" diffuseColor="0.0431373 0.0431373 0.054902 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.910" /><CustomParameter name="clearCoatSmoothness" value="0.900" /><CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="default" materialId="1" diffuseColor="0.501961 0.501961 0.501961 1">
+    </Material>
+    <Material name="Drone_Accent_A" materialId="18" diffuseColor="0.74902 0.278431 0.0196078 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.75 0.28 0.02" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Drone_GreyDark" materialId="14" diffuseColor="0.129412 0.133333 0.141176 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.13 0.135 0.14" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Drone_White" materialId="19" diffuseColor="0.839216 0.85098 0.858824 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.5000" /><CustomParameter name="clearCoatSmoothness" value="0.8500" /><CustomParameter name="colorScale" value="0.8 0.81 0.82" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Glass_Dark" materialId="23" diffuseColor="0.0117647 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.025 0.03" /><Custommap name="detailDiffuse" fileId="14" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Prop_Blade" materialId="21" diffuseColor="0.0588235 0.0588235 0.0666667 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.06 0.06 0.065" /><CustomParameter name="smoothnessScale" value="0.55" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Prop_Tip" materialId="22" diffuseColor="0.901961 0.4 0.0313726 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.9 0.4 0.03" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Alu" materialId="27" diffuseColor="0.721569 0.741176 0.760784 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.7379 0.7454 0.7529" /><Custommap name="detailDiffuse" fileId="14" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="16" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_BatteryGrey" materialId="2" diffuseColor="0.0588235 0.0588235 0.0666667 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.05 0.05 0.055" /><Custommap name="detailDiffuse" fileId="17" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="18" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_BrandDecal" materialId="10" customShaderId="1" alphaBlending="true">
+      <CustomParameter name="alphaBlendingClipThreshold" value="1" /><CustomParameter name="clearCoatIntensity" value="0.3" /><CustomParameter name="clearCoatSmoothness" value="0.7" /><CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="19" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_CaseFoam" materialId="12" diffuseColor="0.0196078 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.016 0.016 0.018" /><CustomParameter name="smoothnessScale" value="0.1" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_CaseShell" materialId="11" diffuseColor="0.0745098 0.0784314 0.0823529 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.062 0.065 0.07" /><Custommap name="detailDiffuse" fileId="17" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="18" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_GenOrange" materialId="3" diffuseColor="0.85098 0.329412 0.0392157 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.8 0.3 0.03" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_HoseBlack" materialId="8" diffuseColor="0.0196078 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.01 0.01 0.01" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="20" /><Custommap name="detailNormal" fileId="21" /><Custommap name="detailSpecular" fileId="22" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_LampAmber" materialId="26" diffuseColor="0.901961 0.45098 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.9 0.45 0.02" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_LampRed" materialId="24" diffuseColor="0.8 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.8 0.02 0.02" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_LedLensOff" materialId="7" diffuseColor="0.0117647 0.0352941 0.0156863 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.012 0.035 0.016" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_NavLed" materialId="20" diffuseColor="0.54902 0.54902 0.54902 1" customShaderId="1" customShaderVariation="staticLight_vertex">
+    <CustomParameter name="colorScale" value="0.35 0.35 0.35" /><CustomParameter name="lightIds0" value="0 0 0 0" /><CustomParameter name="lightTypeBitMask" value="0" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintRed" materialId="16" diffuseColor="0.6 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.6 0.02 0.02" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintWhite" materialId="13" diffuseColor="0.780392 0.780392 0.780392 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.74 0.74 0.74" /><CustomParameter name="porosity" value="0.1" /><CustomParameter name="smoothnessScale" value="0.7" /><Custommap name="detailDiffuse" fileId="23" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="24" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_RelayLedGreen" materialId="9" diffuseColor="0.0509804 0.8 0.101961 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.05 0.8 0.1" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Rubber" materialId="4" diffuseColor="0.0156863 0.0156863 0.0156863 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.03" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="20" /><Custommap name="detailNormal" fileId="21" /><Custommap name="detailSpecular" fileId="22" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_ScreenOff" materialId="25" diffuseColor="0.00784314 0.00784314 0.00784314 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.8" /><CustomParameter name="clearCoatSmoothness" value="0.9" /><CustomParameter name="colorScale" value="0.006 0.007 0.009" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_SoilJar" materialId="15" diffuseColor="0.2 0.129412 0.0705882 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.6" /><CustomParameter name="clearCoatSmoothness" value="0.8" /><CustomParameter name="colorScale" value="0.2 0.13 0.07" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Steel" materialId="6" diffuseColor="0.6 0.619608 0.639216 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="25" /><Custommap name="detailNormal" fileId="26" /><Custommap name="detailSpecular" fileId="27" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_TankBlack" materialId="5" diffuseColor="0.0313726 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.02 0.02" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="samplerCase.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <Shape name="samplerCase_main_component1" shapeId="1" dynamic="true" compound="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfffffbff" staticFriction="1" dynamicFriction="1" density="0" clipDistance="150" nodeId="130" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1">
+      <TransformGroup name="caseBatterySlot" translation="0.12 0.24 0.268" nodeId="131">
+        <Shape name="caseBattery" shapeId="2" nodeId="132" castsShadows="true" receiveShadows="true" materialIds="2,3,4,5,6,7" />
+      </TransformGroup>
+      <TransformGroup name="caseBatterySlot2" translation="0.36 0.24 0.268" nodeId="133">
+        <Shape name="caseBattery2" shapeId="3" nodeId="134" castsShadows="true" receiveShadows="true" materialIds="2,3,4,5,6,7" />
+      </TransformGroup>
+      <TransformGroup name="caseChargeCable" translation="0.575 0.144 0.16875" nodeId="135" visibility="false">
+        <Shape name="caseChargeCable_vis" translation="-0.575 -0.144 -0.16875" shapeId="4" nodeId="136" castsShadows="true" receiveShadows="true" materialIds="5,4,8,6" />
+      </TransformGroup>
+      <Shape name="caseChargeLed0" translation="-0.02675 0.108 0.3795" shapeId="5" nodeId="137" castsShadows="true" receiveShadows="true" materialIds="9" />
+      <Shape name="caseChargeLed1" translation="-0.00925 0.108 0.3795" shapeId="5" nodeId="138" castsShadows="true" receiveShadows="true" materialIds="9" />
+      <Shape name="caseChargeLed2" translation="0.00825 0.108 0.3795" shapeId="5" nodeId="139" castsShadows="true" receiveShadows="true" materialIds="9" />
+      <Shape name="caseChargeLed3" translation="0.02575 0.108 0.3795" shapeId="5" nodeId="140" castsShadows="true" receiveShadows="true" materialIds="9" />
+      <TransformGroup name="caseLid" translation="0 0.278 -0.389" nodeId="141">
+        <TransformGroup name="brand_BZUK_caseLidFront" translation="0 0.1595 0.764" nodeId="142">
+          <Shape name="BrandMark_caseLidFront_BZUK" translation="0 0 0.000800014" shapeId="6" nodeId="143" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="10" />
+          <Shape name="BrandStripe_caseLidFrontBar_BZUK" translation="0 -0.1215 0.00130001" shapeId="7" nodeId="144" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="10" />
+        </TransformGroup>
+        <TransformGroup name="brand_BZUK_caseLidTop" translation="0 0.2725 0.399" nodeId="145">
+          <Shape name="BrandLockupOnDark_caseLidTop_BZUK" translation="0 0.000800014 0" shapeId="8" nodeId="146" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="10" />
+        </TransformGroup>
+        <Shape name="caseLid_vis" shapeId="9" nodeId="147" castsShadows="true" receiveShadows="true" materialIds="11,12" />
+        <TransformGroup name="casePad" translation="-0.270333 0.2512 0.389" rotation="180 -0 0" scale="0.333333 3 0.333333" nodeId="148">
+          <Shape name="casePad_vis" translation="1.19209e-07 1.50001e-15 -2.13163e-14" shapeId="10" nodeId="149" castsShadows="true" receiveShadows="true" materialIds="3,5,13" />
+        </TransformGroup>
+        <TransformGroup name="caseSampleBox" translation="0 0.278 -0.389" rotation="-180 -0 0" nodeId="150">
+          <Shape name="caseSampleBox_vis" translation="0 -1.73456e-09 0" shapeId="11" nodeId="151" castsShadows="true" receiveShadows="true" materialIds="5,14,3" />
+          <TransformGroup name="caseSamples" translation="0 0.0779999 -0.778" rotation="-3.64247e-06 -0 0" nodeId="152">
+            <TransformGroup name="sampleSlot1" translation="-0.438333 -0.032 0.2445" nodeId="153">
+              <Shape name="sampleSlot1Empty" translation="0 2.13749e-08 0" shapeId="12" nodeId="154" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot1Full" translation="0 2.13749e-08 0" shapeId="13" nodeId="155" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot10" translation="0.0876667 -0.032 0.0815" nodeId="156">
+              <Shape name="sampleSlot10Empty" translation="0 7.12496e-09 0" shapeId="12" nodeId="157" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot10Full" translation="0 7.12496e-09 0" shapeId="13" nodeId="158" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot11" translation="0.263 -0.032 0.0815" nodeId="159">
+              <Shape name="sampleSlot11Empty" translation="0 7.12496e-09 0" shapeId="12" nodeId="160" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot11Full" translation="0 7.12496e-09 0" shapeId="13" nodeId="161" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot12" translation="0.438333 -0.032 0.0815" nodeId="162">
+              <Shape name="sampleSlot12Empty" translation="0 7.12496e-09 0" shapeId="12" nodeId="163" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot12Full" translation="0 7.12496e-09 0" shapeId="13" nodeId="164" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot13" translation="-0.438333 -0.032 -0.0815" nodeId="165">
+              <Shape name="sampleSlot13Empty" translation="0 -7.12496e-09 0" shapeId="12" nodeId="166" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot13Full" translation="0 -7.12496e-09 0" shapeId="13" nodeId="167" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot14" translation="-0.263 -0.032 -0.0815" nodeId="168">
+              <Shape name="sampleSlot14Empty" translation="0 -7.12496e-09 0" shapeId="12" nodeId="169" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot14Full" translation="0 -7.12496e-09 0" shapeId="13" nodeId="170" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot15" translation="-0.0876667 -0.032 -0.0815" nodeId="171">
+              <Shape name="sampleSlot15Empty" translation="0 -7.12496e-09 0" shapeId="12" nodeId="172" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot15Full" translation="0 -7.12496e-09 0" shapeId="13" nodeId="173" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot16" translation="0.0876667 -0.032 -0.0815" nodeId="174">
+              <Shape name="sampleSlot16Empty" translation="0 -7.12496e-09 0" shapeId="12" nodeId="175" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot16Full" translation="0 -7.12496e-09 0" shapeId="13" nodeId="176" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot17" translation="0.263 -0.032 -0.0815" nodeId="177">
+              <Shape name="sampleSlot17Empty" translation="0 -7.12496e-09 0" shapeId="12" nodeId="178" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot17Full" translation="0 -7.12496e-09 0" shapeId="13" nodeId="179" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot18" translation="0.438333 -0.032 -0.0815" nodeId="180">
+              <Shape name="sampleSlot18Empty" translation="0 -7.12496e-09 0" shapeId="12" nodeId="181" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot18Full" translation="0 -7.12496e-09 0" shapeId="13" nodeId="182" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot19" translation="-0.438333 -0.032 -0.2445" nodeId="183">
+              <Shape name="sampleSlot19Empty" translation="0 -2.13749e-08 0" shapeId="12" nodeId="184" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot19Full" translation="0 -2.13749e-08 0" shapeId="13" nodeId="185" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot2" translation="-0.263 -0.032 0.2445" nodeId="186">
+              <Shape name="sampleSlot2Empty" translation="0 2.13749e-08 0" shapeId="12" nodeId="187" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot2Full" translation="0 2.13749e-08 0" shapeId="13" nodeId="188" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot20" translation="-0.263 -0.032 -0.2445" nodeId="189">
+              <Shape name="sampleSlot20Empty" translation="0 -2.13749e-08 0" shapeId="12" nodeId="190" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot20Full" translation="0 -2.13749e-08 0" shapeId="13" nodeId="191" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot21" translation="-0.0876667 -0.032 -0.2445" nodeId="192">
+              <Shape name="sampleSlot21Empty" translation="0 -2.13749e-08 0" shapeId="12" nodeId="193" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot21Full" translation="0 -2.13749e-08 0" shapeId="13" nodeId="194" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot22" translation="0.0876667 -0.032 -0.2445" nodeId="195">
+              <Shape name="sampleSlot22Empty" translation="0 -2.13749e-08 0" shapeId="12" nodeId="196" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot22Full" translation="0 -2.13749e-08 0" shapeId="13" nodeId="197" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot23" translation="0.263 -0.032 -0.2445" nodeId="198">
+              <Shape name="sampleSlot23Empty" translation="0 -2.13749e-08 0" shapeId="12" nodeId="199" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot23Full" translation="0 -2.13749e-08 0" shapeId="13" nodeId="200" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot24" translation="0.438333 -0.032 -0.2445" nodeId="201">
+              <Shape name="sampleSlot24Empty" translation="0 -2.13749e-08 0" shapeId="12" nodeId="202" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot24Full" translation="0 -2.13749e-08 0" shapeId="13" nodeId="203" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot3" translation="-0.0876667 -0.032 0.2445" nodeId="204">
+              <Shape name="sampleSlot3Empty" translation="0 2.13749e-08 0" shapeId="12" nodeId="205" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot3Full" translation="0 2.13749e-08 0" shapeId="13" nodeId="206" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot4" translation="0.0876667 -0.032 0.2445" nodeId="207">
+              <Shape name="sampleSlot4Empty" translation="0 2.13749e-08 0" shapeId="12" nodeId="208" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot4Full" translation="0 2.13749e-08 0" shapeId="13" nodeId="209" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot5" translation="0.263 -0.032 0.2445" nodeId="210">
+              <Shape name="sampleSlot5Empty" translation="0 2.13749e-08 0" shapeId="12" nodeId="211" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot5Full" translation="0 2.13749e-08 0" shapeId="13" nodeId="212" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot6" translation="0.438333 -0.032 0.2445" nodeId="213">
+              <Shape name="sampleSlot6Empty" translation="0 2.13749e-08 0" shapeId="12" nodeId="214" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot6Full" translation="0 2.13749e-08 0" shapeId="13" nodeId="215" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot7" translation="-0.438333 -0.032 0.0815" nodeId="216">
+              <Shape name="sampleSlot7Empty" translation="0 7.12496e-09 0" shapeId="12" nodeId="217" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot7Full" translation="0 7.12496e-09 0" shapeId="13" nodeId="218" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot8" translation="-0.263 -0.032 0.0815" nodeId="219">
+              <Shape name="sampleSlot8Empty" translation="0 7.12496e-09 0" shapeId="12" nodeId="220" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot8Full" translation="0 7.12496e-09 0" shapeId="13" nodeId="221" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="sampleSlot9" translation="-0.0876667 -0.032 0.0815" nodeId="222">
+              <Shape name="sampleSlot9Empty" translation="0 7.12496e-09 0" shapeId="12" nodeId="223" castsShadows="true" receiveShadows="true" materialIds="13" />
+              <Shape name="sampleSlot9Full" translation="0 7.12496e-09 0" shapeId="13" nodeId="224" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+          </TransformGroup>
+        </TransformGroup>
+      </TransformGroup>
+      <TransformGroup name="collisions" clipDistance="10" nodeId="225">
+        <Shape name="floorCollision01" shapeId="14" compoundChild="true" collisionFilterGroup="0x10000" collisionFilterMask="0xfffdfbff" staticFriction="1" dynamicFriction="1" density="0" nodeId="226" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      </TransformGroup>
+      <TransformGroup name="droneCarrier" nodeId="227">
+        <TransformGroup name="Drone_P_Root" translation="0 0.017 -0.1" rotation="-0 90 0" nodeId="228">
+          <TransformGroup name="Drone_P_Tilt" translation="0 0.25 0" nodeId="229">
+            <TransformGroup name="Drone_P_ArmPivot_1" translation="0.115 0.05 0.13" rotation="0 77.7551 0" nodeId="230">
+              <Shape name="Drone_P_Arm_1" shapeId="15" nodeId="231" castsShadows="true" receiveShadows="true" materialIds="5,14,17,18,19" />
+              <Shape name="Drone_P_Led_1" shapeId="16" nodeId="232" castsShadows="true" receiveShadows="true" materialIds="20">
+                <Light name="Drone_P_LedLight_1" translation="0.268124 -0.05035 -1.49012e-08" rotation="-90 -0 0" nodeId="233" type="point" color="1 0.03 0.02" emitDiffuse="true" emitSpecular="true" range="2" />
+              </Shape>
+              <TransformGroup name="Drone_P_Rotor_1Top" translation="0.353624 0.0597 -1.49012e-08" nodeId="234">
+                <Shape name="Drone_P_Blade_1Top0" rotation="0 2 0" shapeId="17" nodeId="235" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_1Top0_Tip" translation="0 0 -2.98023e-08" shapeId="18" nodeId="236" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Blade_1Top1" rotation="0 -2 0" shapeId="19" nodeId="237" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_1Top1_Tip" translation="0 0 1.49012e-08" shapeId="20" nodeId="238" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Hub_1" shapeId="21" nodeId="239" castsShadows="true" receiveShadows="true" materialIds="14" />
+              </TransformGroup>
+            </TransformGroup>
+            <TransformGroup name="Drone_P_ArmPivot_2" translation="-0.115 0.05 0.13" rotation="-0 102.245 -0" nodeId="240">
+              <Shape name="Drone_P_Arm_2" shapeId="15" nodeId="241" castsShadows="true" receiveShadows="true" materialIds="5,14,17,18,19" />
+              <Shape name="Drone_P_Led_2" shapeId="22" nodeId="242" castsShadows="true" receiveShadows="true" materialIds="20">
+                <Light name="Drone_P_LedLight_2" translation="0.268124 -0.05035 -3.72529e-09" rotation="-90 -0 0" nodeId="243" type="point" color="0.03 1 0.08" emitDiffuse="true" emitSpecular="true" range="2" />
+              </Shape>
+              <TransformGroup name="Drone_P_Rotor_2Top" translation="0.353624 0.0597 3.72529e-09" nodeId="244">
+                <Shape name="Drone_P_Blade_2Top0" rotation="0 2 0" shapeId="17" nodeId="245" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_2Top0_Tip" translation="0 0 -3.72529e-09" shapeId="18" nodeId="246" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Blade_2Top1" rotation="0 -2 0" shapeId="19" nodeId="247" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_2Top1_Tip" translation="0 0 -3.72529e-09" shapeId="20" nodeId="248" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Hub_2" shapeId="21" nodeId="249" castsShadows="true" receiveShadows="true" materialIds="14" />
+              </TransformGroup>
+            </TransformGroup>
+            <TransformGroup name="Drone_P_ArmPivot_3" translation="0.115 -0.002 -0.13" rotation="0 -77.7552 0" nodeId="250">
+              <Shape name="Drone_P_Arm_3" translation="0 0 1.49012e-08" shapeId="15" nodeId="251" castsShadows="true" receiveShadows="true" materialIds="5,14,17,18,19" />
+              <Shape name="Drone_P_Led_3" translation="0 0 1.49012e-08" shapeId="23" nodeId="252" castsShadows="true" receiveShadows="true" materialIds="20">
+                <Light name="Drone_P_LedLight_3" translation="0.268124 -0.05035 1.49012e-08" rotation="-90 -0 0" nodeId="253" type="point" color="1 1 1" emitDiffuse="true" emitSpecular="true" range="2" />
+              </Shape>
+              <TransformGroup name="Drone_P_Rotor_3Top" translation="0.353624 0.0597 1.49012e-08" nodeId="254">
+                <Shape name="Drone_P_Blade_3Top0" translation="2.98023e-08 -2.98023e-08 -1.49012e-08" rotation="0 2 0" shapeId="17" nodeId="255" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_3Top0_Tip" translation="0 0 1.49012e-08" shapeId="18" nodeId="256" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Blade_3Top1" translation="2.98023e-08 -2.98023e-08 -1.49012e-08" rotation="0 -2 0" shapeId="19" nodeId="257" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_3Top1_Tip" shapeId="20" nodeId="258" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Hub_3" translation="2.98023e-08 -2.98023e-08 -1.49012e-08" shapeId="21" nodeId="259" castsShadows="true" receiveShadows="true" materialIds="14" />
+              </TransformGroup>
+            </TransformGroup>
+            <TransformGroup name="Drone_P_ArmPivot_4" translation="-0.115 -0.002 -0.13" rotation="-0 -102.245 -0" nodeId="260">
+              <Shape name="Drone_P_Arm_4" shapeId="15" nodeId="261" castsShadows="true" receiveShadows="true" materialIds="5,14,17,18,19" />
+              <Shape name="Drone_P_Led_4" shapeId="23" nodeId="262" castsShadows="true" receiveShadows="true" materialIds="20">
+                <Light name="Drone_P_LedLight_4" translation="0.268124 -0.05035 0" rotation="-90 -0 0" nodeId="263" type="point" color="1 1 1" emitDiffuse="true" emitSpecular="true" range="2" />
+              </Shape>
+              <TransformGroup name="Drone_P_Rotor_4Top" translation="0.353624 0.0597 3.72529e-09" nodeId="264">
+                <Shape name="Drone_P_Blade_4Top0" rotation="0 2 0" shapeId="17" nodeId="265" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_4Top0_Tip" translation="0 0 3.72529e-09" shapeId="18" nodeId="266" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Blade_4Top1" rotation="0 -2 0" shapeId="19" nodeId="267" castsShadows="true" receiveShadows="true" materialIds="21,14">
+                  <Shape name="Drone_P_Blade_4Top1_Tip" translation="0 0 3.72529e-09" shapeId="20" nodeId="268" castsShadows="true" receiveShadows="true" materialIds="22" />
+                </Shape>
+                <Shape name="Drone_P_Hub_4" shapeId="21" nodeId="269" castsShadows="true" receiveShadows="true" materialIds="14" />
+              </TransformGroup>
+            </TransformGroup>
+            <TransformGroup name="Drone_P_BatterySlot" translation="7.45058e-09 0.04 -0.075" rotation="-0 -90 0" nodeId="270">
+              <Shape name="Drone_P_Battery" shapeId="24" nodeId="271" castsShadows="true" receiveShadows="true" materialIds="2,3,4,5,6,7" />
+            </TransformGroup>
+            <Shape name="Drone_P_Body" translation="0 -0.25 0" rotation="-0 -90 0" shapeId="25" nodeId="272" castsShadows="true" receiveShadows="true" materialIds="19,14,5,23,4,17,18,24" />
+            <TransformGroup name="droneProbe" translation="0 0.1 0.06" rotation="-0 -90 0" nodeId="273">
+              <Shape name="droneProbe_vis" translation="-0.06 -0.35 0" shapeId="26" nodeId="274" castsShadows="true" receiveShadows="true" materialIds="6,18,5" />
+            </TransformGroup>
+            <TransformGroup name="droneSampleBox1" translation="7.45058e-09 -0.156 -0.055" rotation="-0 -90 0" nodeId="275">
+              <Shape name="droneSampleBox1Empty" shapeId="12" nodeId="276" castsShadows="true" receiveShadows="true" materialIds="13" visibility="false" />
+              <Shape name="droneSampleBox1Full" shapeId="13" nodeId="277" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+            <TransformGroup name="droneSampleBox2" translation="7.45058e-09 -0.156 -0.185" rotation="-0 -90 0" nodeId="278">
+              <Shape name="droneSampleBox2Empty" shapeId="12" nodeId="279" castsShadows="true" receiveShadows="true" materialIds="13" visibility="false" />
+              <Shape name="droneSampleBox2Full" shapeId="13" nodeId="280" castsShadows="true" receiveShadows="true" materialIds="15,16,13" visibility="false" />
+            </TransformGroup>
+          </TransformGroup>
+        </TransformGroup>
+      </TransformGroup>
+      <Shape name="dynamicMountTrigger" shapeId="27" kinematic="true" trigger="true" collisionFilterGroup="0x20000000" collisionFilterMask="0x20000" nodeId="281" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      <Shape name="exactFillRootNode" shapeId="28" kinematic="true" compound="true" collisionFilterGroup="0x40000000" collisionFilterMask="0x20000000" nodeId="282" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      <Shape name="samplerCase_vis" shapeId="29" nodeId="283" castsShadows="true" receiveShadows="true" materialIds="11,4,5,3,6,25,7,26,27,12" />
+    </Shape>
+  </Scene>
+
+</i3D>

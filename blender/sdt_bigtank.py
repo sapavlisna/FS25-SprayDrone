@@ -41,6 +41,7 @@ GROOVE = ((-0.035, 0.0), (-0.024, -0.003), (-0.012, -0.0075), (0.0, -0.009), (0.
           (0.035, 0.0))
 PE, BLACK, STEEL, BRASS, ALU, RUBBER = "SDT_TankPE", "SDT_TankBlack", "SDT_Steel", "SDT_Brass", "SDT_Alu", "SDT_Rubber"
 FRAME_MAT = "SDT_Frame"
+GAUGE_PLATE = "SDT_PaintGrey"
 
 
 class Tank:
@@ -265,6 +266,7 @@ def _rear_drain(t, fit):
     """Vypouštěcí kohout na pravém boku u zadního dna (vzadu je bedna): boss, příruba, kohout, zátka na řetízku."""
     p, n = t.wall(-72, t.Ln - t.hd - 0.06)
     _rear_drain_at(fit, p, n, t.tangent(-72))
+    return p + n * 0.20
 
 
 def _rear_drain_at(fit, p, n, tg, ks=1.0):
@@ -283,6 +285,51 @@ def _rear_drain_at(fit, p, n, tg, ks=1.0):
     for k in range(4):
         fit.torus(q(0.140) + V(0, 0.020, 0) + tg * (-0.012 * k) - n * 0.020 * k, V(0, 1, 0) if k % 2 == 0 else tg,
                   0.006, 0.0018, STEEL, seg=10, rseg=4)
+
+
+# ------------------------------------------------------------------------------------------------- stavoznak
+
+def _level_gauge(fit, samples):
+    """Stavoznak na čelní stěně: bílá stupnice s černými ryskami po 1/8 výšky a svislá hadička, dole modrá (voda), nahoře světlá
+    (vzduch), na dvou mosazných hrdlech u plášť a dvou sponách. samples = [(bod na povrchu, vnější normála)] odspodu nahoru, všechny
+    na jedné svislici; vyčnívá nejvýš 0,027 m."""
+    X = V(1, 0, 0)
+    n_s = len(samples)
+    for (a, na), (b, nb) in zip(samples, samples[1:]):
+        nm = (na + nb).normalized()
+        c = (a + b) / 2 + nm * 0.0065
+        fit.obox((0.056, (b - a).length + 0.004, 0.006), frame(c, nm, X), GAUGE_PLATE, bevel=0.0012)
+    tube = [p + n * 0.0185 + V(0.010, 0, 0) for p, n in samples]
+    k = int(n_s * 0.55)
+    fit.pipe(tube[:k + 1], 0.0085, "SDT_ValveBlue", seg=8)
+    fit.pipe(tube[k:], 0.0085, "SDT_TankPE", seg=8)
+    for p, n in samples:
+        fit.obox((0.014, 0.0025, 0.0015), frame(p + n * 0.0098 + V(-0.018, 0, 0), n, X), "SDT_PaintWhite")
+    for i in (0, n_s - 1):
+        p, n = samples[i]
+        fit.cyl(p - n * 0.004, p + n * 0.0185 + V(0.010, 0, 0), 0.011, BRASS, seg=10)
+    for i in (2, n_s - 3):
+        p, n = samples[i]
+        fit.obox((0.026, 0.008, 0.012), frame(p + n * 0.0185 + V(0.010, 0, 0), n, X), STEEL, bevel=0.002)
+
+
+def _gauge_tank(t, fit):
+    """Stavoznak vlevo od osy na předním dně válcové nádrže (výpust je vpravo dole) nebo na čelní stěně hranaté."""
+    if isinstance(t, BoxTank):
+        xg = -0.45
+        zs = [t.zb + 0.20 + (t.H - 0.40) * k / 8 for k in range(9)]
+        fit_samples = [(V(xg, t.y0, z), V(0, -1, 0)) for z in zs]
+    else:
+        xg = -0.42 * t.R
+        yc = t.y0 + t.hd
+        fit_samples = []
+        for k in range(9):
+            z = t.zc + t.R * (-0.62 + 1.20 * k / 8)
+            rho = math.hypot(xg, z - t.zc)
+            y = yc - t.hd * math.sqrt(max(1 - (rho / t.R) ** 2, 0.0))
+            n = V(xg / t.R ** 2, (y - yc) / t.hd ** 2, (z - t.zc) / t.R ** 2).normalized()
+            fit_samples.append((V(xg, y, z), n))
+    _level_gauge(fit, fit_samples)
 
 
 # ------------------------------------------------------------------------------------------------- rám
@@ -512,6 +559,8 @@ def _box_shell(t, shell):
     _box_panel(t, shell, 1, t.y0 + u, zc + dz, w + 0.012, h + 0.012, solid=True, rise=0.001)
     ho = 0.96 * t.wv / 4.57
     _box_panel(t, shell, -1, t.y0 + t.mid, zc - 0.25, 0.96 * t.wv + 0.022, ho + 0.022, bar=0.006, rise=0.0035)
+    for s in (-1, 1):
+        shell.box(s * 0.45 - 0.03, s * 0.45 + 0.03, ya + 0.10, yb - 0.10, t.zt - 0.002, t.zt + 0.007, PE, bevel=0.0035)
 
 
 def _box_frame(t, m, eyes=True):
@@ -548,6 +597,7 @@ def _box_fittings(t, fit):
     _vent_at(fit, V(x, t.y0 + t.mid + 0.40, t.zt), V(0, 0, 1), 1.0)
     _relief_at(fit, V(x, t.y0 + t.mid - 0.30, t.zt), V(0, 0, 1), V(1, 0, 0), 1.0)
     _rear_drain_at(fit, V(-t.hw, t.y0 + t.Ln - 0.14, t.zb + 0.14), V(-1, 0, 0), V(0, 0, -1), 0.62)
+    return V(-t.hw - 0.20 * 0.62, t.y0 + t.Ln - 0.14, t.zb + 0.14)
 
 
 def _box_decals(t, prefix):
@@ -585,12 +635,15 @@ def build_box_tank(size, z):
     frm = Mesh(f"{name}_Frame")
     _box_shell(t, shell)
     _manway(t, shell, fit, lid, t.mid)
-    _box_fittings(t, fit)
+    drain_end = _box_fittings(t, fit)
     _outlet(t, fit)
+    _gauge_tank(t, fit)
     _box_frame(t, frm)
     meshes = [m.finish() for m in (shell, fit, lid, frm)]
     bpy.context.view_layer.update()
-    return P.group(f"tankMain{size}", meshes + _box_decals(t, name))
+    port = P.empty(f"waterHosePort{size}", drain_end)
+    port.empty_display_size = 0.06
+    return P.group(f"tankMain{size}", meshes + _box_decals(t, name) + [port])
 
 
 def tank_envelope(size):
@@ -618,7 +671,8 @@ def build_main_tank(size, z):
     _vent(t, fit, 152, t.mid + 0.16 * t.kf)
     _relief(t, fit, 212, t.mid - 0.12 * t.kf)
     _outlet(t, fit)
-    _rear_drain(t, fit)
+    _gauge_tank(t, fit)
+    drain_end = _rear_drain(t, fit)
     _frame(t, frm)
     if size == 1500:
         _step(t, frm)
@@ -626,7 +680,9 @@ def build_main_tank(size, z):
     meshes = [shell.finish(), fit.finish(), lid.finish(), frm.finish()]
     bpy.context.view_layer.update()
     decals = _decals(t, meshes[0], name)
-    return P.group(f"tankMain{size}", meshes + decals)
+    port = P.empty(f"waterHosePort{size}", drain_end)
+    port.empty_display_size = 0.06
+    return P.group(f"tankMain{size}", meshes + decals + [port])
 
 
 def build_main_tanks(z):

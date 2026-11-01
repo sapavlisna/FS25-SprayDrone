@@ -66,12 +66,14 @@ PAD_TANK_LITERS = 300                      # hranatá nádrž pod dronem na mal�
 # (pohled zvenku, vpravo = dozadu vleku). Podle nich kreslí legendy tools/make_decal_atlas.py a staví prvky sdt_generator.py.
 GEN_PANEL_SIZE = (0.48, 0.28)
 GEN_PANEL = {
-    "volt": (0.090, 0.215), "hours": (0.235, 0.220),
-    "ledRun": (0.335, 0.225), "ledOil": (0.385, 0.225), "ledTemp": (0.435, 0.225),
-    "key": (0.080, 0.105), "preheat": (0.080, 0.035),
-    "socket": (0.240, 0.130), "rocker": (0.240, 0.035),
-    "mcb": (0.395, 0.115), "earth": (0.435, 0.035),
+    "display": (0.095, 0.222), "key": (0.235, 0.222), "estop": (0.338, 0.222),
+    "ledRun": (0.397, 0.232), "ledOil": (0.428, 0.232), "ledTemp": (0.459, 0.232),
+    "schuko1": (0.062, 0.112), "schuko2": (0.146, 0.112), "socket": (0.240, 0.130), "mcb": (0.395, 0.115),
+    "preheat": (0.062, 0.040), "dc12": (0.146, 0.040), "stop": (0.240, 0.040), "earth": (0.435, 0.035),
 }
+
+# čtvercová dlaždice s písmenem velikosti vlevo v oblasti batteryS/M/L (72 x 72 px z 256 x 72), nálepka na horní straně baterie
+BATTERY_TILE_SUB = (0.0, 0.0, 72 / 256, 1.0)
 
 # texty na nálepkách: kapacity podle build_drone.SPECS / docs/DRON.md
 BATTERY_TEXT = {"S": ("S", "0,81 kWh"), "M": ("M", "1,57 kWh"), "L": ("L", "2,13 kWh")}

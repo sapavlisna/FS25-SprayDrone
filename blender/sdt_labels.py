@@ -4,6 +4,8 @@
 Polohy se odvozují z týchž konstant jako geometrie dílů. Polepky na kanystrech nejsou (kanystry se přebarvují).
 """
 
+import math
+
 import bpy
 from mathutils import Matrix, Vector
 
@@ -15,7 +17,8 @@ from sdt_bigtank import decal_sub_uv
 
 # stupnice koncentrátové nádrže: výška rysek nad zemí (l -> m), viz sdt_tanks._induction_scale; čísla leží na +Y straně pruhu
 CONC_TICK_Z = {10: 1.177, 20: 1.246, 30: 1.314, 40: 1.383, 50: 1.451}
-CONC_NUM_Y = 0.075                    # střed čísel od osy nádrže na +Y (rysky končí 0,019..0,038 od osy)
+CONC_NUM_Y = 0.075                    # střed čísel od středu pruhu stupnice po obvodu (rysky končí 0,019..0,038 od něj)
+CONC_Y_OFF = 0.0                      # poloha pruhu od osy po Y; vlek s přívodem plnicí hadice (Middle) nastaví T.INDUCTION_HOSE_SCALE_Y
 CONC_NUM_SIZE = (0.05, 0.03)
 
 
@@ -29,9 +32,11 @@ def _concentrate(z):
     P.decal_quad("Decal_ConcLabel", (ix - hw + m, face, zj + 0.115 + m), (1, 0, 0), (0, 0, 1), 2 * hw - 2 * m,
                  0.100 - 2 * m, "concLabel")
     shell = bpy.data.objects["Tank_Induction"]
-    x = ix - R
+    side = -1 if CONC_Y_OFF < 0 else 1                 # čísla jsou na straně, kam rysky vedou
+    phi = math.asin((CONC_Y_OFF + side * CONC_NUM_Y * (0.83 if side < 0 else 1.0)) / R)
+    rad = Vector((-math.cos(phi), math.sin(phi), 0))
     for k, (litres, zt) in enumerate(CONC_TICK_Z.items()):
-        d = P.conform_decal(f"Decal_ConcNum{litres}", shell, Vector((x, iy + CONC_NUM_Y, zt)), Vector((-1, 0, 0)),
+        d = P.conform_decal(f"Decal_ConcNum{litres}", shell, Vector((ix, iy, zt)) + rad * R, rad,
                             Vector((0, 0, 1)), CONC_NUM_SIZE[0], CONC_NUM_SIZE[1], "concNums", offset=0.0022, cols=4,
                             rows=4)
         decal_sub_uv(d, "concNums", L.CONC_NUMS_SUB[k])

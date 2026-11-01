@@ -12,5 +12,17 @@
             <economy pricePerLiter="13"/>
             <image hud="hud/fillTypes/hud_fill_sdtConcentrateHerbicide.dds"/>
         </fillType>
+
+        <fillType name="SDT_FINE_LIME" title="$l10n_fillType_sdtFineLime" showOnPriceTable="false" isBulkType="true" unitShort="$l10n_unit_literShort">
+            <physics massPerLiter="1.10" maxPhysicalSurfaceAngle="15"/>
+            <economy pricePerLiter="0.9"/>
+            <image hud="hud/fillTypes/hud_fill_sdtFineLime.dds"/>
+            <!-- vanilla LIME; index v poli textur (výsyp, plochy) dostane jen druh s densityMapHeightType (xml/densityMapHeightTypes.xml) -->
+            <textures diffuse="$data/fillPlanes/lime_diffuse.png" unitSize="1" blendContrast="0.2" noiseScale="0.5" porosityAtZeroRoughness="0.9" porosityAtFullRoughness="1"
+                      normal="$data/fillPlanes/lime_normal.png"
+                      height="$data/fillPlanes/lime_height.png"
+                      displacement="$data/fillPlanes/lime_displacement.png" displacementMaxHeight="0.2" firmness="0.3" viscosity="0.5"
+                      distance="$data/fillPlanes/distance/limeDistance_diffuse.png"/>
+        </fillType>
     </fillTypes>
 </map>

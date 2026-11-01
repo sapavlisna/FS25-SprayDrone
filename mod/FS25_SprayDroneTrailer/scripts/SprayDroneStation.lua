@@ -15,6 +15,9 @@ source(g_currentModDirectory .. "scripts/events/SprayDroneServiceEvent.lua")
 source(g_currentModDirectory .. "scripts/events/SprayDroneSettingsEvent.lua")
 source(g_currentModDirectory .. "scripts/events/SprayDroneToolboxEvent.lua")
 source(g_currentModDirectory .. "scripts/events/SprayDroneRelaySlotEvent.lua")
+source(g_currentModDirectory .. "scripts/events/SprayDronePumpSlotEvent.lua")
+source(g_currentModDirectory .. "scripts/events/SprayDronePadSlotEvent.lua")
+source(g_currentModDirectory .. "scripts/events/SprayDroneBatterySlotEvent.lua")
 source(g_currentModDirectory .. "scripts/gui/SprayDronePlannerScreen.lua")
 
 SprayDroneStation = {}
@@ -42,7 +45,14 @@ SprayDroneStation.STATUS_GENERATOR_OFF = 11
 SprayDroneStation.STATUS_TRAILER_MOVED = 12
 SprayDroneStation.STATUS_NO_SIGNAL = 13
 SprayDroneStation.STATUS_OUT_OF_REACH = 14
-SprayDroneStation.STATUS_NUM_BITS = 4
+SprayDroneStation.STATUS_SCAN_DONE = 15
+SprayDroneStation.STATUS_SCAN_DARK = 16
+SprayDroneStation.STATUS_SCAN_RAIN = 17
+SprayDroneStation.STATUS_SCAN_WIND = 18
+SprayDroneStation.STATUS_SPRAY_RAIN = 19
+SprayDroneStation.STATUS_SPRAY_WIND = 20
+SprayDroneStation.STATUS_NO_CHARGE = 21
+SprayDroneStation.STATUS_NUM_BITS = 5
 
 SprayDroneStation.STATUS_TEXTS = {
     [1] = "sdt_status_fieldDone",
@@ -58,8 +68,26 @@ SprayDroneStation.STATUS_TEXTS = {
     [11] = "sdt_status_generatorOff",
     [12] = "sdt_status_trailerMoved",
     [13] = "sdt_status_noSignal",
-    [14] = "sdt_status_outOfReach"
+    [14] = "sdt_status_outOfReach",
+    [15] = "sdt_status_scanDone",
+    [16] = "sdt_status_scanDark",
+    [17] = "sdt_status_scanRain",
+    [18] = "sdt_status_scanWind",
+    [19] = "sdt_status_sprayRain",
+    [20] = "sdt_status_sprayWind",
+    [21] = "sdt_status_noCharge"
 }
+
+-- sken pole (nastavení missionMode = 1): dron letí s tím, co má v nádrži, nestříká a vzorkuje pole do mapy (SprayDroneScanMap);
+-- trasu staví týž plánovač pruhů jako postřik s tímto „druhem postřiku“ (index 0 vanilla nepoužívá, paměť pokrytí má vlastní záznam)
+SprayDroneStation.SCAN_TYPE = { index = 0, name = "SDT_SCAN", isScan = true, litersPerSecond = 0 }
+SprayDroneStation.SCAN_BLOCKER_STATUS = { dark = 16, rain = 17, wind = 18 }
+SprayDroneStation.SCAN_BLOCKER_TEXTS = { dark = "sdt_warning_scanDark", rain = "sdt_warning_scanRain", wind = "sdt_warning_scanWind" }
+-- postřik a vápnění: déšť a vítr nad sprayMaxWind varianty dronu (drift); tma nevadí
+SprayDroneStation.SPRAY_BLOCKER_STATUS = { rain = 19, wind = 20 }
+SprayDroneStation.SPRAY_BLOCKER_TEXTS = { rain = "sdt_warning_sprayRain", wind = "sdt_warning_sprayWind" }
+-- za letu se počasí kontroluje jednou za tolik ms
+SprayDroneStation.WEATHER_CHECK_TIME = 2000
 
 SprayDroneStation.STATE_TEXTS = {
     [0] = "sdt_state_parked",
@@ -99,21 +127,28 @@ SprayDroneStation.GPS_CONFIG = "sprayDroneGps"
 SprayDroneStation.RELAY_CONFIG = "sprayDroneRelayStrength"
 -- dron: konfigurace v obchodě vybere blok vehicle.sprayDrone.drone(?) podle #drone (prázdné = vlek bez dronu); jeho
 -- atributy přepisují společné ze <sprayDrone>, uzly mají prefix (Drone_S_, Drone_A_, Drone_L_) a stejné přípony
-SprayDroneStation.DRONE_CONFIG = "sprayDrone"
 SprayDroneStation.DEFAULT_DRONE = "M"
+-- dron na plošině vleku se dá za hry vyměnit (setPadDrone); v síti je varianta index do PAD_NAMES (0 = prázdná plošina)
+SprayDroneStation.PAD_NAMES = { "S", "M", "L", "K", "C", "P" }
+SprayDroneStation.PAD_NONE = "none"
+SprayDroneStation.PAD_BITS = 3
 -- vzhled vrtulí (konfigurace v obchodě): barva listů (nebo karbon) a barevné proužky na koncích
 SprayDroneStation.PROPELLER_CONFIG = "sprayDronePropeller"
 SprayDroneStation.TIPS_CONFIG = "sprayDroneTips"
+-- hrany paluby: kovové lemy nebo dřevěné desky (jen objectChange skupin deckEdgeSteel / deckEdgeWood, skript ji nečte)
+SprayDroneStation.DECK_EDGE_CONFIG = "sprayDroneDeckEdge"
 -- výchozí vzhled podle modelu (položka "Podle modelu"): T50 bílé listy bez proužků, T25 a T100 karbon s oranžovými proužky
 SprayDroneStation.PROPELLER_DEFAULTS = {
     M = { kind = "paint", color = { 0.06, 0.06, 0.065 }, tips = nil },
     S = { kind = "carbon", color = { 1, 1, 1 }, tips = { 0.90, 0.40, 0.03 } },
     L = { kind = "carbon", color = { 1, 1, 1 }, tips = { 0.90, 0.40, 0.03 } }
 }
-SprayDroneStation.CLAMPS = 4
+SprayDroneStation.CLAMP_NODES = { "padClampL", "padClampR" }
 SprayDroneStation.VARIANT_FLOATS = { "workWidth", "tankCapacity", "batteryMinutes", "droneMass", "batteryMass", "batteryKwh", "chargeMinutes",
     "dieselPerHour", "rotorPitch", "droneRadius", "maxRange", "cruiseSpeed", "sprayingSpeed", "climbSpeed", "ascentSpeed", "acceleration",
-    "yawSpeed", "sprayHeight", "litersPerSecond", "turnAcceleration" }
+    "yawSpeed", "sprayHeight", "litersPerSecond", "turnAcceleration", "sprayMaxWind", "scanSpeed", "scanMaxWind" }
+-- skenovací dron nemá nádrž; plán trasy (dávky, dolet) s ním počítá jako s nekonečnou nádrží a nulovou spotřebou přípravku
+SprayDroneStation.SCAN_PLAN_TANK = 100000
 -- přečerpávání na vleku (SprayDroneServiceEvent)
 SprayDroneStation.TRANSFER_NONE = 0
 SprayDroneStation.TRANSFER_DRAIN_DRONE = 1
@@ -165,16 +200,24 @@ source(g_currentModDirectory .. "scripts/SprayDroneDrones.lua")
 source(g_currentModDirectory .. "scripts/SprayDroneService.lua")
 source(g_currentModDirectory .. "scripts/SprayDroneToolbox.lua")
 source(g_currentModDirectory .. "scripts/SprayDroneRelaySlots.lua")
+source(g_currentModDirectory .. "scripts/SprayDronePumpSlots.lua")
+source(g_currentModDirectory .. "scripts/SprayDronePadDrone.lua")
+source(g_currentModDirectory .. "scripts/SprayDronePadSlots.lua")
+source(g_currentModDirectory .. "scripts/SprayDroneBatterySlots.lua")
 source(g_currentModDirectory .. "scripts/SprayDronePad.lua")
 source(g_currentModDirectory .. "scripts/SprayDroneLevel.lua")
 source(g_currentModDirectory .. "scripts/SprayDroneHotspot.lua")
 source(g_currentModDirectory .. "scripts/SprayDroneLadder.lua")
 source(g_currentModDirectory .. "scripts/SprayDroneSound.lua")
+source(g_currentModDirectory .. "scripts/SprayDroneLaunch.lua")
+source(g_currentModDirectory .. "scripts/SprayDroneCase.lua")
+source(g_currentModDirectory .. "scripts/SprayDroneSamples.lua")
 -- DJI DB1560: 30 Ah × 52,22 V; jen pro zobrazení v ukazateli naplnění (baterie se jinak počítá v sekundách letu), varianta
 -- dronu má vlastní batteryKwh
 SprayDroneStation.BATTERY_KWH = 1.567
 SprayDroneStation.POWER_SYNC_TIME = 500
 SprayDroneStation.ROUTE_REFRESH_TIME = 5000
+SprayDroneStation.ROUTE_DIESEL_STEP = 2   -- změna hladiny nafty (l), po které se plán trasy přepočítá
 SprayDroneStation.RANGE_CHECK_TIME = 250
 SprayDroneStation.ACTION_CHECK_TIME = 200
 SprayDroneStation.MAX_TRAILER_SPEED = 3
@@ -237,7 +280,18 @@ SprayDroneStation.SETTINGS = {
     { key = "headlands", min = 0, max = 4, text = "sdt_setting_headlands" },
     { key = "headlandFirst", min = 0, max = 1, text = "sdt_setting_start", requires = "headlands",
       values = { "sdt_setting_startRows", "sdt_setting_startHeadlands" } },
-    { key = "activeDrones", min = 1, max = 2, text = "sdt_setting_activeDrones", minDrones = 2 }
+    { key = "activeDrones", min = 1, max = 2, text = "sdt_setting_activeDrones", minDrones = 2 },
+    -- idleOnly: za mise se nemění (určuje druh práce a parametry letu)
+    { key = "missionMode", min = 0, max = 1, text = "sdt_setting_mission", values = { "sdt_setting_missionSpray", "sdt_setting_missionScan" },
+      idleOnly = true },
+    { key = "scanCell", min = 0, max = 2, text = "sdt_setting_scanCell", requires = "missionMode", idleOnly = true,
+      values = { "sdt_setting_scanCellLow", "sdt_setting_scanCellMid", "sdt_setting_scanCellHigh" } },
+    -- blockedBy = klíč nastavení, které musí být nula (aplikace podle skenu jen u postřiku)
+    { key = "applyMode", min = 0, max = 1, text = "sdt_setting_apply", blockedBy = "missionMode", idleOnly = true, sprayOnly = true,
+      values = { "sdt_setting_applyField", "sdt_setting_applyScan" } },
+    -- samplerOnly: jen vzorkovač AIRASI (automatické body mřížky PF, nebo jen naklikané v plánovači)
+    { key = "samplerAuto", min = 0, max = 1, text = "sdt_setting_samplerAuto", samplerOnly = true,
+      values = { "sdt_setting_samplerAutoOff", "sdt_setting_samplerAutoOn" } }
 }
 -- dva drony: druhý letí o LAYER_GAP m výš při přeletech, nevzlétne, dokud první nelétá do PAD_CLEAR m od jeho plošiny níž než
 -- PAD_CLEAR_HEIGHT m; dělení pole se nepočítá z práce pod SPLIT_MIN_LENGTH m (jde celá žadateli), rezervované úseky druhého
@@ -275,9 +329,9 @@ Foldable.actionEventFoldAll = function(...)
     SprayDroneStation.foldAllActive = false
 end
 
+-- Enterable není podmínka: kufr skenovacího dronu (profil portable, SprayDroneCase) je pallet, ovládá se tabletem a víkem pěšky.
 function SprayDroneStation.prerequisitesPresent(specializations)
-    return SpecializationUtil.hasSpecialization(Enterable, specializations)
-        and SpecializationUtil.hasSpecialization(Foldable, specializations)
+    return SpecializationUtil.hasSpecialization(Foldable, specializations)
         and SpecializationUtil.hasSpecialization(FillUnit, specializations)
 end
 
@@ -290,6 +344,8 @@ function SprayDroneStation.registerDronePartPaths(schema, key)
     schema:register(XMLValueType.NODE_INDEX, key .. ".foldPart(?)#node", "Kloub dronu (rameno, list vrtule)")
     schema:register(XMLValueType.VECTOR_ROT, key .. ".foldPart(?)#foldedRot", "Natočení složeno")
     schema:register(XMLValueType.VECTOR_ROT, key .. ".foldPart(?)#unfoldedRot", "Natočení rozloženo")
+    schema:register(XMLValueType.VECTOR_TRANS, key .. ".foldPart(?)#foldedTrans", "Posun složeno (místo natočení, např. trup na nohách)")
+    schema:register(XMLValueType.VECTOR_TRANS, key .. ".foldPart(?)#unfoldedTrans", "Posun rozloženo")
     schema:register(XMLValueType.FLOAT, key .. ".foldPart(?)#startTime", "Začátek pohybu (0..1 rozložení)", 0)
     schema:register(XMLValueType.FLOAT, key .. ".foldPart(?)#endTime", "Konec pohybu (0..1 rozložení)", 1)
     schema:register(XMLValueType.NODE_INDEX, key .. ".propBlade(?)#node", "List vrtule (barva a materiál podle konfigurace)")
@@ -337,6 +393,7 @@ function SprayDroneStation.initSpecialization()
     local schema = Vehicle.xmlSchema
     schema:setXMLSpecializationType("SprayDroneStation")
     local key = "vehicle.sprayDrone"
+    schema:register(XMLValueType.BOOL, key .. "#portable", "Kufr skenovacího dronu (SprayDroneCase): bez centrály, nádrží a hadice, jediná varianta dronu je vždy doma", false)
     schema:register(XMLValueType.INT, key .. "#fillUnitIndex", "Nádrž vleku, ze které se dron doplňuje", 1)
     schema:register(XMLValueType.FLOAT, key .. "#range", "Pevný strop dosahu od vleku (m); dosah se jinak počítá z baterie")
     schema:register(XMLValueType.FLOAT, key .. "#workWidth", "Záběr postřiku (m)", 9)
@@ -363,6 +420,13 @@ function SprayDroneStation.initSpecialization()
     schema:register(XMLValueType.FLOAT, key .. "#droneRadius", "Poloměr dronu s vrtulemi (m)", 1.6)
     schema:register(XMLValueType.FLOAT, key .. "#turnAcceleration", "Boční zrychlení v oblouku (m/s²), rychlost na oblouku sqrt(a * r)", 2.5)
     schema:register(XMLValueType.FLOAT, key .. "#maxRange", "Strop dosahu počítaného z baterie (m), před vlivem antény", 750)
+    schema:register(XMLValueType.FLOAT, key .. "#scanSpeed", "Rychlost skenu pole s buňkou 10 m (m/s); buňka 5 m 0,6×, 20 m 1,5×", 10)
+    schema:register(XMLValueType.FLOAT, key .. "#scanMaxWind", "Nejvyšší vítr pro sken pole (m/s)", 12)
+    schema:register(XMLValueType.FLOAT, key .. "#sprayMaxWind", "Nejvyšší vítr pro postřik a vápnění (m/s); varianta dronu ho přepisuje", 6)
+    schema:register(XMLValueType.FLOAT, key .. "#spotMargin", "Aplikace podle skenu: rezerva kolem vybraných buněk (m) bez RTK", 6)
+    schema:register(XMLValueType.FLOAT, key .. "#spotGap", "Aplikace podle skenu: mezera mezi úseky, která se přeletí se stříkáním (m)", 12)
+    schema:register(XMLValueType.FLOAT, key .. "#spotMaxAge", "Aplikace podle skenu: stáří mapy (herní h), od kterého plánovač varuje", 48)
+    schema:register(XMLValueType.FLOAT, key .. ".sprayDroneGpsConfigurations.sprayDroneGpsConfiguration(?)#spotMargin", "Rezerva aplikace podle skenu (m)")
     schema:register(XMLValueType.FLOAT, key .. ".sprayDroneAntennaConfigurations.sprayDroneAntennaConfiguration(?)#rangeBonus", "Násobek dosahu", 1)
     schema:register(XMLValueType.FLOAT, key .. ".sprayDroneGpsConfigurations.sprayDroneGpsConfiguration(?)#usageFactor", "Násobek spotřeby l/ha (přesnější GPS = méně přesahů)", 1)
     schema:register(XMLValueType.FLOAT, key .. "#batteryReserve", "Rezerva baterie při plánování letu (s letu)", SprayDroneStation.BATTERY_RESERVE)
@@ -373,6 +437,11 @@ function SprayDroneStation.initSpecialization()
     schema:register(XMLValueType.FLOAT, key .. "#batteryStowUntil", "Do jakého času skládání (0..1) se baterie při rozkládání vrací do dronu", SprayDroneStation.BATTERY_STOW_UNTIL)
     schema:register(XMLValueType.INT, key .. ".power#dieselFillUnitIndex", "Nádrž elektrocentrály (nafta)", 2)
     schema:register(XMLValueType.INT, key .. ".mixer#concentrateFillUnitIndex", "Nádrž koncentrátu pro mixér", 3)
+    schema:register(XMLValueType.NODE_INDEX, key .. ".limeInlet#node", "Vstup hadice z mlýnkového vozíku do nádobky na vápno (čelo spojky)")
+    schema:register(XMLValueType.NODE_INDEX, key .. ".limeInlet#valveNode", "Páka kohoutu spojky (otáčí se kolem osy Y)")
+    schema:register(XMLValueType.FLOAT, key .. ".limeInlet#valveOpenAngle", "Otočení páky v otevřené poloze (°)", 90)
+    schema:register(XMLValueType.INT, key .. ".limeInlet#fillUnitIndex", "Nádrž, kterou hadice plní", 3)
+    schema:register(XMLValueType.STRING, key .. ".limeInlet#fillType", "Druh, který hadice přivádí (SDT_FINE_LIME)")
     schema:register(XMLValueType.STRING, key .. ".mixer.ratio(?)#fillType", "Druh koncentrátu v nádrži koncentrátu (vlastní SDT_CONCENTRATE_*)")
     schema:register(XMLValueType.STRING, key .. ".mixer.ratio(?)#product", "Druh hotového přípravku pro dron (vanilla herbicide / liquidFertilizer); bez něj stejný druh jako koncentrát")
     schema:register(XMLValueType.FLOAT, key .. ".mixer.ratio(?)#concentrate", "Podíl koncentrátu v hotovém přípravku (0..1), zbytek je voda",
@@ -406,13 +475,15 @@ function SprayDroneStation.initSpecialization()
     schema:register(XMLValueType.FLOAT, key .. ".navLights#blinkPeriod", "Perioda blikání (s)", 1)
     schema:register(XMLValueType.FLOAT, key .. ".navLights#blinkOn", "Jak dlouho z periody LED svítí (s)", 0.5)
     SprayDroneToolbox.registerXMLPaths(schema, key)
+    SprayDronePumpSlots.registerXMLPaths(schema, key)
     SprayDronePad.registerXMLPaths(schema, key)
     SprayDroneLevel.registerXMLPaths(schema, key)
     SprayDroneSound.registerXMLPaths(schema, key)
     local droneKey = key .. ".drone(?)"
     SprayDroneStation.registerDronePartPaths(schema, droneKey)
+    SprayDroneSamples.registerXMLPaths(schema, droneKey)
     schema:register(XMLValueType.STRING, droneKey .. "#name", "Varianta dronu (S, M, L), vybírá ji konfigurace sprayDrone#drone")
-    schema:register(XMLValueType.STRING, droneKey .. "#prefix", "Prefix uzlů dronu v i3d (Drone_S_, …): Root, Tilt, FillPort, BatterySlot, Clamp_i; povinný")
+    schema:register(XMLValueType.STRING, droneKey .. "#prefix", "Prefix uzlů dronu v i3d (Drone_S_, …): Root, Tilt, FillPort, BatterySlot, povinný; úchyty lyžin padClampL/R jsou součást plošiny")
     schema:register(XMLValueType.INT, droneKey .. "#slot", "Dron na vleku: 1 (výchozí) nebo 2 (druhý dron téže varianty; ze slotu 2 se berou jen uzly, ostatní parametry jsou ze slotu 1)", 1)
     schema:register(XMLValueType.STRING, droneKey .. "#hosePrefix", "Prefix uzlů plnicí hadice dronu (fillHose = fillHoseCoil, fillHoseStart, ..., u druhého dronu fillHoseB)", "fillHose")
     schema:register(XMLValueType.INT, droneKey .. "#cameraIndex", "Číslo kamery dronu v enterable.cameras (pohled z dronu, přepíná se akcí SDT_DRONE_VIEW)")
@@ -425,19 +496,20 @@ function SprayDroneStation.initSpecialization()
     for _, name in ipairs(SprayDroneStation.VARIANT_FLOATS) do
         schema:register(XMLValueType.FLOAT, droneKey .. "#" .. name, "Parametr varianty (přepisuje atribut <sprayDrone>)")
     end
+    schema:register(XMLValueType.BOOL, droneKey .. "#scan", "Skenovací dron: bez nádrže, mise je vždy sken pole (postřikový sken neumí)", false)
+    schema:register(XMLValueType.STRING, droneKey .. "#batteryVariant", "Jméno varianty, jejíž baterie dron používá (výchozí je jeho vlastní)")
     schema:register(XMLValueType.VECTOR_TRANS, droneKey .. "#hoseVia",
         "Kudy hadice přechází přes přední hranu trupu k hrdlu (v <prefix>Tilt; znaménko x podle strany fillHoseStart)")
     schema:register(XMLValueType.FLOAT, key .. "#batteryMass", "Hmotnost baterie (kg), přičte se k droneMass", 0)
     schema:register(XMLValueType.FLOAT, key .. "#batteryKwh", "Energie baterie (kWh), jen pro zobrazení", SprayDroneStation.BATTERY_KWH)
     schema:register(XMLValueType.FLOAT, key .. "#rotorPitch", "Výška zvuku rotorů (násobek)", 1)
-    schema:register(XMLValueType.STRING, key .. ".sprayDroneConfigurations.sprayDroneConfiguration(?)#drone", "Varianta dronu (prázdné = bez dronu)")
     schema:setXMLSpecializationType()
 
     local configs = { { SprayDroneStation.BATTERY_CONFIG, "sdt_configuration_batteries" }, { SprayDroneStation.GENERATOR_CONFIG, "sdt_configuration_generators" },
         { SprayDroneStation.ANTENNA_CONFIG, "sdt_configuration_antenna" }, { SprayDroneStation.GPS_CONFIG, "sdt_configuration_gps" },
         { SprayDroneStation.RELAY_CONFIG, "sdt_configuration_relayStrength" },
-        { SprayDroneStation.DRONE_CONFIG, "sdt_configuration_drone" },
-        { SprayDroneStation.PROPELLER_CONFIG, "sdt_configuration_propellers" }, { SprayDroneStation.TIPS_CONFIG, "sdt_configuration_tips" } }
+        { SprayDroneStation.PROPELLER_CONFIG, "sdt_configuration_propellers" }, { SprayDroneStation.TIPS_CONFIG, "sdt_configuration_tips" },
+        { SprayDroneStation.DECK_EDGE_CONFIG, "sdt_configuration_deckEdge" } }
     for _, config in ipairs(configs) do
         if g_vehicleConfigurationManager:getConfigurationDescByName(config[1]) == nil then
             g_vehicleConfigurationManager:addConfigurationType(config[1], g_i18n:getText(config[2]), "sprayDrone", VehicleConfigurationItem)
@@ -460,16 +532,26 @@ function SprayDroneStation.initSpecialization()
     savegame:register(XMLValueType.STRING, saveKey .. "#coverage", "Paměť dronu, kde už postříkal")
     savegame:register(XMLValueType.FLOAT, saveKey .. ".battery(?)#level", "Nabití baterie (0..1); sedí i po výměně dronu jiné velikosti")
     savegame:register(XMLValueType.INT, saveKey .. ".battery(?)#slot", "Kde baterie je: 0 = v dronu, 1..počet slotů = slot na vleku")
+    savegame:register(XMLValueType.INT, saveKey .. "#batteryConfig", "Počet baterií z konfigurace obchodu při uložení (změna v dílně posune počet uložených baterií)")
+    savegame:register(XMLValueType.STRING, saveKey .. ".pad(?)#drone", "Dron na plošině (varianta S / M / L, none = prázdná); přednost před konfigurací")
+    savegame:register(XMLValueType.BOOL, saveKey .. ".pad(?)#onPlate", "Mini: dron stojí na rozložené plošině (letová poloha), false = v bedně")
+    savegame:register(XMLValueType.STRING, saveKey .. "#batteryVariant", "Typ baterií (S / M / L); u prázdné plošiny 1 zůstává z posledního dronu")
     savegame:register(XMLValueType.FLOAT, saveKey .. ".flightSettings#transitHeight", "Nastavení: nejnižší výška přeletu (m)")
     savegame:register(XMLValueType.FLOAT, saveKey .. ".flightSettings#obstacleClearance", "Nastavení: odstup nad překážkami (m)")
     savegame:register(XMLValueType.FLOAT, saveKey .. ".flightSettings#sideClearance", "Nastavení: boční odstup od překážek (m)")
     savegame:register(XMLValueType.INT, saveKey .. ".flightSettings#headlands", "Nastavení: počet úvratí")
     savegame:register(XMLValueType.INT, saveKey .. ".flightSettings#headlandFirst", "Nastavení: začít úvratěmi (1) nebo řádky (0)")
+    savegame:register(XMLValueType.INT, saveKey .. ".flightSettings#missionMode", "Nastavení: druh mise (0 postřik, 1 sken pole)")
+    savegame:register(XMLValueType.INT, saveKey .. ".flightSettings#scanCell", "Nastavení: buňka skenu (0 = 5 m, 1 = 10 m, 2 = 20 m)")
+    savegame:register(XMLValueType.INT, saveKey .. ".flightSettings#applyMode", "Nastavení: aplikace (0 celé pole, 1 podle skenu)")
+    savegame:register(XMLValueType.INT, saveKey .. ".flightSettings#samplerAuto", "Nastavení vzorkovače: automatické body (1) nebo jen naklikané (0)")
     savegame:register(XMLValueType.INT, saveKey .. ".flightArea(?)#fieldId", "Pole, ke kterému letová plocha patří")
     savegame:register(XMLValueType.FLOAT, saveKey .. ".flightArea(?).point(?)#x", "Vrchol letové plochy (svět x)")
     savegame:register(XMLValueType.FLOAT, saveKey .. ".flightArea(?).point(?)#z", "Vrchol letové plochy (svět z)")
     SprayDroneToolbox.registerSavegamePaths(savegame, saveKey)
     SprayDroneRelaySlots.registerSavegamePaths(savegame, saveKey)
+    SprayDronePumpSlots.registerSavegamePaths(savegame, saveKey)
+    SprayDroneSamples.registerSavegamePaths(savegame, saveKey)
 end
 
 function SprayDroneStation.registerFunctions(vehicleType)
@@ -498,12 +580,10 @@ function SprayDroneStation.registerEventListeners(vehicleType)
     SpecializationUtil.registerEventListener(vehicleType, "onWriteUpdateStream", SprayDroneStation)
 end
 
--- Varianta dronu z konfigurace sprayDrone (bloky vehicle.sprayDrone.drone(?)): kořen <prefix>Root, ostatní varianty se
--- skryjí. Baterie bez dronu jsou typu DEFAULT_DRONE.
-function SprayDroneStation.loadDroneVariant(self, xml, key)
+-- Varianty dronu (bloky vehicle.sprayDrone.drone(?)) a obsazení plošin: z uložené hry (saved.pads), jinak prázdné (vlek se kupuje bez dronu,
+-- dron je předmět, SprayDronePadSlots). Plošina 1 je dron 1, plošina 2 (jen vlek s bloky drone(?)#slot = 2) dron 2; "" = prázdná plošina.
+function SprayDroneStation.loadDroneVariant(self, xml, key, saved)
     local spec = self[SprayDroneStation.SPEC_NAME]
-    local getMappedNode = SprayDroneStation.getMappedNode
-    local default = SprayDroneStation.DEFAULT_DRONE
     spec.variants = {}
     local second = {}
     xml:iterate(key .. ".drone", function(_, droneKey)
@@ -513,19 +593,41 @@ function SprayDroneStation.loadDroneVariant(self, xml, key)
         elseif xml:getValue(droneKey .. "#slot", 1) == 2 then
             second[name] = { name = name, key = droneKey, prefix = prefix }
         else
-            table.insert(spec.variants, { name = name, key = droneKey, prefix = prefix })
+            table.insert(spec.variants, { name = name, key = droneKey, prefix = prefix, scan = xml:getValue(droneKey .. "#scan", false) })
         end
     end)
     spec.secondVariants = second
-    local wanted = default
-    local configName = SprayDroneStation.DRONE_CONFIG
-    local configId = self.configurations ~= nil and self.configurations[configName] or nil
-    if configId ~= nil then
-        wanted = xml:getValue(string.format("%s.%sConfigurations.%sConfiguration(%d)#drone", key, configName, configName, configId - 1)) or ""
+    local wanted = ""
+    local savedPads = saved ~= nil and saved.pads or nil
+    if spec.portable then
+        wanted = spec.variants[1] ~= nil and spec.variants[1].name or ""
+        savedPads = nil
     end
+    spec.numPads = next(second) ~= nil and 2 or 1
+    spec.pads = {}
+    for i = 1, spec.numPads do
+        local name = savedPads ~= nil and savedPads[i] or nil
+        spec.pads[i] = name ~= nil and name or wanted
+    end
+    if SprayDroneStation.getPadsProblem(self, spec.pads) ~= nil then
+        Logging.xmlWarning(xml, "SprayDroneStation: uložené plošiny (%s) nejdou použít, plošiny zůstanou prázdné", table.concat(spec.pads, ","))
+        for i = 1, spec.numPads do
+            spec.pads[i] = wanted
+        end
+    end
+    SprayDroneStation.selectPadVariants(self, xml, key)
+end
+
+-- Uzly a klíče variant podle spec.pads (vozidlo): kořen <prefix>Root dronu 1 a varianta dronu 2, ostatní kořeny se skryjí.
+-- Baterie mají typ dronu; bez dronu zůstává typ, který měly (při načtení DEFAULT_DRONE).
+function SprayDroneStation.selectPadVariants(self, xml, key)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    local getMappedNode = SprayDroneStation.getMappedNode
+    local default = SprayDroneStation.DEFAULT_DRONE
+    local wanted = spec.pads[1]
     spec.hasDrone = wanted ~= ""
     spec.droneName, spec.droneKey, spec.dronePrefix = wanted, nil, nil
-    local selected, fallback = nil, nil
+    local selected, fallback, previous = nil, nil, nil
     for _, v in ipairs(spec.variants) do
         if v.name == wanted then
             selected = v
@@ -533,6 +635,12 @@ function SprayDroneStation.loadDroneVariant(self, xml, key)
         if v.name == default then
             fallback = v
         end
+        if v.name == spec.batteryVariant then
+            previous = v
+        end
+    end
+    if fallback == nil then
+        fallback = spec.variants[1]
     end
     if selected ~= nil then
         spec.droneKey, spec.dronePrefix = selected.key, selected.prefix
@@ -540,7 +648,15 @@ function SprayDroneStation.loadDroneVariant(self, xml, key)
         Logging.xmlWarning(xml, "SprayDroneStation: varianta dronu '%s' v %s.drone chybí, vlek je bez dronu", wanted, key)
         spec.hasDrone = false
     end
-    local batteryVariant = spec.hasDrone and selected or fallback
+    local batteryVariant = spec.hasDrone and selected or previous or fallback
+    local batteryName = spec.hasDrone and xml:getValue(selected.key .. "#batteryVariant") or nil
+    if batteryName ~= nil then
+        for _, v in ipairs(spec.variants) do
+            if v.name == batteryName then
+                batteryVariant = v
+            end
+        end
+    end
     spec.batteryKey = batteryVariant ~= nil and batteryVariant.key or nil
     spec.batteryVariant = batteryVariant ~= nil and batteryVariant.name or (spec.hasDrone and wanted or default)
     if not spec.hasDrone then
@@ -573,11 +689,16 @@ function SprayDroneStation.loadDroneVariant(self, xml, key)
             end
         end
     end
-    -- druhý dron téže varianty (bloky drone(?)#slot = 2): jen když je v i3d jeho kořen
+    SprayDroneStation.selectSecondVariant(self)
+end
+
+-- Druhý dron téže varianty (bloky drone(?)#slot = 2) podle plošiny 2: jen když je v i3d jeho kořen; ostatní kořeny se skryjí.
+function SprayDroneStation.selectSecondVariant(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
     spec.secondVariant = nil
-    for name, v in pairs(second) do
-        local root = variantRoot(v)
-        if name == wanted and spec.hasDrone and selected ~= nil and root ~= nil then
+    for name, v in pairs(spec.secondVariants) do
+        local root = SprayDroneStation.getMappedNode(self, v.prefix .. "Root")
+        if name == spec.pads[2] and name == spec.droneName and spec.hasDrone and spec.droneKey ~= nil and root ~= nil then
             spec.secondVariant = v
         elseif root ~= nil then
             setVisibility(root, false)
@@ -618,8 +739,13 @@ function SprayDroneStation.loadDroneParts(self, xml, key, partsKey)
         local node = xml:getValue(partKey .. "#node", nil, self.components, self.i3dMappings)
         local folded = xml:getValue(partKey .. "#foldedRot", nil, true)
         local unfolded = xml:getValue(partKey .. "#unfoldedRot", nil, true)
-        if node ~= nil and folded ~= nil and unfolded ~= nil then
-            table.insert(spec.foldParts, { node = node, folded = folded, unfolded = unfolded,
+        local foldedTrans = xml:getValue(partKey .. "#foldedTrans", nil, true)
+        local unfoldedTrans = xml:getValue(partKey .. "#unfoldedTrans", nil, true)
+        local hasRot = folded ~= nil and unfolded ~= nil
+        local hasTrans = foldedTrans ~= nil and unfoldedTrans ~= nil
+        if node ~= nil and (hasRot or hasTrans) then
+            table.insert(spec.foldParts, { node = node, folded = hasRot and folded or nil, unfolded = hasRot and unfolded or nil,
+                foldedTrans = hasTrans and foldedTrans or nil, unfoldedTrans = hasTrans and unfoldedTrans or nil,
                 startTime = xml:getValue(partKey .. "#startTime", 0), endTime = xml:getValue(partKey .. "#endTime", 1) })
         end
     end)
@@ -704,9 +830,11 @@ function SprayDroneStation.initDroneState(self)
     spec.pumpCapChecked, spec.pumpTankTarget = false, nil
     spec.waitingForPad = false
     spec.waitingForRelay = false
+    spec.waitingForClearance = false
     -- tyče (vozidla), na kterých závisí rozlétaná dávka (SprayDroneLink.getNeededRelays); jdou po síti kvůli blokaci tyče
     spec.batchRelays = {}
     spec.signalLostTime, spec.signalCheckTime = 0, 0
+    spec.scanning, spec.weatherCheckTime = false, 0
     spec.unfold = 0
     spec.appliedUnfold = -1
     spec.rotorSpeed = 0
@@ -862,12 +990,15 @@ function SprayDroneStation.loadSprayMist(self, xml, key)
 end
 
 -- Barva mlhy podle přípravku: materiál mlhy (subUV) tónuje parametr colorAlpha (rgb se násobí s texturou), jako u vanilla částic
--- kol. Neznámý přípravek nebo chyba parametru nechá mlhu bílou.
+-- kol. Neznámý přípravek nebo chyba parametru nechá mlhu bílou. Čtvrtá složka je hustota (alfa, psSubUVShader snese do 4).
 SprayDroneStation.MIST_COLORS = {
-    LIQUIDFERTILIZER = { 0.8, 0.92, 0.5 },
-    HERBICIDE = { 0.82, 0.92, 1 },
+    LIQUIDFERTILIZER = { 0.55, 0.85, 0.25, 1 },
+    HERBICIDE = { 0.40, 0.62, 1.0, 1 },
+    LIME = { 1, 1, 1, 1.6 },
+    SDT_FINE_LIME = { 1, 1, 1, 1.6 },
+    WATER = { 0.75, 0.85, 0.95, 0.7 },
 }
-SprayDroneStation.MIST_COLOR_DEFAULT = { 1, 1, 1 }
+SprayDroneStation.MIST_COLOR_DEFAULT = { 1, 1, 1, 1 }
 
 function SprayDroneStation.setSprayMistColor(effects, fillType)
     local name = g_fillTypeManager:getFillTypeNameByIndex(fillType)
@@ -875,7 +1006,7 @@ function SprayDroneStation.setSprayMistColor(effects, fillType)
     for _, effect in ipairs(effects) do
         local node = effect.particleSystem.shape or effect.node
         if getHasShaderParameter(node, "colorAlpha") then
-            setShaderParameter(node, "colorAlpha", color[1], color[2], color[3], 1, false)
+            setShaderParameter(node, "colorAlpha", color[1], color[2], color[3], color[4] or 1, false)
         end
     end
 end
@@ -895,11 +1026,11 @@ function SprayDroneStation.deleteSprayMist(effects)
     end
 end
 
--- Parametry vleku a dronu z XML (atribut varianty drone(?), jinak společný ze <sprayDrone>); po loadDroneVariant.
-function SprayDroneStation.loadParameters(self, xml, key)
+-- Parametry dronu podle varianty (atribut varianty drone(?), jinak společný ze <sprayDrone>; baterie podle batteryKey). Volá se
+-- při načtení a znovu po změně dronu na plošině 1 (SprayDroneStation.applyPads).
+function SprayDroneStation.loadVariantParameters(self, xml, key)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local droneKey = spec.droneKey
-    -- atribut varianty (drone(?)), jinak společný ze <sprayDrone>; baterie bez dronu podle výchozí varianty
     local function value(name, default, variantKey)
         variantKey = variantKey or droneKey
         local v = variantKey ~= nil and xml:getValue(variantKey .. "#" .. name) or nil
@@ -908,17 +1039,8 @@ function SprayDroneStation.loadParameters(self, xml, key)
         end
         return v
     end
-    spec.isLinked = true
-    spec.droneIndex = 1
     spec.camera = droneKey ~= nil and xml:getValue(droneKey .. "#cameraIndex") or nil
     spec.outCamera = droneKey ~= nil and xml:getValue(droneKey .. "#outCameraIndex") or nil
-    spec.layerOffset = 0
-    spec.numDrones = spec.secondVariant ~= nil and 2 or 1
-    spec.activeDrones = spec.numDrones
-    spec.drones = { spec }
-    spec.layerGap = xml:getValue(key .. "#layerGap", SprayDroneStation.LAYER_GAP)
-
-    spec.fillUnitIndex = xml:getValue(key .. "#fillUnitIndex", 1)
     -- dosah se počítá z baterie a výšky přeletu (updateRange); range z XML je jen pevný strop
     spec.rangeCap = xml:getValue(key .. "#range")
     spec.maxRange = value("maxRange", 750) * SprayDroneStation.getConfigValue(self, xml, key, SprayDroneStation.ANTENNA_CONFIG, "rangeBonus", 1)
@@ -933,11 +1055,6 @@ function SprayDroneStation.loadParameters(self, xml, key)
     -- droneMass ve variantě je bez baterie; spec.droneMass (pro let) je s baterií
     spec.droneMass = value("droneMass", 52) + spec.batteryMass
     spec.rotorPitch = value("rotorPitch", 1)
-    spec.hoverFactor = xml:getValue(key .. "#batteryHoverFactor", 1.15)
-    spec.climbFactor = xml:getValue(key .. "#batteryClimbFactor", 1.4)
-    spec.descentFactor = xml:getValue(key .. "#batteryDescentFactor", 0.8)
-    spec.batterySwapBelow = xml:getValue(key .. "#batterySwapBelow", 0.3)
-    spec.trailerFoldEnd = math.clamp(xml:getValue(key .. "#trailerFoldEnd", 0.5), 0.05, 1)
     spec.cruiseSpeed = value("cruiseSpeed", 10)
     spec.sprayingSpeed = value("sprayingSpeed", 7)
     spec.climbSpeed = value("climbSpeed", 3)
@@ -945,6 +1062,35 @@ function SprayDroneStation.loadParameters(self, xml, key)
     spec.acceleration = value("acceleration", 2.5)
     spec.yawSpeed = math.rad(value("yawSpeed", 90))
     spec.sprayHeight = value("sprayHeight", 3)
+    spec.sprayMaxWind = value("sprayMaxWind", 6)
+    spec.sprayWorkWidth, spec.sprayFlightHeight, spec.sprayFlightSpeed = spec.workWidth, spec.sprayHeight, spec.sprayingSpeed
+    spec.droneRadius = value("droneRadius", 1.6)
+    spec.turnAcceleration = math.max(value("turnAcceleration", 2.5), 0.1)
+    spec.pumpRate = math.max(value("litersPerSecond", 1), 0.01)
+    spec.isScanDrone = droneKey ~= nil and xml:getValue(droneKey .. "#scan", false)
+    SprayDroneSamples.loadParameters(self, xml, droneKey)
+    spec.scanSpeed = value("scanSpeed", 10)
+    spec.scanMaxWind = value("scanMaxWind", 12)
+end
+
+-- Parametry vleku a dronu z XML; po loadDroneVariant.
+function SprayDroneStation.loadParameters(self, xml, key)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    spec.isLinked = true
+    spec.droneIndex = 1
+    spec.layerOffset = 0
+    spec.numDrones = spec.secondVariant ~= nil and 2 or 1
+    spec.activeDrones = spec.numDrones
+    spec.drones = { spec }
+    spec.layerGap = xml:getValue(key .. "#layerGap", SprayDroneStation.LAYER_GAP)
+
+    spec.fillUnitIndex = xml:getValue(key .. "#fillUnitIndex", 1)
+    SprayDroneStation.loadVariantParameters(self, xml, key)
+    spec.hoverFactor = xml:getValue(key .. "#batteryHoverFactor", 1.15)
+    spec.climbFactor = xml:getValue(key .. "#batteryClimbFactor", 1.4)
+    spec.descentFactor = xml:getValue(key .. "#batteryDescentFactor", 0.8)
+    spec.batterySwapBelow = xml:getValue(key .. "#batterySwapBelow", 0.3)
+    spec.trailerFoldEnd = math.clamp(xml:getValue(key .. "#trailerFoldEnd", 0.5), 0.05, 1)
     spec.transitHeight = xml:getValue(key .. "#transitHeight", 12)
     spec.obstacleClearance = xml:getValue(key .. "#obstacleClearance", 5)
     spec.maxTransitHeight = xml:getValue(key .. "#maxTransitHeight", 60)
@@ -952,33 +1098,50 @@ function SprayDroneStation.loadParameters(self, xml, key)
     spec.sideClearance = xml:getValue(key .. "#sideClearance", 4)
     spec.headlands = 0
     spec.headlandFirst = 1
-    spec.droneRadius = value("droneRadius", 1.6)
-    spec.turnAcceleration = math.max(value("turnAcceleration", 2.5), 0.1)
+    spec.missionMode = 0
+    spec.scanCell = 1
+    spec.applyMode = 0
+    spec.samplerAuto = 1
+    spec.spotMargin = SprayDroneStation.getConfigValue(self, xml, key, SprayDroneStation.GPS_CONFIG, "spotMargin",
+        xml:getValue(key .. "#spotMargin", 6))
+    spec.spotGap = xml:getValue(key .. "#spotGap", 12)
+    spec.spotMaxAge = xml:getValue(key .. "#spotMaxAge", 48)
     spec.settingsVersion = 0
     for _, setting in ipairs(SprayDroneStation.SETTINGS) do
         spec[setting.key] = math.clamp(math.floor(spec[setting.key] + 0.5), setting.min, setting.max)
     end
+    SprayDroneStation.applyMissionMode(self)
     spec.usageScale = xml:getValue(key .. "#usageScale", 1) * SprayDroneStation.getConfigValue(self, xml, key, SprayDroneStation.GPS_CONFIG, "usageFactor", 1)
     spec.batteryReserve = xml:getValue(key .. "#batteryReserve", SprayDroneStation.BATTERY_RESERVE)
-    spec.pumpRate = math.max(value("litersPerSecond", 1), 0.01)
     spec.securedFoldTime = xml:getValue(key .. "#securedFoldTime", 0.8)
     spec.batteryStowFrom = xml:getValue(key .. "#batteryStowFrom", SprayDroneStation.BATTERY_STOW_FROM)
     spec.batteryStowUntil = xml:getValue(key .. "#batteryStowUntil", SprayDroneStation.BATTERY_STOW_UNTIL)
 end
 
 -- Elektrocentrála, nabíječka a baterie dronu (po loadParameters).
-function SprayDroneStation.loadPower(self, xml, key)
+-- Nabíjení podle typu baterie (batteryKey, jinak <power>); po loadVariantParameters (batteryCapacity) a znovu po změně dronu.
+function SprayDroneStation.loadChargeParameters(self, xml, key)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local batteryKey = spec.batteryKey
+    local powerKey = key .. ".power"
+    local function powerValue(name, default)
+        local v = batteryKey ~= nil and xml:getValue(batteryKey .. "#" .. name) or nil
+        return v or xml:getValue(powerKey .. "#" .. name, default)
+    end
+    spec.chargeRate = spec.numGenerators * SprayDroneStation.CHARGE_SPAN * spec.batteryCapacity
+        / (math.max(powerValue("chargeMinutes", 10), 0.1) * 60)
+    spec.dieselPerSecond = spec.numGenerators * powerValue("dieselPerHour", 2.2) / 3600
+    spec.readyCharge = math.clamp(xml:getValue(powerKey .. "#readyLevel", 0.95), 0.1, 1) * spec.batteryCapacity
+end
+
+function SprayDroneStation.loadPower(self, xml, key)
+    local spec = self[SprayDroneStation.SPEC_NAME]
     -- elektrocentrála a nabíječka: všechny baterie v ní se nabíjejí najednou, každá 65 % kapacity (30 % -> 95 %) za
     -- chargeMinutes; nafta dieselPerHour na každou nabíjenou
     local powerKey = key .. ".power"
     spec.dieselFillUnitIndex = xml:getValue(powerKey .. "#dieselFillUnitIndex", 2)
     SprayDroneStation.loadMixer(self, xml, key .. ".mixer")
-    local function powerValue(name, default)
-        local v = batteryKey ~= nil and xml:getValue(batteryKey .. "#" .. name) or nil
-        return v or xml:getValue(powerKey .. "#" .. name, default)
-    end
+    SprayDroneStation.loadLimeInlet(self, xml, key .. ".limeInlet")
     -- počet centrál z konfigurace: každá nabíjí baterie svou rychlostí (chargeMinutes), takže dvě nabíjejí dvakrát rychleji a spotřebují
     -- za stejnou dobu dvakrát tolik (na jednu nabitou baterii stejně); nádrž na naftu je tolikrát větší
     local generatorId = self.configurations ~= nil and self.configurations[SprayDroneStation.GENERATOR_CONFIG] or nil
@@ -987,14 +1150,11 @@ function SprayDroneStation.loadPower(self, xml, key)
         spec.numGenerators = math.clamp(xml:getValue(string.format("%s.%sConfigurations.%sConfiguration(%d)#count", key,
             SprayDroneStation.GENERATOR_CONFIG, SprayDroneStation.GENERATOR_CONFIG, generatorId - 1), 1), 1, 2)
     end
-    spec.chargeRate = spec.numGenerators * SprayDroneStation.CHARGE_SPAN * spec.batteryCapacity
-        / (math.max(powerValue("chargeMinutes", 10), 0.1) * 60)
-    spec.dieselPerSecond = spec.numGenerators * powerValue("dieselPerHour", 2.2) / 3600
+    SprayDroneStation.loadChargeParameters(self, xml, key)
     local fuelUnit = self.getFillUnitByIndex ~= nil and self:getFillUnitByIndex(spec.dieselFillUnitIndex) or nil
-    if fuelUnit ~= nil then
+    if fuelUnit ~= nil and not spec.portable then
         fuelUnit.capacity = xml:getValue(powerKey .. "#dieselPerGenerator", 30) * spec.numGenerators
     end
-    spec.readyCharge = math.clamp(xml:getValue(powerKey .. "#readyLevel", 0.95), 0.1, 1) * spec.batteryCapacity
     spec.swapTime = xml:getValue(powerKey .. "#swapTime", 5) * 1000
     -- baterie: počet z konfigurace v obchodě (0..počet šachet, typ podle dronu); na začátku plné, baterie k ve slotu k (dron bez baterie)
     local numBatteries = xml:getValue(powerKey .. "#batteries", 3)
@@ -1008,8 +1168,10 @@ function SprayDroneStation.loadPower(self, xml, key)
     while 2 ^ spec.batterySlotBits <= spec.numBatterySlots do
         spec.batterySlotBits = spec.batterySlotBits + 1
     end
+    -- konfigurace jen předplní šachty při koupi; baterie jde pak vyndat jako předmět a vložit jinou (SprayDroneBatterySlots), počet se mění
+    spec.batteryConfigCount = math.clamp(numBatteries, 0, spec.numBatterySlots)
     spec.batteries = {}
-    for k = 1, math.clamp(numBatteries, 0, spec.numBatterySlots) do
+    for k = 1, spec.batteryConfigCount do
         spec.batteries[k] = { charge = spec.batteryCapacity, slot = k, drone = 1 }
     end
     spec.droneBattery = nil
@@ -1028,6 +1190,13 @@ function SprayDroneStation.loadFromSavegame(self, savegame)
     -- v podílu (baterie nového typu mají stejné procento), náplň nad nádrž nové varianty se ořízne
     SprayDroneStation.loadDroneSave(self, savegame.xmlFile, saveKey)
     SprayDroneDrones.runAs(self, 2, SprayDroneStation.loadDroneSave, savegame.xmlFile, saveKey .. ".drone2")
+    -- počet baterií je uložený (vyndané předměty chybí, vložené přibyly); změna konfigurace v dílně ho posune o rozdíl
+    local numSaved = 0
+    savegame.xmlFile:iterate(saveKey .. ".battery", function()
+        numSaved = numSaved + 1
+    end)
+    local savedConfig = savegame.xmlFile:getValue(saveKey .. "#batteryConfig", spec.batteryConfigCount)
+    SprayDroneStation.setBatteryCount(self, numSaved + spec.batteryConfigCount - savedConfig)
     for _, battery in ipairs(spec.batteries) do
         battery.slot = -1
     end
@@ -1060,6 +1229,7 @@ function SprayDroneStation.loadFromSavegame(self, savegame)
     end)
     spec.generatorEnabled = savegame.xmlFile:getValue(saveKey .. "#generatorEnabled", true)
     spec.coverage = SprayDroneRoute.decodeCoverage(savegame.xmlFile:getValue(saveKey .. "#coverage"))
+    SprayDroneSamples.loadFromSavegame(self, savegame.xmlFile, saveKey)
     savegame.xmlFile:iterate(saveKey .. ".flightArea", function(_, areaKey)
         local fieldId = savegame.xmlFile:getValue(areaKey .. "#fieldId")
         local points = {}
@@ -1080,6 +1250,7 @@ function SprayDroneStation.loadFromSavegame(self, savegame)
         end
     end
     spec.activeDrones = math.clamp(spec.activeDrones, 1, spec.numDrones)
+    SprayDroneStation.applyMissionMode(self)
     SprayDroneDrones.forEach(self, SprayDroneStation.resumeMissionAfterLoad)
 end
 
@@ -1088,7 +1259,23 @@ function SprayDroneStation:onLoad(savegame)
     local xml = self.xmlFile
     local key = "vehicle.sprayDrone"
 
-    SprayDroneStation.loadDroneVariant(self, xml, key)
+    spec.portable = xml:getValue(key .. "#portable", false)
+    spec.chargeSource = SprayDroneCase.SOURCE_NONE
+    local saved = nil
+    if savegame ~= nil and not savegame.resetVehicles then
+        local saveKey = savegame.key .. "." .. SprayDroneStation.MOD_NAME .. ".sprayDroneStation"
+        saved = {}
+        savegame.xmlFile:iterate(saveKey .. ".pad", function(i, padKey)
+            saved.pads = saved.pads or {}
+            local name = savegame.xmlFile:getValue(padKey .. "#drone", SprayDroneStation.PAD_NONE)
+            saved.pads[i] = name ~= SprayDroneStation.PAD_NONE and name or ""
+            if i == 1 then
+                saved.padOnPlate = savegame.xmlFile:getValue(padKey .. "#onPlate")
+            end
+        end)
+        spec.batteryVariant = savegame.xmlFile:getValue(saveKey .. "#batteryVariant")
+    end
+    SprayDroneStation.loadDroneVariant(self, xml, key, saved)
     SprayDroneStation.loadParameters(self, xml, key)
     SprayDroneStation.loadPower(self, xml, key)
 
@@ -1133,6 +1320,7 @@ function SprayDroneStation:onLoad(savegame)
     SprayDroneStation.initHomeYawOffset(self)
     SprayDroneStation.attachDroneCamera(self, xml)
     SprayDroneStation.loadSecondDrone(self, xml, key)
+    SprayDroneStation.stowSecondPad(self, xml)
     spec.firstDroneCamera = nil
     for k = 1, spec.numDrones do
         local camera = spec.drones[k].camera
@@ -1145,9 +1333,21 @@ function SprayDroneStation:onLoad(savegame)
     if savegame ~= nil and not savegame.resetVehicles then
         SprayDroneStation.loadFromSavegame(self, savegame)
     end
-    SprayDroneToolbox.load(self, savegame)
+    -- kufr nemá bednu na kanystry a dron z něj nejde vyndat jako předmět
+    if not spec.portable then
+        SprayDroneToolbox.load(self, savegame)
+    end
     SprayDroneRelaySlots.load(self, savegame)
-    SprayDronePad.load(self)
+    SprayDronePumpSlots.load(self, savegame)
+    SprayDronePad.load(self, saved ~= nil and saved.padOnPlate or nil)
+    if spec.portable then
+        SprayDroneCase.loadActivatable(self)
+        SprayDroneCase.loadVisuals(self)
+        SprayDroneSamples.load(self)
+    else
+        SprayDronePadSlots.load(self)
+    end
+    SprayDroneBatterySlots.load(self)
     SprayDronePad.openInShop(self)
     SprayDroneLevel.load(self)
     SprayDroneLadder.load(self)
@@ -1184,7 +1384,7 @@ end
 
 function SprayDroneStation.initDroneFold(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
-    spec.unfold = SprayDroneStation.getTrailerUnfold(self)
+    spec.unfold = SprayDroneStation.getDroneUnfoldTarget(self)
     SprayDroneStation.applyFold(self)
     if spec.unfold < 1 and spec.droneBattery ~= nil then
         SprayDroneStation.unloadDroneBattery(self)
@@ -1194,6 +1394,13 @@ end
 function SprayDroneStation:saveToXMLFile(xmlFile, key, usedModNames)
     local spec = self[SprayDroneStation.SPEC_NAME]
     xmlFile:setValue(key .. "#fieldId", spec.fieldId)
+    for i, name in ipairs(spec.pads) do
+        xmlFile:setValue(string.format("%s.pad(%d)#drone", key, i - 1), name ~= "" and name or SprayDroneStation.PAD_NONE)
+    end
+    if spec.pad ~= nil then
+        xmlFile:setValue(key .. ".pad(0)#onPlate", spec.pad.onPlate == true)
+    end
+    xmlFile:setValue(key .. "#batteryVariant", spec.batteryVariant)
     SprayDroneStation.saveDrone(self, xmlFile, key)
     SprayDroneDrones.runAs(self, 2, SprayDroneStation.saveDrone, xmlFile, key .. ".drone2")
     xmlFile:setValue(key .. "#generatorEnabled", spec.generatorEnabled)
@@ -1202,6 +1409,7 @@ function SprayDroneStation:saveToXMLFile(xmlFile, key, usedModNames)
         xmlFile:setValue(key .. "#coverage", coverage)
     end
     SprayDroneDrones.forEach(self, SprayDroneStation.syncDroneBatteryCharge)
+    xmlFile:setValue(key .. "#batteryConfig", spec.batteryConfigCount)
     for k, battery in ipairs(spec.batteries) do
         local batteryKey = string.format("%s.battery(%d)", key, k - 1)
         xmlFile:setValue(batteryKey .. "#level", battery.charge / spec.batteryCapacity)
@@ -1229,6 +1437,8 @@ function SprayDroneStation:saveToXMLFile(xmlFile, key, usedModNames)
     end
     SprayDroneToolbox.save(self, xmlFile, key)
     SprayDroneRelaySlots.save(self, xmlFile, key)
+    SprayDronePumpSlots.save(self, xmlFile, key)
+    SprayDroneSamples.saveToXMLFile(self, xmlFile, key)
 end
 
 -- Uložení jednoho dronu (baseKey = vlek pro dron 1, .drone2 pro druhý).
@@ -1270,6 +1480,10 @@ function SprayDroneStation:onDelete()
     local spec = self[SprayDroneStation.SPEC_NAME]
     SprayDroneToolbox.delete(self)
     SprayDroneRelaySlots.delete(self)
+    SprayDronePumpSlots.delete(self)
+    SprayDronePadSlots.delete(self)
+    SprayDroneBatterySlots.delete(self)
+    SprayDroneCase.deleteActivatable(self)
     SprayDroneLadder.delete(self)
     if spec ~= nil then
         if SprayDroneLink ~= nil then
@@ -1294,7 +1508,7 @@ function SprayDroneStation:getIsFoldAllowed(superFunc, direction, onAiTurnOn)
             return false, g_i18n:getText("sdt_warning_droneFlyingFoldAll")
         end
         if direction ~= nil and direction > 0 and direction == self:getToggledFoldDirection()
-            and (self:getIsEntered() or self:getIsActiveForInput()) then
+            and (SprayDroneStation.getIsEntered(self) or self:getIsActiveForInput()) then
             self:sprayDroneCommand(SprayDroneCommandEvent.RETURN_HOME, 0)
         end
         return false, g_i18n:getText("sdt_warning_droneFlying")
@@ -1302,6 +1516,10 @@ function SprayDroneStation:getIsFoldAllowed(superFunc, direction, onAiTurnOn)
     if SprayDroneDrones.any(self, function(d) return d.rotorSpeed > 0 or not d.rotorsParked end) then
         -- složené listy musí mířit podél ramene: nejdřív doběh a dotočení vrtulí do klidové polohy
         return false, g_i18n:getText("sdt_warning_rotorsSpinning")
+    end
+    -- Mini: dron se s plošinou sám nepřesouvá, na složené plošině by zůstal viset (Pavel 2026-10-29)
+    if direction ~= nil and direction > 0 and SprayDronePad.getIsDroneOnPlate(self) then
+        return false, g_i18n:getText("sdt_warning_padDroneOnPlate")
     end
     if direction ~= nil and direction < 0 then
         local allowed, warning = SprayDronePad.checkDeploy(self)
@@ -1394,6 +1612,11 @@ function SprayDroneStation:getFillLevelInformation(superFunc, display)
     addRows(false)
 end
 
+-- Sedí hráč ve vozidle? Kufr (pallet) Enterable nemá.
+function SprayDroneStation.getIsEntered(self)
+    return self.getIsEntered ~= nil and self:getIsEntered() == true
+end
+
 -- Dron stojí na složeném vleku a úchyty na lyžinách jsou zavřené (čas skládání za securedFoldTime).
 function SprayDroneStation.getIsDroneSecured(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
@@ -1427,6 +1650,16 @@ function SprayDroneStation.getHomePosition(self)
     end
     local terrainY = getTerrainHeightAtWorldPos(g_terrainNode, x, 0, z)
     return x, z, y - terrainY
+end
+
+SprayDroneStation.TAKEOFF_WARNINGS = { roof = "sdt_warning_takeoffRoof", tree = "sdt_warning_takeoffTree", obstacle = "sdt_warning_takeoffBlocked" }
+
+function SprayDroneStation.getTakeoffClearance(self, hits)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    local x, z, restHeight = SprayDroneStation.getHomePosition(self)
+    local y = getTerrainHeightAtWorldPos(g_terrainNode, x, 0, z) + restHeight
+    return SprayDroneLaunch.getClearance(x, y, z, spec.droneRadius, math.max(spec.transitHeight, SprayDroneLaunch.CHECK_HEIGHT),
+        self:getRootVehicle(), hits)
 end
 
 -- Směr vleku; na plošině dron sedí nosem po směru jízdy.
@@ -1502,13 +1735,15 @@ end
 -- úvratí, headlandFirst 0/1). Jde eventem na server a od něj ke všem klientům; přepočítá se dosah i trasa.
 function SprayDroneStation:setSprayDroneSettings(settings, noEventSend)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    local busy = SprayDroneStation.getAnyMissionActive(self)
     for _, setting in ipairs(SprayDroneStation.SETTINGS) do
         local value = settings[setting.key]
-        if value ~= nil then
+        if value ~= nil and not (busy and setting.idleOnly) then
             spec[setting.key] = math.clamp(math.floor(value + 0.5), setting.min, setting.max)
         end
     end
     spec.activeDrones = math.clamp(spec.activeDrones, 1, spec.numDrones)
+    SprayDroneStation.applyMissionMode(self)
     SprayDroneSettingsEvent.sendEvent(self, SprayDroneStation.getSettings(self), noEventSend)
     spec.settingsVersion = spec.settingsVersion + 1
     SprayDroneDrones.forEachSpec(self, function(d)
@@ -1538,8 +1773,157 @@ end
 function SprayDroneStation.isSettingEnabled(self, index)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local setting = SprayDroneStation.SETTINGS[index]
-    return setting ~= nil and (setting.requires == nil or spec[setting.requires] > 0)
+    return setting ~= nil and setting.key ~= "missionMode" and (setting.requires == nil or spec[setting.requires] > 0)
+        and (setting.blockedBy == nil or spec[setting.blockedBy] == 0)
         and (setting.minDrones == nil or spec.numDrones >= setting.minDrones)
+        and not (setting.idleOnly and SprayDroneStation.getAnyMissionActive(self))
+end
+
+-- Nádrž, se kterou počítá plán trasy: skenovací dron nemá nádrž ani spotřebu, plán ho bere jako dron s nekonečnou nádrží.
+function SprayDroneStation.getPlanTank(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    return spec.isScanDrone and SprayDroneStation.SCAN_PLAN_TANK or spec.tankCapacity
+end
+
+-- Vzorkovač AIRASI má také missionMode 1 (bez nádrže, plnění a postřiku), ale není to sken: počasí jako postřik, mise SprayDroneSamples.
+function SprayDroneStation.getIsScanMode(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    return spec.missionMode == 1 and not spec.isSamplerDrone
+end
+
+-- Parametry práce podle druhu mise: sken letí ve výšce a rychlostí zvolené úrovně se záběrem dvou buněk, postřik podle dronu.
+function SprayDroneStation.applyMissionMode(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if spec.sprayWorkWidth == nil then
+        return
+    end
+    spec.missionMode = (spec.isScanDrone or spec.isSamplerDrone) and 1 or 0
+    if spec.missionMode == 1 and not spec.isSamplerDrone then
+        local level = SprayDroneScanMap.getLevel(spec.scanCell)
+        spec.workWidth, spec.sprayHeight = level.swath, level.height
+        spec.sprayingSpeed = math.max(spec.scanSpeed * level.speed, 1)
+    else
+        spec.workWidth, spec.sprayHeight, spec.sprayingSpeed = spec.sprayWorkWidth, spec.sprayFlightHeight, spec.sprayFlightSpeed
+    end
+    SprayDroneDrones.forEachSpec(self, function(d)
+        d.transitCache, d.transitCacheSize = {}, 0
+        d.hopCache = nil
+        d.rangeKey = nil
+        d.routeDirty = true
+    end)
+end
+
+-- Proč teď kvůli počasí nejde letět (klíč z SprayDroneScanMap.getBlocker), nil = jde; druhá hodnota je popis podmínek do logu,
+-- třetí práh větru. Sken (scanning, výchozí podle nastavení mise) potřebuje světlo a má scanMaxWind, postřik a vápnění smí i v noci
+-- a mají nižší sprayMaxWind varianty dronu.
+function SprayDroneStation.getWeatherBlocker(self, scanning)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if scanning == nil then
+        scanning = SprayDroneStation.getIsScanMode(self)
+    end
+    local maxWind = scanning and spec.scanMaxWind or spec.sprayMaxWind
+    local blocker, conditions = SprayDroneScanMap.getBlocker(maxWind, not scanning)
+    return blocker, conditions, maxWind
+end
+
+-- Status konce mise a text odmítnutí startu k překážce počasí.
+function SprayDroneStation.getWeatherStatus(blocker, scanning)
+    return (scanning and SprayDroneStation.SCAN_BLOCKER_STATUS or SprayDroneStation.SPRAY_BLOCKER_STATUS)[blocker]
+end
+
+function SprayDroneStation.getWeatherWarning(blocker, scanning)
+    return (scanning and SprayDroneStation.SCAN_BLOCKER_TEXTS or SprayDroneStation.SPRAY_BLOCKER_TEXTS)[blocker]
+end
+
+-- Které buňky skenu přípravek potřebuje: herbicid plevel (i neviditelný), hnojivo slabý porost (dusík pod cílem, bez PF úroveň hnojení
+-- pod maximem). Vápno sken nevidí: rozhoduje pH v buňce teď, s Precision Farming jen tam, kde farma farmId odebrala vzorky půdy
+-- (bez vzorku se nevápní), bez PF vanilla úroveň vápna přímo z pole (mapa vápna je ve hře vidět i bez dronu). Buňka (i nenaskenovaná,
+-- c nil), kterou týž přípravek po skenu už ošetřil, se do dalšího skenu nevybírá. Vrací select(c, treatedKinds, map, index); nil =
+-- přípravek podle skenu nejde.
+function SprayDroneStation.getSpotSelector(sprayType, farmId)
+    local kind = SprayDroneScanMap.getTreatKind(sprayType)
+    if kind == nil then
+        return nil
+    end
+    local need
+    if kind == SprayDroneScanMap.TREAT_HERBICIDE then
+        need = function(c)
+            return c == nil or c.weedShare > 0 or c.weedState > 0
+        end
+    elseif kind == SprayDroneScanMap.TREAT_LIME then
+        local pf = SprayDroneStation.getPrecisionFarming()
+        need = function(_, map, index)
+            if map == nil or index == nil then
+                return false
+            end
+            local x, z = SprayDroneScanMap.getCellCenter(map, index)
+            if pf ~= nil then
+                local ph = SprayDroneScanMap.getLivePh(pf, x, z, map.cellSize, farmId)
+                return ph ~= nil and ph < SprayDroneScanMap.PF_PH_TARGET - SprayDroneScanMap.PF_PH_TOLERANCE
+            end
+            return SprayDroneScanMap.getLiveLimeLevel(x, z) == 0
+        end
+    else
+        local maxLevel = g_fieldManager ~= nil and g_fieldManager.sprayLevelMaxValue or 2
+        need = function(c)
+            if c == nil then
+                return true
+            end
+            if c.nitrogen ~= nil and c.targetNitrogen ~= nil then
+                return c.nitrogen < c.targetNitrogen - SprayDroneScanMap.PF_NITROGEN_TOLERANCE
+            end
+            return c.sprayLevel < maxLevel
+        end
+    end
+    return function(c, treatedKinds, map, index)
+        if math.floor(treatedKinds / kind) % 2 == 1 then
+            return false
+        end
+        return need(c, map, index)
+    end
+end
+
+-- Maska aplikace podle skenu (SprayDroneRoute.newMask) pro vybrané pole a přípravek, nil = celé pole (nastavení, sken, pole bez
+-- mapy, přípravek bez výběru, spotOff = výpočet srovnávacího plánu). Drží se, dokud se mapa nezmění (sken i ošetření zvedají revision).
+function SprayDroneStation.getSpotMask(self, sprayType)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if spec.applyMode ~= 1 or spec.missionMode == 1 or spec.spotOff then
+        return nil
+    end
+    local select = SprayDroneStation.getSpotSelector(sprayType, self:getOwnerFarmId())
+    local map = select ~= nil and SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId) or nil
+    if map == nil then
+        return nil
+    end
+    local cache = spec.spotMaskCache
+    -- za mise se maska po prvním použití nemění: ošetření buněk ji jinak zmenšuje a sousední pruh, který dostříká zbytek buňky,
+    -- by z dalších dávek vypadl
+    local active = SprayDroneStation.getAnyMissionActive(self)
+    if cache ~= nil and cache.map == map and (cache.revision == map.revision or (active and cache.frozen))
+        and cache.sprayTypeIndex == sprayType.index and cache.margin == spec.spotMargin and cache.workWidth == spec.workWidth then
+        cache.frozen = active
+        return cache.mask
+    end
+    local mask = SprayDroneRoute.newMask(map, select, spec.spotMargin, spec.spotGap)
+    mask.halfWidth = spec.workWidth * 0.5
+    spec.spotMaskCache = { map = map, revision = map.revision, sprayTypeIndex = sprayType.index,
+        margin = spec.spotMargin, workWidth = spec.workWidth, mask = mask, frozen = active }
+    return mask
+end
+
+-- Proč aplikace podle skenu neběží, i když je zvolená: "noMap" (pole nemá sken), "product" (přípravek podle skenu nejde), jinak nil.
+function SprayDroneStation.getSpotProblem(self, sprayType)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if spec.applyMode ~= 1 or spec.missionMode == 1 then
+        return nil
+    end
+    if SprayDroneStation.getSpotSelector(sprayType) == nil then
+        return "product"
+    end
+    if SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId) == nil then
+        return "noMap"
+    end
+    return nil
 end
 
 -- Změna jednoho nastavení (index do SETTINGS) o delta (metry, kusy, u výběru o jednu volbu); vrací, jestli se hodnota změnila.
@@ -1571,19 +1955,29 @@ function SprayDroneStation.updateRange(self)
     local _, _, restHeight = SprayDroneStation.getHomePosition(self)
     local massPerLiter = SprayDroneStation.getMassPerLiter(self)
     local height = spec.transitHeight + spec.layerOffset
-    -- relé tyče: o kolik metrů prodlužují dosah rádia (SprayDroneLink.getRangeBonus)
-    local relayBonus = SprayDroneLink ~= nil and SprayDroneLink.getRangeBonus(self, spec.maxRange) or 0
+    -- oblast rádia (SprayDroneLink.getRadio) a o kolik metrů ji relé tyče prodlužují (SprayDroneLink.getRangeBonus); změna rádia
+    -- plán přepočítá
+    local radio = SprayDroneLink ~= nil and SprayDroneLink.getRadio(self) or nil
+    spec.radioMax = radio ~= nil and SprayDroneLink.getShapeMaxRange(radio) or spec.maxRange
+    local radioKey = string.format("%.0f", spec.radioMax)
+    for _, s in ipairs(radio ~= nil and radio.sectors or {}) do
+        radioKey = radioKey .. string.format("|%.0f:%.0f:%.0f", s.r, math.deg(s.dir), math.deg(s.half))
+    end
+    local relayBonus = radio ~= nil and SprayDroneLink.getRangeBonus(self, radio) or 0
     local changed = key == nil or key.height ~= height or math.abs(key.mass - massPerLiter) > 0.0005
-        or math.abs(key.rest - restHeight) > 0.05 or math.abs((key.relay or 0) - relayBonus) > 1
+        or math.abs(key.rest - restHeight) > 0.05 or math.abs((key.relay or 0) - relayBonus) > 1 or key.radio ~= radioKey
     if key == nil then
         key = {}
         spec.rangeKey = key
     end
     key.time = g_time + SprayDroneStation.RANGE_CHECK_TIME
     if changed then
-        key.height, key.mass, key.rest, key.relay = height, massPerLiter, restHeight, relayBonus
+        if key.radio ~= nil and key.radio ~= radioKey then
+            spec.routeDirty = true
+        end
+        key.height, key.mass, key.rest, key.relay, key.radio = height, massPerLiter, restHeight, relayBonus, radioKey
         local p = SprayDroneStation.getFlightParams(self, nil, restHeight)
-        local range = math.min(SprayDroneRoute.getBatteryRange(p, p.transitHeight, spec.tankCapacity, spec.maxRange + relayBonus), spec.rangeCap or math.huge)
+        local range = math.min(SprayDroneRoute.getBatteryRange(p, p.transitHeight, spec.tankCapacity, spec.radioMax + relayBonus), spec.rangeCap or math.huge)
         if range ~= spec.range then
             spec.range = range
             spec.routeDirty = true
@@ -1827,6 +2221,31 @@ function SprayDroneStation.loadMixer(self, xml, mixerKey)
     spec.isMixing = false
 end
 
+-- Vstup hadice z mlýnkového vozíku (sprayDrone.limeInlet): uzel u nádobky na vápno, fill unit a druh, který hadice plní.
+function SprayDroneStation.loadLimeInlet(self, xml, inletKey)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    spec.limeInlet = nil
+    local node = xml:getValue(inletKey .. "#node", nil, self.components, self.i3dMappings)
+    local name = xml:getValue(inletKey .. "#fillType")
+    local fillType = name ~= nil and g_fillTypeManager:getFillTypeIndexByName(name) or nil
+    if node ~= nil and fillType ~= nil then
+        spec.limeInlet = { node = node, fillUnitIndex = xml:getValue(inletKey .. "#fillUnitIndex", 3), fillType = fillType,
+            valveNode = xml:getValue(inletKey .. "#valveNode", nil, self.components, self.i3dMappings),
+            valveOpenAngle = xml:getValue(inletKey .. "#valveOpenAngle", 90) }
+    end
+end
+
+-- Vstup hadice vozíku na vápno, jen když nádobka vápno přijímá (fill unit existuje a druh podporuje); jinak nil.
+function SprayDroneStation.getLimeInlet(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    local inlet = spec ~= nil and spec.limeInlet or nil
+    if inlet ~= nil and self:getFillUnitExists(inlet.fillUnitIndex)
+        and self:getFillUnitSupportsFillType(inlet.fillUnitIndex, inlet.fillType) then
+        return inlet
+    end
+    return nil
+end
+
 -- Číslo nádrže koncentrátu, nebo nil, když ji vozidlo nemá.
 function SprayDroneStation.getConcentrateUnit(self)
     local index = self[SprayDroneStation.SPEC_NAME].concentrateFillUnitIndex
@@ -1870,11 +2289,15 @@ function SprayDroneStation.getFillSource(self)
     return source
 end
 
+-- Druh postřiku podle náplně dronu nebo vleku; v režimu skenu SCAN_TYPE (druhá hodnota je dál náplň, kvůli hmotnosti).
 function SprayDroneStation.getSprayType(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local fillType = spec.droneFillType
     if spec.droneFillLevel <= 0 or fillType == FillType.UNKNOWN then
         fillType = SprayDroneStation.getFillSource(self).fillType
+    end
+    if spec.missionMode == 1 then
+        return SprayDroneStation.SCAN_TYPE, fillType
     end
     return g_sprayTypeManager:getSprayTypeByFillTypeIndex(fillType), fillType
 end
@@ -1888,11 +2311,11 @@ function SprayDroneStation.getLitersPerMeter(self, sprayType)
 end
 
 -- l/m pro plán (dávky, náplň, souhrn): u herbicidu plná dávka krát průměrný podíl plevele na poli (getFieldWeedFactor),
--- za letu se odečítá podle plevele pod každým pruhem (flushSpray).
+-- za letu se odečítá podle plevele pod každým pruhem (flushSpray). Při aplikaci podle skenu jen z plochy masky.
 function SprayDroneStation.getPlanLitersPerMeter(self, sprayType)
     local lpm = SprayDroneStation.getLitersPerMeter(self, sprayType)
     if sprayType ~= nil and sprayType.isHerbicide then
-        lpm = lpm * SprayDroneStation.getFieldWeedFactor(self)
+        lpm = lpm * SprayDroneStation.getFieldWeedFactor(self, SprayDroneStation.getSpotMask(self, sprayType))
     end
     return lpm
 end
@@ -1943,12 +2366,12 @@ function SprayDroneStation.getWeedPixels(sx, sz, wx, wz, hx, hz)
 end
 
 -- Průměrný násobek spotřeby herbicidu na vybraném poli (mřížka buněk WEED_CELL_SIZE uvnitř polygonu). Počítá se jednou a
--- drží: za mise vůbec (postřik plevel mění), jinak WEED_CACHE_TIME nebo do změny pole.
-function SprayDroneStation.getFieldWeedFactor(self)
+-- drží: za mise vůbec (postřik plevel mění), jinak WEED_CACHE_TIME nebo do změny pole. mask = jen buňky v masce skenu.
+function SprayDroneStation.getFieldWeedFactor(self, mask)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local cache = spec.weedShareCache
     local missionActive = SprayDroneStation.getAnyMissionActive(self)
-    if cache ~= nil and cache.fieldId == spec.fieldId and (missionActive or g_time - cache.time < SprayDroneStation.WEED_CACHE_TIME) then
+    if cache ~= nil and cache.fieldId == spec.fieldId and cache.mask == mask and (missionActive or g_time - cache.time < SprayDroneStation.WEED_CACHE_TIME) then
         return cache.factor
     end
     local factor = 1
@@ -1964,7 +2387,7 @@ function SprayDroneStation.getFieldWeedFactor(self)
         local cells = {}
         for x = minX + size * 0.5, maxX, size do
             for z = minZ + size * 0.5, maxZ, size do
-                if SprayDroneRoute.isPointInPolygon(poly, x, z) then
+                if SprayDroneRoute.isPointInPolygon(poly, x, z) and (mask == nil or SprayDroneRoute.isInMask(mask, x, z)) then
                     local h = size * 0.5
                     local weed, total = SprayDroneStation.getWeedPixels(x - h, z - h, x + h, z - h, x - h, z + h)
                     table.insert(cells, { weed = weed, total = total })
@@ -1973,16 +2396,26 @@ function SprayDroneStation.getFieldWeedFactor(self)
         end
         factor = SprayDroneRoute.getAverageHerbicideFactor(cells)
     end
-    spec.weedShareCache = { fieldId = spec.fieldId, time = g_time, factor = factor }
+    spec.weedShareCache = { fieldId = spec.fieldId, mask = mask, time = g_time, factor = factor }
     return factor
 end
 
 -- Instance Precision Farming (g_precisionFarming), nil bez modu. PF je interní mod: proměnná žije v jeho prostředí
 -- (_G.FS25_precisionFarming), u některých verzí i globálně.
+-- Prostředí cizího modu (globální proměnná se jménem modu); _G má v modech metatabulku, takže rawget je nenajde.
+function SprayDroneStation.getModEnv(name)
+    local env = rawget(_G, name)
+    if type(env) ~= "table" then
+        local ok, value = pcall(function() return _G[name] end)
+        env = ok and type(value) == "table" and value or nil
+    end
+    return env
+end
+
 function SprayDroneStation.getPrecisionFarming()
     local pf = rawget(_G, "g_precisionFarming")
     if type(pf) ~= "table" then
-        local env = rawget(_G, SprayDroneStation.PF_MOD_NAME)
+        local env = SprayDroneStation.getModEnv(SprayDroneStation.PF_MOD_NAME)
         pf = type(env) == "table" and env.g_precisionFarming or nil
     end
     if type(pf) ~= "table" or (pf.nitrogenMap == nil and pf.pHMap == nil) then
@@ -1995,7 +2428,7 @@ end
 function SprayDroneStation.getPFGlobal(name)
     local value = rawget(_G, name)
     if value == nil then
-        local env = rawget(_G, SprayDroneStation.PF_MOD_NAME)
+        local env = SprayDroneStation.getModEnv(SprayDroneStation.PF_MOD_NAME)
         if type(env) == "table" then
             value = env[name]
         end
@@ -2174,9 +2607,14 @@ end
 function SprayDroneStation.getFlightParams(self, sprayType, restHeight)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local massPerLiter = SprayDroneStation.getMassPerLiter(self)
+    local planMass = massPerLiter
+    if spec.missionMode == 1 then
+        -- sken: plánuje se s „plnou nádrží“ (spotřeba přípravku je nulová), ale váží jen to, co v dronu skutečně je
+        planMass = math.max(spec.droneFillLevel, 0) * massPerLiter / math.max(spec.tankCapacity, 1)
+    end
     return {
         droneMass = spec.droneMass,
-        massPerLiter = massPerLiter,
+        massPerLiter = planMass,
         fullMass = spec.droneMass + spec.tankCapacity * massPerLiter,
         batteryCapacity = spec.batteryCapacity,
         batterySwapBelow = spec.batterySwapBelow,
@@ -2272,6 +2710,11 @@ function SprayDroneStation.getFieldAllowed(self, field)
     local owner = field:getOwner()
     local mission = nil
     if owner == FarmlandManager.NO_OWNER_FARM_ID or not g_currentMission.accessHandler:canFarmAccessOtherId(farmId, owner) then
+        if SprayDroneStation.getIsScanMode(self) then
+            return false, "sdt_warning_scanOwnOnly"
+        elseif SprayDroneSamples.getIsSampler(self) then
+            return false, "sdt_warning_samplerOwnOnly"
+        end
         mission = SprayDroneStation.getFieldMission(self, field)
         if mission == nil then
             return false, "sdt_warning_notOwned"
@@ -2320,8 +2763,10 @@ function SprayDroneStation.getRouteSummary(self)
     local field = SprayDroneRoute.getFieldById(spec.fieldId)
     if field ~= nil then
         local hx, hz = SprayDroneStation.getHomePosition(self)
+        -- mimo kruh dosahu z baterie, nebo mimo signál (relé, i výseč směrové tyče)
+        local circles = SprayDroneLink ~= nil and SprayDroneLink.getSignalCircles(self) or nil
         for _, p in ipairs(SprayDroneRoute.getPolygon(field)) do
-            if MathUtil.vector2Length(p.x - hx, p.z - hz) > spec.range then
+            if MathUtil.vector2Length(p.x - hx, p.z - hz) > spec.range or (circles ~= nil and not SprayDroneLink.isInCircles(circles, p.x, p.z)) then
                 partlyOutOfRange = true
                 break
             end
@@ -2331,7 +2776,23 @@ function SprayDroneStation.getRouteSummary(self)
     local area = SprayDroneStation.getFlightArea(self)
     -- roztočení před každou dávkou a servis na plošině (plnění, výměna baterie, čekání na nabití; ramena jsou rozložená s vlekem)
     local serviceTime = spec.numBatches * SprayDroneStation.ROTOR_SPINUP_TIME + (info.serviceTime or 0)
+    local scanMap = field ~= nil and SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId) or nil
+    local mask = field ~= nil and SprayDroneStation.getSpotMask(self, sprayType) or nil
+    local spot = nil
+    if mask ~= nil then
+        local age = SprayDroneScanMap.getAgeHours(mask.map)
+        spot = { selected = mask.selected, cells = mask.cells, unscanned = mask.unscanned, margin = mask.margin, ageHours = age,
+            stale = age > spec.spotMaxAge, fullLiters = spec.routeFull ~= nil and spec.routeFull.liters or nil,
+            fullMinutes = spec.routeFull ~= nil and spec.routeFull.minutes or nil }
+    end
     return {
+        spot = spot,
+        spotProblem = field ~= nil and SprayDroneStation.getSpotProblem(self, sprayType) or nil,
+        isScan = spec.missionMode == 1,
+        scanLevel = SprayDroneScanMap.getLevel(spec.scanCell),
+        scanSummary = scanMap ~= nil and SprayDroneScanMap.getSummary(scanMap) or nil,
+        scanAge = scanMap ~= nil and SprayDroneScanMap.getAgeHours(scanMap) or nil,
+        scanMapCell = scanMap ~= nil and scanMap.cellSize or nil,
         numBatches = spec.numBatches,
         waitMinutes = (info.waitTime or 0) / 60,
         serviceMinutes = (info.serviceTime or 0) / 60,
@@ -2402,6 +2863,10 @@ function SprayDroneStation.getRouteSummaryAll(self)
     summary.clipped = summary.clipped or other.clipped
     summary.tooHigh = summary.tooHigh or other.tooHigh
     summary.noPath = summary.noPath or other.noPath
+    if summary.spot ~= nil and other.spot ~= nil and summary.spot.fullLiters ~= nil and other.spot.fullLiters ~= nil then
+        summary.spot.fullLiters = summary.spot.fullLiters + other.spot.fullLiters
+        summary.spot.fullMinutes = math.max(summary.spot.fullMinutes, other.spot.fullMinutes)
+    end
     return summary
 end
 
@@ -2437,14 +2902,21 @@ function SprayDroneStation.getPowerParams(self)
             table.insert(spares, charges[i])
         end
     end
+    local diesel = self:getFillUnitFillLevel(spec.dieselFillUnitIndex) / drones
+    local dieselPerSecond = spec.dieselPerSecond
+    if spec.portable then
+        -- kufr pálí nic; bez zdroje nabíjení plán hlásí totéž co vlek bez nafty (noFuel)
+        diesel = (spec.chargeSource or SprayDroneCase.SOURCE_NONE) ~= SprayDroneCase.SOURCE_NONE and math.huge or 0
+        dieselPerSecond = 0
+    end
     return {
         spares = spares,
         droneHasBattery = spec.droneBattery ~= nil,
-        diesel = self:getFillUnitFillLevel(spec.dieselFillUnitIndex) / drones,
-        startFill = spec.droneFillType == fillType and spec.droneFillLevel or 0,
+        diesel = diesel,
+        startFill = spec.missionMode == 1 and SprayDroneStation.getPlanTank(self) or (spec.droneFillType == fillType and spec.droneFillLevel or 0),
         capacity = spec.batteryCapacity,
         chargeRate = spec.chargeRate,
-        dieselPerSecond = spec.dieselPerSecond,
+        dieselPerSecond = dieselPerSecond,
         readyCharge = spec.readyCharge,
         swapTime = spec.swapTime * 0.001,
         pumpRate = spec.pumpRate,
@@ -2469,13 +2941,16 @@ function SprayDroneStation.buildAllLegs(self, reserved, unlimited)
     local range = unlimited and SprayDroneStation.UNLIMITED_RANGE or SprayDroneStation.updateRange(self)
     SprayDroneRoute.reserved = reserved
     SprayDroneRoute.reservedMargin = spec.workWidth * 0.5 + SprayDroneStation.RESERVE_MARGIN
-    -- s relé je kruh dosahu (rádio + vzdálenost tyče) větší než skutečný signál: stříká se jen tam, kam signál dosáhne
+    -- s relé je kruh dosahu (rádio + vzdálenost tyče) větší než skutečný signál: stříká se jen tam,
+    -- kam signál dosáhne
     local circles = not unlimited and SprayDroneLink ~= nil and SprayDroneLink.getSignalCircles(self) or nil
-    SprayDroneRoute.signalCircles = circles ~= nil and #circles > 1 and circles or nil
+    SprayDroneRoute.signalCircles = circles ~= nil and (#circles > 1 or #circles[1].sectors > 0) and circles or nil
+    SprayDroneRoute.mask = SprayDroneStation.getSpotMask(self, sprayType)
     local legs = SprayDroneRoute.buildLegs(field, hx, hz, range, spec.workWidth, sprayType, coverage, spec.headlands,
         spec.headlandFirst)
     SprayDroneRoute.reserved = nil
     SprayDroneRoute.signalCircles = nil
+    SprayDroneRoute.mask = nil
     return legs, sprayType
 end
 
@@ -2538,7 +3013,7 @@ function SprayDroneStation.buildLegs(self, preview)
     local litersPerMeter = SprayDroneStation.getPlanLitersPerMeter(self, sprayType)
     local split = SprayDroneRoute.splitLegs(all, n, {
         homes = { { x = h1x, z = h1z }, { x = h2x, z = h2z } },
-        batchLength = math.min(spec.tankCapacity / litersPerMeter,
+        batchLength = math.min(SprayDroneStation.getPlanTank(self) / litersPerMeter,
             SprayDroneStation.SPLIT_BATTERY_SHARE * spec.batteryCapacity * spec.sprayingSpeed),
         spraySpeed = spec.sprayingSpeed,
         cruiseSpeed = spec.cruiseSpeed,
@@ -2570,6 +3045,27 @@ function SprayDroneStation.clearCoverage(self, fieldId)
     SprayDroneStation.raiseCoverage(self, true)
 end
 
+-- Srovnávací plán „celé pole“ k aplikaci podle skenu (v kontextu dronu): litry a minuty bez masky do spec.routeFull.
+function SprayDroneStation.updateFullPlan(self, hx, hz, restHeight)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    spec.spotOff = true
+    local legs, sprayType = SprayDroneStation.buildLegs(self, true)
+    local full = { liters = 0, minutes = 0 }
+    if #legs > 0 then
+        local p = SprayDroneStation.getFlightParams(self, sprayType, restHeight)
+        p.power = SprayDroneStation.getPowerParams(self)
+        local _, numBatches, _, info = SprayDroneRoute.splitIntoBatches(legs, hx, hz, SprayDroneStation.getPlanTank(self), spec.battery, p)
+        local length = 0
+        for _, leg in ipairs(legs) do
+            length = length + leg.len
+        end
+        full.liters = length * p.litersPerMeter
+        full.minutes = (info.time + numBatches * SprayDroneStation.ROTOR_SPINUP_TIME + (info.serviceTime or 0)) / 60
+    end
+    spec.spotOff = nil
+    spec.routeFull = full
+end
+
 function SprayDroneStation.updateRoutePreview(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
     spec.routeDirty = false
@@ -2577,10 +3073,23 @@ function SprayDroneStation.updateRoutePreview(self)
     spec.routeTimer = SprayDroneStation.ROUTE_REFRESH_TIME * (1 + (SprayDroneDrones.getIndex(self) - 1) * 0.5)
     spec.drawLegs, spec.numBatches, spec.routeClipped = {}, 0, false
     spec.routeInfo = { time = 0, height = spec.transitHeight, tooHigh = false, transits = {} }
+    spec.outOfReachLegs = nil
     if spec.fieldId == 0 then
         return
     end
+    if spec.isSamplerDrone then
+        SprayDroneSamples.updateRoutePreview(self)
+        return
+    end
     local legs, sprayType = SprayDroneStation.buildLegs(self, true)
+    if SprayDroneDrones.getRoot(self).portable and SprayDroneLink ~= nil then
+        -- kufr: pruhy pole mimo dosah (kruh z baterie, relé) pro plánovač, ať je vidět, kam kufr přenést nebo postavit tyč
+        local hx, hz = SprayDroneStation.getHomePosition(self)
+        local circles = SprayDroneLink.getSignalCircles(self)
+        spec.outOfReachLegs = SprayDroneLink.getOutsideParts(SprayDroneStation.buildAllLegs(self, nil, true), function(x, z)
+            return MathUtil.vector2Length(x - hx, z - hz) <= spec.range and SprayDroneLink.isInCircles(circles, x, z)
+        end, 5)
+    end
     if #legs == 0 then
         return
     end
@@ -2588,7 +3097,11 @@ function SprayDroneStation.updateRoutePreview(self)
     local p = SprayDroneStation.getFlightParams(self, sprayType, restHeight)
     p.power = SprayDroneStation.getPowerParams(self)
     spec.drawLegs, spec.numBatches, spec.routeClipped, spec.routeInfo =
-        SprayDroneRoute.splitIntoBatches(legs, hx, hz, spec.tankCapacity, spec.battery, p)
+        SprayDroneRoute.splitIntoBatches(legs, hx, hz, SprayDroneStation.getPlanTank(self), spec.battery, p)
+    spec.routeFull = nil
+    if SprayDroneStation.getSpotMask(self, sprayType) ~= nil then
+        SprayDroneStation.updateFullPlan(self, hx, hz, restHeight)
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -2601,6 +3114,8 @@ function SprayDroneStation:sprayDroneCommand(command, value, noEventSend, droneI
         return
     end
     local spec = SprayDroneDrones.getRoot(self)
+    SprayDroneSound.noteAction(string.format("příkaz vleku %s: %s%s (hodnota %s, dron %s)", tostring(self.id), SprayDroneSound.getCommandName(command),
+        spec.hasDrone and "" or " (vlek bez dronu)", tostring(value), tostring(droneIndex)))
     -- spící vlek se probudí: nabíjení po zapnutí centrály a mise se řídí z onUpdate
     self:raiseActive()
 
@@ -2622,6 +3137,8 @@ function SprayDroneStation:sprayDroneCommand(command, value, noEventSend, droneI
         end
 
     elseif command == SprayDroneCommandEvent.START then
+        local spotType = SprayDroneStation.getSprayType(self)
+        local mask = SprayDroneStation.getSpotMask(self, spotType)
         for k = 1, spec.numDrones do
             if (droneIndex == nil or droneIndex == 0) and k <= spec.activeDrones or droneIndex == k then
                 SprayDroneDrones.runAs(self, k, SprayDroneStation.startDrone)
@@ -2641,6 +3158,7 @@ function SprayDroneStation:sprayDroneCommand(command, value, noEventSend, droneI
         self:raiseDirtyFlags(spec.dirtyFlag)
 
     elseif command == SprayDroneCommandEvent.SET_GENERATOR then
+        SprayDroneSound.noteAction(string.format("vlek %s: centrála %s", self.configFileNameClean or "?", value ~= 0 and "zapnuta" or "vypnuta"))
         spec.generatorEnabled = value ~= 0
         self:raiseDirtyFlags(spec.dirtyFlag)
 
@@ -2650,13 +3168,17 @@ function SprayDroneStation:sprayDroneCommand(command, value, noEventSend, droneI
                 SprayDroneDrones.runAs(self, k, SprayDroneStation.returnDrone)
             end
         end
+
+    elseif command == SprayDroneCommandEvent.SEND_SAMPLES then
+        SprayDroneSamples.sendSamples(self)
     end
 end
 
 -- Start mise jednoho dronu (v kontextu dronu).
 function SprayDroneStation.startDrone(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
-    if not spec.hasDrone or spec.fieldId == 0 or spec.missionActive or not self:getIsUnfolded() or #spec.batteries == 0 then
+    if not spec.hasDrone or spec.fieldId == 0 or spec.missionActive or spec.foldHold or not self:getIsUnfolded() or #spec.batteries == 0
+        or SprayDronePad.getIsDroneInBox(self) then
         return
     end
     spec.missionActive = true
@@ -2700,6 +3222,7 @@ function SprayDroneStation.setState(self, state)
         if state ~= SprayDroneStation.STATE_SERVICING then
             spec.isPumping, spec.isSwapping, spec.waitingForCharge, spec.swapTimer = false, false, false, 0
             spec.isMixing, spec.waitingForPower, spec.waitingForRelay = false, false, false
+            spec.waitingForClearance = false
         end
         if state ~= SprayDroneStation.STATE_FLYING and state ~= SprayDroneStation.STATE_RETURNING then
             spec.batchRelays = {}
@@ -2784,7 +3307,8 @@ function SprayDroneStation.pumpDrone(self, dt)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local source = SprayDroneStation.getFillSource(self)
     local filling, mixing, noPower = false, false, false
-    if source.kind ~= SprayDroneMixer.KIND_NONE and source.liters > 0 then
+    -- sken nepotřebuje náplň: dron se nedoplňuje (letí lehčí)
+    if source.kind ~= SprayDroneMixer.KIND_NONE and source.liters > 0 and spec.missionMode ~= 1 then
         if spec.droneFillType ~= source.fillType and spec.droneFillLevel > 0 then
             -- jiný přípravek ve vleku: zbytek v dronu se nemíchá, zahodí se
             spec.droneFillLevel = 0
@@ -2876,6 +3400,10 @@ end
 -- Bude další dávka potřebovat výměnu baterie? Plánuje s nádrží, jaká bude po doplnění.
 function SprayDroneStation.getWantsSwap(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    -- vzorkovač o výměně rozhoduje až při plánu dávky (SprayDroneSamples.startNextBatch)
+    if spec.isSamplerDrone then
+        return false
+    end
     local legs, sprayType = SprayDroneStation.buildLegs(self)
     if #legs == 0 or sprayType == nil then
         return false
@@ -2883,6 +3411,9 @@ function SprayDroneStation.getWantsSwap(self)
     local source = SprayDroneStation.getFillSource(self)
     local droneFill = spec.droneFillType == source.fillType and spec.droneFillLevel or 0
     local fill = math.min(spec.tankCapacity, droneFill + source.liters)
+    if spec.missionMode == 1 then
+        fill = SprayDroneStation.getPlanTank(self)
+    end
     if fill < 0.5 then
         return false
     end
@@ -2897,6 +3428,9 @@ end
 -- Proč se čekající náhradní baterie nenabije (status, kterým se mise ukončí): bez nafty, nebo s vypnutou centrálou; jinak nil.
 function SprayDroneStation.getChargeBlocker(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    if SprayDroneCase.getIsPortable(self) then
+        return SprayDroneCase.getChargeBlocker(self)
+    end
     if self:getFillUnitFillLevel(spec.dieselFillUnitIndex) <= 0 then
         return SprayDroneStation.STATUS_NO_FUEL
     elseif not spec.generatorEnabled then
@@ -2921,9 +3455,16 @@ function SprayDroneStation.setWaitingForRelay(self, waiting)
     end
 end
 
+function SprayDroneStation.setWaitingForClearance(self, waiting)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if spec.waitingForClearance ~= waiting then
+        spec.waitingForClearance = waiting
+        self:raiseDirtyFlags(spec.dirtyFlag)
+    end
+end
+
 -- Tyče, na kterých závisí dávka s waypointy wps (body mimo rádio vleku v kruhu tyče), se zbývající výdrží.
 function SprayDroneStation.getBatchRelays(self, wps)
-    local spec = self[SprayDroneStation.SPEC_NAME]
     if SprayDroneLink == nil then
         return {}
     end
@@ -2932,7 +3473,7 @@ function SprayDroneStation.getBatchRelays(self, wps)
         return {}
     end
     local hx, hz = SprayDroneStation.getHomePosition(self)
-    return SprayDroneLink.getNeededRelays(wps, hx, hz, spec.maxRange, connected)
+    return SprayDroneLink.getNeededRelays(wps, hx, hz, SprayDroneLink.getRadio(self), connected)
 end
 
 -- Tyče rozlétané dávky po síti (blokace tyče se ptá i u klienta): počet a id objektů, nejvýš MAX_BATCH_RELAYS.
@@ -2978,6 +3519,65 @@ function SprayDroneStation.getBatteryInSlot(self, slot)
         end
     end
     return nil
+end
+
+-- Pool baterií má proměnný počet 0..numBatterySlots (baterie jde vyndat jako předmět, SprayDroneBatterySlots); prázdná šachta = baterie
+-- s tím slotem v poolu není. Strop je počet šachet i s baterií v dronu: ta se při skládání vrací do šachty, takže pro ni musí jedna zůstat volná.
+
+-- Počet baterií na count (oříznutí od konce, doplnění plnými bez šachty: slot -1 dosadí volající). Klient takhle srovná počet z proudu.
+function SprayDroneStation.setBatteryCount(self, count)
+    local spec = SprayDroneDrones.getRoot(self)
+    count = math.clamp(count, 0, spec.numBatterySlots)
+    if count == #spec.batteries then
+        return
+    end
+    while #spec.batteries > count do
+        table.remove(spec.batteries)
+    end
+    while #spec.batteries < count do
+        table.insert(spec.batteries, { charge = spec.batteryCapacity, slot = -1, drone = 1 })
+    end
+    SprayDroneStation.resetBatteryVisuals(spec)
+end
+
+-- Uzel baterie k patří baterii k poolu: po změně indexů se modely přepojí znovu, bez animace přenosu.
+function SprayDroneStation.resetBatteryVisuals(spec)
+    if spec.batteryParents ~= nil then
+        spec.batteryParents, spec.batteryShown, spec.batteryMoves = {}, {}, {}
+    end
+end
+
+-- Server: přidá baterii s nabitím charge (s) do šachty slot; vrací její index.
+function SprayDroneStation.addBattery(self, charge, slot)
+    local spec = SprayDroneDrones.getRoot(self)
+    table.insert(spec.batteries, { charge = math.clamp(charge, 0, spec.batteryCapacity), slot = slot, drone = 1 })
+    SprayDroneStation.markRouteDirty(self)
+    self:raiseDirtyFlags(spec.dirtyFlag)
+    return #spec.batteries
+end
+
+-- Server: baterie k z poolu pryč (ze šachty, nebo z dronu, který ji nese); vrací její nabití (s). Indexy baterií v dronech se posunou.
+function SprayDroneStation.removeBattery(self, k)
+    local spec = SprayDroneDrones.getRoot(self)
+    local battery = spec.batteries[k]
+    if battery == nil then
+        return 0
+    end
+    SprayDroneDrones.forEachSpec(self, function(d)
+        if d.droneBattery == k then
+            battery.charge = d.battery
+            d.droneBattery = nil
+            d.battery = 0
+            d.routeDirty = true
+        elseif d.droneBattery ~= nil and d.droneBattery > k then
+            d.droneBattery = d.droneBattery - 1
+        end
+    end)
+    table.remove(spec.batteries, k)
+    SprayDroneStation.resetBatteryVisuals(spec)
+    SprayDroneStation.markRouteDirty(self)
+    self:raiseDirtyFlags(spec.dirtyFlag)
+    return battery.charge
 end
 
 function SprayDroneStation.getFreeBatterySlot(self)
@@ -3063,7 +3663,7 @@ function SprayDroneStation.updateBatteryPlacement(self)
     end
     if spec.droneBattery ~= nil and spec.unfold < 1 then
         SprayDroneStation.unloadDroneBattery(self)
-    elseif spec.droneBattery == nil and spec.unfold >= 1 and spec.state == SprayDroneStation.STATE_PARKED and not spec.missionActive then
+    elseif spec.droneBattery == nil and spec.unfold >= 1 and spec.state == SprayDroneStation.STATE_PARKED and not spec.missionActive and not spec.foldHold then
         local k, charge = SprayDroneStation.getBestSlottedBattery(self)
         if k ~= nil and charge >= spec.readyCharge - 0.01 then
             SprayDroneStation.loadDroneBattery(self, k)
@@ -3077,6 +3677,24 @@ function SprayDroneStation.getNumChargingBatteries(self)
     local count = 0
     for _, battery in ipairs(spec.batteries) do
         if battery.slot > 0 and battery.charge < spec.batteryCapacity then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+-- Počet kufrů skenovacích dronů (SprayDroneCase), které teď nabíjí centrála vleku (zátěž do getPowerState); prošlé záznamy maže.
+function SprayDroneStation.getNumCaseLoads(self)
+    local spec = SprayDroneDrones.getRoot(self)
+    local loads = spec.caseLoads
+    if loads == nil then
+        return 0
+    end
+    local count = 0
+    for case, untilTime in pairs(loads) do
+        if untilTime < g_time or case.isDeleted then
+            loads[case] = nil
+        else
             count = count + 1
         end
     end
@@ -3107,7 +3725,7 @@ end
 -- Centrála smí běžet jen zapnutá na rozloženém vleku; složená je pod plachtou / bednou.
 function SprayDroneStation.getGeneratorAllowed(self)
     local spec = SprayDroneDrones.getRoot(self)
-    return spec.generatorEnabled and (self.getIsUnfolded == nil or self:getIsUnfolded())
+    return not spec.portable and spec.generatorEnabled and (self.getIsUnfolded == nil or self:getIsUnfolded())
 end
 
 -- Proč čerpadlo stojí: klíč textu (vypnutá centrála / bez nafty).
@@ -3132,8 +3750,9 @@ end
 
 function SprayDroneStation.getPowerState(self)
     local spec = SprayDroneDrones.getRoot(self)
+    -- kufry skenovacích dronů, které se u vleku nabíjejí (SprayDroneCase), jsou pro centrálu další nabíjené baterie
     return SprayDroneStation.getPowerShares({ enabled = SprayDroneStation.getGeneratorAllowed(self), diesel = self:getFillUnitFillLevel(spec.dieselFillUnitIndex),
-        charging = SprayDroneStation.getNumChargingBatteries(self), pumping = SprayDroneStation.getPumpRunning(self),
+        charging = SprayDroneStation.getNumChargingBatteries(self) + SprayDroneStation.getNumCaseLoads(self), pumping = SprayDroneStation.getPumpRunning(self),
         relays = SprayDroneRelaySlots.getNumCharging(self) or 0 })
 end
 
@@ -3147,6 +3766,10 @@ end
 -- výkonu), nafta úměrně zátěži (getPowerShares).
 function SprayDroneStation.updatePower(self, dt)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    if spec.portable then
+        SprayDroneCase.updatePower(self, dt)
+        return
+    end
     local power = SprayDroneStation.getPowerState(self)
     local running = power.running
     local charging = SprayDroneStation.getNumChargingBatteries(self)
@@ -3192,6 +3815,17 @@ function SprayDroneStation.startNextBatch(self)
         SprayDroneStation.endMission(self, SprayDroneStation.STATUS_NOT_ALLOWED)
         return
     end
+    local scanning = SprayDroneStation.getIsScanMode(self)
+    local blocker, conditions = SprayDroneStation.getWeatherBlocker(self, scanning)
+    if blocker ~= nil then
+        SprayDroneSound.noteAction(string.format("%s pole %d odmítnut: %s (%s)", scanning and "sken" or "postřik", spec.fieldId, blocker, conditions))
+        SprayDroneStation.endMission(self, SprayDroneStation.getWeatherStatus(blocker, scanning))
+        return
+    end
+    if spec.isSamplerDrone then
+        SprayDroneSamples.startNextBatch(self)
+        return
+    end
     local legs, sprayType = SprayDroneStation.buildLegs(self)
     if #legs == 0 then
         -- prázdný vlastní seznam není hotové pole: druhý dron může zbytek stříkat (rezervace) nebo ho ještě nemá. Pole je hotové,
@@ -3215,9 +3849,24 @@ function SprayDroneStation.startNextBatch(self)
             SprayDroneStation.endMission(self, SprayDroneStation.STATUS_NONE)
         else
             if outcome == "done" then
+                if not scanning and SprayDroneStation.getSpotMask(self, sprayType) ~= nil then
+                    local map = SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId)
+                    local rest = SprayDroneScanMap.treatRemaining(map, SprayDroneStation.getSpotSelector(sprayType, self:getOwnerFarmId()),
+                        SprayDroneScanMap.getTreatKind(sprayType))
+                end
                 SprayDroneStation.clearCoverage(self, spec.fieldId)
+                if scanning then
+                    local map = SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId)
+                    if map ~= nil then
+                    end
+                    -- poslední buňky ke klientům dřív než status, ať notifikace se souhrnem počítá s celou mapou
+                    SprayDroneScanMap.flushSync()
+                end
             end
             local status = outcome == "done" and SprayDroneStation.STATUS_FIELD_DONE or SprayDroneStation.STATUS_OUT_OF_REACH
+            if scanning and outcome == "done" then
+                status = SprayDroneStation.STATUS_SCAN_DONE
+            end
             SprayDroneDrones.forEachSpec(self, function(d)
                 if d.missionActive or d == spec then
                     SprayDroneStation.endMission(self, status)
@@ -3226,7 +3875,7 @@ function SprayDroneStation.startNextBatch(self)
         end
         return
     end
-    if spec.droneFillLevel < 0.5 then
+    if spec.droneFillLevel < 0.5 and not scanning then
         -- v hlavní nádrži je voda bez koncentrátu, nebo koncentrát bez vody: řekne se, co chybí
         local reason = SprayDroneStation.getFillSource(self).reason
         SprayDroneStation.endMission(self, reason == "noConcentrate" and SprayDroneStation.STATUS_NO_CONCENTRATE
@@ -3238,8 +3887,8 @@ function SprayDroneStation.startNextBatch(self)
     -- výměna baterie při servisu: jen když je pod batterySwapBelow nebo na dávku nestačí (jako ruční výměna na poli);
     -- náhradní musí být nabitá aspoň na readyCharge, jinak dron na plošině čeká, než se nabije
     local _, spareCharge = SprayDroneStation.getBestSlottedBattery(self)
-    local wps, _, _, _, info, battery = SprayDroneRoute.planBatchWithSwap(legs, 1, 0, hx, hz, spec.droneFillLevel, spec.battery, p,
-        math.max(spareCharge, spec.readyCharge))
+    local wps, _, _, _, info, battery = SprayDroneRoute.planBatchWithSwap(legs, 1, 0, hx, hz,
+        scanning and SprayDroneStation.getPlanTank(self) or spec.droneFillLevel, spec.battery, p, math.max(spareCharge, spec.readyCharge))
     if wps ~= nil and (battery ~= spec.battery or spec.droneBattery == nil) then
         if not SprayDroneStation.swapBattery(self) then
             local blocker = SprayDroneStation.getChargeBlocker(self)
@@ -3267,6 +3916,17 @@ function SprayDroneStation.startNextBatch(self)
         return
     end
     SprayDroneStation.setWaitingForRelay(self, false)
+    -- nad plošinou střecha, strom nebo jiná překážka: dron čeká a zkouší to znovu jako u tyče
+    local clear, blockedBy = SprayDroneStation.getTakeoffClearance(self)
+    if not clear then
+        if not spec.waitingForClearance then
+            SprayDroneSound.noteAction(string.format("dron %d nevzlétne: nad plošinou %s", SprayDroneDrones.getIndex(self), blockedBy))
+        end
+        SprayDroneStation.setWaitingForClearance(self, true)
+        spec.serviceTimer = SprayDroneStation.RELAY_RETRY_TIME
+        return
+    end
+    SprayDroneStation.setWaitingForClearance(self, false)
     spec.batchRelays = {}
     for _, relay in ipairs(relays) do
         table.insert(spec.batchRelays, relay.vehicle)
@@ -3285,8 +3945,16 @@ function SprayDroneStation.startNextBatch(self)
     spec.batch = spec.batch + 1
     -- za letu plná dávka; u herbicidu ji flushSpray násobí podílem plevele pod pruhem
     spec.litersPerMeter = SprayDroneStation.getLitersPerMeter(self, sprayType)
-    spec.massPerLiter = p.massPerLiter
+    spec.massPerLiter = SprayDroneStation.getMassPerLiter(self)
     spec.sprayTypeIndex = sprayType.index
+    spec.scanning = scanning
+    spec.weatherCheckTime = g_time + SprayDroneStation.WEATHER_CHECK_TIME
+    if scanning then
+        local field = SprayDroneRoute.getFieldById(spec.fieldId)
+        local map = SprayDroneScanMap.ensureMap(self:getOwnerFarmId(), field, SprayDroneScanMap.getLevel(spec.scanCell).cell)
+        SprayDroneSound.noteAction(string.format("sken pole %d: dávka %d, buňka %d m, výška %.0f m, záběr %.0f m, rychlost %.1f m/s, mapa %d buněk v poli",
+            spec.fieldId, spec.batch, map.cellSize, spec.sprayHeight, spec.workWidth, spec.sprayingSpeed, map.numInside))
+    end
     spec.flightTime, spec.estimatedTime = 0, info.time
     spec.batteryAtStart, spec.estimatedEnergy = spec.battery, info.energy
     SprayDroneStation.setState(self, SprayDroneStation.STATE_FLYING)
@@ -3339,6 +4007,10 @@ function SprayDroneStation.flushSpray(self)
     end
     local x, z = spec.pos.x, spec.pos.z
     local len = MathUtil.vector2Length(x - from.x, z - from.z)
+    if spec.scanning then
+        SprayDroneStation.flushScan(self, from, x, z, len)
+        return
+    end
     if len < 0.05 or spec.droneFillLevel <= 0 then
         return
     end
@@ -3382,12 +4054,53 @@ function SprayDroneStation.flushSpray(self)
         SprayDroneRoute.markCovered(spec.coverage, field, spec.sprayTypeIndex, spec.workWidth, spec.headlands, from.x, from.z, x, z)
         SprayDroneStation.raiseCoverage(self, false)
     end
+    -- ošetřené buňky mapy skenu (spot i celé pole): další mise podle stejné mapy je už nevybere
+    local treatKind = SprayDroneScanMap.getTreatKind(sprayType)
+    local scanMap = treatKind ~= nil and SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId) or nil
+    if scanMap ~= nil then
+        SprayDroneScanMap.treatStrip(scanMap, from.x, from.z, x, z, halfW, treatKind)
+    end
 
     -- statistiky jako vanilla Sprayer: farmě, které patří ošetřený pozemek (u zakázky nikomu)
     local statsFarmId = g_farmlandManager:getOwnerIdAtWorldPosition(cx, cz)
     local ha = MathUtil.areaToHa(changedArea or 0, g_currentMission:getFruitPixelsToSqm())
     g_farmManager:updateFarmStats(statsFarmId, "sprayedHectares", ha)
     g_farmManager:updateFarmStats(statsFarmId, "sprayUsage", liters)
+end
+
+-- Sken pruhu od posledního bodu k aktuální poloze: buňky pod záběrem do mapy pole (SprayDroneScanMap), pruh do paměti pokrytí.
+function SprayDroneStation.flushScan(self, from, x, z, len)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if len < 0.05 then
+        return
+    end
+    local map = SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId)
+    if map ~= nil then
+        SprayDroneScanMap.scanStrip(map, from.x, from.z, x, z, spec.workWidth * 0.5)
+    end
+    local field = SprayDroneRoute.getFieldById(spec.fieldId)
+    if field ~= nil then
+        SprayDroneRoute.markCovered(spec.coverage, field, spec.sprayTypeIndex, spec.workWidth, spec.headlands, from.x, from.z, x, z)
+        SprayDroneStation.raiseCoverage(self, false)
+    end
+end
+
+-- Za letu (server, jednou za WEATHER_CHECK_TIME): déšť, vítr nad práh nebo u skenu setmění misi ukončí a dron letí domů.
+-- Vrací, jestli se vrací.
+function SprayDroneStation.checkWeather(self)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    if g_time < spec.weatherCheckTime then
+        return false
+    end
+    spec.weatherCheckTime = g_time + SprayDroneStation.WEATHER_CHECK_TIME
+    local blocker, conditions = SprayDroneStation.getWeatherBlocker(self, spec.scanning)
+    if blocker == nil then
+        return false
+    end
+    spec.missionActive = false
+    spec.status = SprayDroneStation.getWeatherStatus(blocker, spec.scanning)
+    SprayDroneStation.startReturnHome(self)
+    return true
 end
 
 -- Spotřeba baterie na návrat z aktuální polohy s aktuální náplní (zabrzdit, vystoupat, přelet, přistát).
@@ -3613,6 +4326,7 @@ function SprayDroneStation.updateFlight(self, dt)
             return
         end
         spec.waitingForPad = false
+        spec.launchX, spec.launchZ = SprayDroneStation.getHomePosition(self)
         SprayDroneStation.detachDrone(self)
         pos.yaw = SprayDroneStation.getHomeYaw(self)
         spec.airborne = true
@@ -3623,6 +4337,11 @@ function SprayDroneStation.updateFlight(self, dt)
     SprayDroneStation.drainBattery(self, s)
     if spec.state == SprayDroneStation.STATE_FLYING then
         local trailerMoving = self:getLastSpeed() > SprayDroneStation.MAX_TRAILER_SPEED
+        -- kufr se dá zvednout a pomalu odnést (rychlost nese hráč, ne kola): rozhoduje i vzdálenost od místa vzletu
+        if not trailerMoving and SprayDroneCase.getIsPortable(self) and spec.launchX ~= nil then
+            local hx, hz = SprayDroneStation.getHomePosition(self)
+            trailerMoving = MathUtil.vector2Length(hx - spec.launchX, hz - spec.launchZ) > SprayDroneCase.MOVE_TOLERANCE
+        end
         if trailerMoving then
             spec.missionActive = false
             spec.status = SprayDroneStation.STATUS_TRAILER_MOVED
@@ -3631,8 +4350,12 @@ function SprayDroneStation.updateFlight(self, dt)
             spec.returnEnergyTime = g_time + SprayDroneStation.RETURN_ENERGY_INTERVAL
             spec.returnEnergy = SprayDroneStation.getReturnEnergy(self)
         end
-        if trailerMoving or spec.droneFillLevel <= 0 or spec.battery < spec.returnEnergy + 5 then
+        -- prázdná nádrž vrací domů jen postřik; sken a vzorkovač (missionMode 1) nádrž nemají
+        if trailerMoving or (spec.droneFillLevel <= 0 and spec.missionMode ~= 1) or spec.battery < spec.returnEnergy + 5 then
             SprayDroneStation.startReturnHome(self)
+            return
+        end
+        if SprayDroneStation.checkWeather(self) then
             return
         end
         -- ztráta signálu (vypadlá tyč): postřik se přeruší a dron letí domů; návrat přes místa bez signálu se toleruje
@@ -3642,6 +4365,11 @@ function SprayDroneStation.updateFlight(self, dt)
             SprayDroneStation.startReturnHome(self)
             return
         end
+    end
+    -- vzorkovač stojí nad bodem odběru, dokud sonda nevyjede, neodebere a nezajede
+    if SprayDroneSamples.updateHold(self, dt) then
+        SprayDroneStation.raiseFlightSync(self, dt)
+        return
     end
 
     local tx, tz, th = wp.x, wp.z, wp.h
@@ -3745,7 +4473,7 @@ function SprayDroneStation.updateFlight(self, dt)
 
     if wp.spray and spec.state == SprayDroneStation.STATE_FLYING then
         spec.isSpraying = true
-        if spec.droneFillLevel > 0 then
+        if spec.droneFillLevel > 0 and not spec.scanning then
             spec.lastSprayTime = g_time
         end
         if spec.sprayFrom == nil then
@@ -3762,6 +4490,9 @@ function SprayDroneStation.updateFlight(self, dt)
 
     if reached then
         spec.wpIndex = spec.wpIndex + 1
+        if wp.sample and spec.state == SprayDroneStation.STATE_FLYING then
+            SprayDroneSamples.startHold(self, wp)
+        end
         if wp.land then
             SprayDroneStation.attachDrone(self)
             spec.path = nil
@@ -3769,6 +4500,7 @@ function SprayDroneStation.updateFlight(self, dt)
             spec.airborne = false
             SprayDroneStation.setState(self, SprayDroneStation.STATE_SERVICING)
             spec.serviceTimer = SprayDroneStation.SERVICE_TIME
+            SprayDroneSamples.onLanded(self)
         end
     end
     SprayDroneStation.raiseFlightSync(self, dt)
@@ -3797,7 +4529,13 @@ function SprayDroneStation.applyFold(self)
         local t = math.clamp((spec.unfold - part.startTime) / math.max(part.endTime - part.startTime, 0.001), 0, 1)
         t = t * t * (3 - 2 * t)
         local a, b = part.folded, part.unfolded
-        setRotation(part.node, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t)
+        if a ~= nil then
+            setRotation(part.node, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t)
+        end
+        a, b = part.foldedTrans, part.unfoldedTrans
+        if a ~= nil then
+            setTranslation(part.node, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t)
+        end
     end
 end
 
@@ -3840,7 +4578,7 @@ function SprayDroneStation.updateDroneParts(self, dt)
     -- úchyty od 2 s) rovnou na čas 0, takže čas skládání by dron rozložil naráz
     spec.unfoldMoving = false
     if spec.isLinked then
-        local target = SprayDroneStation.getTrailerUnfold(self)
+        local target = SprayDroneStation.getDroneUnfoldTarget(self)
         local foldable = self.spec_foldable
         local duration = foldable ~= nil and foldable.maxFoldAnimDuration or 3000
         local step = dt / math.max(spec.trailerFoldEnd * duration, 1)
@@ -3876,16 +4614,22 @@ function SprayDroneStation.notifyStatus(self)
         return
     end
     local index = spec.droneIndex or 1
-    if (status == SprayDroneStation.STATUS_FIELD_DONE or status == SprayDroneStation.STATUS_OUT_OF_REACH) and index > 1
-        and spec.rootSpec.status == status then
+    if (status == SprayDroneStation.STATUS_FIELD_DONE or status == SprayDroneStation.STATUS_OUT_OF_REACH
+        or status == SprayDroneStation.STATUS_SCAN_DONE) and index > 1 and spec.rootSpec.status == status then
         return
     end
     local text = g_i18n:getText(textKey)
-    if spec.numDrones > 1 then
+    local field = status == SprayDroneStation.STATUS_SCAN_DONE and SprayDroneRoute.getFieldById(spec.fieldId) or nil
+    local findings = field ~= nil and SprayDroneScanOverlay.getFindingsText(SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId),
+        field:getName()) or nil
+    if findings ~= nil then
+        text = findings
+        SprayDroneSound.noteAction(string.format("notifikace skenu: %s", findings))
+    elseif spec.numDrones > 1 then
         text = string.format("%d: %s", index, text)
     end
     local kind = FSBaseMission.INGAME_NOTIFICATION_CRITICAL
-    if status == SprayDroneStation.STATUS_FIELD_DONE then
+    if status == SprayDroneStation.STATUS_FIELD_DONE or status == SprayDroneStation.STATUS_SCAN_DONE or status == SprayDroneSamples.STATUS_DONE then
         kind = FSBaseMission.INGAME_NOTIFICATION_OK
     elseif status == SprayDroneStation.STATUS_ABORTED then
         kind = FSBaseMission.INGAME_NOTIFICATION_INFO
@@ -3899,6 +4643,8 @@ function SprayDroneStation.updateVehicleVisual(self, dt)
     SprayDroneStation.updateGenerator(self)
     SprayDroneSound.updateSounds(self, dt)
     SprayDroneStation.updateServiceVisuals(self, dt)
+    SprayDroneCase.updateVisuals(self)
+    SprayDroneSamples.updateVisuals(self, dt)
 end
 
 -- LED ramen: svítí, dokud je dron zapnutý (letí nebo se točí vrtule); blikající LED podle navBlinkPeriod. Svit jde
@@ -4085,10 +4831,11 @@ function SprayDroneStation.updateSpraySound(self)
         return
     end
     spec.spraySoundOn = spec.sprayEffectsActive
+    local reason = string.format("dron %d: sprayEffectsActive=%s", SprayDroneDrones.getIndex(self), tostring(spec.sprayEffectsActive))
     if spec.sprayEffectsActive then
-        g_soundManager:playSample(sample)
+        SprayDroneSound.play(self, sample, reason)
     else
-        g_soundManager:stopSample(sample)
+        SprayDroneSound.stop(self, sample, reason)
     end
 end
 
@@ -4112,11 +4859,12 @@ function SprayDroneStation.updateRotorSound(self, dt)
         -- se zpožděním startu nemusí vzorek hned hlásit, že hraje: znovu se zkouší nejdřív po ROTOR_RETRY_TIME
         if not g_soundManager:getIsSamplePlaying(sample) and g_time >= (spec.rotorRetryTime or 0) then
             spec.rotorRetryTime = g_time + SprayDroneStation.ROTOR_RETRY_TIME
-            g_soundManager:playSample(sample, spec.rotorStartDelay)
+            SprayDroneSound.play(self, sample, string.format("dron %d: otáčky rotorů %.2f", SprayDroneDrones.getIndex(self), f),
+                spec.rotorStartDelay)
         end
     elseif g_soundManager:getIsSamplePlaying(sample) then
         spec.soundPitch, spec.soundVolume = 0, 0
-        g_soundManager:stopSample(sample)
+        SprayDroneSound.stop(self, sample, string.format("dron %d: rotory stojí", SprayDroneDrones.getIndex(self)))
     end
 end
 
@@ -4167,6 +4915,9 @@ end
 -- Hráč sedí v tahači zapřaženého rozloženého vleku a chce jet: tahač s kinematickým vlekem neodjede, tak řekne proč.
 -- Jen klient, který řídí; levné podmínky jdou první, takže u stojícího nebo nezapřaženého vleku se nic nepočítá.
 function SprayDroneStation.updateStuckWarning(self)
+    if self.getAttacherVehicle == nil then
+        return
+    end
     local attacher = self:getAttacherVehicle()
     if attacher == nil or not SprayDroneStation.getIsFrozen(self) then
         return
@@ -4193,6 +4944,8 @@ end
 -- "collisions" (i závěsy kolizí plachet colTarpHinge*, foldLadder je jen otáčí) se proto na dobu zmrazení posunou o těžiště zpět
 -- (původní polohy si skript pamatuje). Kořenový tvar komponenty se takhle
 -- opravit nedá, proto je v i3d jen drobná krychle a rám vleku je dětský tvar colChassis.
+-- Engine kompaund zároveň natočí do hlavních os setrvačnosti, které Lua nevidí. S osami komponenty je drží hustý souměrný
+-- colChassis (CHASSIS_DENSITY v build_trailer_middle.py); z lehkých tvarů vycházelo Ix ~ Iy a paluba Middle se naklonila o ~30°.
 function SprayDroneStation.shiftCollisionShapes(self, spec, frozen)
     local node = self.components[1].node
     local com = spec.centerOfMass
@@ -4298,6 +5051,16 @@ function SprayDroneStation:onFillUnitFillLevelChanged(fillUnitIndex, fillLevelDe
     if self.isServer and spec ~= nil and fillUnitIndex == spec.dieselFillUnitIndex and fillLevelDelta > 0 then
         self:raiseActive()
     end
+    -- plán trasy počítá s naftou v centrále: po dolití (nebo po vypálení) o víc než ROUTE_DIESEL_STEP l, nebo když nafta přejde přes nulu, se musí přepočítat,
+    -- jinak start dál hlásí "došla nafta"
+    if spec ~= nil and fillUnitIndex == spec.dieselFillUnitIndex and spec.fieldId ~= nil and spec.fieldId ~= 0 then
+        local level = self:getFillUnitFillLevel(fillUnitIndex)
+        local planned = spec.routeDiesel
+        if planned == nil or math.abs(level - planned) > SprayDroneStation.ROUTE_DIESEL_STEP or (level <= 0) ~= (planned <= 0) then
+            SprayDroneStation.markRouteDirty(self)
+            spec.routeDiesel = level
+        end
+    end
 end
 
 function SprayDroneStation:onUpdate(dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
@@ -4311,8 +5074,12 @@ function SprayDroneStation:onUpdate(dt, isActiveForInput, isActiveForInputIgnore
     if self.isServer then
         local simDt = dt
         SprayDroneDrones.forEach(self, SprayDroneStation.updateDroneLogic, simDt)
-        SprayDroneStation.updateFreeze(self)
+        -- otevřený kufr se nezmrazí: jde zvednout i s dronem venku (mise se pak přeruší, updateFlight)
+        if not spec.portable then
+            SprayDroneStation.updateFreeze(self)
+        end
         SprayDroneDrones.forEach(self, SprayDroneStation.updateBatteryPlacement)
+        SprayDronePadSlots.update(self)
         SprayDroneStation.updatePower(self, dt)
         SprayDroneStation.updateTransfer(self, dt)
     else
@@ -4333,7 +5100,10 @@ function SprayDroneStation:onUpdate(dt, isActiveForInput, isActiveForInputIgnore
         self:raiseActive()
     end
 
-    if self.isClient and self:getIsEntered() then
+    if self.isClient and spec.portable then
+        SprayDroneCase.drawNearTexts(self)
+    end
+    if self.isClient and SprayDroneStation.getIsEntered(self) then
         SprayDroneStation.updatePilotView(self, dt)
     elseif self.isClient and isActiveForInputIgnoreSelection then
         SprayDroneStation.updateActionEventStates(self)
@@ -4394,6 +5164,15 @@ function SprayDroneStation.refreshDroneRoutePreview(self, dt)
     local spec = self[SprayDroneStation.SPEC_NAME]
     spec.routeTimer = spec.routeTimer - dt
     SprayDroneStation.updateRange(self)
+    -- mapa skenu se mimo vlastní misi změnila (ošetření jiným vlekem, data ze serveru, konec mise): plán podle skenu znovu
+    if spec.applyMode == 1 and not spec.missionActive then
+        local map = SprayDroneScanMap.getMap(self:getOwnerFarmId(), spec.fieldId)
+        local revision = map ~= nil and map.revision or nil
+        if revision ~= spec.spotRouteRevision then
+            spec.spotRouteRevision = revision
+            spec.routeDirty = true
+        end
+    end
     if spec.routeDirty or (spec.missionActive and spec.routeTimer <= 0) then
         SprayDroneStation.updateRoutePreview(self)
     end
@@ -4406,7 +5185,7 @@ SprayDroneStation.WORLD_SIGNAL_SEGMENTS = 90
 function SprayDroneStation.drawWorldSignal(self, hx, hz)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local segments = SprayDroneStation.WORLD_SIGNAL_SEGMENTS
-    local lines = SprayDroneLink ~= nil and SprayDroneLink.getCoverageArcs(SprayDroneLink.getSignalCircles(self), segments) or nil
+    local lines = SprayDroneLink ~= nil and SprayDroneLink.getCoverageLines(SprayDroneLink.getSignalCircles(self), segments) or nil
     local relayColor = SprayDronePlannerScreen.COLOR_RELAY
     for _, line in ipairs(lines or {}) do
         local r, g, b = 0, 1, 1
@@ -4418,7 +5197,7 @@ function SprayDroneStation.drawWorldSignal(self, hx, hz)
         local y = getTerrainHeightAtWorldPos(g_terrainNode, line.x1, 0, line.z1)
         drawDebugLine(line.x1, y, line.z1, r, g, b, line.x1, y + 4, line.z1, r, g, b)
     end
-    if lines == nil or math.abs(spec.range - spec.maxRange) > 1 then
+    if lines == nil or math.abs(spec.range - (spec.radioMax or spec.maxRange)) > 1 then
         for i = 0, segments - 1 do
             local a1, a2 = i / segments * 2 * math.pi, (i + 1) / segments * 2 * math.pi
             drawTerrainLine(hx + math.cos(a1) * spec.range, hz + math.sin(a1) * spec.range,
@@ -4443,8 +5222,11 @@ function SprayDroneStation.updatePilotView(self, dt)
 
     local field = SprayDroneStation.refreshRoutePreview(self, dt)
     if field ~= nil and showLines then
-        drawPolygon(SprayDroneRoute.getPolygon(field), 0, 1, 0, 0.6)
-        drawPolygon(SprayDroneRoute.getPolygon(field), 0, 1, 0, 1.5)
+        local shape = SprayDroneRoute.getFieldShape(field)
+        for _, poly in ipairs({ shape.outer, unpack(shape.islands) }) do
+            drawPolygon(poly, 0, 1, 0, 0.6)
+            drawPolygon(poly, 0, 1, 0, 1.5)
+        end
         local area = SprayDroneStation.getFlightArea(self)
         if area ~= nil then
             drawPolygon(area, 0.7, 0.4, 1, 1)
@@ -4559,6 +5341,8 @@ function SprayDroneStation.getDroneStateName(self)
             stateText = string.format(g_i18n:getText("sdt_state_waitPower"), g_i18n:getText(SprayDroneStation.getNoPowerTextKey(self)))
         elseif spec.waitingForRelay and not spec.isPumping and not spec.isSwapping then
             stateText = g_i18n:getText("sdt_state_waitRelay")
+        elseif spec.waitingForClearance and not spec.isPumping and not spec.isSwapping then
+            stateText = g_i18n:getText("sdt_state_waitClearance")
         elseif spec.isPumping and spec.isSwapping then
             stateText = g_i18n:getText(spec.isMixing and "sdt_state_mixingSwapping" or "sdt_state_pumpingSwapping")
         elseif spec.isPumping then
@@ -4568,6 +5352,8 @@ function SprayDroneStation.getDroneStateName(self)
         end
     elseif spec.state == SprayDroneStation.STATE_FLYING and spec.waitingForPad then
         stateText = g_i18n:getText("sdt_state_waitPad")
+    elseif spec.state == SprayDroneStation.STATE_FLYING and spec.missionMode == 1 then
+        stateText = g_i18n:getText(spec.isSamplerDrone and "sdt_state_sampling" or "sdt_state_scanning")
     elseif SprayDroneStation.getIsDroneSecured(self) then
         stateText = g_i18n:getText("sdt_state_secured")
     elseif spec.state == SprayDroneStation.STATE_PARKED and spec.droneBattery == nil and spec.unfold >= 1 then
@@ -4579,6 +5365,10 @@ end
 
 function SprayDroneStation.getDroneStateText(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    if spec.isScanDrone or spec.isSamplerDrone then
+        return string.format(g_i18n:getText("sdt_hud_drone"), SprayDroneStation.getDroneStateName(self)),
+            string.format(g_i18n:getText("sdt_hud_droneScan"), spec.battery / spec.batteryCapacity * 100)
+    end
     return string.format(g_i18n:getText("sdt_hud_drone"), SprayDroneStation.getDroneStateName(self)),
         string.format(g_i18n:getText("sdt_hud_droneTank"), spec.droneFillLevel, spec.tankCapacity, spec.battery / spec.batteryCapacity * 100)
 end
@@ -4586,6 +5376,9 @@ end
 -- Baterie v nabíječce ("Baterie v nabíječce (3 ks): 100 %, 64 % (nabíjí se), …") a centrála ("Elektrocentrála: nabíjí | nafta 24,0/30 l").
 function SprayDroneStation.getPowerTexts(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    if spec.portable then
+        return SprayDroneCase.getPowerTexts(self)
+    end
     local parts = {}
     for _, battery in ipairs(spec.batteries) do
         if battery.slot > 0 then
@@ -4615,17 +5408,27 @@ function SprayDroneStation:onRegisterActionEvents(isActiveForInput, isActiveForI
     self:clearActionEventsTable(spec.actionEvents)
     spec.actionStates = {}
     if isActiveForInputIgnoreSelection then
-        -- centrála, vypuštění dronu, přečerpání do IBC a vypuštění koncentrátu na zem (Ctrl+I) jdou i z tahače s vybraným vlekem; ostatní jen z vleku.
-        -- Vlek bez dronu: centrála a přečerpání do IBC. Plánovač se otevírá u displeje na vleku (SprayDroneLink) nebo tabletem.
-        local actions = { { InputAction.SDT_TOGGLE_GENERATOR, SprayDroneStation.actionEventToggleGenerator },
-            { InputAction.SDT_PUMP_TO_PALLET, SprayDroneStation.actionEventPumpToPallet },
+        -- vypuštění dronu, přečerpání do IBC a vypuštění koncentrátu na zem (Ctrl+I) jdou i z tahače s vlekem; centrála (B jako vanilla
+        -- zapnutí stroje) z vleku, nebo z tahače, když je vlek vybraný; ostatní jen z vleku. Vlek bez dronu: centrála a přečerpání do IBC.
+        -- Plánovač: ve vleku Alt+7, pěšky u displeje na vleku nebo tabletem (SprayDroneLink).
+        local actions = { { InputAction.SDT_PUMP_TO_PALLET, SprayDroneStation.actionEventPumpToPallet },
             { InputAction.SDT_DRAIN_DRONE, SprayDroneStation.actionEventDrainDrone },
             { InputAction.TOGGLE_TIPSTATE_GROUND, SprayDroneToolbox.actionEventGroundDrain } }
-        if self:getIsEntered() and spec.firstDroneCamera ~= nil then
+        local entered = SprayDroneStation.getIsEntered(self)
+        if entered or isActiveForInput then
+            table.insert(actions, { InputAction.IMPLEMENT_EXTRA, SprayDroneStation.actionEventToggleGenerator })
+        end
+        if entered then
+            table.insert(actions, { InputAction.SDT_OPEN_PLANNER, SprayDroneStation.actionEventOpenPlanner })
+        end
+        if entered and spec.firstDroneCamera ~= nil then
             table.insert(actions, { InputAction.SDT_DRONE_VIEW, SprayDroneStation.actionEventDroneView })
         end
-        if self:getIsEntered() and spec.hasDrone then
+        -- start i na prázdné plošině: hráč dostane hlášku, že dron chybí
+        if entered then
             table.insert(actions, { InputAction.SDT_START_FLIGHT, SprayDroneStation.actionEventStart })
+        end
+        if entered and spec.hasDrone then
             table.insert(actions, { InputAction.SDT_RETURN_HOME, SprayDroneStation.actionEventReturnHome })
             table.insert(actions, { InputAction.SDT_TOGGLE_LINES, SprayDroneStation.actionEventToggleLines })
         end
@@ -4639,11 +5442,23 @@ end
 
 function SprayDroneStation.actionEventToggleGenerator(self, actionName, inputValue, callbackState, isAnalog)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    SprayDroneSound.noteAction(string.format("klávesa centrály (B ve vozidle): vlek %s (id %s)", self.configFileNameClean or "?", tostring(self.id)))
     self:sprayDroneCommand(SprayDroneCommandEvent.SET_GENERATOR, spec.generatorEnabled and 0 or 1)
+end
+
+-- Plánovač ze sedadla vleku (Alt+7); složený vlek plánovač z vozidla neotevře (getIsVehicleUsable), hráč dostane hlášku.
+function SprayDroneStation.actionEventOpenPlanner(self, actionName, inputValue, callbackState, isAnalog)
+    SprayDroneSound.noteAction(string.format("klávesa plánovače (Alt+7): vlek %s (id %s)", self.configFileNameClean or "?", tostring(self.id)))
+    if self.getIsUnfolded ~= nil and not self:getIsUnfolded() then
+        g_currentMission:showBlinkingWarning(g_i18n:getText("sdt_planner_folded"), 2500)
+        return
+    end
+    SprayDronePlannerScreen.show(self, SprayDronePlannerScreen.MODE_VEHICLE)
 end
 
 -- Čáry ve světě (kruh dosahu, pole, trasa, přelety, letová plocha) jen lokálně u hráče, plánovač se nemění.
 function SprayDroneStation.actionEventToggleLines(self, actionName, inputValue, callbackState, isAnalog)
+    SprayDroneSound.noteAction("klávesa čar ve světě (Alt+5): " .. (SprayDroneStation.showWorldLines and "skrýt" or "zobrazit"))
     SprayDroneStation.showWorldLines = not SprayDroneStation.showWorldLines
     SprayDroneStation.updateActionEventStates(self)
 end
@@ -4680,6 +5495,7 @@ function SprayDroneStation.actionEventDroneView(self, actionName, inputValue, ca
     if enterable == nil or g_gui:getIsGuiVisible() then
         return
     end
+    SprayDroneSound.noteAction("klávesa pohledu z dronu: vlek " .. tostring(self.id))
     local cameras = {}
     for k = 1, spec.numDrones do
         local camera = spec.drones[k].camera
@@ -4734,7 +5550,8 @@ function SprayDroneStation.updateActionEventStates(self)
     local states = spec.actionStates
     setActionVisible(spec, InputAction.SDT_START_FLIGHT, SprayDroneStation.getCanStart(self))
     setActionVisible(spec, InputAction.SDT_RETURN_HOME, SprayDroneStation.getCanReturnHome(self))
-    setActionVisible(spec, InputAction.SDT_TOGGLE_GENERATOR, true, spec.generatorEnabled and "sdt_action_generatorOff" or "sdt_action_generatorOn")
+    setActionVisible(spec, InputAction.IMPLEMENT_EXTRA, true, spec.generatorEnabled and "sdt_action_generatorOff" or "sdt_action_generatorOn")
+    setActionVisible(spec, InputAction.SDT_OPEN_PLANNER, true, "sdt_tablet_open")
     setActionVisible(spec, InputAction.SDT_TOGGLE_LINES, true)
     -- vypouštění a přečerpání prochází drony a vozidla okolo: znovu se vyhodnotí nejvýš jednou za ACTION_CHECK_TIME
     -- (a hned po změně režimu přečerpávání)
@@ -4757,11 +5574,11 @@ end
 -- Může se spustit aspoň jeden z dronů v misi (activeDrones)?
 function SprayDroneStation.getCanStart(self)
     local spec = SprayDroneDrones.getRoot(self)
-    if not spec.hasDrone or spec.fieldId == 0 then
+    if not spec.hasDrone or spec.fieldId == 0 or SprayDronePad.getIsDroneInBox(self) then
         return false
     end
     for k = 1, spec.activeDrones do
-        if not spec.drones[k].missionActive then
+        if not spec.drones[k].missionActive and not spec.drones[k].foldHold then
             return true
         end
     end
@@ -4796,11 +5613,24 @@ function SprayDroneStation.selectField(self, field)
     return nil
 end
 
+-- Složený vlek / zavřený kufr / dron Mini uložený v bedně: klíč textu (plánovač z tabletu se otevře i tak, start by server tiše zahodil
+-- v startDrone), jinak nil.
+function SprayDroneStation.getFoldedWarning(self)
+    if self.getIsUnfolded == nil or self:getIsUnfolded() then
+        return SprayDronePad.getIsDroneInBox(self) and "sdt_planner_droneInBox" or nil
+    end
+    return SprayDroneDrones.getRoot(self).portable and "sdt_planner_caseClosed" or "sdt_planner_folded"
+end
+
 -- Start letu; vrací klíč textu s důvodem, když start nejde.
 function SprayDroneStation.startFlight(self)
     local spec = self[SprayDroneStation.SPEC_NAME]
     if not spec.hasDrone then
-        return "sdt_warning_noDrone"
+        return "sdt_pad_noDrone"
+    end
+    local folded = SprayDroneStation.getFoldedWarning(self)
+    if folded ~= nil then
+        return folded
     end
     if #spec.batteries == 0 then
         return "sdt_warning_noBatteries"
@@ -4810,6 +5640,25 @@ function SprayDroneStation.startFlight(self)
     end
     if not SprayDroneStation.getCanStart(self) then
         return nil
+    end
+    local scanning = SprayDroneStation.getIsScanMode(self)
+    local blocker, conditions = SprayDroneStation.getWeatherBlocker(self, scanning)
+    if blocker ~= nil then
+        SprayDroneSound.noteAction(string.format("%s pole %d nejde spustit: %s (%s)", scanning and "sken" or "postřik", spec.fieldId, blocker, conditions))
+        return SprayDroneStation.getWeatherWarning(blocker, scanning)
+    end
+    for k = 1, spec.activeDrones do
+        if spec.drones[k].hasDrone then
+            local clear, blockedBy = SprayDroneDrones.runAs(self, k, SprayDroneStation.getTakeoffClearance)
+            if not clear then
+                SprayDroneSound.noteAction(string.format("let pole %d nejde spustit: nad dronem %d %s", spec.fieldId, k, blockedBy))
+                return SprayDroneStation.TAKEOFF_WARNINGS[blockedBy]
+            end
+        end
+    end
+    local samplerWarning = spec.isSamplerDrone and SprayDroneSamples.getStartWarning(self) or nil
+    if samplerWarning ~= nil then
+        return samplerWarning
     end
     if not SprayDroneStation.getAnyPlanned(self) then
         -- důvod je u prvního dronu v misi, který nějaký má
@@ -4826,7 +5675,7 @@ function SprayDroneStation.startFlight(self)
         elseif info.noPath ~= nil then
             return "sdt_planner_areaNoPath"
         elseif info.noFuel then
-            return "sdt_status_noFuel"
+            return spec.portable and "sdt_status_noCharge" or "sdt_status_noFuel"
         end
         return info.tooHigh and "sdt_warning_obstacleTooHigh" or "sdt_status_fieldDone"
     end
@@ -4835,13 +5684,16 @@ function SprayDroneStation.startFlight(self)
 end
 
 function SprayDroneStation.actionEventStart(self, actionName, inputValue, callbackState, isAnalog)
+    SprayDroneSound.noteAction("klávesa spuštění letu (Alt+8): vlek " .. tostring(self.id))
     local warning = SprayDroneStation.startFlight(self)
     if warning ~= nil then
+        SprayDroneSound.noteAction("spuštění letu odmítnuto: " .. warning)
         g_currentMission:showBlinkingWarning(g_i18n:getText(warning), 2500)
     end
 end
 
 function SprayDroneStation.actionEventReturnHome(self, actionName, inputValue, callbackState, isAnalog)
+    SprayDroneSound.noteAction("klávesa návratu domů (Alt+0): vlek " .. tostring(self.id) .. (SprayDroneStation.getCanReturnHome(self) and "" or " (nejde: dron nelétá)"))
     if not SprayDroneStation.getCanReturnHome(self) then
         return
     end
@@ -4898,6 +5750,7 @@ local function writeDroneBlock(self, streamId)
     streamWriteBool(streamId, spec.waitingForCharge)
     streamWriteBool(streamId, spec.waitingForPower)
     streamWriteBool(streamId, spec.waitingForRelay)
+    streamWriteBool(streamId, spec.waitingForClearance)
     SprayDroneStation.writeBatchRelays(spec, streamId)
     writeDronePosition(self, streamId)
 end
@@ -4917,6 +5770,7 @@ local function readDroneBlock(self, streamId, snap)
     spec.waitingForCharge = streamReadBool(streamId)
     spec.waitingForPower = streamReadBool(streamId)
     spec.waitingForRelay = streamReadBool(streamId)
+    spec.waitingForClearance = streamReadBool(streamId)
     SprayDroneStation.readBatchRelays(spec, streamId)
     if snap then
         spec.notifiedStatus = spec.status
@@ -4930,6 +5784,8 @@ end
 
 local function writeState(self, streamId)
     local spec = self[SprayDroneStation.SPEC_NAME]
+    -- obsazení plošin první: určuje počet dronů, a tím zbytek proudu
+    SprayDroneStation.writePads(self, streamId)
     streamWriteUIntN(streamId, spec.state, SprayDroneStation.STATE_NUM_BITS)
     streamWriteUIntN(streamId, spec.status, SprayDroneStation.STATUS_NUM_BITS)
     streamWriteUInt16(streamId, spec.fieldId)
@@ -4944,10 +5800,16 @@ local function writeState(self, streamId)
     streamWriteBool(streamId, spec.waitingForCharge)
     streamWriteBool(streamId, spec.waitingForPower)
     streamWriteBool(streamId, spec.waitingForRelay)
+    streamWriteBool(streamId, spec.waitingForClearance)
     SprayDroneStation.writeBatchRelays(spec, streamId)
     streamWriteBool(streamId, spec.generatorRunning)
     streamWriteBool(streamId, spec.generatorEnabled)
+    if spec.portable then
+        streamWriteUIntN(streamId, spec.chargeSource or SprayDroneCase.SOURCE_NONE, SprayDroneCase.SOURCE_BITS)
+        SprayDroneSamples.writeStream(self, streamId)
+    end
     SprayDroneDrones.forEach(self, SprayDroneStation.syncDroneBatteryCharge)
+    streamWriteUIntN(streamId, #spec.batteries, spec.batterySlotBits)
     for _, battery in ipairs(spec.batteries) do
         streamWriteFloat32(streamId, battery.charge)
         streamWriteUIntN(streamId, battery.slot, spec.batterySlotBits)
@@ -4965,6 +5827,7 @@ local function writeState(self, streamId)
     end
     SprayDroneToolbox.writeState(self, streamId)
     SprayDroneRelaySlots.writeState(self, streamId)
+    SprayDronePumpSlots.writeState(self, streamId)
     writeDronePosition(self, streamId)
     if spec.numDrones > 1 then
         SprayDroneDrones.runAs(self, 2, writeDroneBlock)
@@ -4972,6 +5835,7 @@ local function writeState(self, streamId)
 end
 
 local function readState(self, streamId, snap)
+    SprayDroneStation.readPads(self, streamId)
     local spec = self[SprayDroneStation.SPEC_NAME]
     local state = streamReadUIntN(streamId, SprayDroneStation.STATE_NUM_BITS)
     spec.status = streamReadUIntN(streamId, SprayDroneStation.STATUS_NUM_BITS)
@@ -4987,15 +5851,25 @@ local function readState(self, streamId, snap)
     spec.waitingForCharge = streamReadBool(streamId)
     spec.waitingForPower = streamReadBool(streamId)
     spec.waitingForRelay = streamReadBool(streamId)
+    spec.waitingForClearance = streamReadBool(streamId)
     SprayDroneStation.readBatchRelays(spec, streamId)
     spec.generatorRunning = streamReadBool(streamId)
     spec.generatorEnabled = streamReadBool(streamId)
+    if spec.portable then
+        local source = streamReadUIntN(streamId, SprayDroneCase.SOURCE_BITS)
+        if source ~= spec.chargeSource then
+            spec.chargeSource = source
+            SprayDroneStation.markRouteDirty(self)
+        end
+        SprayDroneSamples.readStream(self, streamId)
+    end
     if snap then
         spec.notifiedStatus = spec.status
     end
     for j = 1, spec.numDrones do
         spec.drones[j].droneBattery = nil
     end
+    SprayDroneStation.setBatteryCount(self, streamReadUIntN(streamId, spec.batterySlotBits))
     for _, battery in ipairs(spec.batteries) do
         battery.charge = streamReadFloat32(streamId)
         battery.slot = streamReadUIntN(streamId, spec.batterySlotBits)
@@ -5015,6 +5889,7 @@ local function readState(self, streamId, snap)
     end
     SprayDroneToolbox.readState(self, streamId, snap)
     SprayDroneRelaySlots.readState(self, streamId)
+    SprayDronePumpSlots.readState(self, streamId)
     self:raiseActive()
     if fieldId ~= spec.fieldId then
         SprayDroneStation.markRouteDirty(self)
@@ -5058,6 +5933,7 @@ function SprayDroneStation:onWriteStream(streamId, connection)
     end
     SprayDroneSettingsEvent.writeSettings(streamId, SprayDroneStation.getSettings(self))
     streamWriteString(streamId, SprayDroneRoute.encodeCoverage(spec.coverage))
+    SprayDroneSamples.writeInitialStream(self, streamId)
 end
 
 function SprayDroneStation:onReadStream(streamId, connection)
@@ -5071,6 +5947,7 @@ function SprayDroneStation:onReadStream(streamId, connection)
     end
     self:setSprayDroneSettings(SprayDroneSettingsEvent.readSettings(streamId), true)
     spec.coverage = SprayDroneRoute.decodeCoverage(streamReadString(streamId))
+    SprayDroneSamples.readInitialStream(self, streamId)
     spec.areaVersion = spec.areaVersion + 1
     SprayDroneStation.markRouteDirty(self)
 end

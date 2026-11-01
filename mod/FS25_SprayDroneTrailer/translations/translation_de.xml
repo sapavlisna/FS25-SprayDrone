@@ -5,6 +5,7 @@
         <text name="input_SDT_RETURN_HOME" text="Drohne: zurückkehren"/>
         <text name="sdt_hud_drone" text="Drohne: %s"/>
         <text name="sdt_hud_droneTank" text="Drohnentank %.0f/%.0f l | Akku %.0f %%"/>
+        <text name="sdt_hud_droneScan" text="Drohnenakku %.0f %%"/>
         <text name="sdt_state_parked" text="auf dem Anhänger"/>
         <text name="sdt_state_flying" text="fliegt eine Ladung"/>
         <text name="sdt_state_returning" text="kehrt zurück"/>
@@ -20,7 +21,6 @@
         <text name="sdt_hud_generatorOff" text="aus"/>
         <text name="sdt_status_noFuel" text="Drohne: Der Generator hat keinen Diesel mehr und kein Ersatzakku ist geladen"/>
         <text name="sdt_planner_service" text="Service am Anhänger %.1f min, davon Warten auf Ladung %.1f min"/>
-        <text name="sdt_planner_diesel" text="Diesel zum Laden: ~%.1f l, im Generator %.1f l"/>
         <text name="sdt_planner_noFuel" text="Nicht genug Diesel – der Einsatz stoppt, wenn kein Ersatzakku geladen ist."/>
         <text name="sdt_planner_fuelRunsOut" text="Der Diesel geht aus, bevor alle Akkus geladen sind – Generator betanken."/>
         <text name="sdt_status_fieldDone" text="Drohne: Feld ist fertig, nichts mehr zu spritzen"/>
@@ -30,6 +30,9 @@
         <text name="sdt_status_notAllowed" text="Drohne: Das Feld darf nicht mehr bearbeitet werden (Auftrag beendet oder Feld nicht im Besitz)"/>
         <text name="sdt_status_obstacle" text="Drohne: Ein Hindernis auf dem Weg ist höher, als die Drohne fliegen darf – Anhänger umstellen"/>
         <text name="sdt_warning_obstacleTooHigh" text="Ein Hindernis auf dem Weg ist höher, als die Drohne fliegen darf – Anhänger umstellen"/>
+        <text name="sdt_warning_takeoffRoof" text="Die Drohne kann nicht starten: über ihr ist ein Dach oder eine Brücke"/>
+        <text name="sdt_warning_takeoffTree" text="Die Drohne kann nicht starten: über oder neben ihr ist ein Baum"/>
+        <text name="sdt_warning_takeoffBlocked" text="Die Drohne kann nicht starten: über ihr ist ein Hindernis"/>
         <text name="sdt_warning_noField" text="Hier ist kein Feld"/>
         <text name="sdt_warning_noFieldSelected" text="Wähle zuerst im Flugplaner ein Feld aus"/>
         <text name="sdt_warning_notOwned" text="Fremdes Feld – nicht im Besitz deines Hofes und kein Auftrag"/>
@@ -47,35 +50,26 @@
         <text name="sdt_button_close" text="Schließen"/>
         <text name="sdt_button_start" text="Flug starten"/>
         <text name="sdt_button_returnHome" text="Zurückkehren"/>
-        <text name="sdt_planner_title" text="Drohnen-Flugplaner"/>
         <text name="sdt_planner_trailerTank" text="Anhänger: %.0f l – %s"/>
         <text name="sdt_planner_params" text="Reichweite %.0f m (laut Akku, Transfer in %.0f m), Arbeitsbreite %.0f m"/>
-        <text name="sdt_planner_noField" text="Kein Feld ausgewählt"/>
-        <text name="sdt_planner_hintSelect" text="Klicke auf ein Feld mit blauem oder goldenem Umriss innerhalb des Reichweitenkreises."/>
         <text name="sdt_planner_field" text="Feld %s"/>
         <text name="sdt_planner_ownField" text="Eigenes Feld"/>
         <text name="sdt_planner_contract" text="Auftrag"/>
         <text name="sdt_planner_contractInfo" text="Auftrag: %s (%.0f %% erledigt)"/>
-        <text name="sdt_planner_batches" text="Ladungen (Tank + Akku): %d"/>
-        <text name="sdt_planner_time" text="Geschätzte Flugzeit: %.1f min"/>
-        <text name="sdt_planner_battery" text="Akku: bis %.0f %% pro Ladung, Akkuwechsel %d"/>
         <text name="sdt_planner_batteryLife" text="Akkulaufzeit %.0f min mit vollem Tank, %.0f min leer"/>
         <text name="sdt_planner_transit" text="Transferhöhe: %.0f m"/>
         <text name="sdt_planner_transitObstacle" text="Transferhöhe: %.0f m (wegen Hindernissen erhöht)"/>
         <text name="sdt_planner_tooHigh" text="Ein Hindernis auf dem Weg überschreitet die Grenze von %.0f m – Anhänger umstellen."/>
         <text name="sdt_planner_area" text="Zu bearbeitende Fläche: %.2f ha"/>
-        <text name="sdt_planner_liters" text="Benötigt: %.0f l, verfügbar %.0f l"/>
         <text name="sdt_planner_notEnough" text="Nicht genug Mittel für das ganze Feld – die Drohne stoppt, wenn der Anhänger leer ist."/>
         <text name="sdt_planner_product" text="Mittel: %s"/>
         <text name="sdt_planner_clipped" text="Ein Teil des Feldes liegt außerhalb der Reichweite – die Route deckt nur den Teil innerhalb des Kreises ab."/>
-        <text name="sdt_planner_hover" text="Unter dem Cursor: Feld %s"/>
         <text name="sdt_planner_clickToSelect" text="Zum Auswählen klicken"/>
         <text name="sdt_planner_selected" text="Ausgewähltes Feld %s"/>
         <text name="sdt_planner_started" text="Flug gestartet"/>
         <text name="sdt_planner_returning" text="Die Drohne kehrt zum Anhänger zurück"/>
         <text name="sdt_planner_highestPoint" text="Höchster Punkt auf der Route: %.0f m über Gelände"/>
         <text name="sdt_planner_highestPointNone" text="Höchster Punkt auf der Route: kein Hindernis"/>
-        <text name="sdt_planner_legend" text="Das ausgewählte Feld ist grün umrandet, der Flugbereich lila. Farben der Routenlinien = Ladungen, dünn = Wende zwischen den Reihen. Rot markiert den Teil des Feldes, der wegen Diesel oder Akku nicht eingeplant wurde."/>
         <text name="sdt_planner_controls" text="Klick = Feld auswählen, Ziehen = Karte verschieben, Mausrad = Zoom."/>
         <text name="sdt_status_areaNoPath" text="Drohne: Der Flugbereich verbindet den Anhänger nicht mit dem Feld – bearbeiten oder löschen"/>
         <text name="sdt_button_drawArea" text="Flugbereich zeichnen"/>
@@ -100,7 +94,7 @@
         <text name="sdt_planner_drawing" text="Flugbereich zeichnen: %d Punkte"/>
         <text name="sdt_planner_drawHint" text="Umreiße einen Weg vom Anhänger zum Feld um Gebäude und Bäume herum. Klicke auf den ersten Punkt, um den Bereich zu schließen."/>
         <text name="sdt_planner_controlsDraw" text="Klick = Punkt hinzufügen, Ziehen = Karte verschieben, Mausrad = Zoom."/>
-        <text name="input_SDT_TOGGLE_GENERATOR" text="Generator ein/aus"/>
+        <text name="input_SDT_OPEN_PLANNER" text="Drohne: Flugplanung (im Anhänger)"/>
         <text name="input_SDT_TOGGLE_LINES" text="Drohne: Linien in der Welt ein/aus"/>
         <text name="sdt_state_secured" text="auf der Plattform gesichert"/>
         <text name="sdt_hud_generatorDisabled" text="ausgeschaltet"/>
@@ -118,10 +112,14 @@
         <text name="sdt_antenna_large" text="Große Richtantenne (Reichweite +70%)"/>
         <text name="sdt_gps_standard" text="Standard-GPS"/>
         <text name="sdt_gps_rtk" text="Präzisions-GPS mit RTK (15% weniger Spritzmittel)"/>
+        <text name="sdt_configuration_deckEdge" text="Ladeflächenkanten"/>
+        <text name="sdt_deckEdge_steel" text="Stahlkanten"/>
+        <text name="sdt_deckEdge_wood" text="Holzbohlen mit Stahlbändern"/>
         <text name="sdt_configuration_relayStrength" text="Relaisstärke"/>
         <text name="sdt_relay_standard" text="Standardrelais (Reichweite 300 m)"/>
         <text name="sdt_relay_strong" text="Starkes Relais (Reichweite 400 m)"/>
         <text name="sdt_storeCategoryTrailers" text="Drohnenanhänger"/>
+        <text name="sdt_storeCategoryDrones" text="Drohnen"/>
         <text name="sdt_storeCategoryEquipment" text="Drohnenausrüstung"/>
         <text name="sdt_storeCategoryCanisters" text="Kanister"/>
         <text name="sdt_fill_dieselGenerators" text="Diesel (Generatoren) %s %%"/>
@@ -132,9 +130,57 @@
         <text name="sdt_relaySlot_powered" text="Mast vor dem Verstauen ausschalten"/>
         <text name="sdt_relaySlot_noPole" text="Dieser Mast kann gerade nicht verstaut werden"/>
         <text name="sdt_relaySlot_spawnFailed" text="Der Mast konnte nicht herausgenommen werden, er bleibt auf dem Anhänger"/>
-        <text name="sdt_status_outOfReach" text="Drohne: Der Rest des Feldes ist außer Reichweite oder ohne Signal – Anhänger oder Relais umstellen und neu starten"/>
+        <text name="sdt_pumpslot_store" text="Pumpe auf dem Anhänger verstauen"/>
+        <text name="sdt_pumpslot_take" text="Pumpe herausnehmen (Diesel %.1f l)"/>
+        <text name="sdt_pumpslot_full" text="Auf dem Anhänger ist schon eine Pumpe"/>
+        <text name="sdt_pumpslot_running" text="Eine Pumpe mit laufendem Motor lässt sich nicht verstauen, erst ausschalten"/>
+        <text name="sdt_pumpslot_noPump" text="Diese Pumpe lässt sich jetzt nicht verstauen"/>
+        <text name="sdt_pumpslot_spawnFailed" text="Die Pumpe konnte nicht herausgenommen werden, sie bleibt auf dem Anhänger"/>
+        <text name="sdt_droneItem_nameS" text="BZUK Drohne S (Spritzen)"/>
+        <text name="sdt_droneItem_nameM" text="BZUK Drohne M (Spritzen)"/>
+        <text name="sdt_droneItem_nameL" text="BZUK Drohne L (Spritzen)"/>
+        <text name="sdt_droneItem_nameK" text="BZUK Drohne K (Scannen)"/>
+        <text name="sdt_droneItem_functionS" text="Kleine Spritzdrohne, 20 l Tank. Wird auf die Plattform des Anhängers gesetzt (R) und bringt ihre Füllung mit."/>
+        <text name="sdt_droneItem_functionM" text="Mittlere Spritzdrohne, 40 l Tank. Wird auf die Plattform des Anhängers gesetzt (R) und bringt ihre Füllung mit."/>
+        <text name="sdt_droneItem_functionL" text="Große Spritzdrohne, 75 l Tank. Wird auf die Plattform des Anhängers gesetzt (R) und bringt ihre Füllung mit."/>
+        <text name="sdt_droneItem_functionK" text="Scandrohne ohne Tank: Kamera und Multispektralsensoren unter dem Rumpf. Wird auf die Plattform des Anhängers gesetzt (R); den Feldscan steuert der Anhänger."/>
+        <text name="sdt_padslot_place" text="Drohne auf die Plattform setzen"/>
+        <text name="sdt_padslot_take" text="Drohne abkoppeln (%s)"/>
+        <text name="sdt_padslot_full" text="Auf der Plattform steht schon eine Drohne"/>
+        <text name="sdt_padslot_noDrone" text="Diese Drohne kann jetzt nicht aufgesetzt werden"/>
+        <text name="sdt_padslot_busy" text="Die Drohne wird gerade abgekoppelt"/>
+        <text name="sdt_padslot_spawnFailed" text="Die Drohne konnte nicht abgekoppelt werden, sie bleibt auf der Plattform"/>
+        <text name="sdt_padslot_placeBox" text="Drohne in der Kiste verstauen"/>
+        <text name="sdt_padslot_placePlate" text="Drohne auf die Plattform stellen"/>
+        <text name="sdt_padslot_moveBox" text="Drohne in die Kiste umsetzen"/>
+        <text name="sdt_padslot_movePlate" text="Drohne auf die Plattform umsetzen"/>
+        <text name="sdt_batteryItem_nameS" text="BZUK Drohnenakku S"/>
+        <text name="sdt_batteryItem_nameM" text="BZUK Drohnenakku M"/>
+        <text name="sdt_batteryItem_nameL" text="BZUK Drohnenakku L"/>
+        <text name="sdt_batteryItem_nameC" text="BZUK Drohnenakku C (Koffer)"/>
+        <text name="sdt_batteryItem_nameP" text="BZUK Drohnenakku P (Koffer)"/>
+        <text name="sdt_batteryItem_functionS" text="Akku für die Drohne S und die Scandrohne K am Anhänger. Kommt in einen freien Ladeschacht (R) und behält seine Ladung."/>
+        <text name="sdt_batteryItem_functionM" text="Akku für die Drohne M am Anhänger. Kommt in einen freien Ladeschacht (R) und behält seine Ladung."/>
+        <text name="sdt_batteryItem_functionL" text="Akku für die Drohne L am Anhänger. Kommt in einen freien Ladeschacht (R) und behält seine Ladung."/>
+        <text name="sdt_batteryItem_functionC" text="Akku der Scandrohne im Koffer. Kommt in den Schacht im Koffer (R) und behält seine Ladung."/>
+        <text name="sdt_batteryItem_functionP" text="Akku der Probendrohne im Koffer. Kommt in den Schacht im Koffer (R) und behält seine Ladung."/>
+        <text name="sdt_batteryItem_charge" text="Akkuladung"/>
+        <text name="sdt_batteryslot_put" text="Akku ins Ladegerät stecken"/>
+        <text name="sdt_batteryslot_take" text="Akku herausnehmen (%.0f %%)"/>
+        <text name="sdt_batteryslot_folded" text="Das Ladegerät ist zu – erst den Anhänger ausklappen"/>
+        <text name="sdt_batteryslot_caseClosed" text="Der Schacht ist unter dem Deckel – erst den Koffer öffnen"/>
+        <text name="sdt_batteryslot_wrongSize" text="Hier gehört ein Akku %s hinein"/>
+        <text name="sdt_batteryslot_full" text="Kein Platz für einen weiteren Akku (ein Schacht bleibt für den Akku aus der Drohne frei)"/>
+        <text name="sdt_batteryslot_occupied" text="Der Schacht ist belegt"/>
+        <text name="sdt_batteryslot_empty" text="Im Schacht ist kein Akku"/>
+        <text name="sdt_batteryslot_busy" text="Ein Akku wird gerade umgesetzt"/>
+        <text name="sdt_batteryslot_droneBusy" text="Aus einer fliegenden oder gerade versorgten Drohne lässt sich der Akku nicht herausnehmen"/>
+        <text name="sdt_batteryslot_noBattery" text="Dieser Akku lässt sich jetzt nicht einstecken"/>
+        <text name="sdt_batteryslot_spawnFailed" text="Der Akku konnte nicht herausgenommen werden, er bleibt im Ladegerät"/>
+        <text name="sdt_status_outOfReach" text="Drohne: Der Rest des Feldes ist außer Reichweite oder ohne Signal – Anhänger, Koffer oder Relais umstellen (bzw. Kofferantenne drehen) und neu starten"/>
         <text name="sdt_status_noSignal" text="Drohne: Signal verloren, Flug abgebrochen"/>
         <text name="sdt_state_waitRelay" text="wartet auf Relais – Mastakku schwach"/>
+        <text name="sdt_state_waitClearance" text="wartet auf freien Raum über der Plattform"/>
         <text name="sdt_relay_blockedDrone" text="Der Mast leitet das Signal einer fliegenden Drohne weiter"/>
         <text name="sdt_relay_battery" text="Mastakku"/>
         <text name="sdt_relay_batteryEmpty" text="Der Mastakku ist leer"/>
@@ -146,13 +192,23 @@
         <text name="sdt_hud_noPowerFuel" text="der Generator hat keinen Diesel mehr"/>
         <text name="sdt_warning_noPower" text="Die Pumpe braucht Strom: %s"/>
         <text name="sdt_hud_generatorPump" text="versorgt die Pumpe"/>
-        <text name="sdt_planner_legendSignal" text="Türkis markiert die Signalreichweite des Anhängers, Orange die Reichweite eingeschalteter, mit dem Anhänger verbundener Relaismasten (dünner Kreis = wie weit die Drohne mit ihrem Akku fliegen kann). Farbiges Mastsymbol = ein, grau = aus oder eingeklappt."/>
         <text name="sdt_relayPole_name" text="Relaismast"/>
-        <text name="sdt_relayPole_function" text="Erweitert die Funkreichweite eines Drohnenanhängers. Stelle ihn aufrecht in Reichweite des Anhängers auf den Boden und klappe ihn aus (R). Steige ein (E) und schalte ihn ein (B); der Akkustand wird unten rechts angezeigt. Der Akku hält etwa 5 Stunden und lädt auf einem Anhänger mit laufendem Generator oder an einer Ladestation."/>
+        <text name="sdt_relayPole_function" text="Erweitert die Funkreichweite eines Drohnenanhängers. Stelle ihn aufrecht in Reichweite des Anhängers auf den Boden und klappe ihn aus (R). Schalte ihn mit B ein (beides von außen, man steigt nicht ein). Der Akku hält etwa 5 Stunden und lädt auf einem Anhänger mit laufendem Generator oder an einer Ladestation."/>
+        <text name="sdt_relayPoleDirectional_name" text="Richtfunk-Relaismast"/>
+        <text name="sdt_relayPoleDirectional_function" text="Relaismast mit Panelantenne: Er überträgt das Signal eines Drohnenanhängers oder -koffers nur in einem Sektor von etwa 99° vor der Panelvorderseite (gelber Streifen), dafür 1,75-mal weiter als ein normaler Mast. Hinter und neben ihm deckt er nichts ab. Stelle ihn aufrecht in Reichweite des Anhängers mit der Vorderseite zum Feld auf, klappe ihn aus (R) und schalte ihn ein (B). Der Akku hält etwa 5 Stunden und lädt auf einem Anhänger mit laufendem Generator oder an einer Ladestation."/>
+        <text name="sdt_relayDir_standard" text="Standardmast (Sektor 525 m)"/>
+        <text name="sdt_relayDir_strong" text="Starker Mast (Sektor 700 m)"/>
         <text name="sdt_droneTablet_name" text="Drohnen-Tablet"/>
-        <text name="sdt_droneTablet_function" text="Mobile Steuerung: In der Hand gehalten öffnet R den Planer eines Anhängers in Reichweite und erlaubt, einen Einsatz aus der Ferne zu starten und zu steuern."/>
+        <text name="sdt_droneTablet_function" text="Mobile Steuerung: In der Hand gehalten öffnet die linke Maustaste den Planer eines Anhängers in Reichweite und erlaubt, einen Einsatz aus der Ferne zu starten und zu steuern."/>
         <text name="sdt_tablet_open" text="Drohnenplaner öffnen"/>
         <text name="sdt_tablet_noConnection" text="KEINE VERBINDUNG"/>
+        <text name="sdt_tablet_openTarget" text="Planer: %s"/>
+        <text name="sdt_tablet_target" text="%s – %.0f m, %s"/>
+        <text name="sdt_tablet_stateMission" text="fliegt"/>
+        <text name="sdt_tablet_stateUnfolded" text="ausgeklappt"/>
+        <text name="sdt_tablet_stateFolded" text="eingeklappt"/>
+        <text name="sdt_tablet_onlyTarget" text="Nur diese Drohne ist in Reichweite"/>
+        <text name="sdt_button_tabletTarget" text="%d/%d  %s · %.0f m"/>
         <text name="sdt_relay_unfold" text="Mast ausklappen"/>
         <text name="sdt_relay_fold" text="Mast einklappen"/>
         <text name="sdt_relay_on" text="Mast einschalten"/>
@@ -177,7 +233,10 @@
         <text name="sdt_planner_noWater" text="Kein Wasser: Der Konzentrattank ist gefüllt, aber der Haupttank ist leer."/>
         <text name="sdt_hud_pumpingToPallet" text="Pumpe in IBC: %.0f l/min, %.0f l noch im Anhänger"/>
         <text name="sdt_warning_noPallet" text="Kein IBC im Umkreis von %.0f m um den Anhänger, das sein Mittel aufnimmt"/>
-        <text name="sdt_planner_settings" text="Flugeinstellungen"/>
+        <text name="sdt_warning_drainNotParked" text="Die Drohne muss ausgeklappt auf der Plattform stehen und darf keinen Auftrag haben"/>
+        <text name="sdt_warning_drainEmpty" text="Der Drohnentank ist leer"/>
+        <text name="sdt_warning_drainMismatch" text="Der Anhängertank enthält ein anderes Mittel, die Drohne würde es vermischen"/>
+        <text name="sdt_warning_drainFull" text="Der Anhängertank ist voll"/>
         <text name="sdt_setting_transitHeight" text="Minimale Transferhöhe: %.0f m"/>
         <text name="sdt_setting_obstacleClearance" text="Abstand über Hindernissen: %.0f m"/>
         <text name="sdt_setting_sideClearance" text="Seitlicher Abstand zu Hindernissen: %.0f m"/>
@@ -185,12 +244,13 @@
         <text name="sdt_setting_start" text="Beginnen mit: %s"/>
         <text name="sdt_setting_startRows" text="Reihen"/>
         <text name="sdt_setting_startHeadlands" text="Vorgewende"/>
-        <text name="sdt_planner_settingsHint" text="Klicke – / + oder scrolle über einer Zeile; klicke eine Zeile an, um sie auszuwählen, dann ändern die Schaltflächen Auswahl senken / erhöhen unten den Wert. Die Reichweite wird aus dem Akku neu berechnet."/>
         <text name="sdt_button_settingDown" text="Auswahl senken"/>
         <text name="sdt_button_settingUp" text="Auswahl erhöhen"/>
         <text name="sdt_configuration_drone" text="Drohne"/>
         <text name="sdt_cfg_crateColor" text="Kistenfarbe"/>
         <text name="sdt_cfg_tarpColor" text="Planenfarbe"/>
+        <text name="sdt_cfg_hopperColor" text="Lackfarbe"/>
+        <text name="sdt_cfg_hopperYellow" text="Gelb"/>
         <text name="sdt_cfg_tarpGrey" text="Dunkelgrau"/>
         <text name="sdt_hitch_tractor" text="Zugöse (Traktor, LKW)"/>
         <text name="sdt_hitch_car" text="Kugelkopfkupplung (Pickup)"/>
@@ -212,11 +272,21 @@
         <text name="sdt_drone_S" text="klein"/>
         <text name="sdt_drone_M" text="mittel"/>
         <text name="sdt_drone_L" text="groß"/>
+        <text name="sdt_drone_K" text="Scan"/>
         <text name="sdt_planner_drone" text="Drohne %s: Tank %.0f l, Akku %.2f kWh × %d"/>
+        <text name="sdt_planner_scanDrone" text="Drohne %s: Akku %.2f kWh × %d"/>
         <text name="sdt_warning_foldFirst" text="Klappe zuerst den Anhänger ein (ausgeklappt kann er nicht an- oder abgekuppelt werden)"/>
         <text name="sdt_foldObject" text="Anhänger"/>
         <text name="sdt_warning_noDrone" text="Der Anhänger hat keine Drohne – kaufe eine in der Werkstatt (Anpassen)"/>
-        <text name="sdt_warning_noBatteries" text="Die Drohne hat keinen Akku und kann nicht starten – kaufe Akkus in der Werkstatt (Anpassen)"/>
+        <text name="sdt_pad_noDrone" text="Keine Drohne auf der Plattform"/>
+        <text name="sdt_pad_busy" text="Die Drohne kann jetzt nicht getauscht werden – beende zuerst den Einsatz und den Service"/>
+        <text name="sdt_pad_unfolded" text="Die Drohne auf der Plattform muss eingeklappt sein – klappe den Anhänger ein"/>
+        <text name="sdt_pad_boxStowed" text="Die Drohne kann nur bei ausgeklappter Kiste eingesetzt oder abgenommen werden – Anhänger ausklappen"/>
+        <text name="sdt_warning_padDroneOnPlate" text="Zuerst die Drohne in die Kiste umsetzen (R an der Kiste)"/>
+        <text name="sdt_pad_mixed" text="Beide Drohnen auf dem Anhänger müssen gleich groß sein"/>
+        <text name="sdt_pad_needFirst" text="Die zweite Plattform geht nur mit einer Drohne auf der ersten"/>
+        <text name="sdt_pad_unknown" text="Diese Drohne passt nicht auf diese Plattform"/>
+        <text name="sdt_warning_noBatteries" text="Die Drohne hat keinen Akku und kann nicht starten – stecke einen Akku ins Ladegerät (R) oder kaufe einen im Shop"/>
         <text name="sdt_state_noDrone" text="Anhänger ohne Drohne"/>
         <text name="sdt_state_noBatteries" text="keine Akkus, Start nicht möglich"/>
         <text name="sdt_hud_noDrone" text="Anhänger ohne Drohne (in der Werkstatt kaufen)"/>
@@ -249,9 +319,79 @@
         <text name="sdt_toolbox_typeNotAllowed" text="Ein Kanister nimmt diesen Stoff nicht auf"/>
         <text name="fillType_sdtConcentrateFertilizer" text="Düngerkonzentrat"/>
         <text name="fillType_sdtConcentrateHerbicide" text="Herbizidkonzentrat"/>
+        <text name="fillType_sdtFineLime" text="Fein gemahlener Kalk"/>
+        <text name="sdt_limeMill" text="Kalkmühle"/>
+        <text name="sdt_limeMill_function" text="Mahlt Kalk zu feinem Pulver für die Kalkung per Drohne; ein Schlauch füllt den Behälter des großen Anhängers"/>
+        <text name="sdt_limeMill_typeDesc" text="Mühlenwagen"/>
+        <text name="sdt_limeMill_cfg" text="Kalkmühle"/>
+        <text name="sdt_mill_start" text="Mühle starten"/>
+        <text name="sdt_mill_stop" text="Mühle stoppen"/>
+        <text name="sdt_mill_hoseConnect" text="Schlauch an Kalkbehälter anschließen"/>
+        <text name="sdt_mill_hoseDisconnect" text="Schlauch trennen"/>
+        <text name="sdt_mill_noFuel" text="Die Mühle hat keinen Diesel"/>
+        <text name="sdt_mill_valveToSpout" text="Ventil auf Fallrohr"/>
+        <text name="sdt_mill_valveToHose" text="Ventil auf Schlauch"/>
+        <text name="sdt_mill_spoutSide" text="Fallrohr zur Seite ausschwenken"/>
+        <text name="sdt_mill_spoutRear" text="Fallrohr nach hinten ausschwenken"/>
+        <text name="sdt_mill_spoutFold" text="Fallrohr einklappen"/>
+        <text name="sdt_mill_spoutFolded" text="Das Fallrohr ist eingeklappt – schwenke es aus (O)"/>
+        <text name="sdt_mill_hoseSpout" text="Der Mühlenauslass ist auf das Fallrohr gestellt, der Schlauch bekommt nichts"/>
+        <text name="sdt_limeBigBag_name" text="Big Bag für feinen Kalk"/>
+        <text name="sdt_limeBigBag_function" text="1000-l-Big-Bag für fein gemahlenen Kalk. Unter das Blasrohr der Mühle stellen (Auslass auf Big Bag), die Mühle füllt ihn von oben; entleert wird er wie ein Standard-Big-Bag."/>
+        <text name="sdt_pump_name" text="Tragbare Wasserpumpe"/>
+        <text name="sdt_pump_function" text="Saugt Wasser aus IBC, Tankwagen oder Teich über Schläuche an und pumpt es in den Wassertank des großen Anhängers (Anschlüsse EINGANG und AUSGANG; der Eingang wird zwischen Tank und Teich umgeschaltet)"/>
+        <text name="sdt_pump_start" text="Pumpe starten"/>
+        <text name="sdt_pump_stop" text="Pumpe stoppen"/>
+        <text name="sdt_pump_noFuel" text="Die Pumpe hat keinen Diesel"/>
+        <text name="sdt_pump_modeToPond" text="Eingang auf Teich (Saugkorb)"/>
+        <text name="sdt_pump_modeToTank" text="Eingang auf Tank (Storz-Kupplung)"/>
+        <text name="sdt_pump_modeEngineOn" text="Zuerst den Pumpenmotor ausschalten"/>
+        <text name="sdt_pump_modeHoseAttached" text="Zuerst den Saugschlauch von der Quelle abkuppeln"/>
+        <text name="sdt_pump_dry" text="Die Pumpe fördert kein Wasser – Schläuche anschließen (Eingang, Ausgang)"/>
+        <text name="sdt_hopper_name" text="Trichter für feinen Kalk"/>
+        <text name="sdt_hopper_function" text="Tragbarer Trichter mit eigenem Dieselmotor: Säcke mit fein gemahlenem Kalk oder ein Big Bag werden hineingeleert, und der Schlauch des großen Anhängers zieht den Kalk in den Konzentratbehälter"/>
+        <text name="sdt_hopper_start" text="Trichtermotor starten"/>
+        <text name="sdt_hopper_stop" text="Trichtermotor stoppen"/>
+        <text name="sdt_hopper_noFuel" text="Der Trichter hat keinen Diesel"/>
+        <text name="sdt_hopper_legsOut" text="Stützen ausfahren"/>
+        <text name="sdt_hopper_legsIn" text="Stützen einfahren"/>
+        <text name="sdt_hopper_legsBag" text="Auf dem Entleerstand liegt ein Big Bag – nimm ihn zuerst herunter"/>
+        <text name="sdt_hopper_bagLegsIn" text="Die Stützen des Trichters sind eingefahren, der Big Bag entleert sich nicht: Bag abheben, Stützen ausfahren und wieder absetzen"/>
+        <text name="sdt_mill_noTarget" text="Kein Anhänger mit Kalkbehälter in Schlauchreichweite"/>
+        <text name="sdt_mill_hoseTorn" text="Der Schlauch hat sich gelöst, der Wagen ist zu weit weg"/>
+        <text name="input_SDT_TOGGLE_FOOT" text="Maschine ein/aus (zu Fuß)"/>
+        <text name="sdt_planner_folded" text="Der Anhänger ist eingeklappt – zuerst ausklappen"/>
+        <text name="sdt_planner_droneInBox" text="Die Drohne ist in der Kiste verstaut – setze sie auf die Plattform"/>
+        <text name="sdt_planner_caseClosed" text="Der Koffer ist geschlossen – zuerst öffnen"/>
+        <text name="sdt_mill_foldObject" text="Wagen"/>
+        <text name="sdt_mill_warning_foldFirst" text="Wagen zuerst zusammenklappen (aufgeklappt lässt er sich weder an- noch abkuppeln)"/>
+        <text name="sdt_mill_foldHose" text="Schlauch zuerst vom Anhänger trennen und loslassen"/>
+        <text name="sdt_mill_valveOpen" text="Ventil öffnen"/>
+        <text name="sdt_mill_valveClose" text="Ventil schließen"/>
+        <text name="sdt_mill_hoseLink" text="Schlauch von der Mühle anschließen"/>
+        <text name="sdt_mill_hoseFar" text="Schlauch reicht nicht (%.1f m von %.1f m)"/>
+        <text name="sdt_wh_takeLime" text="Schlauch nehmen (Kalk von Mühle oder Trichter)"/>
+        <text name="sdt_wh_take" text="Wasserschlauch nehmen"/>
+        <text name="sdt_wh_connect" text="Schlauch an Wasserquelle anschließen"/>
+        <text name="sdt_wh_drop" text="Schlauch loslassen"/>
+        <text name="sdt_wh_takeIn" text="Saugschlauch nehmen (IBC, Tankwagen)"/>
+        <text name="sdt_wh_takePond" text="Saugschlauch nehmen (Saugkorb in den Teich)"/>
+        <text name="sdt_wh_takeOut" text="Ausgangsschlauch nehmen (zum Anhänger)"/>
+        <text name="sdt_wh_connectPond" text="Saugkorb ins Wasser legen"/>
+        <text name="sdt_wh_connectTrailer" text="Schlauch an das Wasserventil des Anhängers anschließen"/>
+        <text name="sdt_wh_connectTank" text="Schlauch an den Tank anschließen (Wasser einfüllen)"/>
+        <text name="sdt_wh_tankEmpty" text="Der Tank enthält kein Wasser - Schlauch loslassen"/>
+        <text name="sdt_wh_unplug" text="Wasserschlauch abkoppeln"/>
+        <text name="sdt_wh_torn" text="Der Wasserschlauch ist abgerissen"/>
+        <text name="sdt_wh_mixed" text="Der Tank enthält ein anderes Mittel, Wasser fließt nicht"/>
+        <text name="sdt_mill_hoseGrab" text="Schlauch greifen"/>
+        <text name="sdt_mill_hoseDrop" text="Schlauch loslassen"/>
+        <text name="sdt_mill_hoseReturn" text="Schlauch trennen"/>
         <text name="sdt_canisterFertilizer_name" text="Düngerkonzentrat – Kanister 20 l"/>
         <text name="sdt_canisterHerbicide_name" text="Herbizidkonzentrat – Kanister 20 l"/>
         <text name="sdt_canisterDiesel_name" text="Diesel – Kanister 20 l"/>
+        <text name="sdt_limeBag50_name" text="Fein gemahlener Kalk – Sack 50 l"/>
+        <text name="sdt_limeBag_function" text="Fein gemahlener Kalk aus dem Konzentrattank des Serviceanhängers (Strg+I entleert den Tank in Säcke). Ein Sack, der über dem Stutzen des Konzentrattanks gekippt wird, leert sich in den Tank."/>
         <text name="sdt_canister_function" text="Konzentrat für den Sprühdrohnen-Serviceanhänger. Lege den Kanister in die Werkzeugkiste des Anhängers und fülle ihn in den Konzentrattank; der Mischer verdünnt ihn mit Wasser aus dem Haupttank."/>
         <text name="input_SDT_DRONE_VIEW" text="Drohnenansicht (C = zurück)"/>
         <text name="sdt_setting_activeDrones" text="Drohnen im Einsatz: %.0f"/>
@@ -273,5 +413,181 @@
         <text name="sdt_hud_tiltLong" text="längs %+.1f°"/>
         <text name="sdt_hud_tiltSide" text="seitlich %+.1f°"/>
         <text name="sdt_hud_tiltMax" text="   (max. %.0f°)"/>
-</texts>
+        <text name="sdt_status_scanDone" text="Drohne: Feldscan ist fertig, die Karte ist im Planer"/>
+        <text name="sdt_status_scanDark" text="Drohne: Scan abgebrochen, es ist dunkel geworden (die Kamera braucht Tageslicht)"/>
+        <text name="sdt_status_scanRain" text="Drohne: Scan abgebrochen, es regnet"/>
+        <text name="sdt_status_scanWind" text="Drohne: Scan abgebrochen, der Wind ist zu stark"/>
+        <text name="sdt_warning_scanDark" text="Ein Feldscan geht nur bei Tageslicht"/>
+        <text name="sdt_warning_scanRain" text="Bei Regen geht kein Feldscan"/>
+        <text name="sdt_warning_scanWind" text="Für einen Feldscan ist der Wind zu stark"/>
+        <text name="sdt_weather_dark" text="dunkel (Scan braucht Tageslicht)"/>
+        <text name="sdt_weather_rain" text="es regnet"/>
+        <text name="sdt_weather_wind" text="zu windig"/>
+        <text name="sdt_weather_ok" text="Flug möglich"/>
+        <text name="sdt_planner_weather" text="Wetter: Wind %s m/s (Grenze %.0f m/s) – %s"/>
+        <text name="sdt_warning_sprayWind" text="Zum Spritzen ist der Wind zu stark (Abdrift)"/>
+        <text name="sdt_warning_sprayRain" text="Bei Regen spritzt die Drohne nicht"/>
+        <text name="sdt_status_sprayWind" text="Drohne: Spritzen abgebrochen, der Wind ist zu stark (Abdrift)"/>
+        <text name="sdt_status_sprayRain" text="Drohne: Spritzen abgebrochen, es regnet"/>
+        <text name="sdt_warning_scanOwnOnly" text="Nur eigene Felder können gescannt werden"/>
+        <text name="sdt_setting_mission" text="Einsatz: %s"/>
+        <text name="sdt_setting_missionSpray" text="Spritzen"/>
+        <text name="sdt_setting_missionScan" text="Feldscan"/>
+        <text name="sdt_setting_scanCell" text="Scan: %s"/>
+        <text name="sdt_setting_scanCellLow" text="niedrig, 5-m-Zellen"/>
+        <text name="sdt_setting_scanCellMid" text="mittel, 10-m-Zellen"/>
+        <text name="sdt_setting_scanCellHigh" text="hoch, 20-m-Zellen"/>
+        <text name="sdt_state_scanning" text="scannt das Feld"/>
+        <text name="sdt_planner_scan" text="Scan: %d-m-Zellen, Höhe %.0f m, Breite %.0f m"/>
+        <text name="sdt_planner_scanMap" text="Feldkarte: %.0f %% gescannt (%d-m-Zellen), %.1f h alt"/>
+        <text name="sdt_planner_scanFindings" text="Unkraut in %.0f %% der Zellen (unsichtbar in %d), schwacher Bestand %.0f %%"/>
+        <text name="sdt_setting_apply" text="Ausbringung: %s"/>
+        <text name="sdt_setting_applyField" text="ganzes Feld"/>
+        <text name="sdt_setting_applyScan" text="nach Scan"/>
+        <text name="sdt_spot_cells" text="Nach Scan: %d von %d Zellen (%d nicht gescannt), Rand %.1f m"/>
+        <text name="sdt_spot_compare" text="Ganzes Feld %.0f l / %.0f min · nach Scan %.0f l / %.0f min"/>
+        <text name="sdt_spot_stale" text="Scan ist %.0f h alt, das Feld kann sich verändert haben"/>
+        <text name="sdt_spot_noMap" text="Feld ohne Scan, das ganze Feld wird behandelt"/>
+        <text name="sdt_spot_noProduct" text="Dieses Mittel geht nicht nach Scan, das ganze Feld wird behandelt"/>
+        <text name="sdt_scanui_layerOff" text="Aus"/>
+        <text name="sdt_scanui_layerWeed" text="Unkraut"/>
+        <text name="sdt_scanui_layerFert" text="Bestandsvitalität"/>
+        <text name="sdt_scanui_layerRipe" text="Reife"/>
+        <text name="sdt_scanui_layerStone" text="Steine"/>
+        <text name="sdt_scanui_layerNitrogen" text="Stickstoff (PF)"/>
+        <text name="sdt_scanui_c_nitrogen1" text="Stickstoff unter 30 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen2" text="Stickstoff 30-60 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen3" text="Stickstoff 60-90 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen4" text="Stickstoff 90-120 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen5" text="Stickstoff über 120 kg/ha"/>
+        <text name="sdt_planner_scanPf" text="Bestand (PF): Stickstoff Ø %.0f kg/ha (%.0f-%.0f)"/>
+        <text name="sdt_scanui_layerCover" text="Abdeckung"/>
+        <text name="sdt_scanui_notScanned" text="nicht gescannt"/>
+        <text name="sdt_scanui_ageHours" text="%.0f h"/>
+        <text name="sdt_scanui_ageDays" text="%.0f T"/>
+        <text name="sdt_scanui_unscanned" text="nicht gescannt"/>
+        <text name="sdt_scanui_stale" text="verblasst = älter als %d h"/>
+        <text name="sdt_scanui_c_weedNone" text="kein Unkraut"/>
+        <text name="sdt_scanui_c_weedLow" text="Unkraut bis 25 %"/>
+        <text name="sdt_scanui_c_weedHigh" text="Unkraut über 25 %"/>
+        <text name="sdt_scanui_c_weedInvisible" text="unsichtbares Unkraut (Stadien 1–2)"/>
+        <text name="sdt_scanui_c_fert0" text="schwacher Bestand"/>
+        <text name="sdt_scanui_c_fert1" text="mittlere Vitalität"/>
+        <text name="sdt_scanui_c_fert2" text="volle Vitalität"/>
+        <text name="sdt_scanui_c_ripeNone" text="keine Frucht"/>
+        <text name="sdt_scanui_c_ripeYoung" text="junger Bestand"/>
+        <text name="sdt_scanui_c_ripeGrowing" text="wächst"/>
+        <text name="sdt_scanui_c_ripeReady" text="erntereif"/>
+        <text name="sdt_scanui_c_ripeOver" text="geerntet / verdorrt"/>
+        <text name="sdt_scanui_c_stoneNone" text="keine Steine"/>
+        <text name="sdt_scanui_c_stoneSome" text="Steine"/>
+        <text name="sdt_scanui_c_scanned" text="gescannt"/>
+        <text name="sdt_scanui_c_treated" text="nach dem Scan behandelt"/>
+        <text name="sdt_scanui_c_unscannedCover" text="nicht gescannt"/>
+        <text name="sdt_scanui_notify" text="Feld %s gescannt: Unkraut %.0f %% (unsichtbar %.0f %%), schwacher Bestand %.0f %%, reif %.0f %%"/>
+        <text name="sdt_ui_pageFields" text="Felder"/>
+        <text name="sdt_ui_pageMission" text="Einsatz"/>
+        <text name="sdt_ui_pageFlight" text="Flug"/>
+        <text name="sdt_ui_pageMap" text="Scankarte"/>
+        <text name="sdt_ui_groupMission" text="Einsatzart"/>
+        <text name="sdt_ui_groupTransit" text="Überflug"/>
+        <text name="sdt_ui_groupField" text="Feld"/>
+        <text name="sdt_ui_groupDrones" text="Drohnen"/>
+        <text name="sdt_ui_sectionNear" text="In Reichweite des Anhängers"/>
+        <text name="sdt_ui_sectionOwn" text="Weitere eigene Felder"/>
+        <text name="sdt_ui_sectionLayer" text="Ebene der Scankarte"/>
+        <text name="sdt_ui_sectionRoute" text="Route und Reichweite"/>
+        <text name="sdt_ui_legendSelected" text="gewähltes Feld"/>
+        <text name="sdt_ui_legendContract" text="Auftrag"/>
+        <text name="sdt_ui_legendBatches" text="Route (Farbe = Ladung)"/>
+        <text name="sdt_ui_legendUnplanned" text="nicht geplant (Diesel, Akku)"/>
+        <text name="sdt_ui_legendArea" text="Flugbereich"/>
+        <text name="sdt_ui_legendRange" text="Signalreichweite des Anhängers"/>
+        <text name="sdt_ui_legendRelay" text="Reichweite der Relaismasten"/>
+        <text name="sdt_ui_legendTarget" text="gesteuerter Anhänger / Koffer und seine Drohne"/>
+        <text name="sdt_ui_legendOtherTarget" text="andere Drohne in Reichweite (Klick = wechseln)"/>
+        <text name="sdt_ui_cardTitle" text="Flugplan"/>
+        <text name="sdt_ui_noField" text="Feld wählen"/>
+        <text name="sdt_ui_noFieldHint" text="Klicke auf ein Feld in der Karte oder wähle es links auf der Seite Felder."/>
+        <text name="sdt_ui_batches" text="Ladungen"/>
+        <text name="sdt_ui_time" text="Flugzeit"/>
+        <text name="sdt_ui_area" text="Fläche"/>
+        <text name="sdt_ui_liquid" text="Bedarf / Vorrat"/>
+        <text name="sdt_ui_scanCell" text="Zelle · Höhe"/>
+        <text name="sdt_ui_diesel" text="Diesel"/>
+        <text name="sdt_ui_battery" text="Akku / Wechsel"/>
+        <text name="sdt_ui_transit" text="Überflug"/>
+        <text name="sdt_ui_weather" text="Wind / Grenze"/>
+        <text name="sdt_ui_spotTitle" text="Nach Scan"/>
+        <text name="sdt_ui_spotFull" text="ganzes Feld %.0f l · %.0f min, Ersparnis %.0f %%"/>
+        <text name="sdt_ui_trailer" text="Anhänger"/>
+        <text name="sdt_ui_findNone" text="Keine Befunde"/>
+        <text name="sdt_ui_findWeed" text="Unkraut %.0f %%"/>
+        <text name="sdt_ui_findRipe" text="Reif %.0f %%"/>
+        <text name="sdt_ui_findFert" text="Ungedüngt %.0f %%"/>
+        <text name="sdt_ui_screenTitle" text="Flugplaner"/>
+        <text name="sdt_ui_noFieldsNear" text="Kein eigenes Feld und kein angenommener Auftrag in Reichweite des Anhängers."/>
+        <text name="sdt_ui_pagePrev" text="Vorherige Seite"/>
+        <text name="sdt_ui_pageNext" text="Nächste Seite"/>
+        <text name="sdt_status_noCharge" text="Drohne: Der Koffer-Akku kann nirgends laden – Koffer neben ein Hofgebäude oder einen laufenden Anhänger-Generator stellen"/>
+        <text name="sdt_planner_noCharge" text="Der Koffer hat keine Ladequelle (Hofgebäude oder laufender Generator im Umkreis von 15 m): kein Nachladen"/>
+        <text name="sdt_case_name" text="Scan-Drohne im Koffer"/>
+        <text name="sdt_case_function" text="Tragbares Set: Koffer, kleine Multispektral-Drohne und Akku. Koffer irgendwo unter freiem Himmel abstellen, öffnen (R) und den Feldscan mit dem Tablet steuern. Der Akku lädt nur an einem Hofgebäude oder an einem laufenden Anhänger-Generator."/>
+        <text name="sdt_case_open" text="Koffer öffnen"/>
+        <text name="sdt_case_close" text="Koffer schließen"/>
+        <text name="sdt_case_closeToCarry" text="Koffer lässt sich nur geschlossen aufheben"/>
+        <text name="sdt_case_battery" text="Koffer-Akku: %s"/>
+        <text name="sdt_case_source" text="Laden: %s (Quelle bis %.0f m)"/>
+        <text name="sdt_case_sourceNone" text="keine Quelle"/>
+        <text name="sdt_case_sourceBuilding" text="Steckdose im Hofgebäude"/>
+        <text name="sdt_case_sourceGenerator" text="Anhänger-Generator"/>
+        <text name="sdt_drone_C" text="Scan (Koffer)"/>
+        <text name="sdt_scanui_c_fertNone" text="kein Bestand (nicht erkennbar)"/>
+        <text name="sdt_sampler_name" text="Bodenproben-Drohne im Koffer (AIRASI)"/>
+        <text name="sdt_sampler_function" text="Tragbares Precision-Farming-Set: Koffer, Probendrohne mit Bodensonde und Akku. Die Drohne nimmt Bodenproben an Punkten des Feldes (2 pro Flug) und bringt sie in die Box im Koffer; per Klick auf die Box im Koffer oder mit der Schaltfläche in der Flugplanung ins Labor schicken. Nur mit Precision Farming."/>
+        <text name="sdt_drone_P" text="Probennahme (Koffer)"/>
+        <text name="sdt_status_samplesDone" text="Drohne: alle Proben des Feldes genommen, ins Labor schicken"/>
+        <text name="sdt_status_samplesBoxFull" text="Drohne: Probenbox voll – Proben ins Labor schicken"/>
+        <text name="sdt_status_samplesNoPF" text="Drohne: Bodenproben nur mit Precision Farming"/>
+        <text name="sdt_warning_samplerOwnOnly" text="Proben nur auf eigenen Feldern"/>
+        <text name="sdt_state_sampling" text="nimmt Proben"/>
+        <text name="sdt_sampler_noPF" text="Der Probennehmer braucht Precision Farming"/>
+        <text name="sdt_sampler_boxFull" text="Probenbox voll – zuerst Proben verschicken"/>
+        <text name="sdt_sampler_boxEmpty" text="Keine Proben in der Box"/>
+        <text name="sdt_sampler_sent" text="%d Proben ins Labor geschickt, Kosten %s (nach der Analyse)"/>
+        <text name="sdt_sampler_sentShort" text="Proben ins Labor geschickt"/>
+        <text name="sdt_sampler_send" text="Proben senden (%d)"/>
+        <text name="sdt_sampler_box" text="Probendosen: voll im Koffer %d / %d · in der Drohne %d voll von %d"/>
+        <text name="sdt_sampler_points" text="Probenpunkte: %d · genommen %d · übrig %d · außer Reichweite %d · hoher Bestand %d"/>
+        <text name="sdt_sampler_lab" text="PF-Labor: %d Proben in Analyse · %s pro Probe"/>
+        <text name="sdt_sampler_boxLimited" text="Die Box fasst nur einen Teil der Punkte – nach dem Füllen Proben senden und neu starten"/>
+        <text name="sdt_ui_samplePoints" text="Punkte übrig / gesamt"/>
+        <text name="sdt_ui_sampleBox" text="Probenbox"/>
+        <text name="sdt_button_sendSamples" text="Proben senden"/>
+        <text name="sdt_status_samplesStuck" text="Drohne: mehrere Flüge hintereinander ohne Probe, Einsatz beendet (siehe Log)"/>
+        <text name="sdt_status_samplesTall" text="Drohne: die übrigen Punkte stehen in hohem Bestand – Proben nach der Ernte oder im frühen Wachstum nehmen"/>
+        <text name="sdt_sampler_tallCrop" text="Probenpunkte nur in hohem Bestand – Proben gehen nach der Ernte, auf bearbeitetem Boden oder bis Wachstumsstufe 2"/>
+        <text name="sdt_sampler_noPoints" text="Keine Probenpunkte – mit der linken Maustaste ins Feld klicken oder automatische Punkte einschalten (Einsatz)"/>
+        <text name="sdt_sampler_pickNoField" text="Zuerst ein Feld wählen"/>
+        <text name="sdt_sampler_pickOutside" text="Der Probenpunkt muss im gewählten Feld liegen"/>
+        <text name="sdt_sampler_pickFar" text="Der Punkt liegt außerhalb der Reichweite des Koffers (Akku oder Signal)"/>
+        <text name="sdt_sampler_pickExists" text="Hier ist schon ein Probenpunkt"/>
+        <text name="sdt_sampler_pickMax" text="Mehr Punkte sind für dieses Feld nicht möglich"/>
+        <text name="sdt_sampler_pickNone" text="Hier ist kein Probenpunkt"/>
+        <text name="sdt_sampler_pickTall" text="Punkt hinzugefügt, steht aber in hohem Bestand – die Drohne überspringt ihn vorerst"/>
+        <text name="sdt_sampler_pickAdded" text="Probenpunkt hinzugefügt"/>
+        <text name="sdt_sampler_pickRemoved" text="Probenpunkt entfernt"/>
+        <text name="sdt_sampler_pickHint" text="Probenpunkte: Linksklick fügt hinzu · Rechtsklick entfernt"/>
+        <text name="sdt_sampler_picks" text="Manuell: %d hinzugefügt · %d aus dem Raster entfernt"/>
+        <text name="sdt_setting_samplerAuto" text="Automatische Punkte: %s"/>
+        <text name="sdt_setting_samplerAutoOff" text="nein, nur geklickte"/>
+        <text name="sdt_setting_samplerAutoOn" text="ja (PF-Raster)"/>
+        <text name="sdt_ui_groupSamples" text="Probenpunkte"/>
+        <text name="sdt_ui_legendSamplePending" text="automatischer Punkt"/>
+        <text name="sdt_ui_legendSampleCustom" text="gesetzter Punkt"/>
+        <text name="sdt_ui_legendSampleDone" text="beprobter Punkt"/>
+        <text name="sdt_ui_legendSampleTall" text="derzeit nicht beprobbar (hoher Bestand, außer Reichweite)"/>
+        <text name="sdt_ui_legendSampleFar" text="Punkt außer Reichweite"/>
+        <text name="sdt_ui_legendSampleCover" text="von Punkten abgedeckte Fläche"/>
+    </texts>
 </l10n>

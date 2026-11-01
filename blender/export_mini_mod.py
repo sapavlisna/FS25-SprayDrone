@@ -25,11 +25,12 @@ TEX_DIR = os.path.join(VEH_DIR, "textures")
 DECAL_SOURCE = os.path.join(MOD_DIR, "vehicles", "sprayDroneTrailerMiddle", "textures", "sdt_decals.dds")
 
 MAPPED_NODES = [
-    "sprayDroneTrailerMini_main_component1", "sprayDroneTrailerMini_vis", "attacherJoint",
+    "sprayDroneTrailerMini_main_component1", "sprayDroneTrailerMini_vis", "attacherJoint", "deckEdgeSteel", "deckEdgeWood",
     "wheelFrontLeft", "wheelFrontRight", "jockeyWheel", "chargerLid", "chargerCable",
     "fillTrigger", "exactFillRootNode", "concentrateFillRootNode", "dieselFillRootNode",
     "mixerMotor", "mixerSoundNode", "toolboxLid", "toolboxActivateNode", "toolboxLid2", "toolboxActivateNode2", "concentrateNeckNode", "dieselNeckNode",
     "rearLight52_left", "rearLight52_right", "plateNumberLight03", "sideMarker05_left", "sideMarker05_right",
+    "padRearLights", "padRearLight52_left", "padRearLight52_right", "padPlateNumberLight03", "licensePlateBackPad",
     "exitPoint", "outdoorCameraTarget", "outdoorCamera",
     "occlusionAreaStart", "occlusionAreaWidth", "occlusionAreaHeight", "licensePlateBack", "generatorExhaust",
     "batteryCharger", "padAnchor", "padHingeZ", "padHingeH", "padHingeP", "padHingeEnd", "droneCarrier", "padSideL", "padSideR",
@@ -97,6 +98,8 @@ def pad_values(car):
         "PAD_DRONE_YAW": "%.4f" % drone_yaw_deg(car),
         "PAD_SETTLE": "%.3f" % car["CRATE_SETTLE"],
         "PAD_SIDE_LENGTH": "%.3f" % car["SIDE_H"],
+        "PAD_REAR_START": "%g" % car["PAD_REAR_TIME"][0],
+        "PAD_REAR_END": "%g" % car["PAD_REAR_TIME"][1],
         "CENTER_OF_MASS": fmt(b2i(car["CENTER_OF_MASS"])),
     }
 
@@ -117,7 +120,7 @@ def drone_nodes(car):
 
 def hidden_nodes(car):
     """Nožičky bedny jsou ve složeném stavu skryté, skript je ukáže při rozkládání."""
-    return list(BATTERY_HIDDEN) + [f"padLeg{i}" for i in range(1, 7)]
+    return list(BATTERY_HIDDEN) + [f"padLeg{i}" for i in range(1, 7)] + [car["DRONE_VARIANTS"][key] + "Root" for key in car["DRONE_HIDDEN"]]
 
 
 _car_vehicle_size = vehicle_size
@@ -163,9 +166,17 @@ def write_vehicle_xml(car, mappings):
     return values
 
 
+def _under(o, name):
+    while o is not None:
+        if o.name == name:
+            return True
+        o = o.parent
+    return False
+
+
 def _store_pose(car):
-    """Vlek složený (dron složený, úchyty zavřené, víko šachty zavřené, kabel a zástrčky skryté). Vrací funkci, která
-    stav vrátí."""
+    """Vlek složený (dron složený, úchyty zavřené, víko šachty zavřené, kabel, zástrčky a druhá sada zadních světel na plošině
+    skryté). Vrací funkci, která stav vrátí."""
     prefix = car["DRONE_VARIANTS"]["S"]
     parts = car["drone_fold_parts"](prefix)
     car["set_drone_unfold"](0.0, parts, prefix)
@@ -179,7 +190,8 @@ def _store_pose(car):
     hidden = {}
     for o in bpy.data.objects:
         hide = (bool(o.get("i3D_nonRenderable")) or o.name.endswith("_Tip")
-                or o.name in ("chargerCable", "Charger_Plug", "Gen_0_ChargePlug")
+                or (o.parent is not None and o.parent.name == "deckEdgeWood")
+                or o.name in ("chargerCable", "Charger_Plug", "Gen_0_ChargePlug") or _under(o, "padRearLights")
                 or (o.parent is not None and o.parent.name.startswith("padLeg") and o.parent.name[6:].isdigit()))
         for c in o.users_collection:
             if c.name.startswith("REF_"):
@@ -206,7 +218,7 @@ def build_mod():
     n = export_i3d(car)
     used = apply_vehicle_shader(I3D_PATH)
     print(f"materiály na vehicleShader: {len(used)} ({sorted(set(used.values()))})")
-    hide_nodes(I3D_PATH, hidden_nodes(car))
+    hide_nodes(I3D_PATH, hidden_nodes(car) + ["deckEdgeWood"])
     mappings, found = i3d_mappings(I3D_PATH, MAPPED_NODES + drone_nodes(car))
     values = write_vehicle_xml(car, mappings)
     make_images(car)

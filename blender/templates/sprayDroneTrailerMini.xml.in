@@ -88,6 +88,8 @@
 
     <licensePlates>
         <licensePlate node="licensePlateBack" position="BACK" preferedType="SQUARISH" placementArea="0.06 0.26 0.09 0.15"/>
+        <!-- druhá SPZ na konci rozložené plošiny (ta zakryje první); ve složeném stavu ji skryje rodič padRearLights (foldTrailer) -->
+        <licensePlate node="licensePlateBackPad" position="BACK" preferedType="SQUARISH" placementArea="0.05 0.17 0.075 0.17"/>
     </licensePlates>
 
     <lights>
@@ -99,6 +101,11 @@
         <sharedLight linkNode="sideMarker05_left" filename="$data/shared/assets/lights/lizard/sideMarker05_left.xml"/>
         <sharedLight linkNode="sideMarker05_right" filename="$data/shared/assets/lights/lizard/sideMarker05_right.xml"/>
         <sharedLight linkNode="plateNumberLight03" filename="$data/shared/assets/lights/lizard/plateNumberLight03.xml"/>
+        <!-- druhá sada na konci rozložené plošiny (padRearLights pod padHingeEnd): rozložená plošina hlavní sadu zakryje a vlek pak
+             nejde odpojit; stejné sdílené soubory = stejné funkce (obrys, brzda, blinkry), viditelná jen rozložená (foldTrailer) -->
+        <sharedLight linkNode="padRearLight52_left" filename="$data/shared/assets/lights/lizard/rearLight52_left.xml"/>
+        <sharedLight linkNode="padRearLight52_right" filename="$data/shared/assets/lights/lizard/rearLight52_right.xml"/>
+        <sharedLight linkNode="padPlateNumberLight03" filename="$data/shared/assets/lights/lizard/plateNumberLight03.xml"/>
     </lights>
 
     <animations>
@@ -112,40 +119,43 @@
             <sound template="clackVar1" startTime="0.05" direction="-1" volumeScale="1.1" pitchScale="1.1" linkNode="jockeyWheel"/>
         </animation>
         <!-- konvence FS25 (Foldable.lua): čas 0 = rozloženo (model v i3d), čas 1 = složeno;
-             startMoveDirection="1" => vozidlo začíná v čase 1, animace trvá 12 s. Skládání: 0–2,6 s se složí dron na rozložené
-             plošině (skript podle času skládání, sprayDrone#trailerFoldEnd); 2,6–10,6 s se plošina skládá do bedny (skript,
-             sprayDrone.pad: foldEnd / foldStart; v obráceném pořadí než rozkládání: dron sjede na střed bedny a otočí se, nožičky
-             se zasunou, panely se sklopí kolem dronu do bedny a jako poslední se zvedne pomačkaná plachta a vrátí na boky bedny);
-             10,6–11 s bedna s dronem je zajištěná (sprayDrone#securedFoldTime = 11 / 12); 11–12 s se zavře víko šachty baterií. -->
+             startMoveDirection="1" => vozidlo začíná v čase 1, animace trvá 10 s. Skládání: 0–0,6 s krátká rezerva
+             (sprayDrone#trailerFoldEnd; dron se s vlekem neskládá: Mini se s dronem na plošině složit nedá, dron v bedně je složený už předem); 0,6–8,6 s se plošina
+             skládá do bedny (skript, sprayDrone.pad: foldEnd / foldStart; v obráceném pořadí než rozkládání: dron se sám nepřesouvá, hráč
+             ho přendá z plošiny do bedny jako předmět; nožičky se zasunou, panely se sklopí kolem dronu do bedny a jako poslední se zvedne pomačkaná plachta a vrátí na boky bedny);
+             8,6–9 s bedna s dronem je zajištěná (sprayDrone#securedFoldTime = 9 / 10); 9–10 s se zavře víko šachty baterií. -->
         <animation name="foldTrailer">
             <!-- šachta baterií po levém boku nádrže: rozložený vlek = víko otevřené a kabel k elektrocentrále zapojený -->
             <part node="chargerCable" startTime="{{CABLE_START}}" endTime="{{CABLE_END}}" startVisibility="true" endVisibility="false"/>
             <part node="chargerLid" startTime="{{LID_START}}" endTime="{{LID_END}}" startRot="{{LID_OPEN}}" endRot="{{LID_CLOSED}}"/>
+            <!-- druhá sada zadních světel a SPZ na konci plošiny: jen když jsou panely v rovině (D >= 0,38 => čas <= 5,56 s), ve složené
+                 bedně by čelo panelu P mířilo dopředu k nádrži -->
+            <part node="padRearLights" startTime="{{PAD_REAR_START}}" endTime="{{PAD_REAR_END}}" startVisibility="true" endVisibility="false"/>
 {{CLAMP_PARTS}}
 {{TARP_PARTS}}
             <!-- zvuky (vanilla šablony): direction -1 = rozkládání, 1 = skládání; bedna a nožičky se hýbou ve skriptu, zvuky jednotlivých kroků viz níž -->
-            <sound template="coverMetalOpen" startTime="11.95" direction="-1" volumeScale="1" pitchScale="1" linkNode="chargerLid"/>
-            <sound template="metalClose" startTime="11.9" direction="1" volumeScale="0.8" pitchScale="1.1" linkNode="chargerLid"/>
-            <!-- boční stěny bedny dosednou na zem při 9,5 s (SprayDronePad: D = 0,14 odpovídá 10,6 - 0,14 * 8 s) -->
-            <sound template="metalClose" startTime="9.55" direction="-1" volumeScale="0.9" pitchScale="0.9" linkNode="padSideL"/>
-            <sound template="metalClose" startTime="9.45" direction="-1" volumeScale="0.9" pitchScale="0.85" linkNode="padSideR"/>
-            <sound template="latchSmall" startTime="9.5" direction="1" volumeScale="0.6" pitchScale="1.1" linkNode="padSideL"/>
-            <sound template="latchSmall" startTime="9.45" direction="1" volumeScale="0.6" pitchScale="1.0" linkNode="padSideR"/>
-            <sound template="latchSmall" startTime="10.7" volumeScale="0.6" pitchScale="1.2" linkNode="padHingeH"/>
-            <sound template="latchSmall" startTime="10.9" volumeScale="0.6" pitchScale="1" linkNode="padHingeH"/>
-            <!-- posloupnost bedny (Pavel 2026-10-13: žádná dlouhá hydraulika): panely skřípou na závěsech (D 0,14-0,38 = 7,6-9,5 s), nožičky vyjedou (D 0,38-0,53 = 6,4-7,6 s),
-                 dron se po plošině posouvá se zvukem po dřevě (D 0,61-0,92 = 3,2-5,7 s) a dosedne cvaknutím -->
-            <sound template="slideOpen" startTime="7.55" direction="-1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
-            <sound template="slideOpen" startTime="6.45" direction="1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
-            <sound template="clackVar1" startTime="6.4" direction="-1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
-            <sound template="clackVar1" startTime="7.6" direction="1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
+            <sound template="coverMetalOpen" startTime="9.95" direction="-1" volumeScale="1" pitchScale="1" linkNode="chargerLid"/>
+            <sound template="metalClose" startTime="9.9" direction="1" volumeScale="0.8" pitchScale="1.1" linkNode="chargerLid"/>
+            <!-- boční stěny bedny dosednou na zem při 7,5 s (SprayDronePad: D = 0,14 odpovídá 8,6 - 0,14 * 8 s) -->
+            <sound template="metalClose" startTime="7.55" direction="-1" volumeScale="0.9" pitchScale="0.9" linkNode="padSideL"/>
+            <sound template="metalClose" startTime="7.45" direction="-1" volumeScale="0.9" pitchScale="0.85" linkNode="padSideR"/>
+            <sound template="latchSmall" startTime="7.5" direction="1" volumeScale="0.6" pitchScale="1.1" linkNode="padSideL"/>
+            <sound template="latchSmall" startTime="7.45" direction="1" volumeScale="0.6" pitchScale="1.0" linkNode="padSideR"/>
+            <sound template="latchSmall" startTime="8.7" volumeScale="0.6" pitchScale="1.2" linkNode="padHingeH"/>
+            <sound template="latchSmall" startTime="8.9" volumeScale="0.6" pitchScale="1" linkNode="padHingeH"/>
+            <!-- posloupnost bedny (Pavel 2026-10-13: žádná dlouhá hydraulika): panely skřípou na závěsech (D 0,14-0,38 = 5,6-7,5 s), nožičky vyjedou (D 0,38-0,53 = 4,4-5,6 s);
+                 dron se s plošinou nepřesouvá (Pavel 2026-10-29), mezi bednou a plošinou ho přenáší hráč -->
+            <sound template="slideOpen" startTime="5.55" direction="-1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
+            <sound template="slideOpen" startTime="4.45" direction="1" volumeScale="1.3" pitchScale="1.1" linkNode="padHingeH"/>
+            <sound template="clackVar1" startTime="4.4" direction="-1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
+            <sound template="clackVar1" startTime="5.6" direction="1" volumeScale="1" pitchScale="1" linkNode="padHingeH"/>
         </animation>
     </animations>
 
     <foldable>
         <foldingConfigurations>
             <foldingConfiguration>
-                <foldingParts startMoveDirection="1" requiresPower="false" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
+                <foldingParts startMoveDirection="1" requiresPower="false" keepFoldingWhileDetached="true" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
                     <foldingPart animationName="foldTrailer" speedScale="1"/>
                 </foldingParts>
             </foldingConfiguration>
@@ -206,11 +216,6 @@
                 sprayHeight="3" transitHeight="12" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="0.2"
                 sideClearance="4" turnAcceleration="2.5"
                 litersPerSecond="1" securedFoldTime="{{SECURED_FOLD_TIME}}">
-        <sprayDroneConfigurations>
-            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneS" drone="S" price="7000" saveId="S" workingWidth="6" isDefault="true">
-                <objectChange node="Drone_S_Root" visibilityActive="true" visibilityInactive="false"/>
-            </sprayDroneConfiguration>
-        </sprayDroneConfigurations>
         <sprayDroneBatteryConfigurations>
             <sprayDroneBatteryConfiguration name="0" count="0" price="0" saveId="0"/>
             <sprayDroneBatteryConfiguration name="1" count="1" price="1500" saveId="1"/>
@@ -218,34 +223,23 @@
             <sprayDroneBatteryConfiguration name="3" count="3" price="4500" saveId="3" isDefault="true"/>
             <sprayDroneBatteryConfiguration name="4" count="4" price="6000" saveId="4"/>
         </sprayDroneBatteryConfigurations>
-        <!-- vzhled vrtulí: kind default = podle modelu (T50 bílé bez proužků, T25 a T100 karbon s oranžovými), paint = barva listů,
-             carbon = karbon; tips: proužky na koncích listů (none = bez nich) -->
-        <sprayDronePropellerConfigurations>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_black" kind="paint" color="0.03 0.03 0.035" price="0" saveId="BLACK"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.85 0.86 0.87" price="0" saveId="WHITE"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_carbon" kind="carbon" price="300" saveId="CARBON"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="150" saveId="GREEN"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="150" saveId="YELLOW"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="150" saveId="ORANGE"/>
-        </sprayDronePropellerConfigurations>
-        <sprayDroneTipsConfigurations>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_none" kind="none" price="0" saveId="NONE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="50" saveId="ORANGE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="50" saveId="YELLOW"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_red" kind="paint" color="0.85 0.02 0.02" price="50" saveId="RED"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="50" saveId="GREEN"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_blue" kind="paint" color="0.05 0.25 0.85" price="50" saveId="BLUE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.90 0.90 0.90" price="50" saveId="WHITE"/>
-        </sprayDroneTipsConfigurations>
+        <!-- hrany paluby: kovové lemy (Rail_*, FrontBeam, RearBeam v deckEdgeSteel) nebo dřevěné desky s kovovými pásy (deckEdgeWood, v i3d skrytá) -->
+        <sprayDroneDeckEdgeConfigurations>
+            <sprayDroneDeckEdgeConfiguration name="$l10n_sdt_deckEdge_steel" price="0" saveId="STEEL" isDefault="true">
+                <objectChange node="deckEdgeSteel" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneDeckEdgeConfiguration>
+            <sprayDroneDeckEdgeConfiguration name="$l10n_sdt_deckEdge_wood" price="0" saveId="WOOD">
+                <objectChange node="deckEdgeWood" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneDeckEdgeConfiguration>
+        </sprayDroneDeckEdgeConfigurations>
         <!-- skládací bedna s dronem (scripts/SprayDronePad.lua): ve složeném stavu stojí bedna vzpřímená celou základnou na palubě
              (panely P/H/Z, padHingeZ/H/P) a dron stojí uvnitř na palubě, otočený o droneYaw navíc; při rozložení se plechové boční stěny
              (padSideL/R, čep na vnější spodní hraně u lemu paluby) vyklopí ven a sklopí k zemi (sideLength = jejich výška od čepu, podle ní se
              sklopení dorovná na terén; pochozí vnitřní strana je pak nahoře), pak se panely sklopí
              řetězem čepů do jedné roviny a vytvoří samostatnou plošinu na šesti nožičkách (padLeg1..6, ve složené bedně skryté),
-             které ji vyrovnají vodorovně o terén; teprve potom se dron (carrier) nadzvedne o liftHeight, otočí zpět o droneYaw a přejede na střed plošiny
-             (droneSettle). Šířka a hloubka plošiny se čtou přímo z uzlů, nejsou tu duplikované -->
+             které ji vyrovnají vodorovně o terén (liftHeight = rezerva nad bednou při kontrole prostoru pro panely). Dron se sám nepřesouvá: v bedně stojí
+             carrier jak je v i3d (přepravní poloha), na plošině (letová poloha, hráč ho tam přendá jako předmět) na jejím středu o droneSettle níž,
+             otočený zpět o droneYaw. Šířka a hloubka plošiny se čtou přímo z uzlů, nejsou tu duplikované -->
         <pad foldStart="{{PAD_FOLD_START}}" foldEnd="{{PAD_FOLD_END}}"
              legRest="{{PAD_LEG_REST}}" legFoot="{{PAD_LEG_FOOT}}" maxLegLength="{{PAD_MAX_LEG_LENGTH}}"
              maxHeightDiff="{{PAD_MAX_HEIGHT_DIFF}}" checkHeight="{{PAD_CHECK_HEIGHT}}"
@@ -318,7 +312,7 @@
 
         <!-- malý „S“ podle DJI T25: 25,4 kg + DB800 6,6 kg (0,81 kWh), 20 l, záběr 6 m, 4 jednoduché vrtule 50″, 2 zadní trysky
              (rozteč 1368 mm); výdrž 9 min s plnou nádrží (výkon ~ m^1,5 / √plocha vrtulí, kalibrováno na T50) -->
-        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" tankCapacity="20" workWidth="6" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
+        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" tankCapacity="20" workWidth="6" sprayMaxWind="5" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
                batteryMinutes="9" chargeMinutes="10" dieselPerHour="1.14" droneRadius="1.35" rotorPitch="1.25" hoseVia="0.145 0.22 0.34">
             <sounds>
                 <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_S_Tilt" innerRadius="6" outerRadius="100" fadeOut="0.3">
@@ -336,6 +330,12 @@
             </effects>
 {{DRONE_PARTS_S}}
         </drone>
+
+        <!-- skenovací „K“ (etapa 0b docs/NAVRH-dron-predmet.md): tělo a rozložení jako S, ale bez nádrže, čerpadla a trysek, s kamerou pod trupem; mise je vždy sken pole,
+             baterie S (batteryVariant); droneMass je bez baterie: 8 + 6,6 kg lítá se stejnou baterií zhruba třikrát déle než S s plnou nádrží -->
+        <!-- skenovací dron K na vleku zanikl (PLAN-airasi-kufr.md D2, je jen v kufru objects/droneCase/scanCase.xml). Blok zůstává jen proto,
+             aby se schoval kořen Drone_K_Root, dokud ho build skript staví do i3d; plošina ho odmítne (getPadsProblem, scan bez portable). -->
+        <drone name="K" prefix="Drone_K_" scan="true"/>
     </sprayDrone>
 
     <foliageBending>
@@ -368,7 +368,7 @@
 
     <!-- Mini: barva bedny (materiál SDT_CrateGreen; polepy značky bez štítku ve dvou sadách: na světlé
          bedně (oranžová, žlutá, šedá, bílá) lockupOnLight, jinak lockupOnDark - {{TONE_*}} vyplní export, design se volí
-         v designConfigurations nahoře); v obchodě je bedna rozložená z půlky (víko a přední stěna do řady se zadní, jedna dlouhá deska s barvou a polepy; SprayDronePad.openInShop) -->
+         v designConfigurations nahoře); v obchodě stojí bedna celá složená (SprayDronePad.openInShop) -->
     <baseColorConfigurations title="$l10n_sdt_cfg_crateColor" useDefaultColors="true" price="0" defaultColorMaterialTemplateName="calibratedPaint">
         <baseColorConfiguration materialTemplateName="ARMATRAC_RED1">{{TONE_DARK}}</baseColorConfiguration>
         <baseColorConfiguration materialTemplateName="ARMATRAC_ORANGE1">{{TONE_LIGHT}}</baseColorConfiguration>

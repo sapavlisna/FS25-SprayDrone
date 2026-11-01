@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Pravidla objektu ručně; i3d, obrázek a čísla v i3dMappings dává blender/build_drone_case.py (docs/NAVRH-kufr-modely.md, čísla z
+     out/case_preview/samplerCase_export.txt). Chování: scripts/SprayDroneCase.lua (kufr), SprayDroneSamples.lua (odběr vzorků PF) a SprayDroneStation
+     v profilu portable (docs/DRON.md, „Vzorkovací dron AIRASI (kufr)“). Bez Precision Farming je v obchodě skrytý (SprayDroneStoreCategories). -->
+<vehicle type="FS25_SprayDroneTrailer.sdtDroneCase">
+    <annotation>Kufr se vzorkovacím dronem (třída AIRASI) a dvěma bateriemi: dron odebírá vzorky půdy Precision Farming v bodech pole (2 na let), nosí je do bedničky v kufru a odtud se odesílají do laboratoře (B u kufru nebo tlačítko v tabletu). Řídí se tabletem jako skenovací kufr.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_sampler_name</name>
+        <functions>
+            <function>$l10n_sdt_sampler_function</function>
+        </functions>
+        <specs>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/droneCase/store_samplerCase.dds</image>
+        <price>14600</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <rotation>0</rotation>
+        <shopHeight>0.6</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneDrones</category>
+        <financeCategory>PURCHASE_FERTILIZER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_sdt_sampler_name</typeDesc>
+        <filename>objects/droneCase/samplerCase.i3d</filename>
+        <size width="0.75" length="1.15" height="0.55"/>
+        <canBeReset>false</canBeReset>
+        <supportsPickUp>true</supportsPickUp>
+        <components>
+            <component centerOfMass="0 0.28 0.02" solverIterationCount="10" mass="32"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <mapHotspot available="true" type="OTHER"/>
+        <input allowed="false"/>
+    </base>
+
+    <foliageBending>
+        <bendingNode minX="-0.375" maxX="0.375" minZ="-0.575" maxZ="0.575" yOffset="0.18"/>
+    </foliageBending>
+
+    <!-- vozidlo typu pallet potřebuje fill unit; kufr nic neveze (viz scanCase.xml) -->
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water" capacity="1" showOnHud="false" ignoreFillLimit="true" updateMass="false"/>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <dynamicMount triggerNode="dynamicMountTrigger" triggerForceAcceleration="4" additionalMountDistance="0.09" jointTransY="0.02" jointLimitToRotY="true"/>
+
+    <!-- víko: čas animace 0 = rozloženo (víko otevřené o 180° leží za kufrem), 1 = složeno a zavřeno (jen tak jde kufr zvednout);
+         Foldable začíná složený a rozkládá se k času 0, 6 s. Celé víko vyplňuje bedna na vzorky (zavřená visí nad dronem v pěně,
+         vůle ~2 cm). Otevírání (čte se odspodu): víko 6,0-4,92 s, podložka (1,6 m) se vysune ze štěrbiny pod bednou v čele víka -X,
+         přenese na zem vedle kufru (-X) a rozevře, dron se přenese z pěny na H, ramena (trailerFoldEnd 0,2). Zavírání obráceně, víko
+         až s dronem a podložkou uvnitř. Otevřené víko je bez kolize (floorCollision01 = zavřený kufr). Na podložce dron jen startuje
+         a přistává (sonda zasunutá), k odběru sedá na lyžiny v poli. Čísla z blender/build_drone_case.py (*_export.txt). -->
+    <animations>
+        <animation name="caseLidAnim">
+            <part node="droneCarrier" startTime="0.00" endTime="1.20" startTrans="-1.4550 -0.0140 0.1000" endTrans="-1.4550 -0.0120 0.1000"/>
+            <part node="droneCarrier" startTime="1.20" endTime="1.68" startTrans="-1.4550 -0.0120 0.1000" endTrans="-1.4550 0.3230 0.1000"/>
+            <part node="droneCarrier" startTime="1.68" endTime="2.64" startTrans="-1.4550 0.3230 0.1000" endTrans="0.0000 0.3230 -0.0000"/>
+            <part node="droneCarrier" startTime="2.64" endTime="3.12" startTrans="0.0000 0.3230 -0.0000" endTrans="0.0000 0.0000 -0.0000"/>
+            <part node="casePad" startTime="3.12" endTime="3.60" startScale="1.0000 1.0000 1.0000" endScale="0.3333 3.0000 0.3333"/>
+            <part node="casePad" startTime="3.60" endTime="3.90" startTrans="-1.4550 0.2780 -0.3890" endTrans="-1.4550 0.1580 -0.3890" startRot="180.0 0 0" endRot="180.0 0 0"/>
+            <part node="casePad" startTime="3.90" endTime="4.38" startTrans="-1.4550 0.1580 -0.3890" endTrans="-0.8817 0.1580 0.3890"/>
+            <part node="casePad" startTime="4.38" endTime="4.56" startTrans="-0.8817 0.1580 0.3890" endTrans="-0.8817 0.2512 0.3890"/>
+            <part node="casePad" startTime="4.56" endTime="4.92" startTrans="-0.8817 0.2512 0.3890" endTrans="-0.2703 0.2512 0.3890"/>
+            <part node="caseLid" startTime="4.92" endTime="6.00" startRot="-180.0 0 0" endRot="0.0 0 0"/>
+        </animation>
+    </animations>
+
+    <foldable>
+        <foldingConfigurations>
+            <foldingConfiguration>
+                <foldingParts startMoveDirection="1" requiresPower="false" objectText="$l10n_sdt_sampler_name">
+                    <foldingPart animationName="caseLidAnim" speedScale="1"/>
+                </foldingParts>
+            </foldingConfiguration>
+        </foldingConfigurations>
+    </foldable>
+
+    <!-- profil portable jako skenovací kufr. Dron P (AIRASI, odhad: 4,5 kg, baterie 0,2 kWh na 25 min): nad body letí ve výšce sprayHeight,
+         k odběru sedne na pevné lyžiny (sampler#height = kořen dronu nad terénem); sonda droneProbe pod trupem vyjede o probeTravel
+         a hrot sahá ~0,2 m pod povrch. Nese 2 krabičky za sebou pod trupem (droneSampleBox1/2), bedna ve víku má 6 x 4 = 24 přihrádek (sampleSlot1–24).
+         Počasí jako postřik (sprayMaxWind, déšť), tma nevadí. maxRange = rádio kufru (400 m); dál pomůže relé tyč
+         (všesměrová i směrová, objects/relay). -->
+    <sprayDrone portable="true" fillUnitIndex="1" maxRange="400"
+                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.2"
+                cruiseSpeed="12" sprayingSpeed="5" climbSpeed="2.5" ascentSpeed="4" acceleration="3" yawSpeed="100"
+                sprayHeight="4" transitHeight="15" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="1"
+                sideClearance="3" turnAcceleration="3" litersPerSecond="0" securedFoldTime="0.99">
+        <power dieselFillUnitIndex="1" slots="2" batteries="2" chargeMinutes="15" dieselPerHour="0" readyLevel="0.95" swapTime="5"/>
+        <navLights intensity="4" lightScale="0.15" blinkPeriod="1" blinkOn="0.5"/>
+        <drone name="P" prefix="Drone_P_" sampler="true" maxRange="400" tankCapacity="0" litersPerSecond="0"
+               workWidth="2" sprayMaxWind="10" droneMass="4.5" batteryMass="1.1" batteryKwh="0.2" batteryMinutes="25"
+               droneRadius="0.85" rotorPitch="1.6">
+            <sampler capacity="2" boxCapacity="24" height="0.02" holdTime="3" probeTime="1.6" probeTravel="0.25" midTravel="0" tipTravel="0"/>
+            <sounds>
+                <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_P_Tilt" innerRadius="4" outerRadius="80" fadeOut="0.3">
+                    <volume indoor="0.35" outdoor="0.7"/>
+                    <pitch indoor="1" outdoor="1"/>
+                    <lowpassGain indoor="0.6" outdoor="1"/>
+                </rotor>
+            </sounds>
+            <tilt node="Drone_P_Tilt"/>
+            <foldPart node="Drone_P_ArmPivot_1" foldedRot="0.000 77.755 0.000" unfoldedRot="0.000 -43.854 0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_P_Blade_1Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_P_Blade_1Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_P_ArmPivot_2" foldedRot="-0.000 102.245 -0.000" unfoldedRot="-0.000 223.854 -0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_P_Blade_2Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_P_Blade_2Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_P_ArmPivot_3" foldedRot="0.000 -77.755 0.000" unfoldedRot="0.000 43.854 0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_P_Blade_3Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_P_Blade_3Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_P_ArmPivot_4" foldedRot="-0.000 -102.245 -0.000" unfoldedRot="-0.000 -223.854 -0.000" startTime="0" endTime="0.6"/>
+            <foldPart node="Drone_P_Blade_4Top0" foldedRot="0.000 2.000 0.000" unfoldedRot="0.000 90.000 0.000" startTime="0.5" endTime="1"/>
+            <foldPart node="Drone_P_Blade_4Top1" foldedRot="0.000 -2.000 0.000" unfoldedRot="0.000 -90.000 0.000" startTime="0.5" endTime="1"/>
+            <propSource node="Drone_P_Arm_1"/>
+            <propBlade node="Drone_P_Blade_1Top0" tip="Drone_P_Blade_1Top0_Tip"/>
+            <propBlade node="Drone_P_Blade_1Top1" tip="Drone_P_Blade_1Top1_Tip"/>
+            <propBlade node="Drone_P_Blade_2Top0" tip="Drone_P_Blade_2Top0_Tip"/>
+            <propBlade node="Drone_P_Blade_2Top1" tip="Drone_P_Blade_2Top1_Tip"/>
+            <propBlade node="Drone_P_Blade_3Top0" tip="Drone_P_Blade_3Top0_Tip"/>
+            <propBlade node="Drone_P_Blade_3Top1" tip="Drone_P_Blade_3Top1_Tip"/>
+            <propBlade node="Drone_P_Blade_4Top0" tip="Drone_P_Blade_4Top0_Tip"/>
+            <propBlade node="Drone_P_Blade_4Top1" tip="Drone_P_Blade_4Top1_Tip"/>
+            <rotor node="Drone_P_Rotor_1Top" direction="1"/>
+            <rotor node="Drone_P_Rotor_2Top" direction="-1"/>
+            <rotor node="Drone_P_Rotor_3Top" direction="-1"/>
+            <rotor node="Drone_P_Rotor_4Top" direction="1"/>
+            <navLight node="Drone_P_Led_1" lightNode="Drone_P_LedLight_1" blink="false"/>
+            <navLight node="Drone_P_Led_2" lightNode="Drone_P_LedLight_2" blink="false"/>
+            <navLight node="Drone_P_Led_3" lightNode="Drone_P_LedLight_3" blink="true"/>
+            <navLight node="Drone_P_Led_4" lightNode="Drone_P_LedLight_4" blink="true"/>
+        </drone>
+    </sprayDrone>
+
+    <i3dMappings>
+        <i3dMapping id="samplerCase_main_component1" node="0>"/>
+        <i3dMapping id="samplerCase_vis" node="0>12"/>
+        <i3dMapping id="floorCollision01" node="0>8|0"/>
+        <i3dMapping id="dynamicMountTrigger" node="0>10"/>
+        <i3dMapping id="exactFillRootNode" node="0>11"/>
+        <i3dMapping id="caseLid" node="0>7"/>
+        <i3dMapping id="caseLid_vis" node="0>7|2"/>
+        <i3dMapping id="casePad" node="0>7|3"/>
+        <i3dMapping id="casePad_vis" node="0>7|3|0"/>
+        <i3dMapping id="droneCarrier" node="0>9"/>
+        <i3dMapping id="caseBatterySlot" node="0>0"/>
+        <i3dMapping id="caseBattery" node="0>0|0"/>
+        <i3dMapping id="caseBatterySlot2" node="0>1"/>
+        <i3dMapping id="caseBattery2" node="0>1|0"/>
+        <i3dMapping id="caseChargeCable" node="0>2"/>
+        <i3dMapping id="caseChargeLed0" node="0>3"/>
+        <i3dMapping id="caseChargeLed1" node="0>4"/>
+        <i3dMapping id="caseChargeLed2" node="0>5"/>
+        <i3dMapping id="caseChargeLed3" node="0>6"/>
+        <i3dMapping id="caseSamples" node="0>7|4|1"/>
+        <i3dMapping id="sampleSlot1" node="0>7|4|1|0"/>
+        <i3dMapping id="sampleSlot1Empty" node="0>7|4|1|0|0"/>
+        <i3dMapping id="sampleSlot1Full" node="0>7|4|1|0|1"/>
+        <i3dMapping id="sampleSlot2" node="0>7|4|1|11"/>
+        <i3dMapping id="sampleSlot2Empty" node="0>7|4|1|11|0"/>
+        <i3dMapping id="sampleSlot2Full" node="0>7|4|1|11|1"/>
+        <i3dMapping id="sampleSlot3" node="0>7|4|1|17"/>
+        <i3dMapping id="sampleSlot3Empty" node="0>7|4|1|17|0"/>
+        <i3dMapping id="sampleSlot3Full" node="0>7|4|1|17|1"/>
+        <i3dMapping id="sampleSlot4" node="0>7|4|1|18"/>
+        <i3dMapping id="sampleSlot4Empty" node="0>7|4|1|18|0"/>
+        <i3dMapping id="sampleSlot4Full" node="0>7|4|1|18|1"/>
+        <i3dMapping id="sampleSlot5" node="0>7|4|1|19"/>
+        <i3dMapping id="sampleSlot5Empty" node="0>7|4|1|19|0"/>
+        <i3dMapping id="sampleSlot5Full" node="0>7|4|1|19|1"/>
+        <i3dMapping id="sampleSlot6" node="0>7|4|1|20"/>
+        <i3dMapping id="sampleSlot6Empty" node="0>7|4|1|20|0"/>
+        <i3dMapping id="sampleSlot6Full" node="0>7|4|1|20|1"/>
+        <i3dMapping id="sampleSlot7" node="0>7|4|1|21"/>
+        <i3dMapping id="sampleSlot7Empty" node="0>7|4|1|21|0"/>
+        <i3dMapping id="sampleSlot7Full" node="0>7|4|1|21|1"/>
+        <i3dMapping id="sampleSlot8" node="0>7|4|1|22"/>
+        <i3dMapping id="sampleSlot8Empty" node="0>7|4|1|22|0"/>
+        <i3dMapping id="sampleSlot8Full" node="0>7|4|1|22|1"/>
+        <i3dMapping id="sampleSlot9" node="0>7|4|1|23"/>
+        <i3dMapping id="sampleSlot9Empty" node="0>7|4|1|23|0"/>
+        <i3dMapping id="sampleSlot9Full" node="0>7|4|1|23|1"/>
+        <i3dMapping id="sampleSlot10" node="0>7|4|1|1"/>
+        <i3dMapping id="sampleSlot10Empty" node="0>7|4|1|1|0"/>
+        <i3dMapping id="sampleSlot10Full" node="0>7|4|1|1|1"/>
+        <i3dMapping id="sampleSlot11" node="0>7|4|1|2"/>
+        <i3dMapping id="sampleSlot11Empty" node="0>7|4|1|2|0"/>
+        <i3dMapping id="sampleSlot11Full" node="0>7|4|1|2|1"/>
+        <i3dMapping id="sampleSlot12" node="0>7|4|1|3"/>
+        <i3dMapping id="sampleSlot12Empty" node="0>7|4|1|3|0"/>
+        <i3dMapping id="sampleSlot12Full" node="0>7|4|1|3|1"/>
+        <i3dMapping id="sampleSlot13" node="0>7|4|1|4"/>
+        <i3dMapping id="sampleSlot13Empty" node="0>7|4|1|4|0"/>
+        <i3dMapping id="sampleSlot13Full" node="0>7|4|1|4|1"/>
+        <i3dMapping id="sampleSlot14" node="0>7|4|1|5"/>
+        <i3dMapping id="sampleSlot14Empty" node="0>7|4|1|5|0"/>
+        <i3dMapping id="sampleSlot14Full" node="0>7|4|1|5|1"/>
+        <i3dMapping id="sampleSlot15" node="0>7|4|1|6"/>
+        <i3dMapping id="sampleSlot15Empty" node="0>7|4|1|6|0"/>
+        <i3dMapping id="sampleSlot15Full" node="0>7|4|1|6|1"/>
+        <i3dMapping id="sampleSlot16" node="0>7|4|1|7"/>
+        <i3dMapping id="sampleSlot16Empty" node="0>7|4|1|7|0"/>
+        <i3dMapping id="sampleSlot16Full" node="0>7|4|1|7|1"/>
+        <i3dMapping id="sampleSlot17" node="0>7|4|1|8"/>
+        <i3dMapping id="sampleSlot17Empty" node="0>7|4|1|8|0"/>
+        <i3dMapping id="sampleSlot17Full" node="0>7|4|1|8|1"/>
+        <i3dMapping id="sampleSlot18" node="0>7|4|1|9"/>
+        <i3dMapping id="sampleSlot18Empty" node="0>7|4|1|9|0"/>
+        <i3dMapping id="sampleSlot18Full" node="0>7|4|1|9|1"/>
+        <i3dMapping id="sampleSlot19" node="0>7|4|1|10"/>
+        <i3dMapping id="sampleSlot19Empty" node="0>7|4|1|10|0"/>
+        <i3dMapping id="sampleSlot19Full" node="0>7|4|1|10|1"/>
+        <i3dMapping id="sampleSlot20" node="0>7|4|1|12"/>
+        <i3dMapping id="sampleSlot20Empty" node="0>7|4|1|12|0"/>
+        <i3dMapping id="sampleSlot20Full" node="0>7|4|1|12|1"/>
+        <i3dMapping id="sampleSlot21" node="0>7|4|1|13"/>
+        <i3dMapping id="sampleSlot21Empty" node="0>7|4|1|13|0"/>
+        <i3dMapping id="sampleSlot21Full" node="0>7|4|1|13|1"/>
+        <i3dMapping id="sampleSlot22" node="0>7|4|1|14"/>
+        <i3dMapping id="sampleSlot22Empty" node="0>7|4|1|14|0"/>
+        <i3dMapping id="sampleSlot22Full" node="0>7|4|1|14|1"/>
+        <i3dMapping id="sampleSlot23" node="0>7|4|1|15"/>
+        <i3dMapping id="sampleSlot23Empty" node="0>7|4|1|15|0"/>
+        <i3dMapping id="sampleSlot23Full" node="0>7|4|1|15|1"/>
+        <i3dMapping id="sampleSlot24" node="0>7|4|1|16"/>
+        <i3dMapping id="sampleSlot24Empty" node="0>7|4|1|16|0"/>
+        <i3dMapping id="sampleSlot24Full" node="0>7|4|1|16|1"/>
+        <i3dMapping id="Drone_P_Root" node="0>9|0"/>
+        <i3dMapping id="Drone_P_Tilt" node="0>9|0|0"/>
+        <i3dMapping id="Drone_P_Body" node="0>9|0|0|5"/>
+        <i3dMapping id="Drone_P_BatterySlot" node="0>9|0|0|4"/>
+        <i3dMapping id="Drone_P_Battery" node="0>9|0|0|4|0"/>
+        <i3dMapping id="Drone_P_ArmPivot_1" node="0>9|0|0|0"/>
+        <i3dMapping id="Drone_P_ArmPivot_2" node="0>9|0|0|1"/>
+        <i3dMapping id="Drone_P_ArmPivot_3" node="0>9|0|0|2"/>
+        <i3dMapping id="Drone_P_ArmPivot_4" node="0>9|0|0|3"/>
+        <i3dMapping id="Drone_P_Arm_1" node="0>9|0|0|0|0"/>
+        <i3dMapping id="Drone_P_Arm_2" node="0>9|0|0|1|0"/>
+        <i3dMapping id="Drone_P_Arm_3" node="0>9|0|0|2|0"/>
+        <i3dMapping id="Drone_P_Arm_4" node="0>9|0|0|3|0"/>
+        <i3dMapping id="Drone_P_Rotor_1Top" node="0>9|0|0|0|2"/>
+        <i3dMapping id="Drone_P_Rotor_2Top" node="0>9|0|0|1|2"/>
+        <i3dMapping id="Drone_P_Rotor_3Top" node="0>9|0|0|2|2"/>
+        <i3dMapping id="Drone_P_Rotor_4Top" node="0>9|0|0|3|2"/>
+        <i3dMapping id="Drone_P_Blade_1Top0" node="0>9|0|0|0|2|0"/>
+        <i3dMapping id="Drone_P_Blade_1Top0_Tip" node="0>9|0|0|0|2|0|0"/>
+        <i3dMapping id="Drone_P_Blade_1Top1" node="0>9|0|0|0|2|1"/>
+        <i3dMapping id="Drone_P_Blade_1Top1_Tip" node="0>9|0|0|0|2|1|0"/>
+        <i3dMapping id="Drone_P_Blade_2Top0" node="0>9|0|0|1|2|0"/>
+        <i3dMapping id="Drone_P_Blade_2Top0_Tip" node="0>9|0|0|1|2|0|0"/>
+        <i3dMapping id="Drone_P_Blade_2Top1" node="0>9|0|0|1|2|1"/>
+        <i3dMapping id="Drone_P_Blade_2Top1_Tip" node="0>9|0|0|1|2|1|0"/>
+        <i3dMapping id="Drone_P_Blade_3Top0" node="0>9|0|0|2|2|0"/>
+        <i3dMapping id="Drone_P_Blade_3Top0_Tip" node="0>9|0|0|2|2|0|0"/>
+        <i3dMapping id="Drone_P_Blade_3Top1" node="0>9|0|0|2|2|1"/>
+        <i3dMapping id="Drone_P_Blade_3Top1_Tip" node="0>9|0|0|2|2|1|0"/>
+        <i3dMapping id="Drone_P_Blade_4Top0" node="0>9|0|0|3|2|0"/>
+        <i3dMapping id="Drone_P_Blade_4Top0_Tip" node="0>9|0|0|3|2|0|0"/>
+        <i3dMapping id="Drone_P_Blade_4Top1" node="0>9|0|0|3|2|1"/>
+        <i3dMapping id="Drone_P_Blade_4Top1_Tip" node="0>9|0|0|3|2|1|0"/>
+        <i3dMapping id="Drone_P_Led_1" node="0>9|0|0|0|1"/>
+        <i3dMapping id="Drone_P_LedLight_1" node="0>9|0|0|0|1|0"/>
+        <i3dMapping id="Drone_P_Led_2" node="0>9|0|0|1|1"/>
+        <i3dMapping id="Drone_P_LedLight_2" node="0>9|0|0|1|1|0"/>
+        <i3dMapping id="Drone_P_Led_3" node="0>9|0|0|2|1"/>
+        <i3dMapping id="Drone_P_LedLight_3" node="0>9|0|0|2|1|0"/>
+        <i3dMapping id="Drone_P_Led_4" node="0>9|0|0|3|1"/>
+        <i3dMapping id="Drone_P_LedLight_4" node="0>9|0|0|3|1|0"/>
+        <i3dMapping id="droneProbe" node="0>9|0|0|6"/>
+        <i3dMapping id="droneSampleBox1" node="0>9|0|0|7"/>
+        <i3dMapping id="droneSampleBox1Empty" node="0>9|0|0|7|0"/>
+        <i3dMapping id="droneSampleBox1Full" node="0>9|0|0|7|1"/>
+        <i3dMapping id="droneSampleBox2" node="0>9|0|0|8"/>
+        <i3dMapping id="droneSampleBox2Empty" node="0>9|0|0|8|0"/>
+        <i3dMapping id="droneSampleBox2Full" node="0>9|0|0|8|1"/>
+        <i3dMapping id="brand_BZUK_caseLidFront" node="0>7|0"/>
+        <i3dMapping id="brand_BZUK_caseLidTop" node="0>7|1"/>
+    </i3dMappings>
+</vehicle>

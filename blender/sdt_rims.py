@@ -31,18 +31,28 @@ RIMS = {
 }
 RIM_T = 0.006          # plech ráfku
 DISC_T = 0.012         # talíř
+SEG = 48               # dílků po obvodu: u poloměru 0,28 m je průhyb 0,6 mm, příruba ráfku vedle pneu je ještě hladká
 
 
-def _revolve(name, profile, mat, sx, seg=64):
-    """Uzavřený profil [(x, r)] otočený kolem osy X; sx zrcadlí po X."""
+def _revolve(name, profile, mat, sx, seg=SEG):
+    """Uzavřený profil [(x, r)] otočený kolem osy X; sx zrcadlí po X. Prstenec s poloměrem pod 1 mm je jeden vrchol na ose
+    (bez špendlíkového stažení normál ve středu krytky)."""
     bm = bmesh.new()
-    rings = [[bm.verts.new((sx * x, r * math.cos(2 * math.pi * i / seg), r * math.sin(2 * math.pi * i / seg)))
-              for i in range(seg)] for x, r in profile]
+    rings = []
+    for x, r in profile:
+        if r < 0.001:
+            rings.append([bm.verts.new((sx * x, 0.0, 0.0))] * seg)
+        else:
+            rings.append([bm.verts.new((sx * x, r * math.cos(2 * math.pi * i / seg), r * math.sin(2 * math.pi * i / seg)))
+                          for i in range(seg)])
     for k in range(len(rings)):
         r0, r1 = rings[k], rings[(k + 1) % len(rings)]
         for i in range(seg):
             j = (i + 1) % seg
-            bm.faces.new((r0[i], r0[j], r1[j], r1[i])).smooth = True
+            quad = [r0[i], r0[j], r1[j], r1[i]]
+            vs = [v for n, v in enumerate(quad) if v is not quad[n - 1]]
+            if len(vs) >= 3 and len(set(vs)) == len(vs):
+                bm.faces.new(vs).smooth = True
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
     return P._finish(name, bm, Matrix.Identity(4), mat)
 
@@ -74,7 +84,7 @@ def _cut_holes(obj, spec, sx):
     cutters = []
     for k in range(n):
         a = 2 * math.pi * (k + 0.5) / n
-        bm = P._cyl_bm(r, r, 0.20, 24)
+        bm = P._cyl_bm(r, r, 0.20, 20)
         m = (Matrix.Translation((sx * spec["disc"], pcd * math.cos(a), pcd * math.sin(a)))
              @ Matrix.Rotation(a, 4, "X") @ Matrix.Diagonal((1.0, stretch, 1.0, 1.0))
              @ Matrix.Rotation(math.radians(90), 4, "Y"))
@@ -116,7 +126,7 @@ def build_rim(kind, name, sx):
     parts.append(disc)
 
     boss_r, boss_h = spec["boss"]
-    parts.append(P.cylinder_x(f"{name}_Boss", (sx * (x_face + boss_h / 2), 0, 0), boss_r, boss_h, "SDT_Steel", segments=40))
+    parts.append(P.cylinder_x(f"{name}_Boss", (sx * (x_face + boss_h / 2), 0, 0), boss_r, boss_h, "SDT_Steel", segments=28))
     n, pcd, nut_r = spec["nuts"]
     x_nut = x_face + 0.004
     for k in range(n):
@@ -124,36 +134,36 @@ def build_rim(kind, name, sx):
         c = _radial(sx, x_nut + 0.012, pcd, a)
         parts.append(P.cylinder_x(f"{name}_Nut{k}", c, nut_r, 0.024, "SDT_Steel", segments=6))
         parts.append(P.cylinder_x(f"{name}_Stud{k}", c + Vector((sx * 0.016, 0, 0)), nut_r * 0.55, 0.012, "SDT_Steel",
-                                  segments=10))
-        parts.append(P.cylinder_x(f"{name}_Washer{k}", _radial(sx, x_nut + 0.001, pcd, a), nut_r * 1.35, 0.004,
-                                  "SDT_Steel", segments=16))
+                                  segments=8))
+        parts.append(P.cylinder_x(f"{name}_Washer{k}", _radial(sx, x_face + 0.002, pcd, a), nut_r * 1.35, 0.004,
+                                  "SDT_Steel", segments=10))
         if spec["indicators"]:
             # ukazatel povolení matice: plastová šipka na matici, sousední dvojice míří proti sobě
             b = a + (1 if k % 2 == 0 else -1) * 0.5 * (2 * math.pi / n)
             tip = _radial(sx, x_nut + 0.026, pcd, b)
             parts.append(P.tube(f"{name}_Ind{k}", c + Vector((sx * 0.014, 0, 0)), tip.lerp(c, 0.25) + Vector((sx * 0.014, 0, 0)),
-                                0.006, "SDT_NutIndicator", segments=8, radius_end=0.002))
+                                0.006, "SDT_NutIndicator", segments=6, radius_end=0.002))
             parts.append(P.cylinder_x(f"{name}_IndRing{k}", c + Vector((sx * 0.006, 0, 0)), nut_r * 1.2, 0.014,
                                       "SDT_NutIndicator", segments=6))
     cap_r, cap_h = spec["cap"]
     x_cap = x_face + boss_h
     dome = [(x_cap, cap_r), (x_cap + cap_h * 0.55, cap_r * 0.96), (x_cap + cap_h * 0.85, cap_r * 0.75),
             (x_cap + cap_h, cap_r * 0.35), (x_cap + cap_h, 0.0005), (x_cap, 0.0005)]
-    parts.append(_revolve(f"{name}_Cap", dome, "SDT_Steel", sx, seg=40))
+    parts.append(_revolve(f"{name}_Cap", dome, "SDT_Steel", sx, seg=28))
     for k in range(spec["cap_bolts"]):
         a = 2 * math.pi * (k + 0.5) / spec["cap_bolts"]
         parts.append(P.cylinder_x(f"{name}_CapBolt{k}", _radial(sx, x_cap + 0.004, cap_r * 0.82, a), 0.007, 0.010,
                                   "SDT_Steel", segments=6))
     if kind == "R15":
         parts.append(P.cylinder_x(f"{name}_CapBadge", (sx * (x_cap + cap_h + 0.001), 0, 0), cap_r * 0.42, 0.004,
-                                  "SDT_NutIndicator", segments=24))
+                                  "SDT_NutIndicator", segments=20))
 
     # ventilek v mezeře mezi otvory u ráfku, skloněný ven
     a = 2 * math.pi * 0.0
     base = _radial(sx, xd - 0.004, spec["bead"] - 0.030, a)
     tip = _radial(sx, xd + 0.032, spec["bead"] - 0.050, a)
-    parts.append(P.tube(f"{name}_Valve", base, tip, 0.005, "SDT_Rubber", segments=8))
-    parts.append(P.tube(f"{name}_ValveCap", tip, tip + (tip - base).normalized() * 0.012, 0.0055, "SDT_Steel", segments=8))
+    parts.append(P.tube(f"{name}_Valve", base, tip, 0.005, "SDT_Rubber", segments=6))
+    parts.append(P.tube(f"{name}_ValveCap", tip, tip + (tip - base).normalized() * 0.012, 0.0055, "SDT_Steel", segments=6))
     return P.merge(name, parts)
 
 

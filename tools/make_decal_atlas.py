@@ -129,15 +129,20 @@ def draw_canister_label(d, img=None):
     d.rectangle((2 * SS, 2 * SS, 334 * SS, 166 * SS), outline=BLACK, width=4 * SS)
 
 
+# dlaždice s písmenem velikosti a barva písma; barvy odpovídají pruhu (sdt_parts.BATTERY_BAND): S modrá, M oranžová, L červená
+BATTERY_TILE = {"S": ((40, 118, 214), WHITE), "M": (ORANGE, BLACK), "L": ((204, 34, 34), WHITE)}
+
+
 def draw_battery(d, key):
     x, y, w, h = box("battery" + key)
     size, cap = L.BATTERY_TEXT[key]
     d.rectangle((x, y, x + w, y + h), fill=WHITE)
-    d.rectangle((x, y, x + 64 * SS, y + h), fill=ORANGE)
-    text_center(d, x + 32 * SS, y + h / 2, size, font(50), BLACK)
-    text_left(d, x + 76 * SS, y + 20 * SS, "BZUK POWER", font(18), BLACK)
-    text_left(d, x + 76 * SS, y + 44 * SS, cap, font(22), BLACK)
-    text_left(d, x + 76 * SS, y + 62 * SS, "52 V Li-ion", font(12, bold=False), DARK)
+    tile, ink = BATTERY_TILE[key]
+    d.rectangle((x, y, x + 72 * SS, y + h), fill=tile)
+    text_center(d, x + 36 * SS, y + h / 2 + 2 * SS, size, font(66), ink)
+    text_left(d, x + 84 * SS, y + 20 * SS, "BZUK POWER", font(18), BLACK)
+    text_left(d, x + 84 * SS, y + 44 * SS, cap, font(22), BLACK)
+    text_left(d, x + 84 * SS, y + 62 * SS, "52 V Li-ion", font(12, bold=False), DARK)
     warning_triangle(d, x + 228 * SS, y + 50 * SS, 26 * SS)
 
 
@@ -187,43 +192,43 @@ def text_right(d, x, cy, s, f, fill):
 
 
 def draw_gen_panel(d):
-    """Ovládací panel elektrocentrály: 1 px = 1 mm, polohy prvků z L.GEN_PANEL (metry od levého dolního rohu)."""
+    """Ovládací panel elektrocentrály: 1 px = 1 mm, polohy prvků z L.GEN_PANEL (metry od levého dolního rohu). Rozvržení podle
+    rámových dieselových centrál (Hyundai DHY, Kipor KDE, Heron): nahoře displej a ovládání motoru, uprostřed zásuvky 230 V
+    a jistič, dole žhavení, 12 V, zem."""
     x, y, w, h = box("genPanel")
     d.rectangle((x, y, x + w, y + h), fill=(26, 28, 32))
     d.rectangle((x + 3 * SS, y + 3 * SS, x + w - 3 * SS, y + h - 3 * SS), outline=(74, 78, 86), width=2 * SS)
     grey, white, orange = (170, 174, 180), WHITE, ORANGE
+    dim = (120, 124, 132)
 
     def at(name):
         u, v = L.GEN_PANEL[name]
         return x + u * 1000 * SS, y + h - v * 1000 * SS
 
-    cx, cy = at("volt")
-    r = 27 * SS
-    d.ellipse((cx - r - 3 * SS, cy - r - 3 * SS, cx + r + 3 * SS, cy + r + 3 * SS), fill=(8, 8, 10))
-    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(234, 234, 228))
-    for i in range(11):
-        a = math.radians(210 - i * 24)
-        c, s_ = math.cos(a), -math.sin(a)
-        col = RED if i >= 8 else BLACK
-        d.line((cx + c * r * 0.76, cy + s_ * r * 0.76, cx + c * r * 0.94, cy + s_ * r * 0.94), fill=col, width=2 * SS)
-    a = math.radians(210 - 7.4 * 24)
-    d.line((cx, cy, cx + math.cos(a) * r * 0.82, cy - math.sin(a) * r * 0.82), fill=RED, width=2 * SS)
-    d.ellipse((cx - 3 * SS, cy - 3 * SS, cx + 3 * SS, cy + 3 * SS), fill=BLACK)
-    text_center(d, cx, cy + 13 * SS, "V", font(13), BLACK)
-    text_center(d, cx, cy - r - 11 * SS, "NAPĚTÍ", font(11), white)
+    def vy(v):
+        return y + h - v * 1000 * SS
 
-    cx, cy = at("hours")
-    d.rectangle((cx - 35 * SS, cy - 14 * SS, cx + 35 * SS, cy + 14 * SS), fill=(156, 172, 130), outline=(8, 8, 10),
-                width=2 * SS)
-    text_center(d, cx, cy, "00128.4", font(15, mono=True), (28, 40, 22))
-    text_center(d, cx, cy - 26 * SS, "HODINY", font(11), white)
+    def ux(u):
+        return x + u * 1000 * SS
 
-    for name, label, col in (("ledRun", "CHOD", (40, 120, 55)), ("ledOil", "OLEJ", (130, 25, 25)),
-                             ("ledTemp", "TEPL.", (150, 100, 20))):
-        cx, cy = at(name)
-        d.ellipse((cx - 11 * SS, cy - 11 * SS, cx + 11 * SS, cy + 11 * SS), fill=(8, 8, 10), outline=grey, width=SS)
-        d.ellipse((cx - 6 * SS, cy - 6 * SS, cx + 6 * SS, cy + 6 * SS), fill=col)
-        text_center(d, cx, cy + 22 * SS, label, font(10), white)
+    for sx_, sy_ in ((10, 10), (470, 10), (10, 270), (470, 270)):
+        d.ellipse((x + (sx_ - 3.5) * SS, y + (sy_ - 3.5) * SS, x + (sx_ + 3.5) * SS, y + (sy_ + 3.5) * SS), fill=(58, 60, 66),
+                  outline=(96, 100, 108), width=SS)
+        d.line((x + (sx_ - 2.5) * SS, y + sy_ * SS, x + (sx_ + 2.5) * SS, y + sy_ * SS), fill=(20, 20, 22), width=SS)
+
+    d.rectangle((ux(0.02), vy(0.2745), ux(0.46), vy(0.2615)), fill=ORANGE)
+    text_left(d, ux(0.03), vy(0.2680), "BZUK POWER", font(11, cond=True), BLACK)
+    text_right(d, ux(0.45), vy(0.2680), "DG-9D  DIESEL", font(11, cond=True), BLACK)
+    d.line((ux(0.02), vy(0.168), ux(0.46), vy(0.168)), fill=(74, 78, 86), width=SS)
+    d.line((ux(0.362), vy(0.168), ux(0.362), vy(0.06)), fill=(74, 78, 86), width=SS)
+    text_left(d, ux(0.03), vy(0.1755), "VÝSTUP 230 V ~", font(9), dim)
+
+    cx, cy = at("display")
+    d.rectangle((cx - 72 * SS, cy - 24 * SS, cx + 72 * SS, cy + 24 * SS), fill=(14, 30, 44), outline=(8, 8, 10), width=2 * SS)
+    for k, (val, unit) in enumerate((("230", "V"), ("50", "Hz"), ("128", "h"))):
+        ox = cx - 66 * SS + k * 47 * SS
+        text_right(d, ox + 27 * SS, cy, val, font(13, mono=True), (120, 240, 150))
+        text_left(d, ox + 30 * SS, cy + 4 * SS, unit, font(9), (120, 200, 230))
 
     cx, cy = at("key")
     d.ellipse((cx - 24 * SS, cy - 24 * SS, cx + 24 * SS, cy + 24 * SS), outline=grey, width=2 * SS)
@@ -231,38 +236,59 @@ def draw_gen_panel(d):
         a = math.radians(ang)
         d.line((cx + math.cos(a) * 26 * SS, cy - math.sin(a) * 26 * SS, cx + math.cos(a) * 32 * SS,
                 cy - math.sin(a) * 32 * SS), fill=white, width=2 * SS)
-    text_center(d, cx - 50 * SS, cy + 2 * SS, "VYP", font(11), white)
-    text_center(d, cx, cy - 40 * SS, "ZAP", font(11), (120, 230, 130))
-    text_center(d, cx + 58 * SS, cy + 2 * SS, "START", font(11), orange)
+    text_center(d, cx - 47 * SS, cy + 4 * SS, "VYP", font(10), white)
+    text_center(d, cx, cy - 36 * SS, "ZAP", font(9), (120, 230, 130))
+    text_center(d, cx + 51 * SS, cy + 4 * SS, "START", font(9), orange)
 
-    cx, cy = at("preheat")
-    d.ellipse((cx - 17 * SS, cy - 17 * SS, cx + 17 * SS, cy + 17 * SS), outline=grey, width=2 * SS)
-    text_left(d, cx + 30 * SS, cy, "ŽHAVENÍ", font(11), white)
+    cx, cy = at("estop")
+    d.ellipse((cx - 26 * SS, cy - 26 * SS, cx + 26 * SS, cy + 26 * SS), fill=YELLOW, outline=BLACK, width=2 * SS)
+    d.ellipse((cx - 21 * SS, cy - 21 * SS, cx + 21 * SS, cy + 21 * SS), fill=(38, 38, 40))
+    text_center(d, cx, cy + 36 * SS, "NOUZOVÉ STOP", font(8), white)
+
+    for name, label, col in (("ledRun", "CHOD", (40, 120, 55)), ("ledOil", "OLEJ", (130, 25, 25)),
+                             ("ledTemp", "NABÍJ.", (150, 100, 20))):
+        cx, cy = at(name)
+        d.ellipse((cx - 11 * SS, cy - 11 * SS, cx + 11 * SS, cy + 11 * SS), fill=(8, 8, 10), outline=grey, width=SS)
+        d.ellipse((cx - 6 * SS, cy - 6 * SS, cx + 6 * SS, cy + 6 * SS), fill=col)
+        text_center(d, cx, cy + 20 * SS, label, font(8), white)
+
+    for name in ("schuko1", "schuko2"):
+        cx, cy = at(name)
+        d.rounded_rectangle((cx - 33 * SS, cy - 33 * SS, cx + 33 * SS, cy + 33 * SS), 6 * SS, outline=(70, 130, 220), width=2 * SS)
+        text_center(d, cx, cy + 45 * SS, "230 V ~ 16 A", font(9), white)
 
     cx, cy = at("socket")
-    d.rounded_rectangle((cx - 35 * SS, cy - 35 * SS, cx + 35 * SS, cy + 35 * SS), 8 * SS, outline=(200, 204, 210),
+    d.rounded_rectangle((cx - 37 * SS, cy - 37 * SS, cx + 37 * SS, cy + 37 * SS), 8 * SS, outline=(200, 204, 210),
                         width=2 * SS)
-    text_center(d, cx, cy - 47 * SS, "230 V ~  16 A", font(14), white)
-    text_center(d, cx, cy + 46 * SS, "NABÍJEČKA", font(12), orange)
-
-    cx, cy = at("rocker")
-    d.rounded_rectangle((cx - 24 * SS, cy - 15 * SS, cx + 24 * SS, cy + 15 * SS), 4 * SS, outline=grey, width=2 * SS)
-    text_center(d, cx - 36 * SS, cy, "0", font(15), white)
-    text_center(d, cx + 36 * SS, cy, "I", font(15), white)
-    text_center(d, cx, cy - 26 * SS, "VÝSTUP", font(10), grey)
+    text_center(d, cx, cy + 46 * SS, "230 V ~ 16 A", font(9), white)
+    text_center(d, cx, cy + 58 * SS, "NABÍJEČKA", font(10), orange)
 
     cx, cy = at("mcb")
     d.rectangle((cx - 20 * SS, cy - 32 * SS, cx + 20 * SS, cy + 32 * SS), outline=grey, width=2 * SS)
-    text_center(d, cx, cy - 47 * SS, "JISTIČ 16 A", font(11), white)
-    text_center(d, cx + 33 * SS, cy - 18 * SS, "I", font(12), white)
-    text_center(d, cx + 33 * SS, cy + 18 * SS, "O", font(12), white)
+    text_center(d, cx, cy - 44 * SS, "JISTIČ 16 A", font(9), white)
+    text_center(d, cx + 31 * SS, cy - 18 * SS, "I", font(12), white)
+    text_center(d, cx + 31 * SS, cy + 18 * SS, "O", font(12), white)
+
+    cx, cy = at("preheat")
+    d.ellipse((cx - 17 * SS, cy - 17 * SS, cx + 17 * SS, cy + 17 * SS), outline=grey, width=2 * SS)
+    text_center(d, cx, cy + 27 * SS, "ŽHAVENÍ", font(9), white)
+
+    cx, cy = at("dc12")
+    d.ellipse((cx - 19 * SS, cy - 19 * SS, cx + 19 * SS, cy + 19 * SS), outline=grey, width=2 * SS)
+    text_center(d, cx, cy + 27 * SS, "12 V DC  8 A", font(9), white)
+
+    cx, cy = at("stop")
+    d.ellipse((cx - 17 * SS, cy - 17 * SS, cx + 17 * SS, cy + 17 * SS), outline=grey, width=2 * SS)
+    d.line((cx - 7 * SS, cy, cx + 7 * SS, cy), fill=white, width=2 * SS)
+    d.line((cx, cy - 7 * SS, cx, cy), fill=white, width=2 * SS)
+    text_left(d, cx + 24 * SS, cy, "STOP MOTORU", font(9), (240, 120, 90))
 
     cx, cy = at("earth")
-    d.ellipse((cx - 14 * SS, cy - 14 * SS, cx + 14 * SS, cy + 14 * SS), outline=grey, width=2 * SS)
-    d.line((cx, cy - 8 * SS, cx, cy - SS), fill=white, width=2 * SS)
+    d.ellipse((cx - 16 * SS, cy - 16 * SS, cx + 16 * SS, cy + 16 * SS), outline=grey, width=2 * SS)
+    d.line((cx, cy - 31 * SS, cx, cy - 26 * SS), fill=white, width=2 * SS)
     for k, hw in enumerate((8, 5, 2)):
-        d.line((cx - hw * SS, cy + (1 + 4 * k) * SS, cx + hw * SS, cy + (1 + 4 * k) * SS), fill=white, width=2 * SS)
-    text_left(d, x + 318 * SS, y + h - 10 * SS, "BZUK POWER  DG-9D", font(9), (120, 124, 132))
+        d.line((cx - hw * SS, cy - (26 - 3.5 * k) * SS, cx + hw * SS, cy - (26 - 3.5 * k) * SS), fill=white, width=2 * SS)
+    text_center(d, cx, cy + 27 * SS, "ZEMNĚNÍ", font(8), white)
 
 
 def draw_gen_warn(d):

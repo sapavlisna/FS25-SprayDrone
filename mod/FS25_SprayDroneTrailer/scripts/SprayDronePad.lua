@@ -4,18 +4,22 @@
 -- padHingeZ -> padHingeH -> padHingeP (stejná osa X u všech tří, úhly v hierarchii se sčítají): v i3d mají úhel 90° (bedna),
 -- při rozložení skript sveze úhel všech tří k 0° a panely se srovnají do jedné roviny - samostatné plošiny, která už se nemusí
 -- dotýkat vleku. Na plošině jsou nožičky padLeg1..6 (po dvou na padHingeH/padHingeP/padHingeEnd, kam je rozložení donese; ve
--- složené bedně skryté), které se vysunou a plošinu vyrovnají vodorovně o terén (vlek může stát šikmo). Dron stojí celou dobu
--- skládání na palubě (panely se vyklápí nahoru a dozadu, dronem neprocházejí) a teprve po rozložení a vyrovnání plošiny se
--- nadzvedne, otočí o droneYaw zpět do letové osy a přejede na střed plošiny. Pohyb jde z času skládání vleku (0 = rozloženo,
--- 1 = složeno), nic se neanimuje v XML:
+-- složené bedně skryté), které se vysunou a plošinu vyrovnají vodorovně o terén (vlek může stát šikmo). Pohyb jde z času
+-- skládání vleku (0 = rozloženo, 1 = složeno), nic se neanimuje v XML:
 --
---   t >= foldStart            bedna stojí složená na palubě, dron uvnitř, boční stěny stojí svisle na hraně paluby
+--   t >= foldStart            bedna stojí složená na palubě, boční stěny stojí svisle na hraně paluby
 --   foldStart .. foldEnd      D 0..1: boční stěny se kolem spodní hrany na lemu paluby vyklopí ven a sklopí k zemi (0 - 0,14; úhel se dorovná
 --                             podle terénu pod nimi, pochozí vnitřní strana je pak nahoře), panely se rozklopí
 --                             do roviny (0,14 - 0,38; všechny tři čepy o stejný úhel, takže stěna P jede od dronu pryč a střecha H nad
---                             ním; v posledních 20 % se plynule objeví nožičky), nožičky se vysunou a plošina se vyrovná (0,38 - 0,53),
---                             dron se nadzvedne (0,53 - 0,61), otočí a přejede na střed plošiny (0,61 - 0,92) a dosedne (0,92 - 1)
---   t <= foldEnd              plošina stojí na nožičkách, dron se rozkládá (sprayDrone#trailerFoldEnd)
+--                             ním; v posledních 20 % se plynule objeví nožičky), nožičky se vysunou a plošina se vyrovná (0,38 - 0,53)
+--   t <= foldEnd              plošina stojí na nožičkách
+--
+-- Dron má dvě polohy a sám se mezi nimi nepřesouvá (Pavel 2026-10-29: „neposouvat automaticky drona, ale nechat to na ruční práci“):
+-- přepravní A = v bedně na palubě (uzel droneCarrier, jak je v i3d, otočený o droneYaw navíc; panely se vyklápí nahoru a dozadu,
+-- dronem neprocházejí) a letová B = na středu rozložené plošiny, otočený do letové osy (pad.onPlate). Hráč ho přendá jako předmět
+-- (SprayDronePadSlots: R u polohy vezme, R s dronem v ruce u druhé polohy vloží), nebo R s prázdnýma rukama u druhé polohy přendá
+-- rovnou a okamžitě, bez animace (bod boxPoint / platePoint; bedna chytá do BOX_CATCH_DISTANCE), obě polohy jen u rozložené bedny. Dron v bedně
+-- zůstává složený a nevzlétne, s dronem na plošině nejde vlek složit (SprayDroneStation.getIsFoldAllowed).
 --
 -- Skládání je opačně (boční stěny se na konci zvednou zpět na lem paluby pod střechu). Před rozložením se zkontroluje, že na místě
 -- plošiny nic nestojí, že terén není moc svažitý ani vysoký a že hadice k dronu dosáhne. Jen malý vlek: bez uzlu padAnchor se vše
@@ -27,8 +31,6 @@ SprayDronePad.LEG_COUNT = 6
 SprayDronePad.SIDE_END = 0.14           -- konec vyklápění bočních stěn (D); pak se skládají panely
 SprayDronePad.FOLD_END = 0.38           -- konec rozkládání panelů
 SprayDronePad.LEGS_END = 0.53           -- konec vysouvání nožiček
-SprayDronePad.LIFT_END = 0.61           -- dron je nadzvednutý
-SprayDronePad.MOVE_END = 0.92           -- dron je na středu plošiny
 SprayDronePad.LEG_SHOW = 0.8            -- od tohoto podílu rozložení panelů se nožičky plynule zvětšují z nuly
 SprayDronePad.SIDE_FALL_MIN = math.rad(100)  -- nejmenší a největší vyklopení boční stěny od svislice (90° = vodorovně)
 SprayDronePad.SIDE_FALL_MAX = math.rad(165)
@@ -42,6 +44,7 @@ SprayDronePad.HOSE_ARC = 0.12           -- přídavek na oblouk k hrdlu (m)
 SprayDronePad.STOWED_TIME = 0.999       -- od tohoto času skládání je bedna složená
 SprayDronePad.SETTLE_FRAMES = 5
 SprayDronePad.PREVIEW_CHECK_MS = 250    -- jak často obrys plošiny znovu hledá překážky (ms)
+SprayDronePad.POINT_LIFT = 0.3          -- body pro R (bedna, plošina) jsou o tolik nad místem dronu, ve výšce jeho trupu (m)
 
 SprayDronePad.OVERLAP_MASK = CollisionFlag.STATIC_OBJECT + CollisionFlag.TREE + CollisionFlag.BUILDING
     + CollisionFlag.VEHICLE + CollisionFlag.DYNAMIC_OBJECT + CollisionFlag.PLAYER
@@ -74,14 +77,15 @@ function SprayDronePad.registerXMLPaths(schema, key)
     schema:register(XMLValueType.FLOAT, key .. "#maxLegLength", "Nejdelší vysunutí nožičky (m)", 1.0)
     schema:register(XMLValueType.FLOAT, key .. "#maxHeightDiff", "Největší výškový rozdíl terénu pod nožičkami (m)", 0.5)
     schema:register(XMLValueType.FLOAT, key .. "#checkHeight", "Výška prostoru nad rozloženou plošinou, který musí být volný (m)", 1.2)
-    schema:register(XMLValueType.FLOAT, key .. "#liftHeight", "O kolik se dron nadzvedne nad plošinu při otáčení a přejezdu na její střed (m)", 0.12)
+    schema:register(XMLValueType.FLOAT, key .. "#liftHeight", "Rezerva výšky nad složenou bednou při kontrole volného prostoru pro panely (m)", 0.12)
     schema:register(XMLValueType.FLOAT, key .. "#droneYaw",
         "O kolik stupňů (i3d osa Y) je dron ve složené bedně otočený navíc oproti letové ose; při rozložení se carrier otočí o -droneYaw", 0)
     schema:register(XMLValueType.FLOAT, key .. "#droneSettle", "O kolik níž stojí na rozložené plošině než ve složené bedně (m)", 0)
     schema:register(XMLValueType.FLOAT, key .. "#sideLength", "Výška boční stěny od čepu ke vnější hraně (m); podle ní se dorovnává sklopení k zemi", 0.82)
 end
 
-function SprayDronePad.load(self)
+-- savedOnPlate: poloha dronu z uložené hry (true = plošina), nil = stará hra nebo nový vlek (getLoadedOnPlate).
+function SprayDronePad.load(self, savedOnPlate)
     local spec = self[SprayDroneStation.SPEC_NAME]
     spec.pad = nil
     local xml = self.xmlFile
@@ -146,11 +150,76 @@ function SprayDronePad.load(self)
     if pad.width <= 0 then
         pad.width = 1.5
     end
+    -- pevné body, na které hráč míří, když R přendává dron (SprayDronePadSlots): bedna stojí, bod plošiny se posune v applyPose.
+    -- Uzel dronu (carrier) na to nejde, jede s dronem.
+    pad.boxPoint = createTransformGroup("sdtPadBoxPoint")
+    link(pad.parent, pad.boxPoint)
+    setTranslation(pad.boxPoint, pad.carrierPos[1], pad.carrierPos[2] + SprayDronePad.POINT_LIFT, pad.carrierPos[3])
+    pad.platePoint = createTransformGroup("sdtPadPlatePoint")
+    link(pad.parent, pad.platePoint)
+    setTranslation(pad.platePoint, pad.carrierPos[1], pad.carrierPos[2] + SprayDronePad.POINT_LIFT, pad.carrierPos[3])
     spec.pad = pad
+    pad.onPlate = SprayDronePad.getLoadedOnPlate(savedOnPlate, spec.pads ~= nil and spec.pads[1] ~= nil and spec.pads[1] ~= "",
+        SprayDronePad.getDeploy(self))
 end
 
--- V obchodě (a v konfiguraci) je bedna rozložená jen z půlky: horní víko a přední stěna se rozloží do jedné řady se zadní stěnou, takže vzadu
--- stojí jedna dlouhá deska s barvou a nálepkami; boční stěny zůstanou složené a dron zůstane složený v bedně s vrtulemi podél ramen.
+-- Poloha dronu po načtení: uložená, jinak (hra z doby, kdy dron jezdil s plošinou sám) na plošině, je-li tam dron a bedna rozložená.
+function SprayDronePad.getLoadedOnPlate(savedOnPlate, hasDrone, deploy)
+    if savedOnPlate ~= nil then
+        return savedOnPlate
+    end
+    return hasDrone and deploy >= 1
+end
+
+-- Mini s dronem v přepravní poloze (v bedně): nevzlétne a zůstává složený.
+function SprayDronePad.getIsDroneInBox(self)
+    local spec = SprayDroneDrones.getRoot(self)
+    return spec.pad ~= nil and spec.pads[1] ~= "" and not spec.pad.onPlate
+end
+
+-- Mini s dronem v letové poloze (na rozložené plošině): vlek nejde složit.
+function SprayDronePad.getIsDroneOnPlate(self)
+    local spec = SprayDroneDrones.getRoot(self)
+    return spec.pad ~= nil and spec.pads[1] ~= "" and spec.pad.onPlate == true
+end
+
+-- Přepne polohu dronu (server při nasazení / přendání, klient ze stavu v síti); póza se přepočítá v update. Přendání je okamžité
+-- (Pavel 2026-10-29: „radši tu animaci vymaž a nepoužívej“): dron se neskládá ani nerozkládá postupně, ramena skočí rovnou do cílové
+-- polohy (v bedně složená, na plošině rozložená), vrtule do klidové polohy a hadice na navíječ. Baterii pak přesune updateBatteryPlacement.
+function SprayDronePad.setDroneOnPlate(self, onPlate)
+    local pad = SprayDroneDrones.getRoot(self).pad
+    if pad == nil or pad.onPlate == onPlate then
+        return
+    end
+    pad.onPlate = onPlate
+    pad.appliedTime = nil
+    pad.settle = math.max(pad.settle, 1)
+    SprayDroneDrones.runAs(self, 1, function(v)
+        local d = v[SprayDroneStation.SPEC_NAME]
+        d.unfold = SprayDroneStation.getDroneUnfoldTarget(v)
+        d.rotorSpeed = 0
+        for _, rotor in ipairs(d.rotors or {}) do
+            rotor.angle = 0
+        end
+        d.hoseT = 0
+        SprayDroneStation.applyFold(v)
+    end)
+    self:raiseActive()
+end
+
+-- Poloha dronu ve světě: onPlate = střed rozložené plošiny (z poslední pózy, jinak z plánu), jinak místo v bedně.
+function SprayDronePad.getSpotPosition(self, onPlate)
+    local pad = SprayDroneDrones.getRoot(self).pad
+    if onPlate then
+        local center = pad.plateCenter
+        if center == nil then
+            center = SprayDronePad.plan(self, true).centerLocal
+        end
+        return localToWorld(pad.parent, center[1], center[2] - pad.droneSettle, center[3])
+    end
+    return localToWorld(pad.parent, pad.carrierPos[1], pad.carrierPos[2], pad.carrierPos[3])
+end
+
 -- Foldable si čas skládání bere z loadedFoldAnimTime až v onPostLoad, takže stačí ho tady přepsat; koupený vlek se načítá znovu už mimo
 -- obchod a začíná složený.
 function SprayDronePad.openInShop(self)
@@ -160,7 +229,6 @@ function SprayDronePad.openInShop(self)
         return
     end
     if VehiclePropertyState ~= nil and self.propertyState == VehiclePropertyState.SHOP_CONFIG then
-        spec.pad.shopPose = true
         foldable.loadedFoldAnimTime = 1
     end
 end
@@ -285,15 +353,11 @@ end
 -- plan = nil: složená bedna
 function SprayDronePad.applyPose(self, plan, deploy)
     local pad = self[SprayDroneStation.SPEC_NAME].pad
-    local cx, cy, cz = unpack(pad.carrierPos)
     local sideEnd, foldEnd = SprayDronePad.SIDE_END, SprayDronePad.FOLD_END
     local foldLinear = math.clamp((deploy - sideEnd) / (foldEnd - sideEnd), 0, 1)
     local fold = smooth(foldLinear)
     local legShow = smooth((foldLinear - SprayDronePad.LEG_SHOW) / (1 - SprayDronePad.LEG_SHOW))
     local legs = smooth((deploy - foldEnd) / (SprayDronePad.LEGS_END - foldEnd))
-    local lift = smooth((deploy - SprayDronePad.LEGS_END) / (SprayDronePad.LIFT_END - SprayDronePad.LEGS_END))
-    local move = smooth((deploy - SprayDronePad.LIFT_END) / (SprayDronePad.MOVE_END - SprayDronePad.LIFT_END))
-    local land = smooth((deploy - SprayDronePad.MOVE_END) / (1 - SprayDronePad.MOVE_END))
 
     local angle = (math.pi * 0.5) * (1 - fold)
     setRotation(pad.hingeZ, angle, 0, 0)
@@ -322,22 +386,21 @@ function SprayDronePad.applyPose(self, plan, deploy)
         setVisibility(leg.node, legShow > 0)
     end
 
-    local tx, ty, tz = cx, cy, cz
+    -- dron stojí v poloze, kam ho hráč dal (A v bedně = carrier jak je v i3d, B na středu plošiny); na plošině ve vodorovné rovině:
+    -- na svahu stojí vlek šikmo, plošina je vodorovná, takže carrier nejde otočit jen o yaw v souřadnicích vleku - rotace se vezme
+    -- ve světě (yaw plošiny minus droneYaw). Bez rozložené bedny (plan = nil) zůstává v bedně.
     if plan ~= nil then
-        tx, ty, tz = unpack(plan.centerLocal)
-        ty = ty - pad.droneSettle
+        pad.plateCenter = plan.centerLocal
+        local px, py, pz = unpack(plan.centerLocal)
+        setTranslation(pad.platePoint, px, py - pad.droneSettle + SprayDronePad.POINT_LIFT, pz)
     end
-    setTranslation(pad.carrier, cx + (tx - cx) * move, cy + (ty - cy) * move + pad.liftHeight * lift * (1 - land),
-        cz + (tz - cz) * move)
-    -- dron se po cestě srovná do roviny plošiny: na svahu stojí vlek šikmo, plošina je vodorovná, takže carrier nejde otočit jen o
-    -- yaw v souřadnicích vleku - cílová rotace se vezme ve světě (jen yaw plošiny minus droneYaw) a prolne se od složené polohy
-    local q = pad.carrierQuat
-    if plan ~= nil and move > 0 then
+    if pad.onPlate and plan ~= nil then
+        local tx, ty, tz = unpack(plan.centerLocal)
+        setTranslation(pad.carrier, tx, ty - pad.droneSettle, tz)
         setWorldRotation(pad.carrier, 0, plan.yaw - pad.droneYaw, 0)
-        local qx, qy, qz, qw = getQuaternion(pad.carrier)
-        setQuaternion(pad.carrier, MathUtil.slerpQuaternion(q[1], q[2], q[3], q[4], qx, qy, qz, qw, move))
     else
-        setQuaternion(pad.carrier, q[1], q[2], q[3], q[4])
+        setTranslation(pad.carrier, unpack(pad.carrierPos))
+        setQuaternion(pad.carrier, unpack(pad.carrierQuat))
     end
 end
 

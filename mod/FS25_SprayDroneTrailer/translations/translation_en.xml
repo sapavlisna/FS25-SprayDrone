@@ -5,6 +5,7 @@
         <text name="input_SDT_RETURN_HOME" text="Drone: return home"/>
         <text name="sdt_hud_drone" text="Drone: %s"/>
         <text name="sdt_hud_droneTank" text="Drone tank %.0f/%.0f l | battery %.0f %%"/>
+        <text name="sdt_hud_droneScan" text="Drone battery %.0f %%"/>
         <text name="sdt_state_parked" text="on trailer"/>
         <text name="sdt_state_flying" text="flying a batch"/>
         <text name="sdt_state_returning" text="returning"/>
@@ -20,7 +21,6 @@
         <text name="sdt_hud_generatorOff" text="off"/>
         <text name="sdt_status_noFuel" text="Drone: the generator is out of diesel and no spare battery is charged"/>
         <text name="sdt_planner_service" text="Service on the trailer %.1f min, of which waiting for charge %.1f min"/>
-        <text name="sdt_planner_diesel" text="Diesel for charging: ~%.1f l, in generator %.1f l"/>
         <text name="sdt_planner_noFuel" text="Not enough diesel – the mission stops when no spare battery is charged."/>
         <text name="sdt_planner_fuelRunsOut" text="Diesel runs out before all batteries are charged – refuel the generator."/>
         <text name="sdt_status_fieldDone" text="Drone: field is done, nothing left to spray"/>
@@ -30,6 +30,9 @@
         <text name="sdt_status_notAllowed" text="Drone: the field can no longer be treated (contract ended or field not owned)"/>
         <text name="sdt_status_obstacle" text="Drone: an obstacle on the way is higher than the drone may fly – move the trailer"/>
         <text name="sdt_warning_obstacleTooHigh" text="An obstacle on the way is higher than the drone may fly – move the trailer"/>
+        <text name="sdt_warning_takeoffRoof" text="The drone cannot take off: there is a roof or bridge above it"/>
+        <text name="sdt_warning_takeoffTree" text="The drone cannot take off: there is a tree above or next to it"/>
+        <text name="sdt_warning_takeoffBlocked" text="The drone cannot take off: there is an obstacle above it"/>
         <text name="sdt_warning_noField" text="There is no field here"/>
         <text name="sdt_warning_noFieldSelected" text="Select a field in the flight planner first"/>
         <text name="sdt_warning_notOwned" text="Foreign field – not owned by your farm and no contract"/>
@@ -47,35 +50,26 @@
         <text name="sdt_button_close" text="Close"/>
         <text name="sdt_button_start" text="Start flight"/>
         <text name="sdt_button_returnHome" text="Return home"/>
-        <text name="sdt_planner_title" text="Drone flight planner"/>
         <text name="sdt_planner_trailerTank" text="Trailer: %.0f l – %s"/>
         <text name="sdt_planner_params" text="Range %.0f m (from battery, transit at %.0f m), working width %.0f m"/>
-        <text name="sdt_planner_noField" text="No field selected"/>
-        <text name="sdt_planner_hintSelect" text="Click a field with a blue or gold outline inside the range circle."/>
         <text name="sdt_planner_field" text="Field %s"/>
         <text name="sdt_planner_ownField" text="Own field"/>
         <text name="sdt_planner_contract" text="Contract"/>
         <text name="sdt_planner_contractInfo" text="Contract: %s (%.0f %% done)"/>
-        <text name="sdt_planner_batches" text="Batches (tank + battery): %d"/>
-        <text name="sdt_planner_time" text="Estimated flight time: %.1f min"/>
-        <text name="sdt_planner_battery" text="Battery: up to %.0f %% per batch, battery swaps %d"/>
         <text name="sdt_planner_batteryLife" text="Battery life %.0f min with a full tank, %.0f min empty"/>
         <text name="sdt_planner_transit" text="Transit height: %.0f m"/>
         <text name="sdt_planner_transitObstacle" text="Transit height: %.0f m (raised for obstacles)"/>
         <text name="sdt_planner_tooHigh" text="An obstacle on the way exceeds the %.0f m limit – move the trailer."/>
         <text name="sdt_planner_area" text="Area to treat: %.2f ha"/>
-        <text name="sdt_planner_liters" text="Needed: %.0f l, available %.0f l"/>
         <text name="sdt_planner_notEnough" text="Not enough product for the whole field – the drone stops when the trailer is empty."/>
         <text name="sdt_planner_product" text="Product: %s"/>
         <text name="sdt_planner_clipped" text="Part of the field is out of range – the route covers only the part inside the circle."/>
-        <text name="sdt_planner_hover" text="Under cursor: field %s"/>
         <text name="sdt_planner_clickToSelect" text="Click to select it"/>
         <text name="sdt_planner_selected" text="Selected field %s"/>
         <text name="sdt_planner_started" text="Flight started"/>
         <text name="sdt_planner_returning" text="The drone is returning to the trailer"/>
         <text name="sdt_planner_highestPoint" text="Highest point on the path: %.0f m above terrain"/>
         <text name="sdt_planner_highestPointNone" text="Highest point on the path: no obstacle"/>
-        <text name="sdt_planner_legend" text="The selected field is outlined in green, the flight area in purple. Route line colors = batches, thin = turn between rows. Red marks the part of the field that was not planned because of diesel or battery."/>
         <text name="sdt_planner_controls" text="Click = select field, drag = pan map, wheel = zoom."/>
         <text name="sdt_status_areaNoPath" text="Drone: the flight area does not connect the trailer with the field – edit or delete it"/>
         <text name="sdt_button_drawArea" text="Draw flight area"/>
@@ -100,7 +94,7 @@
         <text name="sdt_planner_drawing" text="Drawing flight area: %d points"/>
         <text name="sdt_planner_drawHint" text="Outline a path from the trailer to the field around buildings and trees. Click the first point to close the area."/>
         <text name="sdt_planner_controlsDraw" text="Click = add point, drag = pan map, wheel = zoom."/>
-        <text name="input_SDT_TOGGLE_GENERATOR" text="Generator on/off"/>
+        <text name="input_SDT_OPEN_PLANNER" text="Drone: flight planner (in the trailer)"/>
         <text name="input_SDT_TOGGLE_LINES" text="Drone: world lines on/off"/>
         <text name="sdt_state_secured" text="secured on the pad"/>
         <text name="sdt_hud_generatorDisabled" text="switched off"/>
@@ -118,10 +112,14 @@
         <text name="sdt_antenna_large" text="Large directional antenna (range +70%)"/>
         <text name="sdt_gps_standard" text="Standard GPS"/>
         <text name="sdt_gps_rtk" text="Precision GPS with RTK (15% less spray)"/>
+        <text name="sdt_configuration_deckEdge" text="Deck edges"/>
+        <text name="sdt_deckEdge_steel" text="Steel rails"/>
+        <text name="sdt_deckEdge_wood" text="Wooden boards with steel straps"/>
         <text name="sdt_configuration_relayStrength" text="Relay strength"/>
         <text name="sdt_relay_standard" text="Standard relay (range 300 m)"/>
         <text name="sdt_relay_strong" text="Strong relay (range 400 m)"/>
         <text name="sdt_storeCategoryTrailers" text="Drone trailers"/>
+        <text name="sdt_storeCategoryDrones" text="Drones"/>
         <text name="sdt_storeCategoryEquipment" text="Drone equipment"/>
         <text name="sdt_storeCategoryCanisters" text="Canisters"/>
         <text name="sdt_fill_dieselGenerators" text="Diesel (generators) %s %%"/>
@@ -132,9 +130,57 @@
         <text name="sdt_relaySlot_powered" text="Switch the pole off before storing it"/>
         <text name="sdt_relaySlot_noPole" text="This pole cannot be stored right now"/>
         <text name="sdt_relaySlot_spawnFailed" text="The pole could not be taken out, it stays on the trailer"/>
-        <text name="sdt_status_outOfReach" text="Drone: the rest of the field is out of range or signal – move the trailer or relay and start again"/>
+        <text name="sdt_pumpslot_store" text="Store the pump on the trailer"/>
+        <text name="sdt_pumpslot_take" text="Take out the pump (diesel %.1f l)"/>
+        <text name="sdt_pumpslot_full" text="There is already a pump on the trailer"/>
+        <text name="sdt_pumpslot_running" text="A pump with a running engine cannot be stored, switch it off first"/>
+        <text name="sdt_pumpslot_noPump" text="This pump cannot be stored right now"/>
+        <text name="sdt_pumpslot_spawnFailed" text="The pump could not be taken out, it stays on the trailer"/>
+        <text name="sdt_droneItem_nameS" text="BZUK drone S (spraying)"/>
+        <text name="sdt_droneItem_nameM" text="BZUK drone M (spraying)"/>
+        <text name="sdt_droneItem_nameL" text="BZUK drone L (spraying)"/>
+        <text name="sdt_droneItem_nameK" text="BZUK drone K (scanning)"/>
+        <text name="sdt_droneItem_functionS" text="Small spraying drone, 20 l tank. Mounts on the trailer pad (R) and carries its own load."/>
+        <text name="sdt_droneItem_functionM" text="Medium spraying drone, 40 l tank. Mounts on the trailer pad (R) and carries its own load."/>
+        <text name="sdt_droneItem_functionL" text="Large spraying drone, 75 l tank. Mounts on the trailer pad (R) and carries its own load."/>
+        <text name="sdt_droneItem_functionK" text="Scanning drone without a tank: camera and multispectral sensors under the hull. Mounts on the trailer pad (R); the trailer runs the field scan."/>
+        <text name="sdt_padslot_place" text="Mount drone on the pad"/>
+        <text name="sdt_padslot_take" text="Detach drone (%s)"/>
+        <text name="sdt_padslot_full" text="There is already a drone on the pad"/>
+        <text name="sdt_padslot_noDrone" text="This drone cannot be mounted right now"/>
+        <text name="sdt_padslot_busy" text="The drone is being detached"/>
+        <text name="sdt_padslot_spawnFailed" text="The drone could not be detached, it stays on the pad"/>
+        <text name="sdt_padslot_placeBox" text="Stow drone in the crate"/>
+        <text name="sdt_padslot_placePlate" text="Put drone on the platform"/>
+        <text name="sdt_padslot_moveBox" text="Move drone into the crate"/>
+        <text name="sdt_padslot_movePlate" text="Move drone onto the platform"/>
+        <text name="sdt_batteryItem_nameS" text="BZUK drone battery S"/>
+        <text name="sdt_batteryItem_nameM" text="BZUK drone battery M"/>
+        <text name="sdt_batteryItem_nameL" text="BZUK drone battery L"/>
+        <text name="sdt_batteryItem_nameC" text="BZUK drone battery C (case)"/>
+        <text name="sdt_batteryItem_nameP" text="BZUK drone battery P (case)"/>
+        <text name="sdt_batteryItem_functionS" text="Battery for the S drone and the K scanning drone on the trailer. Goes into a free charger slot (R) and keeps its charge."/>
+        <text name="sdt_batteryItem_functionM" text="Battery for the M drone on the trailer. Goes into a free charger slot (R) and keeps its charge."/>
+        <text name="sdt_batteryItem_functionL" text="Battery for the L drone on the trailer. Goes into a free charger slot (R) and keeps its charge."/>
+        <text name="sdt_batteryItem_functionC" text="Battery for the scanning drone in the case. Goes into the slot in the case (R) and keeps its charge."/>
+        <text name="sdt_batteryItem_functionP" text="Battery for the sampling drone in the case. Goes into the slot in the case (R) and keeps its charge."/>
+        <text name="sdt_batteryItem_charge" text="Battery charge"/>
+        <text name="sdt_batteryslot_put" text="Insert battery into the charger"/>
+        <text name="sdt_batteryslot_take" text="Take out battery (%.0f %%)"/>
+        <text name="sdt_batteryslot_folded" text="The charger is closed – unfold the trailer first"/>
+        <text name="sdt_batteryslot_caseClosed" text="The slot is under the lid – open the case first"/>
+        <text name="sdt_batteryslot_wrongSize" text="This takes a battery %s"/>
+        <text name="sdt_batteryslot_full" text="No room for another battery (one slot stays free for the drone's battery)"/>
+        <text name="sdt_batteryslot_occupied" text="The slot is occupied"/>
+        <text name="sdt_batteryslot_empty" text="There is no battery in the slot"/>
+        <text name="sdt_batteryslot_busy" text="A battery is being moved"/>
+        <text name="sdt_batteryslot_droneBusy" text="The battery cannot be taken out of a drone that is flying or being serviced"/>
+        <text name="sdt_batteryslot_noBattery" text="This battery cannot be inserted right now"/>
+        <text name="sdt_batteryslot_spawnFailed" text="The battery could not be taken out, it stays in the charger"/>
+        <text name="sdt_status_outOfReach" text="Drone: the rest of the field is out of range or signal – move the trailer, case or relay (or turn the case antenna) and start again"/>
         <text name="sdt_status_noSignal" text="Drone: signal lost, flight aborted"/>
         <text name="sdt_state_waitRelay" text="waiting for relay – pole battery low"/>
+        <text name="sdt_state_waitClearance" text="waiting for clear space above the pad"/>
         <text name="sdt_relay_blockedDrone" text="The pole is relaying a flying drone"/>
         <text name="sdt_relay_battery" text="Pole battery"/>
         <text name="sdt_relay_batteryEmpty" text="The pole battery is empty"/>
@@ -146,13 +192,23 @@
         <text name="sdt_hud_noPowerFuel" text="the generator is out of diesel"/>
         <text name="sdt_warning_noPower" text="The pump needs power: %s"/>
         <text name="sdt_hud_generatorPump" text="powering the pump"/>
-        <text name="sdt_planner_legendSignal" text="Cyan marks the trailer's signal range, orange the range of switched-on relay poles linked to the trailer (thin circle = how far the drone can fly on its battery). Colored pole icon = on, gray = off or folded."/>
         <text name="sdt_relayPole_name" text="Relay pole"/>
-        <text name="sdt_relayPole_function" text="Extends the radio range of a drone trailer. Stand it upright on the ground within range of the trailer and unfold it (R). Enter it (E) and switch it on (B); the battery shows at the bottom right. The battery lasts about 5 hours and charges on a trailer with a running generator or at a charging station."/>
+        <text name="sdt_relayPole_function" text="Extends the radio range of a drone trailer. Stand it upright on the ground within range of the trailer and unfold it (R). Switch it on with B (both from outside, you do not get in). The battery lasts about 5 hours and charges on a trailer with a running generator or at a charging station."/>
+        <text name="sdt_relayPoleDirectional_name" text="Directional relay pole"/>
+        <text name="sdt_relayPoleDirectional_function" text="Relay pole with a panel antenna: it carries the signal of a drone trailer or case only inside a sector of about 99° in front of the panel (yellow stripe), but 1.75× farther than a standard pole. It covers nothing behind or beside it. Stand it upright within range of the trailer facing the field, unfold it (R) and switch it on (B). The battery lasts about 5 hours and charges on a trailer with a running generator or at a charging station."/>
+        <text name="sdt_relayDir_standard" text="Standard pole (sector 525 m)"/>
+        <text name="sdt_relayDir_strong" text="Strong pole (sector 700 m)"/>
         <text name="sdt_droneTablet_name" text="Drone tablet"/>
-        <text name="sdt_droneTablet_function" text="Mobile controller: held in hand, R opens the planner of a trailer in range and lets you start and control a mission remotely."/>
+        <text name="sdt_droneTablet_function" text="Mobile controller: held in hand, the left mouse button opens the planner of a trailer in range and lets you start and control a mission remotely."/>
         <text name="sdt_tablet_open" text="Open drone planner"/>
         <text name="sdt_tablet_noConnection" text="NO CONNECTION"/>
+        <text name="sdt_tablet_openTarget" text="Planner: %s"/>
+        <text name="sdt_tablet_target" text="%s – %.0f m, %s"/>
+        <text name="sdt_tablet_stateMission" text="flying"/>
+        <text name="sdt_tablet_stateUnfolded" text="unfolded"/>
+        <text name="sdt_tablet_stateFolded" text="folded"/>
+        <text name="sdt_tablet_onlyTarget" text="Only this drone is in range"/>
+        <text name="sdt_button_tabletTarget" text="%d/%d  %s · %.0f m"/>
         <text name="sdt_relay_unfold" text="Unfold pole"/>
         <text name="sdt_relay_fold" text="Fold pole"/>
         <text name="sdt_relay_on" text="Switch pole on"/>
@@ -177,7 +233,10 @@
         <text name="sdt_planner_noWater" text="No water: the concentrate tank is filled but the main tank is empty."/>
         <text name="sdt_hud_pumpingToPallet" text="Pumping into IBC: %.0f l/min, %.0f l left in trailer"/>
         <text name="sdt_warning_noPallet" text="No IBC within %.0f m of the trailer that accepts its product"/>
-        <text name="sdt_planner_settings" text="Flight settings"/>
+        <text name="sdt_warning_drainNotParked" text="The drone must sit unfolded on the pad and not be on a mission"/>
+        <text name="sdt_warning_drainEmpty" text="The drone tank is empty"/>
+        <text name="sdt_warning_drainMismatch" text="The trailer tank holds a different product, the drone would mix it"/>
+        <text name="sdt_warning_drainFull" text="The trailer tank is full"/>
         <text name="sdt_setting_transitHeight" text="Minimum transit height: %.0f m"/>
         <text name="sdt_setting_obstacleClearance" text="Clearance above obstacles: %.0f m"/>
         <text name="sdt_setting_sideClearance" text="Side clearance from obstacles: %.0f m"/>
@@ -185,12 +244,13 @@
         <text name="sdt_setting_start" text="Start with: %s"/>
         <text name="sdt_setting_startRows" text="rows"/>
         <text name="sdt_setting_startHeadlands" text="headlands"/>
-        <text name="sdt_planner_settingsHint" text="Click – / + or scroll over a row; click a row to select it, then the Lower / Raise selected buttons below change it. Range is recomputed from the battery."/>
         <text name="sdt_button_settingDown" text="Lower selected"/>
         <text name="sdt_button_settingUp" text="Raise selected"/>
         <text name="sdt_configuration_drone" text="Drone"/>
         <text name="sdt_cfg_crateColor" text="Crate color"/>
         <text name="sdt_cfg_tarpColor" text="Tarp color"/>
+        <text name="sdt_cfg_hopperColor" text="Paint color"/>
+        <text name="sdt_cfg_hopperYellow" text="Yellow"/>
         <text name="sdt_cfg_tarpGrey" text="Dark grey"/>
         <text name="sdt_hitch_tractor" text="Drawbar eye (tractor, truck)"/>
         <text name="sdt_hitch_car" text="Ball coupling (pickup)"/>
@@ -212,11 +272,21 @@
         <text name="sdt_drone_S" text="small"/>
         <text name="sdt_drone_M" text="medium"/>
         <text name="sdt_drone_L" text="large"/>
+        <text name="sdt_drone_K" text="scanning"/>
         <text name="sdt_planner_drone" text="Drone %s: tank %.0f l, battery %.2f kWh × %d"/>
+        <text name="sdt_planner_scanDrone" text="Drone %s: battery %.2f kWh × %d"/>
         <text name="sdt_warning_foldFirst" text="Fold the trailer first (it cannot be attached or detached while unfolded)"/>
         <text name="sdt_foldObject" text="trailer"/>
         <text name="sdt_warning_noDrone" text="The trailer has no drone – buy one in the workshop (Customize)"/>
-        <text name="sdt_warning_noBatteries" text="The drone has no battery and cannot take off – buy batteries in the workshop (Customize)"/>
+        <text name="sdt_pad_noDrone" text="No drone on the pad"/>
+        <text name="sdt_pad_busy" text="The drone can't be swapped now – end the mission and trailer service first"/>
+        <text name="sdt_pad_unfolded" text="The drone on the pad must be folded – fold the trailer"/>
+        <text name="sdt_pad_boxStowed" text="The drone can only be placed or removed with the crate unfolded – unfold the trailer"/>
+        <text name="sdt_warning_padDroneOnPlate" text="Move the drone into the crate first (R at the crate)"/>
+        <text name="sdt_pad_mixed" text="Both drones on the trailer must be the same size"/>
+        <text name="sdt_pad_needFirst" text="The second pad can only be used with a drone on the first"/>
+        <text name="sdt_pad_unknown" text="This drone doesn't fit this pad"/>
+        <text name="sdt_warning_noBatteries" text="The drone has no battery and cannot take off – insert a battery into the charger (R) or buy one in the shop"/>
         <text name="sdt_state_noDrone" text="trailer without drone"/>
         <text name="sdt_state_noBatteries" text="no batteries, cannot take off"/>
         <text name="sdt_hud_noDrone" text="Trailer without a drone (buy one in the workshop)"/>
@@ -249,9 +319,79 @@
         <text name="sdt_toolbox_typeNotAllowed" text="A canister does not take this substance"/>
         <text name="fillType_sdtConcentrateFertilizer" text="Concentrated fertilizer"/>
         <text name="fillType_sdtConcentrateHerbicide" text="Concentrated herbicide"/>
+        <text name="fillType_sdtFineLime" text="Finely ground lime"/>
+        <text name="sdt_limeMill" text="Lime mill"/>
+        <text name="sdt_limeMill_function" text="Grinds lime to a fine powder for drone liming; a hose fills the hopper of the large trailer"/>
+        <text name="sdt_limeMill_typeDesc" text="Mill cart"/>
+        <text name="sdt_limeMill_cfg" text="Lime mill"/>
+        <text name="sdt_mill_start" text="Start mill"/>
+        <text name="sdt_mill_stop" text="Stop mill"/>
+        <text name="sdt_mill_hoseConnect" text="Connect hose to lime hopper"/>
+        <text name="sdt_mill_hoseDisconnect" text="Disconnect hose"/>
+        <text name="sdt_mill_noFuel" text="The mill has no diesel"/>
+        <text name="sdt_mill_valveToSpout" text="Valve to discharge spout"/>
+        <text name="sdt_mill_valveToHose" text="Valve to hose"/>
+        <text name="sdt_mill_spoutSide" text="Swing spout out to the side"/>
+        <text name="sdt_mill_spoutRear" text="Swing spout out behind the cart"/>
+        <text name="sdt_mill_spoutFold" text="Fold spout"/>
+        <text name="sdt_mill_spoutFolded" text="The discharge spout is folded – swing it out (O)"/>
+        <text name="sdt_mill_hoseSpout" text="The mill outlet is switched to the spout, the hose gets nothing"/>
+        <text name="sdt_limeBigBag_name" text="Big bag for fine lime"/>
+        <text name="sdt_limeBigBag_function" text="1000 l big bag for fine ground lime. Stand it under the blow pipe of the mill (outlet to big bag), the mill fills it from above; it is emptied like a vanilla big bag."/>
+        <text name="sdt_pump_name" text="Portable water pump"/>
+        <text name="sdt_pump_function" text="Draws water from an IBC, a tanker or a pond through drag hoses and pumps it into the water tank of the large trailer (couplings INPUT and OUTPUT; the input switches between tank and pond)"/>
+        <text name="sdt_pump_start" text="Start pump"/>
+        <text name="sdt_pump_stop" text="Stop pump"/>
+        <text name="sdt_pump_noFuel" text="The pump has no diesel"/>
+        <text name="sdt_pump_modeToPond" text="Input to pond (strainer)"/>
+        <text name="sdt_pump_modeToTank" text="Input to tank (Storz coupling)"/>
+        <text name="sdt_pump_modeEngineOn" text="Switch off the pump engine first"/>
+        <text name="sdt_pump_modeHoseAttached" text="Disconnect the suction hose from the source first"/>
+        <text name="sdt_pump_dry" text="The pump is not moving any water – connect the hoses (input, output)"/>
+        <text name="sdt_hopper_name" text="Fine lime hopper"/>
+        <text name="sdt_hopper_function" text="Portable hopper with its own diesel engine: tip bags of fine ground lime or a big bag into it, and the hose of the large trailer pulls the lime into the concentrate canister"/>
+        <text name="sdt_hopper_start" text="Start hopper engine"/>
+        <text name="sdt_hopper_stop" text="Stop hopper engine"/>
+        <text name="sdt_hopper_noFuel" text="The hopper has no diesel"/>
+        <text name="sdt_hopper_legsOut" text="Extend outriggers"/>
+        <text name="sdt_hopper_legsIn" text="Retract outriggers"/>
+        <text name="sdt_hopper_legsBag" text="A big bag is on the discharge stand – take it off first"/>
+        <text name="sdt_hopper_bagLegsIn" text="The hopper outriggers are retracted, the big bag will not empty: lift the bag off, extend the outriggers and set it down again"/>
+        <text name="sdt_mill_noTarget" text="No trailer with a lime hopper within reach of the hose"/>
+        <text name="sdt_mill_hoseTorn" text="The hose came off, the cart is too far away"/>
+        <text name="input_SDT_TOGGLE_FOOT" text="Machine on/off (on foot)"/>
+        <text name="sdt_planner_folded" text="The trailer is folded – unfold it first"/>
+        <text name="sdt_planner_droneInBox" text="The drone is stowed in the crate – move it onto the platform"/>
+        <text name="sdt_planner_caseClosed" text="The case is closed – open it first"/>
+        <text name="sdt_mill_foldObject" text="cart"/>
+        <text name="sdt_mill_warning_foldFirst" text="Fold the cart first (an unfolded cart cannot be hitched or unhitched)"/>
+        <text name="sdt_mill_foldHose" text="Disconnect the hose from the trailer and drop it first"/>
+        <text name="sdt_mill_valveOpen" text="Open valve"/>
+        <text name="sdt_mill_valveClose" text="Close valve"/>
+        <text name="sdt_mill_hoseLink" text="Connect hose from mill"/>
+        <text name="sdt_mill_hoseFar" text="Hose does not reach (%.1f m of %.1f m)"/>
+        <text name="sdt_wh_takeLime" text="Take hose (lime from mill or hopper)"/>
+        <text name="sdt_wh_take" text="Take water hose"/>
+        <text name="sdt_wh_connect" text="Connect hose to water source"/>
+        <text name="sdt_wh_drop" text="Drop hose"/>
+        <text name="sdt_wh_takeIn" text="Take suction hose (IBC, tanker)"/>
+        <text name="sdt_wh_takePond" text="Take suction hose (strainer into the pond)"/>
+        <text name="sdt_wh_takeOut" text="Take output hose (to trailer)"/>
+        <text name="sdt_wh_connectPond" text="Lay the strainer in the water"/>
+        <text name="sdt_wh_connectTrailer" text="Connect hose to the trailer water valve"/>
+        <text name="sdt_wh_connectTank" text="Connect hose to the tank (fill with water)"/>
+        <text name="sdt_wh_tankEmpty" text="The tank holds no water, nothing to pump - drop the hose"/>
+        <text name="sdt_wh_unplug" text="Disconnect water hose"/>
+        <text name="sdt_wh_torn" text="The water hose tore off"/>
+        <text name="sdt_wh_mixed" text="The trailer tank holds another product, water will not flow"/>
+        <text name="sdt_mill_hoseGrab" text="Grab hose"/>
+        <text name="sdt_mill_hoseDrop" text="Drop hose"/>
+        <text name="sdt_mill_hoseReturn" text="Disconnect hose"/>
         <text name="sdt_canisterFertilizer_name" text="Concentrated fertilizer – canister 20 l"/>
         <text name="sdt_canisterHerbicide_name" text="Concentrated herbicide – canister 20 l"/>
         <text name="sdt_canisterDiesel_name" text="Diesel – canister 20 l"/>
+        <text name="sdt_limeBag50_name" text="Fine ground lime – bag 50 l"/>
+        <text name="sdt_limeBag_function" text="Fine ground lime from the concentrate tank of the service trailer (Ctrl+I drains the tank into bags). A bag tilted over the neck of the concentrate tank empties into it."/>
         <text name="sdt_canister_function" text="Concentrate for the spray drone service trailer. Put the canister into the toolbox of the trailer and pour it into the concentrate tank; the mixer dilutes it with water from the main tank."/>
         <text name="input_SDT_DRONE_VIEW" text="Drone view (C = back)"/>
         <text name="sdt_setting_activeDrones" text="Drones on mission: %.0f"/>
@@ -273,5 +413,181 @@
         <text name="sdt_hud_tiltLong" text="lengthwise %+.1f°"/>
         <text name="sdt_hud_tiltSide" text="sideways %+.1f°"/>
         <text name="sdt_hud_tiltMax" text="   (max %.0f°)"/>
-</texts>
+        <text name="sdt_status_scanDone" text="Drone: field scan is done, the map is in the planner"/>
+        <text name="sdt_status_scanDark" text="Drone: scan stopped, it got dark (the camera needs daylight)"/>
+        <text name="sdt_status_scanRain" text="Drone: scan stopped, it is raining"/>
+        <text name="sdt_status_scanWind" text="Drone: scan stopped, the wind is too strong"/>
+        <text name="sdt_warning_scanDark" text="A field scan only works in daylight"/>
+        <text name="sdt_warning_scanRain" text="No field scan in the rain"/>
+        <text name="sdt_warning_scanWind" text="The wind is too strong for a field scan"/>
+        <text name="sdt_weather_dark" text="dark (scan needs daylight)"/>
+        <text name="sdt_weather_rain" text="raining"/>
+        <text name="sdt_weather_wind" text="too windy"/>
+        <text name="sdt_weather_ok" text="OK to fly"/>
+        <text name="sdt_planner_weather" text="Weather: wind %s m/s (limit %.0f m/s) – %s"/>
+        <text name="sdt_warning_sprayWind" text="The wind is too strong for spraying (spray drift)"/>
+        <text name="sdt_warning_sprayRain" text="The drone does not spray in the rain"/>
+        <text name="sdt_status_sprayWind" text="Drone: spraying stopped, the wind is too strong (spray drift)"/>
+        <text name="sdt_status_sprayRain" text="Drone: spraying stopped, it is raining"/>
+        <text name="sdt_warning_scanOwnOnly" text="Only your own fields can be scanned"/>
+        <text name="sdt_setting_mission" text="Mission: %s"/>
+        <text name="sdt_setting_missionSpray" text="spraying"/>
+        <text name="sdt_setting_missionScan" text="field scan"/>
+        <text name="sdt_setting_scanCell" text="Scan: %s"/>
+        <text name="sdt_setting_scanCellLow" text="low, 5 m cells"/>
+        <text name="sdt_setting_scanCellMid" text="medium, 10 m cells"/>
+        <text name="sdt_setting_scanCellHigh" text="high, 20 m cells"/>
+        <text name="sdt_state_scanning" text="scanning the field"/>
+        <text name="sdt_planner_scan" text="Scan: %d m cells, height %.0f m, swath %.0f m"/>
+        <text name="sdt_planner_scanMap" text="Field map: %.0f %% scanned (%d m cells), %.1f h old"/>
+        <text name="sdt_planner_scanFindings" text="Weeds in %.0f %% of cells (invisible in %d), weak crop %.0f %%"/>
+        <text name="sdt_setting_apply" text="Application: %s"/>
+        <text name="sdt_setting_applyField" text="whole field"/>
+        <text name="sdt_setting_applyScan" text="by scan"/>
+        <text name="sdt_spot_cells" text="By scan: %d of %d cells (%d not scanned), margin %.1f m"/>
+        <text name="sdt_spot_compare" text="Whole field %.0f l / %.0f min · by scan %.0f l / %.0f min"/>
+        <text name="sdt_spot_stale" text="Scan is %.0f h old, the field may have changed"/>
+        <text name="sdt_spot_noMap" text="Field has no scan, applying to the whole field"/>
+        <text name="sdt_spot_noProduct" text="This product cannot be applied by scan, applying to the whole field"/>
+        <text name="sdt_scanui_layerOff" text="Off"/>
+        <text name="sdt_scanui_layerWeed" text="Weeds"/>
+        <text name="sdt_scanui_layerFert" text="Crop vitality"/>
+        <text name="sdt_scanui_layerRipe" text="Ripeness"/>
+        <text name="sdt_scanui_layerStone" text="Stones"/>
+        <text name="sdt_scanui_layerNitrogen" text="Nitrogen (PF)"/>
+        <text name="sdt_scanui_c_nitrogen1" text="nitrogen below 30 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen2" text="nitrogen 30-60 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen3" text="nitrogen 60-90 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen4" text="nitrogen 90-120 kg/ha"/>
+        <text name="sdt_scanui_c_nitrogen5" text="nitrogen above 120 kg/ha"/>
+        <text name="sdt_planner_scanPf" text="Crop (PF): nitrogen avg %.0f kg/ha (%.0f-%.0f)"/>
+        <text name="sdt_scanui_layerCover" text="Coverage"/>
+        <text name="sdt_scanui_notScanned" text="not scanned"/>
+        <text name="sdt_scanui_ageHours" text="%.0f h"/>
+        <text name="sdt_scanui_ageDays" text="%.0f d"/>
+        <text name="sdt_scanui_unscanned" text="not scanned"/>
+        <text name="sdt_scanui_stale" text="faded = older than %d h"/>
+        <text name="sdt_scanui_c_weedNone" text="no weeds"/>
+        <text name="sdt_scanui_c_weedLow" text="weeds up to 25 %"/>
+        <text name="sdt_scanui_c_weedHigh" text="weeds over 25 %"/>
+        <text name="sdt_scanui_c_weedInvisible" text="invisible weeds (stages 1–2)"/>
+        <text name="sdt_scanui_c_fert0" text="weak crop"/>
+        <text name="sdt_scanui_c_fert1" text="medium vitality"/>
+        <text name="sdt_scanui_c_fert2" text="full vitality"/>
+        <text name="sdt_scanui_c_ripeNone" text="no crop"/>
+        <text name="sdt_scanui_c_ripeYoung" text="young crop"/>
+        <text name="sdt_scanui_c_ripeGrowing" text="growing"/>
+        <text name="sdt_scanui_c_ripeReady" text="ready to harvest"/>
+        <text name="sdt_scanui_c_ripeOver" text="harvested / withered"/>
+        <text name="sdt_scanui_c_stoneNone" text="no stones"/>
+        <text name="sdt_scanui_c_stoneSome" text="stones"/>
+        <text name="sdt_scanui_c_scanned" text="scanned"/>
+        <text name="sdt_scanui_c_treated" text="treated after scan"/>
+        <text name="sdt_scanui_c_unscannedCover" text="not scanned"/>
+        <text name="sdt_scanui_notify" text="Field %s scanned: weeds %.0f %% (invisible %.0f %%), weak crop %.0f %%, ripe %.0f %%"/>
+        <text name="sdt_ui_pageFields" text="Fields"/>
+        <text name="sdt_ui_pageMission" text="Mission"/>
+        <text name="sdt_ui_pageFlight" text="Flight"/>
+        <text name="sdt_ui_pageMap" text="Scan map"/>
+        <text name="sdt_ui_groupMission" text="Mission type"/>
+        <text name="sdt_ui_groupTransit" text="Transit"/>
+        <text name="sdt_ui_groupField" text="Field"/>
+        <text name="sdt_ui_groupDrones" text="Drones"/>
+        <text name="sdt_ui_sectionNear" text="In trailer range"/>
+        <text name="sdt_ui_sectionOwn" text="Other own fields"/>
+        <text name="sdt_ui_sectionLayer" text="Scan map layer"/>
+        <text name="sdt_ui_sectionRoute" text="Route and range"/>
+        <text name="sdt_ui_legendSelected" text="selected field"/>
+        <text name="sdt_ui_legendContract" text="contract"/>
+        <text name="sdt_ui_legendBatches" text="route (colour = batch)"/>
+        <text name="sdt_ui_legendUnplanned" text="not planned (diesel, battery)"/>
+        <text name="sdt_ui_legendArea" text="flight area"/>
+        <text name="sdt_ui_legendRange" text="trailer signal range"/>
+        <text name="sdt_ui_legendRelay" text="relay pole range"/>
+        <text name="sdt_ui_legendTarget" text="controlled trailer / case and its drone"/>
+        <text name="sdt_ui_legendOtherTarget" text="other drone in range (click = switch)"/>
+        <text name="sdt_ui_cardTitle" text="Flight plan"/>
+        <text name="sdt_ui_noField" text="Select a field"/>
+        <text name="sdt_ui_noFieldHint" text="Click a field on the map or pick it on the Fields page on the left."/>
+        <text name="sdt_ui_batches" text="Batches"/>
+        <text name="sdt_ui_time" text="Flight time"/>
+        <text name="sdt_ui_area" text="Area"/>
+        <text name="sdt_ui_liquid" text="Needed / stock"/>
+        <text name="sdt_ui_scanCell" text="Cell · height"/>
+        <text name="sdt_ui_diesel" text="Diesel"/>
+        <text name="sdt_ui_battery" text="Battery / swaps"/>
+        <text name="sdt_ui_transit" text="Transit"/>
+        <text name="sdt_ui_weather" text="Wind / limit"/>
+        <text name="sdt_ui_spotTitle" text="By scan"/>
+        <text name="sdt_ui_spotFull" text="whole field %.0f l · %.0f min, saving %.0f %%"/>
+        <text name="sdt_ui_trailer" text="Trailer"/>
+        <text name="sdt_ui_findNone" text="No findings"/>
+        <text name="sdt_ui_findWeed" text="Weeds %.0f %%"/>
+        <text name="sdt_ui_findRipe" text="Ripe %.0f %%"/>
+        <text name="sdt_ui_findFert" text="Unfertilized %.0f %%"/>
+        <text name="sdt_ui_screenTitle" text="Flight planner"/>
+        <text name="sdt_ui_noFieldsNear" text="No own field or accepted contract in trailer range."/>
+        <text name="sdt_ui_pagePrev" text="Previous page"/>
+        <text name="sdt_ui_pageNext" text="Next page"/>
+        <text name="sdt_status_noCharge" text="Drone: the case battery has nowhere to charge – place the case near a farm building or a running trailer generator"/>
+        <text name="sdt_planner_noCharge" text="The case has no charging source (farm building or running generator within 15 m): no spare charge"/>
+        <text name="sdt_case_name" text="Scanning drone case"/>
+        <text name="sdt_case_function" text="Portable kit: case, small multispectral drone and battery. Put the case anywhere under open sky, open it (R) and control the field scan with the tablet. The battery only charges near a farm building or a running trailer generator."/>
+        <text name="sdt_case_open" text="Open case"/>
+        <text name="sdt_case_close" text="Close case"/>
+        <text name="sdt_case_closeToCarry" text="Close the case to pick it up"/>
+        <text name="sdt_case_battery" text="Case battery: %s"/>
+        <text name="sdt_case_source" text="Charging: %s (source within %.0f m)"/>
+        <text name="sdt_case_sourceNone" text="no source"/>
+        <text name="sdt_case_sourceBuilding" text="farm building socket"/>
+        <text name="sdt_case_sourceGenerator" text="trailer generator"/>
+        <text name="sdt_drone_C" text="scanning (case)"/>
+        <text name="sdt_scanui_c_fertNone" text="no crop (cannot tell)"/>
+        <text name="sdt_sampler_name" text="Soil sampling drone case (AIRASI)"/>
+        <text name="sdt_sampler_function" text="Portable Precision Farming kit: case, sampling drone with a soil probe and a battery. The drone takes soil samples at points of the field (2 per flight) and brings them to the box in the case; send them to the lab by clicking the box in the case or with the button in the planner. Requires Precision Farming."/>
+        <text name="sdt_drone_P" text="sampling (case)"/>
+        <text name="sdt_status_samplesDone" text="Drone: all field samples taken, send them to the lab"/>
+        <text name="sdt_status_samplesBoxFull" text="Drone: the sample box is full – send the samples to the lab"/>
+        <text name="sdt_status_samplesNoPF" text="Drone: soil samples require Precision Farming"/>
+        <text name="sdt_warning_samplerOwnOnly" text="Samples can only be taken on your own fields"/>
+        <text name="sdt_state_sampling" text="taking samples"/>
+        <text name="sdt_sampler_noPF" text="The sampler needs Precision Farming"/>
+        <text name="sdt_sampler_boxFull" text="The sample box is full – send the samples first"/>
+        <text name="sdt_sampler_boxEmpty" text="There are no samples in the box"/>
+        <text name="sdt_sampler_sent" text="%d samples sent to the lab, cost %s (charged after analysis)"/>
+        <text name="sdt_sampler_sentShort" text="Samples sent to the lab"/>
+        <text name="sdt_sampler_send" text="Send samples (%d)"/>
+        <text name="sdt_sampler_box" text="Sample boxes: full in the case %d / %d · in drone %d full of %d"/>
+        <text name="sdt_sampler_points" text="Sample points: %d · taken %d · left %d · out of range %d · tall crop %d"/>
+        <text name="sdt_sampler_lab" text="PF lab: %d samples in analysis · %s per sample"/>
+        <text name="sdt_sampler_boxLimited" text="The box holds only part of the points – send the samples when full and start again"/>
+        <text name="sdt_ui_samplePoints" text="Points left / total"/>
+        <text name="sdt_ui_sampleBox" text="Sample box"/>
+        <text name="sdt_button_sendSamples" text="Send samples"/>
+        <text name="sdt_status_samplesStuck" text="Drone: several flights in a row without a single sample, mission stopped (see the log)"/>
+        <text name="sdt_status_samplesTall" text="Drone: the remaining points are in tall crop – take samples after harvest or at an early growth stage"/>
+        <text name="sdt_sampler_tallCrop" text="Sample points are only in tall crop – sampling works after harvest, on tilled soil or up to growth stage 2"/>
+        <text name="sdt_sampler_noPoints" text="No sample points – click them into the field with the left button, or turn on automatic points (Mission)"/>
+        <text name="sdt_sampler_pickNoField" text="Select a field first"/>
+        <text name="sdt_sampler_pickOutside" text="The sample point must lie in the selected field"/>
+        <text name="sdt_sampler_pickFar" text="The point is out of the case's reach (battery or signal)"/>
+        <text name="sdt_sampler_pickExists" text="There is already a sample point here"/>
+        <text name="sdt_sampler_pickMax" text="No more points possible for this field"/>
+        <text name="sdt_sampler_pickNone" text="There is no sample point here"/>
+        <text name="sdt_sampler_pickTall" text="Point added, but it is in tall crop – the drone skips it for now"/>
+        <text name="sdt_sampler_pickAdded" text="Sample point added"/>
+        <text name="sdt_sampler_pickRemoved" text="Sample point removed"/>
+        <text name="sdt_sampler_pickHint" text="Sample points: left click adds · right click removes"/>
+        <text name="sdt_sampler_picks" text="Manual: %d added · %d removed from the grid"/>
+        <text name="sdt_setting_samplerAuto" text="Automatic points: %s"/>
+        <text name="sdt_setting_samplerAutoOff" text="no, only clicked"/>
+        <text name="sdt_setting_samplerAutoOn" text="yes (PF grid)"/>
+        <text name="sdt_ui_groupSamples" text="Sample points"/>
+        <text name="sdt_ui_legendSamplePending" text="automatic point"/>
+        <text name="sdt_ui_legendSampleCustom" text="hand-placed point"/>
+        <text name="sdt_ui_legendSampleDone" text="sampled point"/>
+        <text name="sdt_ui_legendSampleTall" text="not sampleable now (tall crop, out of reach)"/>
+        <text name="sdt_ui_legendSampleFar" text="point out of reach"/>
+        <text name="sdt_ui_legendSampleCover" text="area covered by points"/>
+    </texts>
 </l10n>

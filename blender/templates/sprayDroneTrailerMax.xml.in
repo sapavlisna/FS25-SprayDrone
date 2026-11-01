@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <!-- Generováno z blender/templates/sprayDroneTrailerMax.xml.in skriptem blender/export_max_mod.py. Needitovat ručně. -->
-<vehicle type="FS25_SprayDroneTrailer.sprayDroneTrailer">
+<vehicle type="FS25_SprayDroneTrailer.sprayDroneTrailerTow">
     <annotation>Spray drone service trailer, XL version (tandem, two tanks, two drones on the upper deck). Podvozek a nástavba z verze za auto, dvě přistávací plochy vpředu a vzadu, uprostřed společná nabíječka a navíječ.</annotation>
 
     <storeData>
@@ -83,16 +83,29 @@
         </sounds>
     </attachable>
 
+    <!-- zadní kulový věšák (uzel rearHitchJoint, tvar jako attacherJoint vanilla přívěsů): za Max se zapřahá mlýnkový vozík na vápno
+         (vehicles/sdtLimeMill). Vozík je samostatný stroj, hadice z něj k nádobce na vápno je skriptová (SprayDroneMill.lua) -->
+    <attacherJoints>
+        <attacherJoint node="rearHitchJoint" jointType="trailer" lowerRotLimit="25 55 70" upperRotationOffset="0" allowsJointLimitMovement="false" canTurnOnImplement="false">
+            <schema position="1 0" rotation="0" invertX="false"/>
+        </attacherJoint>
+        <sounds>
+            <attach template="attach01" linkNode="0>"/>
+        </sounds>
+    </attacherJoints>
+
     <!-- hadice k tahači jako u vanilla DPW 1800 (indexy spojek 1 a 2 platí v obou konfiguracích spojky): vzduchové uzly jsou ve skupině
-         drawbarTractorSet, takže u kulové hlavy za auto jsou skryté a auto je nenajde (nemá vzduchové přípojky), elektrika je společná -->
+         drawbarTractorSet, takže u kulové hlavy za auto jsou skryté a auto je nenajde (nemá vzduchové přípojky), elektrika je společná.
+         Bez adapterNode: hra by k němu přilinkovala vanilla zaparkovanou spojku do počátku uzlu, a ten je u sloučených tvarů *_detached
+         v počátku vleku (na zemi uprostřed pod ním); zaparkované spojky jsou vlastní modely *_detached (objectChange je skryje při zapřažení) -->
     <connectionHoses>
-        <hose inputAttacherJointIndices="1 2" type="airDoubleRed" node="airIn" adapterNode="airIn_detached" length="1.6" diameter="0.02" straighteningFactor="1">
+        <hose inputAttacherJointIndices="1 2" type="airDoubleRed" node="airIn" length="1.6" diameter="0.02" straighteningFactor="1">
             <objectChange node="airIn_detached" visibilityActive="false" visibilityInactive="true"/>
         </hose>
-        <hose inputAttacherJointIndices="1 2" type="airDoubleYellow" node="airOut" adapterNode="airOut_detached" length="1.6" diameter="0.02" straighteningFactor="1">
+        <hose inputAttacherJointIndices="1 2" type="airDoubleYellow" node="airOut" length="1.6" diameter="0.02" straighteningFactor="1">
             <objectChange node="airOut_detached" visibilityActive="false" visibilityInactive="true"/>
         </hose>
-        <hose inputAttacherJointIndices="1 2" type="electric" node="electric" adapterNode="electric_detached" length="1.6" diameter="0.012" straighteningFactor="1">
+        <hose inputAttacherJointIndices="1 2" type="electric" node="electric" length="1.6" diameter="0.012" straighteningFactor="1">
             <objectChange node="electric_detached" visibilityActive="false" visibilityInactive="true"/>
         </hose>
         <sounds>
@@ -152,21 +165,25 @@
         <!-- konvence FS25 (Foldable.lua): čas 0 = rozloženo (model v i3d), čas 1 = složeno;
              startMoveDirection="1" => vozidlo začíná v čase 1. Skládání: 0–2 s se složí dron na plošině (skript podle
              času skládání, sprayDrone#trailerFoldEnd); 2–2,4 s se zavřou úchyty lyžin
-             dronu (sprayDrone#securedFoldTime = 2,4 / 3); víko truhly nabíječky 1,8–3 s. Teleskopický žebřík vpravo na boku
+             dronu (sprayDrone#securedFoldTime = 2,4 / 5); víko truhly nabíječky 1,8–3 s. Teleskopický žebřík vpravo na boku
              (blender/build_trailer_max.py, build_ladder): rozložený stojí šikmo, 2–2,12 s se sklopí ramena přes lem desky (ladderArms),
              2,1–2,25 s se zasune horní díl (ladderUpper), 2,25–2,6 s se žebřík venku otočí podél boku a zasune mezi sloupky na háky
-             (ladderHinge, několik navazujících dílů). Až potom 2,6–3 s spadnou plachty (tarpL/R/F a role) a jejich kolize
+             (ladderHinge, několik navazujících dílů). Až potom 2,6–5 s spadnou plachty (tarpL/R/F a role) a jejich kolize
              (colTarpHinge{L,R,F} se sklopí z horní desky do roviny plachty); při rozkládání obráceně:
              nejdřív se plachty srolují, pak vyjede žebřík. Řádky žebříku i plachet vkládá export za zástupce TARP_PARTS (vlastnost sdt_fold_parts
              uzlů v Blenderu), ladderGrab je u Max jen prázdný uzel bez pohybu. -->
         <animation name="foldLadder">
             <!-- truhla nabíječky na horní palubě: rozložený vlek = víko otevřené (kabely k centrálám jsou napevno) -->
             <part node="chargerLid" startTime="{{LID_START}}" endTime="{{LID_END}}" startRot="{{LID_OPEN}}" endRot="{{LID_CLOSED}}"/>
+            <!-- plynové vzpěry víka (válec a pístnice na čepech): úseky animace sledují víko, aby vzpěra seděla otevřená i zavřená -->
+{{STRUT_PARTS}}
             <!-- teleskopy antény a GPS se při skládání vleku zasunou (blender/build_trailer_middle.py: TELE_SECTIONS) -->
             <part node="antennaBoostedTele1" startTime="0.2" endTime="1.4" startTrans="0 0.750 0" endTrans="0 0.230 0"/>
             <part node="antennaBoostedTele2" startTime="0.2" endTime="1.4" startTrans="0 0.600 0" endTrans="0 0.130 0"/>
             <part node="antennaLargeTele1" startTime="0.2" endTime="1.4" startTrans="0 0.800 0" endTrans="0 0.230 0"/>
             <part node="antennaLargeTele2" startTime="0.2" endTime="1.4" startTrans="0 0.650 0" endTrans="0 0.180 0"/>
+            <!-- koaxiální kabel Yagi vede po stožáru: svislý úsek (uzel s měřítkem po výšce) se zkracuje stejně, jak klesá horní konec Tele2 -->
+            <part node="antennaLargeCable" startTime="0.2" endTime="1.4" startScale="1 1 1" endScale="1 {{ANTENNA_CABLE_SCALE}} 1"/>
             <part node="gpsRtkBoxTele1" startTime="0.2" endTime="1.4" startTrans="0 0.500 0" endTrans="0 0.130 0"/>
             <part node="gpsRtkBoxTele2" startTime="0.2" endTime="1.4" startTrans="0 0.450 0" endTrans="0 0.130 0"/>
 {{CLAMP_PARTS}}
@@ -187,7 +204,7 @@
     <foldable>
         <foldingConfigurations>
             <foldingConfiguration>
-                <foldingParts startMoveDirection="1" requiresPower="false" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
+                <foldingParts startMoveDirection="1" requiresPower="false" keepFoldingWhileDetached="true" attachingMinLimit="0.98" detachingMinLimit="0.98" objectText="$l10n_sdt_foldObject" unfoldWarning="$l10n_sdt_warning_foldFirst">
                     <foldingPart animationName="foldLadder" speedScale="1"/>
                 </foldingParts>
             </foldingConfiguration>
@@ -202,37 +219,45 @@
                  (scripts/SprayDroneStation.lua, sprayDrone#mixer) -->
             <fillUnitConfiguration name="2 x 3000 l" price="0" saveId="TANK6000" isDefault="true">
                 <fillUnits>
-                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water liquidFertilizer herbicide" capacity="6000">
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water liquidFertilizer herbicide lime" capacity="6000">
                         <exactFillRootNode node="exactFillRootNode"/>
                     </fillUnit>
                     <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="30">
                         <exactFillRootNode node="dieselFillRootNode"/>
                     </fillUnit>
-                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_FERTILIZER SDT_CONCENTRATE_HERBICIDE" capacity="300">
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_FERTILIZER SDT_CONCENTRATE_HERBICIDE SDT_FINE_LIME" capacity="350">
                         <exactFillRootNode node="concentrateFillRootNode"/>
                     </fillUnit>
                 </fillUnits>
-                <objectChange node="tankMain3000" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="tankMain3000B" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="colTank3000" compoundChildActive="true" compoundChildInactive="false"/>
-                <objectChange node="colTank3000B" compoundChildActive="true" compoundChildInactive="false"/>
+                <objectChange node="tankMain3000" visibilityActive="true"/>
+                <objectChange node="tankMain3000B" visibilityActive="true"/>
+                <objectChange node="colTank3000" compoundChildActive="true"/>
+                <objectChange node="colTank3000B" compoundChildActive="true"/>
+                <objectChange node="tankMain5000" visibilityActive="false"/>
+                <objectChange node="tankMain5000B" visibilityActive="false"/>
+                <objectChange node="colTank5000" compoundChildActive="false"/>
+                <objectChange node="colTank5000B" compoundChildActive="false"/>
             </fillUnitConfiguration>
             <fillUnitConfiguration name="2 x 5000 l" price="9000" saveId="TANK10000">
                 <fillUnits>
-                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water liquidFertilizer herbicide" capacity="10000">
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="water liquidFertilizer herbicide lime" capacity="10000">
                         <exactFillRootNode node="exactFillRootNode"/>
                     </fillUnit>
                     <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="30">
                         <exactFillRootNode node="dieselFillRootNode"/>
                     </fillUnit>
-                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_FERTILIZER SDT_CONCENTRATE_HERBICIDE" capacity="500">
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_CONCENTRATE_FERTILIZER SDT_CONCENTRATE_HERBICIDE SDT_FINE_LIME" capacity="350">
                         <exactFillRootNode node="concentrateFillRootNode"/>
                     </fillUnit>
                 </fillUnits>
-                <objectChange node="tankMain5000" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="tankMain5000B" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="colTank5000" compoundChildActive="true" compoundChildInactive="false"/>
-                <objectChange node="colTank5000B" compoundChildActive="true" compoundChildInactive="false"/>
+                <objectChange node="tankMain3000" visibilityActive="false"/>
+                <objectChange node="tankMain3000B" visibilityActive="false"/>
+                <objectChange node="colTank3000" compoundChildActive="false"/>
+                <objectChange node="colTank3000B" compoundChildActive="false"/>
+                <objectChange node="tankMain5000" visibilityActive="true"/>
+                <objectChange node="tankMain5000B" visibilityActive="true"/>
+                <objectChange node="colTank5000" compoundChildActive="true"/>
+                <objectChange node="colTank5000B" compoundChildActive="true"/>
             </fillUnitConfiguration>
         </fillUnitConfigurations>
     </fillUnit>
@@ -250,7 +275,7 @@
 
     <!-- postřikový dron (scripts/SprayDroneStation.lua, docs/DRON.md); schéma vehicle.xsd tuhle sekci nezná.
          Atributy <sprayDrone> jsou společné, blok <drone> varianty (S / M / L, vybírá konfigurace sprayDrone#drone) je
-         přepisuje; uzly varianty mají prefix (<prefix>Root, Tilt, FillPort, BatterySlot, Clamp_i), bez dronu (drone="") je
+         přepisuje; uzly varianty mají prefix (<prefix>Root, Tilt, FillPort, BatterySlot); úchyty lyžin padClamp{L,R}[2] jsou součást plošiny, bez dronu (drone="") je
          vlek jen nabíječka a nádrž. droneMass = dron bez baterie, batteryMass se přičte; batteryKwh jen pro zobrazení.
          foldPart: natočení kloubů složeno/rozloženo (čas 0..1 rozložení), rotor: vrtule, která se za letu točí;
          batteryMinutes: výdrž ve vodorovném letu s plnou nádrží, odběr roste s kvadrátem hmotnosti a s fází letu,
@@ -266,49 +291,11 @@
          0|0 = S, 0|1 = M, 0|2 = L se liší rozevřením kužele, které pak u země dosáhne záběru varianty); skript emitory postaví
          pod trysky (uzly nebo x/z nozzle, jinak pod motory ramen) do výšky nozzleY pod kloubem náklonu -->
     <sprayDrone fillUnitIndex="1" maxRange="750"
-                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.667" batteryStowFrom="0.06" batteryStowUntil="0.55"
+                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.4" batteryStowFrom="0.036" batteryStowUntil="0.33"
                 cruiseSpeed="10" sprayingSpeed="7" climbSpeed="3" ascentSpeed="5" acceleration="2.5" yawSpeed="90"
                 sprayHeight="3" transitHeight="12" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="0.2"
                 sideClearance="4" turnAcceleration="2.5"
-                litersPerSecond="1" securedFoldTime="0.8">
-        <sprayDroneConfigurations>
-            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneS" drone="S" price="14000" saveId="S" workingWidth="6">
-                <objectChange node="Drone_S_Root" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_S_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_S_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_S_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_S_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_S_Root" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_S_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_S_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_S_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_S_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
-            </sprayDroneConfiguration>
-            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneM" drone="M" price="24000" saveId="M" workingWidth="9" isDefault="true">
-                <objectChange node="Drone_A_Root" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_A_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_A_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_A_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_A_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_A_Root" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_A_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_A_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_A_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_A_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
-            </sprayDroneConfiguration>
-            <sprayDroneConfiguration name="$l10n_sdt_configuration_droneL" drone="L" price="44000" saveId="L" workingWidth="11">
-                <objectChange node="Drone_L_Root" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_L_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_L_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_L_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone_L_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_L_Root" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_L_Clamp_1" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_L_Clamp_2" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_L_Clamp_3" visibilityActive="true" visibilityInactive="false"/>
-                <objectChange node="Drone2_L_Clamp_4" visibilityActive="true" visibilityInactive="false"/>
-            </sprayDroneConfiguration>
-        </sprayDroneConfigurations>
+                litersPerSecond="1" securedFoldTime="0.48">
         <sprayDroneBatteryConfigurations>
             <sprayDroneBatteryConfiguration name="0" count="0" price="0" saveId="0"/>
             <sprayDroneBatteryConfiguration name="1" count="1" price="1500" saveId="1"/>
@@ -345,31 +332,19 @@
         </sprayDroneAntennaConfigurations>
         <sprayDroneGpsConfigurations>
             <sprayDroneGpsConfiguration name="$l10n_sdt_gps_standard" usageFactor="1" price="0" saveId="STANDARD" isDefault="true"/>
-            <sprayDroneGpsConfiguration name="$l10n_sdt_gps_rtk" usageFactor="0.85" price="2500" saveId="RTK">
+            <sprayDroneGpsConfiguration name="$l10n_sdt_gps_rtk" usageFactor="0.85" spotMargin="1.5" price="2500" saveId="RTK">
                 <objectChange node="gpsRtkBox" visibilityActive="true" visibilityInactive="false"/>
             </sprayDroneGpsConfiguration>
         </sprayDroneGpsConfigurations>
-        <!-- vzhled vrtulí: kind default = podle modelu (T50 bílé bez proužků, T25 a T100 karbon s oranžovými), paint = barva listů,
-             carbon = karbon; tips: proužky na koncích listů (none = bez nich) -->
-        <sprayDronePropellerConfigurations>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_black" kind="paint" color="0.03 0.03 0.035" price="0" saveId="BLACK"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.85 0.86 0.87" price="0" saveId="WHITE"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_carbon" kind="carbon" price="300" saveId="CARBON"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="150" saveId="GREEN"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="150" saveId="YELLOW"/>
-            <sprayDronePropellerConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="150" saveId="ORANGE"/>
-        </sprayDronePropellerConfigurations>
-        <sprayDroneTipsConfigurations>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_default" kind="default" price="0" saveId="DEFAULT" isDefault="true"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_none" kind="none" price="0" saveId="NONE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_orange" kind="paint" color="1.0 0.30 0.0" glow="1.5" price="50" saveId="ORANGE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_yellow" kind="paint" color="0.85 1.0 0.02" glow="1.5" price="50" saveId="YELLOW"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_red" kind="paint" color="0.85 0.02 0.02" price="50" saveId="RED"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_green" kind="paint" color="0.30 1.0 0.02" glow="1.5" price="50" saveId="GREEN"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_tips_blue" kind="paint" color="0.05 0.25 0.85" price="50" saveId="BLUE"/>
-            <sprayDroneTipsConfiguration name="$l10n_sdt_prop_white" kind="paint" color="0.90 0.90 0.90" price="50" saveId="WHITE"/>
-        </sprayDroneTipsConfigurations>
+        <!-- hrany paluby: kovové lemy (Rail_*, FrontBeam, RearBeam v deckEdgeSteel) nebo dřevěné desky s kovovými pásy (deckEdgeWood, v i3d skrytá) -->
+        <sprayDroneDeckEdgeConfigurations>
+            <sprayDroneDeckEdgeConfiguration name="$l10n_sdt_deckEdge_steel" price="0" saveId="STEEL" isDefault="true">
+                <objectChange node="deckEdgeSteel" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneDeckEdgeConfiguration>
+            <sprayDroneDeckEdgeConfiguration name="$l10n_sdt_deckEdge_wood" price="0" saveId="WOOD">
+                <objectChange node="deckEdgeWood" visibilityActive="true" visibilityInactive="false"/>
+            </sprayDroneDeckEdgeConfiguration>
+        </sprayDroneDeckEdgeConfigurations>
         <power dieselFillUnitIndex="2" slots="10" batteries="4" chargeMinutes="10" dieselPerHour="2.2" dieselPerGenerator="30" readyLevel="0.95" swapTime="5">
             <exhaust node="generatorExhaust" node2="generatorExhaust2" filename="$data/effects/exhaust/exhaust.i3d" color="0.12 0.12 0.12 0.35" scale="0.35"/>
         </power>
@@ -378,13 +353,21 @@
         <mixer concentrateFillUnitIndex="3">
             <ratio fillType="SDT_CONCENTRATE_FERTILIZER" product="liquidFertilizer" concentrate="0.05"/>
             <ratio fillType="SDT_CONCENTRATE_HERBICIDE" product="herbicide" concentrate="0.05"/>
+            <ratio fillType="SDT_FINE_LIME" product="lime" concentrate="0.20"/>
         </mixer>
+        <!-- vstup hadice z mlýnkového vozíku do nádobky na vápno (SprayDroneMill.lua hledá nejbližší vlek s tímhle uzlem; hadice plní
+             fill unit fillUnitIndex druhem fillType; valveNode = páka kohoutu spojky, valveOpenAngle (°) otevřená poloha) -->
+        <limeInlet node="limeInletNode" valveNode="limeValveLever" valveOpenAngle="90" fillUnitIndex="3" fillType="SDT_FINE_LIME"/>
         <!-- skříň s kanystry: rolovací vrata (doorNode, žádný lidNode/openAngle - viz SprayDroneToolbox.applyLid),
              kanystry toolboxCanister1..48 (čtyři patra po dvou řadách po šesti jako u Middle, Pavel 2026-10-09: zadní stěna u
              nádrže, vrata ven z vleku, skříň sahá až pod horní plošinu). Žádný slot není vyhrazený, kterýkoli pojme koncentrát i naftu; otvor pro vsátí pokrývá celý otvor vrat (aktivační uzel je uprostřed výšky skříně). neckNode =
              hrdlo indukční nádrže -->
-        <toolbox slots="48" slotLiters="20" activateNode="toolboxActivateNode" doorNode="Toolbox_Door" doorTravel="{{DOOR_TRAVEL}}" canisterNodePrefix="toolboxCanister" neckNode="concentrateNeckNode" intakeBelow="0.7" intakeAbove="0.7"/>
+        <!-- jen přední řada u vrat (Pavel 2026-10-29: na zadní řadu není vidět ani dosáhnout): slotNodes = pozice 7..12 každého patra -->
+        <toolbox slots="24" slotNodes="7 8 9 10 11 12 19 20 21 22 23 24 31 32 33 34 35 36 43 44 45 46 47 48" slotLiters="20" activateNode="toolboxActivateNode" doorNode="Toolbox_Door" doorTravel="{{DOOR_TRAVEL}}" canisterNodePrefix="toolboxCanister" neckNode="concentrateNeckNode" intakeBelow="0.7" intakeAbove="0.7"/>
         <transfer drainRate="1" palletRate="20" palletDistance="6"/>
+        <!-- uložení přenosné pumpy na vlek (scripts/SprayDronePumpSlots.lua): bod nad ojí (prostor kořene komponenty: x doleva, y nahoru, z dopředu), u kterého R pumpu
+             uloží / vyndá. Paluba nemá volné místo na pumpu, proto jen chování (visible="false") -->
+        <pumpSlot node="sprayDroneTrailerMax_main_component1" translation="0 1.0 2.2" rotation="0 0 0" visible="false"/>
         <!-- rozložit jde jen vlek, který stojí dost rovně: největší náklon paluby (°) podélně i příčně (scripts/SprayDroneLevel.lua);
              náklon se u složeného vleku ukazuje zeleně / červeně -->
         <tilt max="5"/>
@@ -439,7 +422,7 @@
 
         <!-- malý „S“ podle DJI T25: 25,4 kg + DB800 6,6 kg (0,81 kWh), 20 l, záběr 6 m, 4 jednoduché vrtule 50″, 2 zadní trysky
              (rozteč 1368 mm); výdrž 9 min s plnou nádrží (výkon ~ m^1,5 / √plocha vrtulí, kalibrováno na T50) -->
-        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.10 0.36" cameraPitch="15" tankCapacity="20" workWidth="6" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
+        <drone name="S" prefix="Drone_S_" maxRange="300" litersPerSecond="1" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.10 0.36" cameraPitch="15" tankCapacity="20" workWidth="6" sprayMaxWind="5" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
                batteryMinutes="9" chargeMinutes="10" dieselPerHour="1.14" droneRadius="1.35" rotorPitch="1.25" hoseVia="0.145 0.15 0.24">
             <sounds>
                 <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_S_Tilt" innerRadius="6" outerRadius="100" fadeOut="0.3">
@@ -457,6 +440,12 @@
             </effects>
 {{DRONE_PARTS_S}}
         </drone>
+
+        <!-- skenovací „K“ (etapa 0b docs/NAVRH-dron-predmet.md): tělo a rozložení jako S, ale bez nádrže, čerpadla a trysek, s kamerou pod trupem; mise je vždy sken pole,
+             baterie S (batteryVariant); droneMass je bez baterie: 8 + 6,6 kg lítá se stejnou baterií zhruba třikrát déle než S s plnou nádrží -->
+        <!-- skenovací dron K na vleku zanikl (PLAN-airasi-kufr.md D2, je jen v kufru objects/droneCase/scanCase.xml). Blok zůstává jen proto,
+             aby se schoval kořen Drone_K_Root, dokud ho build skript staví do i3d; plošina ho odmítne (getPadsProblem, scan bez portable). -->
+        <drone name="K" prefix="Drone_K_" scan="true"/>
 
         <!-- druhý dron téže varianty (slot 2): z tohoto bloku se berou jen uzly, zvuk, efekty a hadice, parametry letu jsou ze slotu 1 -->
         <drone name="S" slot="2" prefix="Drone2_S_" hosePrefix="fillHoseB" cameraIndex="3" cameraNode="droneCamera2" outCameraIndex="5" outTargetNode="droneOutTarget2" cameraTrans="0 0.10 0.36" cameraPitch="15" tankCapacity="20" workWidth="6" droneMass="25.4" batteryMass="6.6" batteryKwh="0.81"
@@ -478,8 +467,12 @@
 {{DRONE_PARTS_S2}}
         </drone>
 
+        <!-- skenovací dron K na vleku zanikl (PLAN-airasi-kufr.md D2, je jen v kufru objects/droneCase/scanCase.xml). Blok zůstává jen proto,
+             aby se schoval kořen Drone2_K_Root, dokud ho build skript staví do i3d; plošina ho odmítne (getPadsProblem, scan bez portable). -->
+        <drone name="K" slot="2" prefix="Drone2_K_" scan="true"/>
+
         <!-- střední „M“ = DJI T50 (dnešní): 39,9 kg + DB1560 12,1 kg (1,567 kWh), 40 l, záběr 9 m, 4 trysky pod motory -->
-        <drone name="M" prefix="Drone_A_" maxRange="450" litersPerSecond="1.5" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.10 0.42" cameraPitch="15" tankCapacity="40" workWidth="9" droneMass="39.9" batteryMass="12.1" batteryKwh="1.567"
+        <drone name="M" prefix="Drone_A_" maxRange="450" litersPerSecond="1.5" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.10 0.42" cameraPitch="15" tankCapacity="40" workWidth="9" sprayMaxWind="6" droneMass="39.9" batteryMass="12.1" batteryKwh="1.567"
                batteryMinutes="8" chargeMinutes="10" dieselPerHour="2.2" droneRadius="1.6" rotorPitch="1" hoseVia="0.17 0.155 0.32">
             <sounds>
                 <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_A_Tilt" innerRadius="8" outerRadius="120" fadeOut="0.3">
@@ -521,7 +514,7 @@
         <!-- velký „L“ podle DJI T100: 75 kg „weight for spraying“ včetně DB2160 14,7 kg (MTOW 175 = 75 + 100), tedy 60,3 kg bez
              baterie; DB2160 41 Ah × 52 V = 2,13 kWh, nabití 30 → 95 % za 8–9 min; nádrž ve hře 75 l (se 100 l by výdrž vyšla
              4,8 min, se 75 l 6,0 min), záběr 11 m, 2 trysky na rameni postřiku (rozteč 1834 mm) -->
-        <drone name="L" prefix="Drone_L_" maxRange="600" litersPerSecond="2.5" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.12 0.48" cameraPitch="15" tankCapacity="75" workWidth="11" droneMass="60.3" batteryMass="14.7" batteryKwh="2.13"
+        <drone name="L" prefix="Drone_L_" maxRange="600" litersPerSecond="2.5" cameraIndex="2" cameraNode="droneCamera1" outCameraIndex="4" outTargetNode="droneOutTarget1" cameraTrans="0 0.12 0.48" cameraPitch="15" tankCapacity="75" workWidth="11" sprayMaxWind="7" droneMass="60.3" batteryMass="14.7" batteryKwh="2.13"
                batteryMinutes="6" chargeMinutes="8.5" dieselPerHour="3.52" droneRadius="1.65" rotorPitch="0.8" hoseVia="0.20 0.19 0.40">
             <sounds>
                 <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_L_Tilt" innerRadius="10" outerRadius="150" fadeOut="0.3">
@@ -560,6 +553,19 @@
 {{DRONE_PARTS_L2}}
         </drone>
     </sprayDrone>
+
+    <!-- vodní hadice: z výpustního ventilu vodní nádrže ke zdroji vody (IBC, cisterna), scripts/SprayDroneWaterHose.lua -->
+    <sprayDroneWaterHose>
+        <hoses>
+            <hose hoseLength="12" rate="12" hoseEnd="waterHoseEnd" segmentPrefix="waterHoseSeg" segmentCount="72">
+                <port node="waterHosePort3000"/>
+                <port node="waterHosePort3000B"/>
+                <port node="waterHosePort5000"/>
+                <port node="waterHosePort5000B"/>
+            </hose>
+            <hose hoseLength="12" rate="12" lime="true" hoseEnd="limeHoseEnd" segmentPrefix="limeHoseSeg" segmentCount="72"/>
+        </hoses>
+    </sprayDroneWaterHose>
 
     <foliageBending>
         <bendingNode minX="-1.5" maxX="1.5" minZ="{{BEND_MIN_Z}}" maxZ="{{BEND_MAX_Z}}" yOffset="0.3"/>

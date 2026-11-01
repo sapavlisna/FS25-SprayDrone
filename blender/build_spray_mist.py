@@ -158,9 +158,10 @@ def main():
     print("sprayMist:", os.path.join(OUT_DIR, f"{NAME}.i3d"))
 
 
-try:
-    main()
-except Exception:
-    import traceback
-    traceback.print_exc()
-    sys.exit(1)
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception:
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)

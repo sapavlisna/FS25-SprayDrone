@@ -21,11 +21,44 @@ function SprayDroneStoreCategories.loadMapData(storeManager, superFunc, ...)
         end
         xmlFile:delete()
     end
+    SprayDroneStoreCategories.hidePFItems(storeManager)
 
     return result
 end
 
 StoreManager.loadMapData = Utils.overwrittenFunction(StoreManager.loadMapData, SprayDroneStoreCategories.loadMapData)
+
+-- Sada AIRASI odebírá vzorky půdy Precision Farming (rozhodnutí D5): bez PF se v obchodě nenabízí (ShopController položky se
+-- showInStore = false nevypisuje). Zkouší se po loadMapData i v loadMap, kdyby položky modů v loadMapData ještě nebyly.
+SprayDroneStoreCategories.PF_MOD_NAME = "FS25_precisionFarming"
+SprayDroneStoreCategories.PF_ONLY_ITEMS = { "objects/droneCase/samplerCase.xml" }
+
+function SprayDroneStoreCategories.hasPrecisionFarming()
+    if g_modIsLoaded ~= nil and g_modIsLoaded[SprayDroneStoreCategories.PF_MOD_NAME] then
+        return true
+    end
+    local ok, env = pcall(function() return _G[SprayDroneStoreCategories.PF_MOD_NAME] end)
+    return ok and type(env) == "table"
+end
+
+function SprayDroneStoreCategories.hidePFItems(storeManager)
+    if storeManager == nil or SprayDroneStoreCategories.hasPrecisionFarming() then
+        return
+    end
+    for _, filename in ipairs(SprayDroneStoreCategories.PF_ONLY_ITEMS) do
+        local item = storeManager:getItemByXMLFilename(SprayDroneStoreCategories.modDirectory .. filename)
+        if item ~= nil and item.showInStore then
+            item.showInStore = false
+        end
+    end
+end
+
+SprayDroneStoreCategories.listener = {
+    loadMap = function()
+        SprayDroneStoreCategories.hidePFItems(g_storeManager)
+    end
+}
+addModEventListener(SprayDroneStoreCategories.listener)
 
 -- Pořadí vleků v obchodě: ShopController.displayItemSortFunction řadí položky se stejným orderValue (= orderId kategorie)
 -- od NEJDRAŽŠÍ (sellPrice2 < sellPrice1), pak podle xmlFilename - pořadí v modDesc ani storeData na to nemá vliv.

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Pravidla objektu ručně; i3d, obrázek a čísla v i3dMappings dává blender/build_hopper.py. Chování viz scripts/SprayDroneHopper.lua (vápno, výstup) a scripts/SprayDronePump.lua (motor, nafta). -->
+<vehicle type="FS25_SprayDroneTrailer.sdtLimeHopper">
+    <annotation>Přenosná násypka na jemně mleté vápno: s vlastním naftovým motorem; vápno se do ní sype z pytlů nebo z big bagu položeného na výsypnou stolici a hadice velkého vleku ho z ní táhne do nádobky na koncentrát.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_hopper_name</name>
+        <functions>
+            <function>$l10n_sdt_hopper_function</function>
+        </functions>
+        <specs>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/hopper/store_limeHopper.dds</image>
+        <price>2400</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <rotation>0</rotation>
+        <shopHeight>1.0</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneEquipment</category>
+        <financeCategory>PURCHASE_FERTILIZER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_sdt_hopper_name</typeDesc>
+        <filename>objects/hopper/limeHopper.i3d</filename>
+        <size width="1.1" length="1.1" height="1.6"/>
+        <canBeReset>false</canBeReset>
+        <supportsPickUp>true</supportsPickUp>
+        <!-- těžiště spočtené z odhadu hmotností dílů (blender/build_hopper.py MASSES, zapíše ho do blender/limeHopper_geometry.json; tools/test_hopper.py
+             hlídá, že sedí): stolice je uprostřed rámu, zmenšený motor s nádrží na boku +X ho posune o 5 cm -->
+        <components>
+            <component centerOfMass="0.052 0.473 0.009" solverIterationCount="10" mass="120"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <mapHotspot available="false"/>
+        <input allowed="false"/>
+    </base>
+
+    <foliageBending>
+        <bendingNode minX="-0.56" maxX="0.56" minZ="-0.55" maxZ="0.55" yOffset="0.2"/>
+    </foliageBending>
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="2" fieldMultiplier="2"/>
+
+    <!-- pořadí fill units: 1 nafta pro motor (nalévá se z kanystru jako u pumpy a mlýnku; exactFillRootNode kolem nádrže), 2 jemně mleté vápno: drobná zásoba
+         v lievci a nástavci (lievec ~150 l + nástavec do 1,33 m ~250 l; exactFillRootNode pod mřížkou stolice: do něj sype big bag položený na stolici nebo
+         vyklopený vak, pytle se naklopí nad stolici, SprayDroneHopper). Hladina = vanilla fillPlane (rovina 0,9 x 0,9 m v ose lievce) -->
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="15" showOnHud="true" ignoreFillLimit="true" updateMass="false">
+                        <exactFillRootNode node="dieselFillRootNode"/>
+                    </fillUnit>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="SDT_FINE_LIME" capacity="400" showOnHud="true" ignoreFillLimit="true" updateMass="false">
+                        <exactFillRootNode node="limeFillRootNode"/>
+                        <fillPlane>
+                            <node node="limeFillPlane">
+                                <key time="0" y="0.48" scale="0.20 1 0.20"/>
+                                <key time="0.12" y="0.80" scale="0.61 1 0.61"/>
+                                <key time="0.375" y="1.02" scale="0.89 1 0.89"/>
+                                <key time="0.38" y="1.03" scale="1 1 1"/>
+                                <key time="1" y="1.33" scale="1 1 1"/>
+                            </node>
+                        </fillPlane>
+                    </fillUnit>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <!-- motor (scripts/SprayDronePump.lua, jako u pumpy): dieselPerHour = spotřeba za chodu, pourRadius / pourRate = nalévání nafty z kanystru nakloněného nad hrdlem
+         nádrže; storable = nejde ji uložit do držáku pumpy na vleku, dryWarning = bez varování „nic nečerpá“, text* = popisky ovládání -->
+    <sprayDronePump dieselFillUnitIndex="1" waterFillUnitIndex="2" dieselPerHour="3" pourRadius="0.3" pourRate="4" storable="false" dryWarning="false"
+                    logName="násypka" textStart="sdt_hopper_start" textStop="sdt_hopper_stop" textNoFuel="sdt_hopper_noFuel">
+        <nodes engine="hopperSoundNode" dieselNeck="hopperDieselNeck"/>
+        <sounds>
+            <engine template="generator05" linkNode="hopperSoundNode" innerRadius="3" outerRadius="45" fadeIn="0.3" fadeOut="0.3">
+                <volume indoor="0.35" outdoor="0.5"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.4" outdoor="1"/>
+            </engine>
+            <flow template="pressureWasherRun01" linkNode="hopperOutletPort" innerRadius="3" outerRadius="30" fadeIn="0.2" fadeOut="0.3" volumeScale="0.7"/>
+        </sounds>
+    </sprayDronePump>
+
+    <!-- lievec s vápnem (scripts/SprayDroneHopper.lua): limeFillUnitIndex = fill unit s vápnem, hoseRate = nejvyšší průtok výstupem (l/s; táhne ho hadice vleku),
+         pourRadius / pourRate = pytel nakloněný víčkem dolů do vzdálenosti pourRadius od uzlu funnel se vysype do lievce. Uzly: funnel = střed dosedacího
+         rámu stolice, outlet = výstupní spojka Storz (sem se napojí hadice vleku). Opěry (legs) do kříže: rameno leg se z rohu rámu vysune o travel po
+         své ose x (šikmo ven pod 45°), pak vizuální patka foot klesne o drop (za duration s). Kolize patky collision stojí pevně ve vysunuté
+         poloze 1 cm pod spodkem kolize rámu (drop = 5 cm výšky zasunuté patky + 1 cm: dole vizuální patka sedí přesně na ní) a nikdy se neposouvá;
+         skript jí zapne filtr kolizí z i3d, až jsou opěry celé venku, a vypne ho na začátku zasouvání. Vysunutá násypka stojí na patkách, zasunutou
+         nese rám. Big bag na stolici sype jen s vysunutými opěrami, pytle vždy; s vakem na stolici opěry nejdou vysunout ani zasunout -->
+    <sprayDroneHopper limeFillUnitIndex="2" fineFillType="SDT_FINE_LIME" hoseRate="8" pourRadius="0.5" pourRate="8">
+        <nodes funnel="hopperFunnel" outlet="hopperOutletPort"/>
+        <legs travel="0.30" drop="0.06" duration="2">
+            <leg node="hopperLeg1" foot="hopperFoot1" collision="hopperFootCol1"/>
+            <leg node="hopperLeg2" foot="hopperFoot2" collision="hopperFootCol2"/>
+            <leg node="hopperLeg3" foot="hopperFoot3" collision="hopperFootCol3"/>
+            <leg node="hopperLeg4" foot="hopperFoot4" collision="hopperFootCol4"/>
+        </legs>
+    </sprayDroneHopper>
+
+    <!-- barva laku (materiál SDT_PaintYellow: palivová nádrž, okraj ústí lievce, dosedací rám a vodítka stolice, ramena opěr a límec výstupní spojky); výchozí je žlutá jako dřív -->
+    <baseColorConfigurations title="$l10n_sdt_cfg_hopperColor" useDefaultColors="true" price="0" defaultColorMaterialTemplateName="calibratedPaint">
+        <baseColorConfiguration name="$l10n_sdt_cfg_hopperYellow" color="0.85 0.62 0.02" uiColor="0.9 0.68 0.05" isDefault="true"/>
+        <baseColorConfiguration materialTemplateName="ARMATRAC_RED1"/>
+        <baseColorConfiguration materialTemplateName="ARMATRAC_ORANGE1"/>
+        <baseColorConfiguration materialTemplateName="RISUTEC_YELLOW1"/>
+        <baseColorConfiguration materialTemplateName="DOBLETT_BLUE1"/>
+        <baseColorConfiguration materialTemplateName="DOBLETT_GREEN1"/>
+        <baseColorConfiguration materialTemplateName="RISUTEC_GREY1"/>
+        <baseColorConfiguration materialTemplateName="RIM_CONFIGURATION_WHITE"/>
+        <baseColorConfiguration materialTemplateName="RIM_CONFIGURATION_BLACK"/>
+        <material materialSlotName="SDT_PaintYellow"/>
+    </baseColorConfigurations>
+
+    <i3dMappings>
+        <i3dMapping id="limeHopper_main_component1" node="0&gt;"/>
+        <i3dMapping id="limeHopper_vis" node="0&gt;12"/>
+        <i3dMapping id="floorCollision01" node="0&gt;0|0"/>
+        <i3dMapping id="limeFillRootNode" node="0&gt;11"/>
+        <i3dMapping id="dieselFillRootNode" node="0&gt;1"/>
+        <i3dMapping id="hopperSoundNode" node="0&gt;9"/>
+        <i3dMapping id="hopperDieselNeck" node="0&gt;2"/>
+        <i3dMapping id="hopperFunnel" node="0&gt;3"/>
+        <i3dMapping id="hopperOutletPort" node="0&gt;8"/>
+        <i3dMapping id="limeFillPlane" node="0&gt;10"/>
+        <i3dMapping id="hopperLeg1" node="0&gt;4"/>
+        <i3dMapping id="hopperFoot1" node="0&gt;4|1"/>
+        <i3dMapping id="hopperFootCol1" node="0&gt;0|1"/>
+        <i3dMapping id="hopperLeg2" node="0&gt;5"/>
+        <i3dMapping id="hopperFoot2" node="0&gt;5|1"/>
+        <i3dMapping id="hopperFootCol2" node="0&gt;0|2"/>
+        <i3dMapping id="hopperLeg3" node="0&gt;6"/>
+        <i3dMapping id="hopperFoot3" node="0&gt;6|1"/>
+        <i3dMapping id="hopperFootCol3" node="0&gt;0|3"/>
+        <i3dMapping id="hopperLeg4" node="0&gt;7"/>
+        <i3dMapping id="hopperFoot4" node="0&gt;7|1"/>
+        <i3dMapping id="hopperFootCol4" node="0&gt;0|4"/>
+    </i3dMappings>
+</vehicle>

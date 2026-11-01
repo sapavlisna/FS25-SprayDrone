@@ -17,7 +17,7 @@
         <rotation>0</rotation>
         <brand>BZUK</brand>
         <species>HANDTOOL</species>
-        <category>sprayDroneEquipment handtoolsMisc</category>
+        <category>sprayDroneDrones handtoolsMisc</category>
         <canBeSold>true</canBeSold>
     </storeData>
 

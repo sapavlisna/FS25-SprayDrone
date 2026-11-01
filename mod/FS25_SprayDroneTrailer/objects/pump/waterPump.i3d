@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<i3D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="waterPump" version="1.6" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="i3dConverter" version="1.0" />
+  </Asset>
+
+  <Files>
+  <File fileId="1" filename="$data/shaders/vehicleShader.xml" /><File fileId="2" filename="$data/shared/detailLibrary/calibrated/grainSmall_diffuse.png" /><File fileId="3" filename="$data/shared/detailLibrary/flat_normal.png" /><File fileId="4" filename="$data/shared/detailLibrary/calibrated/grainClearSmall_specular.png" /><File fileId="5" filename="$data/shared/white_diffuse.png" /><File fileId="6" filename="$data/shared/default_normal.png" /><File fileId="7" filename="$data/shared/default_vmask.png" /><File fileId="8" filename="$data/shared/detailLibrary/metallic/scratched_diffuse.png" /><File fileId="9" filename="$data/shared/detailLibrary/metallic/scratched_specular.png" /><File fileId="10" filename="$data/shared/detailLibrary/metallic/clear_diffuse.png" /><File fileId="11" filename="$data/shared/detailLibrary/calibrated/castIron_normal.png" /><File fileId="12" filename="$data/shared/detailLibrary/calibrated/castIron_specular.png" /><File fileId="13" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_diffuse.png" /><File fileId="14" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_normal.png" /><File fileId="15" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_specular.png" /><File fileId="16" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPaintedGraphite_diffuse.png" /><File fileId="17" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPaintedGraphite_specular.png" /><File fileId="18" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubberBlack_diffuse.png" /><File fileId="19" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_normal.png" /><File fileId="20" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_specular.png" /><File fileId="21" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_diffuse.png" /><File fileId="22" filename="../../textures/sdt_hose_normal.dds" /><File fileId="23" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPainted_diffuse.png" /><File fileId="24" filename="$data/shared/detailLibrary/nonMetallic/metal/powderCoatMatte_specular.png" /><File fileId="25" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_diffuse.png" /><File fileId="26" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_specular.png" /><File fileId="27" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_diffuse.png" /><File fileId="28" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_specular.png" /><File fileId="29" filename="$data/shared/detailLibrary/metallic/metalGalvanized_diffuse.png" /><File fileId="30" filename="$data/shared/detailLibrary/metallic/metalGalvanized_normal.png" /><File fileId="31" filename="$data/shared/detailLibrary/metallic/metalGalvanized_specular.png" /></Files>
+
+
+  <Materials>
+    <Material name="default" materialId="1" diffuseColor="0.501961 0.501961 0.501961 1">
+    </Material>
+    <Material name="SDT_AluCast" materialId="2" diffuseColor="0.341176 0.34902 0.360784 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.0000" /><CustomParameter name="colorScale" value="0.16 0.163 0.168" /><CustomParameter name="metalnessScale" value="0.2" /><CustomParameter name="smoothnessScale" value="0.4" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Brass" materialId="9" diffuseColor="0.780392 0.560784 0.2 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.9647 0.7913 0.3095" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="9" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_CastIron" materialId="12" diffuseColor="0.0313726 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.045 0.045 0.048" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="10" /><Custommap name="detailNormal" fileId="11" /><Custommap name="detailSpecular" fileId="12" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_EngineRed" materialId="15" diffuseColor="0.6 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.55 0.03 0.03" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="13" /><Custommap name="detailNormal" fileId="14" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Frame" materialId="11" diffuseColor="0.0235294 0.0235294 0.027451 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.032" /><Custommap name="detailDiffuse" fileId="16" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="17" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_HoseBlack" materialId="13" diffuseColor="0.0196078 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.01 0.01 0.01" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="18" /><Custommap name="detailNormal" fileId="19" /><Custommap name="detailSpecular" fileId="20" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_HoseSpiralBlue" materialId="7" diffuseColor="0.0392157 0.160784 0.501961 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.45" /><CustomParameter name="clearCoatSmoothness" value="0.6" /><CustomParameter name="colorScale" value="0.06 0.26 0.7" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="21" /><Custommap name="detailNormal" fileId="19" /><Custommap name="detailSpecular" fileId="20" /><Texture fileId="5" /><Normalmap fileId="22" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_HoseSpiralRed" materialId="10" diffuseColor="0.45098 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.45" /><CustomParameter name="clearCoatSmoothness" value="0.6" /><CustomParameter name="colorScale" value="0.7 0.03 0.03" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="21" /><Custommap name="detailNormal" fileId="19" /><Custommap name="detailSpecular" fileId="20" /><Texture fileId="5" /><Normalmap fileId="22" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintDark" materialId="14" diffuseColor="0.0588235 0.0666667 0.0705882 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.05 0.055 0.06" /><CustomParameter name="porosity" value="0.1" /><CustomParameter name="smoothnessScale" value="0.9" /><Custommap name="detailDiffuse" fileId="23" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="24" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintRed" materialId="8" diffuseColor="0.6 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.6 0.02 0.02" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="13" /><Custommap name="detailNormal" fileId="14" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintWhite" materialId="18" diffuseColor="0.780392 0.780392 0.780392 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.74 0.74 0.74" /><CustomParameter name="porosity" value="0.1" /><CustomParameter name="smoothnessScale" value="0.7" /><Custommap name="detailDiffuse" fileId="23" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="24" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintYellow" materialId="16" diffuseColor="0.901961 0.678431 0.0313726 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.85 0.62 0.02" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="13" /><Custommap name="detailNormal" fileId="14" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Plastic" materialId="5" diffuseColor="0.0313726 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.03" /><Custommap name="detailDiffuse" fileId="25" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="26" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Rubber" materialId="3" diffuseColor="0.0156863 0.0156863 0.0156863 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.03" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="18" /><Custommap name="detailNormal" fileId="19" /><Custommap name="detailSpecular" fileId="20" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Screen" materialId="17" diffuseColor="0.0196078 0.0705882 0.141176 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.07 0.14" /><Custommap name="detailDiffuse" fileId="27" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="28" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Steel" materialId="6" diffuseColor="0.6 0.619608 0.639216 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="29" /><Custommap name="detailNormal" fileId="30" /><Custommap name="detailSpecular" fileId="31" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_ValveBlue" materialId="4" diffuseColor="0.0588235 0.278431 0.74902 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.06 0.28 0.75" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="13" /><Custommap name="detailNormal" fileId="14" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="waterPump.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <Shape name="waterPump_main_component1" shapeId="1" dynamic="true" compound="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfffffbff" staticFriction="1" dynamicFriction="1" density="0" clipDistance="150" nodeId="159" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1">
+      <TransformGroup name="collisions" clipDistance="10" nodeId="160">
+        <Shape name="floorCollision01" shapeId="2" compoundChild="true" collisionFilterGroup="0x10000" collisionFilterMask="0xfffdfbff" staticFriction="1" dynamicFriction="1" density="0" nodeId="161" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      </TransformGroup>
+      <Shape name="exactFillRootNode" shapeId="3" kinematic="true" compound="true" collisionFilterGroup="0x40000000" collisionFilterMask="0x20000000" nodeId="162" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      <Shape name="inHoseEnd" shapeId="4" nodeId="163" castsShadows="true" receiveShadows="true" materialIds="2,3,4,5,6" />
+      <Shape name="inHoseSeg1" shapeId="5" nodeId="164" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg10" shapeId="5" nodeId="165" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg11" shapeId="5" nodeId="166" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg12" shapeId="5" nodeId="167" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg13" shapeId="5" nodeId="168" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg14" shapeId="5" nodeId="169" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg15" shapeId="5" nodeId="170" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg16" shapeId="5" nodeId="171" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg17" shapeId="5" nodeId="172" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg18" shapeId="5" nodeId="173" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg19" shapeId="5" nodeId="174" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg2" shapeId="5" nodeId="175" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg20" shapeId="5" nodeId="176" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg21" shapeId="5" nodeId="177" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg22" shapeId="5" nodeId="178" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg23" shapeId="5" nodeId="179" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg24" shapeId="5" nodeId="180" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg25" shapeId="5" nodeId="181" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg26" shapeId="5" nodeId="182" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg27" shapeId="5" nodeId="183" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg28" shapeId="5" nodeId="184" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg29" shapeId="5" nodeId="185" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg3" shapeId="5" nodeId="186" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg30" shapeId="5" nodeId="187" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg31" shapeId="5" nodeId="188" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg32" shapeId="5" nodeId="189" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg33" shapeId="5" nodeId="190" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg34" shapeId="5" nodeId="191" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg35" shapeId="5" nodeId="192" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg36" shapeId="5" nodeId="193" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg37" shapeId="5" nodeId="194" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg38" shapeId="5" nodeId="195" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg39" shapeId="5" nodeId="196" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg4" shapeId="5" nodeId="197" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg40" shapeId="5" nodeId="198" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg41" shapeId="5" nodeId="199" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg42" shapeId="5" nodeId="200" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg43" shapeId="5" nodeId="201" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg44" shapeId="5" nodeId="202" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg45" shapeId="5" nodeId="203" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg46" shapeId="5" nodeId="204" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg47" shapeId="5" nodeId="205" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg48" shapeId="5" nodeId="206" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg49" shapeId="5" nodeId="207" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg5" shapeId="5" nodeId="208" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg50" shapeId="5" nodeId="209" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg51" shapeId="5" nodeId="210" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg52" shapeId="5" nodeId="211" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg53" shapeId="5" nodeId="212" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg54" shapeId="5" nodeId="213" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg55" shapeId="5" nodeId="214" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg56" shapeId="5" nodeId="215" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg57" shapeId="5" nodeId="216" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg58" shapeId="5" nodeId="217" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg59" shapeId="5" nodeId="218" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg6" shapeId="5" nodeId="219" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg60" shapeId="5" nodeId="220" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg7" shapeId="5" nodeId="221" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg8" shapeId="5" nodeId="222" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inHoseSeg9" shapeId="5" nodeId="223" castsShadows="true" receiveShadows="true" materialIds="7" />
+      <Shape name="inStrainerEnd" shapeId="6" nodeId="224" castsShadows="true" receiveShadows="true" materialIds="2,3,8,5,6,9" />
+      <Shape name="outHoseEnd" shapeId="4" nodeId="225" castsShadows="true" receiveShadows="true" materialIds="2,3,8,5,6" />
+      <Shape name="outHoseSeg1" shapeId="5" nodeId="226" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg10" shapeId="5" nodeId="227" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg11" shapeId="5" nodeId="228" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg12" shapeId="5" nodeId="229" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg13" shapeId="5" nodeId="230" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg14" shapeId="5" nodeId="231" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg15" shapeId="5" nodeId="232" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg16" shapeId="5" nodeId="233" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg17" shapeId="5" nodeId="234" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg18" shapeId="5" nodeId="235" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg19" shapeId="5" nodeId="236" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg2" shapeId="5" nodeId="237" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg20" shapeId="5" nodeId="238" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg21" shapeId="5" nodeId="239" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg22" shapeId="5" nodeId="240" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg23" shapeId="5" nodeId="241" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg24" shapeId="5" nodeId="242" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg25" shapeId="5" nodeId="243" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg26" shapeId="5" nodeId="244" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg27" shapeId="5" nodeId="245" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg28" shapeId="5" nodeId="246" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg29" shapeId="5" nodeId="247" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg3" shapeId="5" nodeId="248" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg30" shapeId="5" nodeId="249" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg31" shapeId="5" nodeId="250" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg32" shapeId="5" nodeId="251" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg33" shapeId="5" nodeId="252" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg34" shapeId="5" nodeId="253" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg35" shapeId="5" nodeId="254" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg36" shapeId="5" nodeId="255" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg37" shapeId="5" nodeId="256" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg38" shapeId="5" nodeId="257" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg39" shapeId="5" nodeId="258" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg4" shapeId="5" nodeId="259" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg40" shapeId="5" nodeId="260" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg41" shapeId="5" nodeId="261" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg42" shapeId="5" nodeId="262" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg43" shapeId="5" nodeId="263" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg44" shapeId="5" nodeId="264" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg45" shapeId="5" nodeId="265" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg46" shapeId="5" nodeId="266" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg47" shapeId="5" nodeId="267" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg48" shapeId="5" nodeId="268" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg49" shapeId="5" nodeId="269" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg5" shapeId="5" nodeId="270" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg50" shapeId="5" nodeId="271" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg51" shapeId="5" nodeId="272" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg52" shapeId="5" nodeId="273" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg53" shapeId="5" nodeId="274" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg54" shapeId="5" nodeId="275" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg55" shapeId="5" nodeId="276" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg56" shapeId="5" nodeId="277" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg57" shapeId="5" nodeId="278" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg58" shapeId="5" nodeId="279" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg59" shapeId="5" nodeId="280" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg6" shapeId="5" nodeId="281" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg60" shapeId="5" nodeId="282" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg61" shapeId="5" nodeId="283" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg62" shapeId="5" nodeId="284" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg63" shapeId="5" nodeId="285" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg64" shapeId="5" nodeId="286" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg65" shapeId="5" nodeId="287" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg66" shapeId="5" nodeId="288" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg67" shapeId="5" nodeId="289" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg68" shapeId="5" nodeId="290" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg69" shapeId="5" nodeId="291" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg7" shapeId="5" nodeId="292" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg70" shapeId="5" nodeId="293" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg71" shapeId="5" nodeId="294" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg72" shapeId="5" nodeId="295" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg8" shapeId="5" nodeId="296" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <Shape name="outHoseSeg9" shapeId="5" nodeId="297" castsShadows="true" receiveShadows="true" materialIds="10" />
+      <TransformGroup name="pumpDieselNeck" translation="0 0.71 -0.2" nodeId="298" />
+      <TransformGroup name="pumpInletPort" translation="0.48 0.28 0.34" rotation="-0 -180 -0" nodeId="299" />
+      <TransformGroup name="pumpOutletPort" translation="-0.48 0.4 0.12" nodeId="300" />
+      <TransformGroup name="pumpSoundNode" translation="0 0.45 -0.22" nodeId="301" />
+      <Shape name="waterPump_vis" shapeId="7" clipDistance="100" nodeId="302" castsShadows="true" receiveShadows="true" materialIds="11,6,3,12,2,5,9,13,14,15,8,16,17,4,18" />
+    </Shape>
+  </Scene>
+
+</i3D>

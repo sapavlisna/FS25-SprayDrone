@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Pravidla objektu ručně; i3d, obrázek a čísla v i3dMappings dává blender (docs/NAVRH-kufr-modely.md, out/case_preview/batteryM_export.txt). Chování: scripts/SprayDroneItem.lua
+     (nabití, diody) a SprayDroneBatterySlots.lua (vložení do šachty nabíječky, vyndání). Velikost M: vleky s dronem M. -->
+<vehicle type="FS25_SprayDroneTrailer.sdtBattery">
+    <annotation>Baterie dronu M: jde nést v rukou, položit a vložit do šachty nabíječky vleku nebo kufru stejné velikosti (R); nese své nabití.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_batteryItem_nameM</name>
+        <functions>
+            <function>$l10n_sdt_batteryItem_functionM</function>
+        </functions>
+        <specs>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/battery/store_batteryM.dds</image>
+        <price>1500</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>true</canBeSold>
+        <showInStore>true</showInStore>
+        <rotation>0</rotation>
+        <shopHeight>0.28</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneDrones</category>
+        <financeCategory>PURCHASE_FERTILIZER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_sdt_batteryItem_nameM</typeDesc>
+        <filename>objects/battery/batteryM.i3d</filename>
+        <size width="0.24" length="0.42" height="0.14"/>
+        <canBeReset>false</canBeReset>
+        <supportsPickUp>true</supportsPickUp>
+        <components>
+            <component centerOfMass="0 0.070 0" solverIterationCount="10" mass="12.1"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <mapHotspot available="false"/>
+        <input allowed="false"/>
+    </base>
+
+    <!-- nabití v procentech (0..100), ukládá a posílá ho vanilla FillUnit; nabíjí se jen v šachtě nabíječky -->
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="%" fillTypes="ELECTRICCHARGE" capacity="100" startFillType="ELECTRICCHARGE" startFillLevel="100" showOnHud="true"
+                              uiPrecision="0" uiCustomFillTypeName="$l10n_sdt_batteryItem_charge" ignoreFillLimit="true" updateMass="false"/>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <sprayDroneItem battery="M">
+        <led node="batteryLed0"/>
+        <led node="batteryLed1"/>
+        <led node="batteryLed2"/>
+        <led node="batteryLed3"/>
+    </sprayDroneItem>
+
+    <i3dMappings>
+        <i3dMapping id="batteryM_main_component1" node="0&gt;"/>
+        <i3dMapping id="batteryM_vis" node="0&gt;4"/>
+        <i3dMapping id="floorCollision01" node="0&gt;5|0"/>
+        <i3dMapping id="batteryLed0" node="0&gt;0"/>
+        <i3dMapping id="batteryLed1" node="0&gt;1"/>
+        <i3dMapping id="batteryLed2" node="0&gt;2"/>
+        <i3dMapping id="batteryLed3" node="0&gt;3"/>
+    </i3dMappings>
+</vehicle>

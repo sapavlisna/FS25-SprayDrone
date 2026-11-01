@@ -76,9 +76,9 @@ LEGACY_WHEEL_IDS = ("DEFAULT_TRELLEBORG_T421", "TRELLEBORG_T421_320_55R15", "TRE
 TIRE_REST_LOAD, TIRE_COMPRESSION, TIRE_SUSP_TRAVEL = 0.8, 15, 0.05
 TIRE_SPRING, TIRE_DAMPER, TIRE_FRICTION = 55, 25, 1.6
 
-DRONE_VARIANTS = {"S": "Drone_S_"}
+DRONE_VARIANTS = {"S": "Drone_S_", "K": "Drone_K_"}
 DRONE_PREFIX = DRONE_VARIANTS["S"]
-DRONE_HIDDEN = ()
+DRONE_HIDDEN = ("K",)
 BATTERY_COUNT = 4
 
 PAD_W, PAD_H, PAD_L = 0.90, 0.3691, 0.98    # nízká hranatá nádrž 300 l: vnitřní objem zaoblené krabice (stěna PAD_WALL) vychází na 300,0 l
@@ -112,7 +112,6 @@ EXIT_POINT = (BASE_W / 2 + 1.0, BASE_Y1 - 0.6, 0.0)
 
 GEN_POS = (0.50, -2.15)                     # centrála vpředu vlevo, otočená o -90°: panel vpřed, hrdlo nádrže vlevo vpředu
 GEN_ROT = -math.pi / 2
-GEN_SOCKET_LOCAL = (GEN_POS[0] + 0.33, GEN_POS[1] - 0.10, 1.15)     # zásuvka v neotočeném stavu (tak ji staví sdt_generator)
 GEN_SOCKET = (GEN_POS[0] - 0.10, GEN_POS[1] - 0.33, 1.15)           # po otočení: na čelním panelu
 CLUSTER_SHIFT = (-0.03, -0.57 + _Y)            # čerpadlo, indukční nádrž a výpust jako u velkého vleku, posunuté sem
 PUMP_XY = (-0.55 + CLUSTER_SHIFT[0], -0.55 + CLUSTER_SHIFT[1])
@@ -134,7 +133,7 @@ BAY_ROTATE_MATRIX = Matrix.Rotation(math.radians(90), 4, "Z")     # otočení š
                                             # zavřenou pozici víka (BAY_LID_BASIS je definovaná před přesunem). Musí to být konstanta modulu:
                                             # export modul jen načte a build() nespouští, takže dřív dostal jednotkovou matici a zavřené víko
                                             # se animovalo do Rz(-90°) místo do klidové polohy
-LID_TIME = (11.0, 12.0)                    # s v animaci foldTrailer (12 s): víko se otevírá jako první a zavírá jako poslední
+LID_TIME = (9.0, 10.0)                     # s v animaci foldTrailer (10 s): víko se otevírá jako první a zavírá jako poslední
 CABLE_TIME = (0.0, 0.05)
 BOX_X = (-0.865, -0.545)                   # bedna u pravého lemu (x záporné); druhá je zrcadlově u levého, nádrž je mezi nimi
 BOX_Y = (-0.83 + _Y, -0.03 + _Y)
@@ -149,13 +148,26 @@ BOX2_X = (0.545, 0.865)
 BAY2_GAP_X = (0.10, 0.90)
 BAY2_GAP_Y = (-1.74, -1.40)
 
+# Zadní světla o 2 cm níž než střed nosníku + 8 cm: pouzdro (±0,068) se jinak zařezává do složené zadní stěny bedny (spodek 0,676).
+# Obrysky a zadní boční odrazky stojí mezi zadní hranou blatníku (y ≈ -0,01) a začátkem bočních stěn bedny (y 0,07): sklopená
+# stěna by jimi jinak procházela / je zakryla (docs/KONTROLA-body-svetla.md).
+SIDE_MARKER_Y = 0.02
+SIDE_REAR_REFLECTOR_Y = 0.03
 LIGHT_NODES = [
-    ("rearLight52_left", (0.78, BASE_Y1 + 0.005, DECK_TOP - RAIL_H + 0.08), (-90, 0, 180)),
-    ("rearLight52_right", (-0.78, BASE_Y1 + 0.005, DECK_TOP - RAIL_H + 0.08), (-90, 0, 180)),
+    ("rearLight52_left", (0.78, BASE_Y1 + 0.005, DECK_TOP - RAIL_H + 0.06), (-90, 0, 180)),
+    ("rearLight52_right", (-0.78, BASE_Y1 + 0.005, DECK_TOP - RAIL_H + 0.06), (-90, 0, 180)),
     ("plateNumberLight03", (0.0, BASE_Y1 + 0.005, DECK_TOP - RAIL_H - 0.005), (-90, 0, -90)),
-    ("sideMarker05_left", (BASE_W / 2 + 0.003, BASE_Y1 - 0.12, DECK_TOP - RAIL_H + 0.09), (0, 0, -90)),
-    ("sideMarker05_right", (-BASE_W / 2 - 0.003, BASE_Y1 - 0.12, DECK_TOP - RAIL_H + 0.09), (0, 0, 90)),
+    ("sideMarker05_left", (BASE_W / 2 + 0.003, SIDE_MARKER_Y, DECK_TOP - RAIL_H + 0.09), (0, 0, -90)),
+    ("sideMarker05_right", (-BASE_W / 2 - 0.003, SIDE_MARKER_Y, DECK_TOP - RAIL_H + 0.09), (0, 0, 90)),
 ]
+# Druhá sada zadních světel a SPZ na konci rozložené plošiny (pod padHingeEnd, skupina padRearLights): rozložená plošina
+# zakrývá hlavní sadu i SPZ a rozložený vlek nejde odpojit. Ukazuje je animace foldTrailer jen v rozloženém stavu.
+# (x, výška středu) v klidové (rozložené) poloze; světla visí pod koncem panelu P na plechové konzole.
+PAD_REAR_LIGHT_X = 0.58                     # nožičky padLeg5/6 mají pouzdro v x 0,76-0,92
+PAD_REAR_LIGHT_Z = CRATE_Z0 - 0.10          # pouzdro 0,552-0,688, spodní lem panelu je v 0,688
+PAD_PLATE_Z = CRATE_Z0 - 0.135
+PAD_PLATE_LIGHT_Z = CRATE_Z0 - 0.036
+PAD_REAR_TIME = (5.5, 5.6)                  # s v foldTrailer: panely jsou v rovině od D = 0,38, tj. do 8,6 - 0,38 * 8 = 5,56 s
 
 # plnicí hadice: navinutá na modrém navíječi (osa podél vleku, bočnice, konzoly na obou koncích osy, otočný přívod na předním konci u
 # nádrže; fillHoseCoil) na palubě vpravo za nádrží; hadice vychází z poslední otáčky vespod stranou ke středu a plynulou smyčkou
@@ -178,9 +190,9 @@ HOSE_LAY = [(-0.419, -0.143, DECK_HOSE_Z), (-0.210, 0.119, DECK_HOSE_Z), (-0.304
 HOSE_GUIDE_X = REEL_X + 0.20                # vodítko hadice (brána) stojí hned za bočnicí navíječe, kde hadice míří ke středu vleku
 HOSE_PARK_TIP = (-0.14, _Y1 - 1.08, DECK_HOSE_Z + 0.006)      # špička koncovky (kov) stojí kousek před sousedním úsekem hadice, neprochází jím
 HOSE_PARK_DIR = (-0.99, 0.0, 0.0)
-FOLD_DURATION = 12.0                        # s: délka animace foldTrailer (víko šachty končí ve 12 s)
-DRONE_UNFOLD_TIME = 2.6                     # s: do tohoto času animace se rozkládá dron, před ním je bedna hotová
-CLAMP_TIME = (10.6, 11.0)                   # s v animaci foldTrailer: bedna s dronem je zajištěná (securedFoldTime), víko ještě otevřené
+FOLD_DURATION = 10.0                        # s: délka animace foldTrailer (víko šachty končí v 10 s)
+DRONE_UNFOLD_TIME = 0.6                     # s: krátká rezerva před bednou; dron se s vlekem neskládá (v bedně je složený, s dronem na plošině vlek složit nejde)
+CLAMP_TIME = (8.6, 9.0)                     # s v animaci foldTrailer: bedna s dronem je zajištěná (securedFoldTime), víko ještě otevřené
 
 # sdílené moduly nádrží čtou polohu čerpadla, indukční nádrže a výpusti z modulových konstant
 T.PUMP_XY, T.INDUCTION_XY, T.MAIN_DRAIN = PUMP_XY, INDUCTION_XY, MAIN_DRAIN
@@ -289,7 +301,7 @@ def build_mini_plumbing(z):
     fit.cyl(inl + V(0.040, 0, 0), inl + V(0.070, 0, 0), 0.041, "SDT_Steel", seg=6)
     fit.sphere(el, 0.040, "SDT_Steel", seg=18, rings=9)
     fit.cyl(el + V(0, T.TEE_DY * 0.45, 0), el + V(0, T.TEE_DY * 0.45 - 0.030, 0), 0.041, "SDT_Steel", seg=6)
-    X.build_mixer(tee, z, el)
+    PL.call(X.build_mixer, (0.0, 0.0, 0.0), z - tee.z, el - tee, at=PL.Place.at(tee.x, tee.y, tee.z))
     ports = X.mixer_ports(tee)
 
     o = pp["outlet"]
@@ -644,19 +656,11 @@ def gen_matrix():
 
 
 def build_rotated_generator(z):
-    """Centrála z sdt_generator, po postavení otočená kolem svislé osy středu půdorysu (GEN_ROT): panel s ovladači míří
-    dopředu, hrdlo nádrže je vlevo vpředu mimo přistávací desku. Vrací polohu hrdla a ústí výfuku po otočení."""
-    before = set(bpy.data.objects.keys())
-    gen = G.build_generator(GEN_POS, z, GEN_SOCKET_LOCAL)
-    bpy.context.view_layer.update()
-    m = gen_matrix()
-    root = P._root
-    new = [bpy.data.objects[n] for n in bpy.data.objects.keys() if n not in before]
-    for o in new:
-        if o.parent is None or o.parent is root:
-            o.matrix_world = m @ o.matrix_world
-    bpy.context.view_layer.update()
-    return {"cap": m @ Vector(gen["cap"]), "exhaust": m @ Vector(gen["exhaust"])}
+    """Centrála z sdt_generator (stejný díl jako u Middle), umístěná otočená kolem svislé osy středu půdorysu (GEN_ROT): panel
+    s ovladači míří dopředu, hrdlo nádrže je vlevo vpředu mimo přistávací desku. Vrací polohu hrdla a ústí výfuku."""
+    gx, gy = GEN_POS
+    gen = PL.call(G.build_generator, at=PL.Place(gen_matrix() @ Matrix.Translation((gx, gy, z))))
+    return {"cap": gen["cap"], "exhaust": gen["exhaust"]}
 
 
 # ---------------------------------------------------------------------------------------------------------- bedna na dron
@@ -989,6 +993,35 @@ def build_pad_heliport(hinge, y1):
         _set_parent(o, hinge, o.matrix_world.copy())
 
 
+def build_pad_rear_lights(hinge_end, y_end):
+    """Druhá sada zadních světel, osvětlení SPZ a SPZ na konci plošiny (v klidové rozložené poloze, viz PAD_REAR_LIGHT_*): prázdné
+    uzly pro sdílená světla a licensePlate na plechových konzolách přišroubovaných na čele panelu P. Vše je pod skupinou
+    padRearLights, kterou animace foldTrailer ve složeném stavu skryje (ve složené bedně je čelo P dole vpředu u nádrže)."""
+    group = _group("padRearLights", hinge_end, (0, y_end, CRATE_Z0))
+    face = y_end + 0.004
+    top = CRATE_Z0 - 0.015
+    for sx in (1, -1):
+        x = sx * PAD_REAR_LIGHT_X
+        bracket = box(f"PadRearLightBracket_{'L' if sx > 0 else 'R'}", x - 0.125, x + 0.125, y_end, face,
+                      PAD_REAR_LIGHT_Z - 0.073, top, "SDT_Frame")
+        _set_parent(bracket, group, bracket.matrix_world.copy())
+    bracket = box("PadPlateBracket", -0.18, 0.18, y_end, face, PAD_PLATE_Z - 0.085, top, "SDT_Frame")
+    _set_parent(bracket, group, bracket.matrix_world.copy())
+    i3d_rot_node("padRearLight52_left", group, (PAD_REAR_LIGHT_X, face + 0.001, PAD_REAR_LIGHT_Z), (-90, 0, 180))
+    i3d_rot_node("padRearLight52_right", group, (-PAD_REAR_LIGHT_X, face + 0.001, PAD_REAR_LIGHT_Z), (-90, 0, 180))
+    i3d_rot_node("padPlateNumberLight03", group, (0.0, face + 0.001, PAD_PLATE_LIGHT_Z), (-90, 0, -90))
+    plate = _group("licensePlateBackPad", group, (0.0, face + 0.001, PAD_PLATE_Z))
+    plate.rotation_euler = (0, 0, math.radians(180))
+
+
+_middle_side_reflector_ys = side_reflector_ys
+
+
+def side_reflector_ys(front_y):
+    """Jako u Middle, ale za kolem jen jedna odrazka hned za blatníkem: dál dozadu by ji zakryla sklopená boční stěna bedny."""
+    return [y for y in _middle_side_reflector_ys(front_y) if y < 0.0] + [SIDE_REAR_REFLECTOR_Y]
+
+
 def build_pad_crate():
     """Bedna 1,86 x 1,35 x 0,85 m (celá šířka vleku) nad dronem na konci paluby. Dron sedí přímo na palubě (uzel droneCarrier),
     otočený o DRONE_EXTRA_ROT navíc - viz mount_drone_on_tray(). Řetěz čepů padHingeZ -> padHingeH -> padHingeP drží panely Z/H/P; SprayDronePad.lua je za běhu rozloží
@@ -1014,6 +1047,7 @@ def build_pad_crate():
 
     y3 = y2 + CRATE_H
     hingeEnd = _group("padHingeEnd", hingeP, (0, y3, CRATE_Z0))   # konec plošiny po rozložení (reference pro Lua)
+    build_pad_rear_lights(hingeEnd, y3)
 
     # kolize panelů: deska 6 cm kolem každého panelu v rozložené (referenční) poloze, na stejném čepu jako panel, takže se složí do bedny
     # a po rozložení tvoří pochozí plošinu (Pavel 2026-10-13: propadá se skrz). Jména colPad* hledá SprayDroneStation.updateFreeze.
@@ -1040,29 +1074,6 @@ def build_pad_crate():
     brand_crate_outside(hingeZ, hingeH, hingeP)
     sides = build_side_panels()
     decorate_side_panels(sides)
-
-
-CAR_COUPLER_Y = -3.55
-_big_build_coupler = build_coupler
-
-
-def build_coupler(tip):
-    """Hlava spojky, nájezdová brzda a kabel mají ve velkém skriptu pevné souřadnice pro oj velkého vleku: postaví se v jeho
-    rámci (spojka -3,55, čelo vleku o stejný posun blíž) a celé se posunou k hrotu delší oje."""
-    global BASE_Y0, COUPLER_Y
-    dy = COUPLER_Y - CAR_COUPLER_Y
-    mine = BASE_Y0, COUPLER_Y
-    BASE_Y0, COUPLER_Y = BASE_Y0 - dy, CAR_COUPLER_Y
-    before = set(bpy.data.objects.keys())
-    try:
-        _big_build_coupler(Vector((tip.x, tip.y - dy, tip.z)))
-    finally:
-        BASE_Y0, COUPLER_Y = mine
-    bpy.context.view_layer.update()
-    shift = Matrix.Translation((0, dy, 0))
-    for name in [n for n in bpy.data.objects.keys() if n not in before]:
-        o = bpy.data.objects[name]
-        o.matrix_world = shift @ o.matrix_world
 
 
 _big_build_chassis = build_chassis
@@ -1243,13 +1254,13 @@ def build_equipment():
     build_pad_tank()
     build_pad_crate()
     ix, iy = INDUCTION_XY
-    T.build_induction_tank("Tank_Induction", ix, iy, z, T.INDUCTION_R, stand_h=T.INDUCTION_STAND_H,
-                           cone_h=T.INDUCTION_CONE_H, body_h=T.INDUCTION_BODY_H)
+    PL.call(T.build_induction_tank, "Tank_Induction", 0.0, 0.0, 0.0, T.INDUCTION_R, stand_h=T.INDUCTION_STAND_H,
+            cone_h=T.INDUCTION_CONE_H, body_h=T.INDUCTION_BODY_H, at=PL.Place.at(ix, iy, z))
     gen = build_rotated_generator(z)
     neck = P.empty("dieselNeckNode", gen["cap"])
     neck.empty_display_size = 0.10
     px, py = PUMP_XY
-    T.build_pump("Pump", px, py, z)
+    PL.call(T.build_pump, "Pump", 0.0, 0.0, 0.0, at=PL.Place.at(px, py, z))
     build_mini_plumbing(z)
     build_mini_toolbox()
     # druhá bedna u levého lemu: staví se stejným kódem jako první, jenže jeho závěs je na hraně x1 (u levého lemu), ne u nádrže -
@@ -1307,7 +1318,9 @@ def build_i3d_structure(vis):
     vis.matrix_parent_inverse = Matrix.Identity(4)
     cols = _group("collisions", comp)
     child = dict(compoundChild=True, density=0.001)
-    _shape_box("colChassis", cols, -BASE_W / 2, BASE_W / 2, BASE_Y0, BASE_Y1, rail_z0, DECK_TOP, COL_VEHICLE, **child)
+    # hustý souměrný rám určuje hlavní osy setrvačnosti (= osy komponenty): z lehkých dětských tvarů vycházelo Ix ~ Iy a engine
+    # po přepnutí na kinematické těleso natočil celý kompaund kolizí o hlavní osy (Middle ~30° do strany, dron propadal palubou)
+    _shape_box("colChassis", cols, -BASE_W / 2, BASE_W / 2, BASE_Y0, BASE_Y1, rail_z0, DECK_TOP, COL_VEHICLE, **{**child, "density": CHASSIS_DENSITY})
     _shape_box("colTank", cols, -PAD_W / 2, PAD_W / 2, PAD_Y0, PAD_Y0 + PAD_L, DECK_TOP, TANK_TOP, COL_VEHICLE, **child)
     for name, box_ in equipment_collisions().items():
         _shape_box(name, cols, *box_, COL_VEHICLE, **child)
@@ -1375,12 +1388,41 @@ def build_decals():
                  (0.0, 0.0, 1.0, 1.0))
 
 
-# retranslační tyč: jedna, vpravo vně lemu paluby před kolem (dva U-třmeny s deskou na boční liště), čelo vzadu
-RELAY_SLOT_MINI = (1, -1.01, -2.50, -1.05, 0.63, False)
-RELAY_CLAMPS_MINI = (-2.25, -1.70)
+TIE_DOWN_YS = {"L": (-1.45, -1.05), "R": (-2.15, -1.45, -1.05)}     # mezi centrálou (vlevo), blatníkem a bednou na dronu (y > 0,05); mimo popruhy dřevěné hrany (y -2,53, -1,57, -0,60)
+TIE_DOWN_TILT = math.radians(40)
+
+
+def build_tie_down_rings():
+    """Sklopná úvazná oka na horní hraně lemu paluby (vlevo 2, vpravo 3: vlevo stojí centrála až k lemu): ocelová deska přišroubovaná na lemu, dvě uši s čepem podél lemu
+    a D-oko na čepu vyklopené šikmo ven (složené by leželo naplocho na desce). Dřevěná i kovová hrana mají horní plochu v DECK_TOP."""
+    w_dir = lambda sx: Vector((sx * math.cos(TIE_DOWN_TILT), 0.0, math.sin(TIE_DOWN_TILT)))
+    arc = [(-0.03, 0.0)] + [(0.03 * math.cos(math.radians(a)), 0.015 + 0.03 * math.sin(math.radians(a)))
+                            for a in range(180, -1, -20)] + [(0.03, 0.0)]
+    for side, sx in (("L", 1), ("R", -1)):
+        xc = sx * (BASE_W / 2 - RAIL_W / 2)
+        for i, y in enumerate(TIE_DOWN_YS[side]):
+            n = f"TieDown_{side}{i}"
+            z0 = DECK_TOP - 0.001
+            zp = DECK_TOP + 0.018
+            box(f"{n}_Plate", xc - 0.03, xc + 0.03, y - 0.055, y + 0.055, z0, DECK_TOP + 0.006, "SDT_Steel")
+            for e, dy in enumerate((-0.039, 0.039)):
+                box(f"{n}_Ear{e}", xc - 0.011, xc + 0.011, y + dy - 0.003, y + dy + 0.003, DECK_TOP + 0.006, zp + 0.008, "SDT_Steel")
+            tube(f"{n}_Pin", (xc, y - 0.044, zp), (xc, y + 0.044, zp), 0.0045, "SDT_Steel", segments=8)
+            for e, dy in enumerate((-0.049, 0.049)):
+                cylinder_z(f"{n}_Bolt{e}", (xc, y + dy, DECK_TOP + 0.008), 0.005, 0.004, "SDT_Frame", segments=6)
+            w = w_dir(sx)
+            pts = [Vector((xc, y + yl, zp)) + w * wl for yl, wl in arc]
+            P.sweep(f"{n}_Ring", pts, 0.0042, "SDT_Steel", segments=6)
+
+
+# retranslační tyč: jedna, vpravo vně lemu paluby až vepředu u čela vleku (dva U-třmeny s deskou na boční liště), čelo vzadu; konec tyče přesahuje
+# čelo paluby, aby tyč nezasahovala k bedně na kanystry (ta má víko v y -1,33 až -0,53)
+RELAY_SLOT_MINI = (1, -1.01, -2.95, -1.50, 0.63, False)
+RELAY_CLAMPS_MINI = (-2.45, -1.95)
 # Displej plánovače (Pavel 2026-10-15): tablet leží naplocho na palubě u pravého lemu hned za navíječem hadice, obrazovkou
-# nahoru, delší stranou podél vleku, na nízké patce ze zadní strany - bez stojánku. Uvnitř složené bedny s dronem.
-PLANNER_CENTER = (-0.74, 0.27, DECK_TOP + 0.02 + 0.02)     # střed tabletu: patka 2 cm + půl tloušťky
+# nahoru, delší stranou podél vleku, na nízké patce ze zadní strany - bez stojánku. Uvnitř složené bedny s dronem, v pravém zadním rohu paluby
+# (Pavel 2026-10-28: dál od beden na kanystry, ať se jejich aktivace nepletou); dron stojí uprostřed (x do ±0,56), tablet se vedle něj vejde.
+PLANNER_CENTER = (-0.78, 1.18, DECK_TOP + 0.02 + 0.02)     # střed tabletu: patka 2 cm + půl tloušťky
 
 
 def build_relay_holders():
@@ -1439,6 +1481,9 @@ def build():
     build_decals()
     build_relay_holders()
     build_planner_tablet()
+    build_eu_reflectors()
+    build_tie_down_rings()
+    build_deck_edges()
     bpy.context.view_layer.update()
     build_dirt_uvs()
     print(f"{COLLECTION_NAME}: {len(coll.objects)} objektů")
