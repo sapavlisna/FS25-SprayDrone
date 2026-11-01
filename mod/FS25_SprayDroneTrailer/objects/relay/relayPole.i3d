@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<i3D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="relayPole" version="1.6" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="i3dConverter" version="1.0" />
+  </Asset>
+
+  <Files>
+  <File fileId="1" filename="$data/shaders/vehicleShader.xml" /><File fileId="2" filename="$data/shared/detailLibrary/metallic/clear_diffuse.png" /><File fileId="3" filename="$data/shared/detailLibrary/flat_normal.png" /><File fileId="4" filename="$data/shared/detailLibrary/metallic/rough_specular.png" /><File fileId="5" filename="$data/shared/white_diffuse.png" /><File fileId="6" filename="$data/shared/default_normal.png" /><File fileId="7" filename="$data/shared/default_vmask.png" /><File fileId="8" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_diffuse.png" /><File fileId="9" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_specular.png" /><File fileId="10" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPaintedGraphite_diffuse.png" /><File fileId="11" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPaintedGraphite_specular.png" /><File fileId="12" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_diffuse.png" /><File fileId="13" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_specular.png" /><File fileId="14" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPainted_diffuse.png" /><File fileId="15" filename="$data/shared/detailLibrary/nonMetallic/metal/powderCoatMatte_specular.png" /><File fileId="16" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_diffuse.png" /><File fileId="17" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_normal.png" /><File fileId="18" filename="$data/shared/detailLibrary/calibrated/calibratedPaint_specular.png" /><File fileId="19" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubberBlack_diffuse.png" /><File fileId="20" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_normal.png" /><File fileId="21" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_specular.png" /><File fileId="22" filename="$data/shared/detailLibrary/metallic/metalGalvanized_diffuse.png" /><File fileId="23" filename="$data/shared/detailLibrary/metallic/metalGalvanized_normal.png" /><File fileId="24" filename="$data/shared/detailLibrary/metallic/metalGalvanized_specular.png" /></Files>
+
+
+  <Materials>
+    <Material name="default" materialId="1" diffuseColor="0.501961 0.501961 0.501961 1">
+    </Material>
+    <Material name="SDT_Alu" materialId="12" diffuseColor="0.721569 0.741176 0.760784 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.7379 0.7454 0.7529" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_ChargerGrey" materialId="5" diffuseColor="0.160784 0.164706 0.168627 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.13 0.135 0.14" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="9" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Frame" materialId="7" diffuseColor="0.0235294 0.0235294 0.027451 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.032" /><Custommap name="detailDiffuse" fileId="10" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="11" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_LedGreen" materialId="11" diffuseColor="0.0509804 0.85098 0.121569 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.05 0.85 0.12" /><Custommap name="detailDiffuse" fileId="12" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintDark" materialId="6" diffuseColor="0.0588235 0.0666667 0.0705882 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.05 0.055 0.06" /><CustomParameter name="porosity" value="0.1" /><CustomParameter name="smoothnessScale" value="0.9" /><Custommap name="detailDiffuse" fileId="14" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintWhite" materialId="8" diffuseColor="0.921569 0.921569 0.921569 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.85 0.85 0.85" /><CustomParameter name="porosity" value="0.1" /><CustomParameter name="smoothnessScale" value="0.9" /><Custommap name="detailDiffuse" fileId="14" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_PaintYellow" materialId="13" diffuseColor="0.901961 0.678431 0.0313726 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.1000" /><CustomParameter name="clearCoatSmoothness" value="0.2000" /><CustomParameter name="colorScale" value="0.85 0.62 0.02" /><CustomParameter name="smoothnessScale" value="0.8500" /><Custommap name="detailDiffuse" fileId="16" /><Custommap name="detailNormal" fileId="17" /><Custommap name="detailSpecular" fileId="18" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_RelayLedGreen" materialId="4" diffuseColor="0.0509804 0.8 0.101961 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.05 0.8 0.1" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_RelayLedOrange" materialId="3" diffuseColor="0.901961 0.34902 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.9 0.35 0.02" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_RelayLedRed" materialId="2" diffuseColor="0.901961 0.0392157 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.9 0.04 0.02" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Rubber" materialId="10" diffuseColor="0.0156863 0.0156863 0.0156863 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.03" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="19" /><Custommap name="detailNormal" fileId="20" /><Custommap name="detailSpecular" fileId="21" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Steel" materialId="9" diffuseColor="0.6 0.619608 0.639216 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="22" /><Custommap name="detailNormal" fileId="23" /><Custommap name="detailSpecular" fileId="24" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="relayPole.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <Shape name="relayPole_main_component1" shapeId="1" dynamic="true" compound="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfffffbff" staticFriction="1" dynamicFriction="1" density="0" clipDistance="150" nodeId="35" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1">
+      <TransformGroup name="collisions" clipDistance="10" nodeId="36">
+        <Shape name="floorCollision01" shapeId="2" compoundChild="true" collisionFilterGroup="0x10000" collisionFilterMask="0xfffdfbff" staticFriction="1" dynamicFriction="1" density="0" nodeId="37" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+        <Shape name="mastCollision" shapeId="3" compoundChild="true" collisionFilterGroup="0x10000" collisionFilterMask="0xfffdfbff" staticFriction="1" dynamicFriction="1" density="0" nodeId="38" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      </TransformGroup>
+      <Shape name="exactFillRootNode" shapeId="4" kinematic="true" compound="true" collisionFilterGroup="0x40000000" collisionFilterMask="0x20000000" nodeId="39" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      <Shape name="relayBatteryLed0" translation="0 0.855 -0.1665" shapeId="5" clipDistance="40" nodeId="40" castsShadows="true" receiveShadows="true" materialIds="2" />
+      <Shape name="relayBatteryLed1" translation="0 0.881 -0.1665" shapeId="5" clipDistance="40" nodeId="41" castsShadows="true" receiveShadows="true" materialIds="3" />
+      <Shape name="relayBatteryLed2" translation="0 0.907 -0.1665" shapeId="5" clipDistance="40" nodeId="42" castsShadows="true" receiveShadows="true" materialIds="3" />
+      <Shape name="relayBatteryLed3" translation="0 0.933 -0.1665" shapeId="5" clipDistance="40" nodeId="43" castsShadows="true" receiveShadows="true" materialIds="4" />
+      <Shape name="relayBatteryLed4" translation="0 0.959 -0.1665" shapeId="5" clipDistance="40" nodeId="44" castsShadows="true" receiveShadows="true" materialIds="4" />
+      <Shape name="relayBattery_vis" shapeId="6" clipDistance="100" nodeId="45" castsShadows="true" receiveShadows="true" materialIds="5,6,7,8,9,10" />
+      <TransformGroup name="relayCameraRot" translation="0 1.3 0" nodeId="46">
+        <Camera name="relayCamera" translation="0 1.5 -5" rotation="-90 -0 0" nodeId="47" fov="22" nearClip="0.1" farClip="5000" orthographicHeight="1" />
+      </TransformGroup>
+      <TransformGroup name="relayCollar" translation="0 0.7 0" nodeId="48">
+        <Shape name="relayCollar_vis" translation="0 -0.7 0" shapeId="7" clipDistance="100" nodeId="49" castsShadows="true" receiveShadows="true" materialIds="7,10" />
+        <TransformGroup name="relayLeg1" translation="2.20436e-18 0 -0.036" nodeId="50">
+          <Shape name="relayLeg1_vis" translation="-2.20436e-18 -0.7 0.036" shapeId="8" clipDistance="100" nodeId="51" castsShadows="true" receiveShadows="true" materialIds="7,9,10" />
+        </TransformGroup>
+        <TransformGroup name="relayLeg2" translation="-0.0311769 0 0.018" nodeId="52">
+          <Shape name="relayLeg2_vis" translation="0.0311769 -0.7 -0.018" shapeId="9" clipDistance="100" nodeId="53" castsShadows="true" receiveShadows="true" materialIds="7,9,10" />
+        </TransformGroup>
+        <TransformGroup name="relayLeg3" translation="0.0311769 0 0.018" nodeId="54">
+          <Shape name="relayLeg3_vis" translation="-0.0311769 -0.7 -0.018" shapeId="10" clipDistance="100" nodeId="55" castsShadows="true" receiveShadows="true" materialIds="7,9,10" />
+        </TransformGroup>
+      </TransformGroup>
+      <TransformGroup name="relayExitPoint" translation="0 0 1" nodeId="56" />
+      <Shape name="relayLed" translation="0 1.156 -0.114" shapeId="11" clipDistance="40" nodeId="57" castsShadows="true" receiveShadows="true" materialIds="11" />
+      <TransformGroup name="relayMast" nodeId="58">
+        <Shape name="relayMast_vis" shapeId="12" clipDistance="100" nodeId="59" castsShadows="true" receiveShadows="true" materialIds="12,7,10,8,9" />
+      </TransformGroup>
+      <Shape name="relayPole_vis" shapeId="13" clipDistance="100" nodeId="60" castsShadows="true" receiveShadows="true" materialIds="12,10,7,13,6,9,8" />
+      <TransformGroup name="relayStrut1" translation="1.95943e-18 0.14 -0.032" nodeId="61">
+        <Shape name="relayStrut1_vis" translation="-1.95943e-18 -0.14 0.032" shapeId="14" clipDistance="100" nodeId="62" castsShadows="true" receiveShadows="true" materialIds="7" />
+      </TransformGroup>
+      <TransformGroup name="relayStrut2" translation="-0.0277128 0.14 0.016" nodeId="63">
+        <Shape name="relayStrut2_vis" translation="0.0277128 -0.14 -0.016" shapeId="15" clipDistance="100" nodeId="64" castsShadows="true" receiveShadows="true" materialIds="7" />
+      </TransformGroup>
+      <TransformGroup name="relayStrut3" translation="0.0277128 0.14 0.016" nodeId="65">
+        <Shape name="relayStrut3_vis" translation="-0.0277128 -0.14 -0.016" shapeId="16" clipDistance="100" nodeId="66" castsShadows="true" receiveShadows="true" materialIds="7" />
+      </TransformGroup>
+    </Shape>
+  </Scene>
+
+</i3D>

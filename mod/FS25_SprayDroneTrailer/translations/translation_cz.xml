@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="input_SDT_START_FLIGHT" text="Dron: spustit let"/>
+        <text name="input_SDT_RETURN_HOME" text="Dron: návrat na vlek"/>
+        <text name="sdt_hud_drone" text="Dron: %s"/>
+        <text name="sdt_hud_droneTank" text="Nádrž dronu %.0f/%.0f l | baterie %.0f %%"/>
+        <text name="sdt_state_parked" text="na vleku"/>
+        <text name="sdt_state_flying" text="letí dávku"/>
+        <text name="sdt_state_returning" text="vrací se"/>
+        <text name="sdt_state_servicing" text="servis na plošině"/>
+        <text name="sdt_state_waitCharge" text="čeká na nabití baterie – %.0f %%"/>
+        <text name="sdt_state_pumping" text="plní nádrž (%.0f l/min)"/>
+        <text name="sdt_state_swapping" text="mění baterii"/>
+        <text name="sdt_state_pumpingSwapping" text="plní nádrž a mění baterii"/>
+        <text name="sdt_hud_power" text="Baterie v nabíječce (%d ks): %s"/>
+        <text name="sdt_hud_generator" text="Elektrocentrála: %s | nafta %.1f/%.0f l"/>
+        <text name="sdt_hud_charging" text="(nabíjí se)"/>
+        <text name="sdt_hud_generatorOn" text="nabíjí"/>
+        <text name="sdt_hud_generatorOff" text="stojí"/>
+        <text name="sdt_status_noFuel" text="Dron: v elektrocentrále došla nafta a žádná náhradní baterie není nabitá"/>
+        <text name="sdt_planner_service" text="Servis na vleku %.1f min, z toho čekání na nabití %.1f min"/>
+        <text name="sdt_planner_diesel" text="Nafta na nabíjení: ~%.1f l, v elektrocentrále %.1f l"/>
+        <text name="sdt_planner_noFuel" text="Nafta nestačí – mise skončí, až nebude nabitá náhradní baterie."/>
+        <text name="sdt_planner_fuelRunsOut" text="Nafta dojde dřív, než se nabijí všechny baterie – doplň naftu."/>
+        <text name="sdt_status_fieldDone" text="Dron: pole je hotové, není co postřikovat"/>
+        <text name="sdt_status_trailerEmpty" text="Dron: nádrž vleku je prázdná"/>
+        <text name="sdt_status_unreachable" text="Dron: zbytek pole je mimo dosah baterie"/>
+        <text name="sdt_status_aborted" text="Dron: mise přerušena (vlek složený nebo pole neexistuje)"/>
+        <text name="sdt_status_notAllowed" text="Dron: pole už ošetřovat nejde (zakázka skončila nebo pole nepatří farmě)"/>
+        <text name="sdt_status_obstacle" text="Dron: v cestě je překážka vyšší, než smí letět – přeparkuj vlek"/>
+        <text name="sdt_warning_obstacleTooHigh" text="Překážka v cestě je vyšší, než dron smí letět – přeparkuj vlek"/>
+        <text name="sdt_warning_noField" text="Tady není pole"/>
+        <text name="sdt_warning_noFieldSelected" text="Nejdřív vyber pole v plánovači letu"/>
+        <text name="sdt_warning_notOwned" text="Cizí pole – nepatří tvé farmě a nemáš na něm zakázku"/>
+        <text name="sdt_warning_missionNoSpray" text="Zakázka na tomto poli postřik nedovoluje"/>
+        <text name="sdt_warning_missionProduct" text="Zakázka potřebuje jiný přípravek, než je ve vleku"/>
+        <text name="sdt_warning_missionRunning" text="Dron letí – pole jde změnit až po návratu"/>
+        <text name="sdt_warning_outOfRange" text="Pole je mimo dosah dronu"/>
+        <text name="sdt_warning_droneFlying" text="Dron je ve vzduchu – vrací se, složit jde až po přistání"/>
+        <text name="sdt_warning_droneFlyingFoldAll" text="Dron je ve vzduchu – vlek se složí až po přistání (odvolat: X na vleku nebo Alt+0)"/>
+        <text name="sdt_warning_rotorsSpinning" text="Vrtule dronu ještě dobíhají – složit jde, až se zastaví"/>
+        <text name="sdt_warning_padBlocked" text="Pro přistávací desku tu není místo, něco stojí v cestě"/>
+        <text name="sdt_warning_padSlope" text="Terén je pro přistávací desku příliš svažitý"/>
+        <text name="sdt_warning_padHigh" text="Terén je tu vyšší než paluba vleku, deska by se nevysunula"/>
+        <text name="sdt_warning_padHose" text="Hadice by k dronu na desce nedosáhla"/>
+        <text name="sdt_button_close" text="Zavřít"/>
+        <text name="sdt_button_start" text="Spustit let"/>
+        <text name="sdt_button_returnHome" text="Návrat domů"/>
+        <text name="sdt_planner_title" text="Plánovač letu dronu"/>
+        <text name="sdt_planner_trailerTank" text="Vlek: %.0f l – %s"/>
+        <text name="sdt_planner_params" text="Dosah %.0f m (z baterie, přelet ve %.0f m), záběr %.0f m"/>
+        <text name="sdt_planner_noField" text="Pole není vybrané"/>
+        <text name="sdt_planner_hintSelect" text="Klikni na pole v modrém nebo zlatém obrysu uvnitř kruhu dosahu."/>
+        <text name="sdt_planner_field" text="Pole %s"/>
+        <text name="sdt_planner_ownField" text="Vlastní pole"/>
+        <text name="sdt_planner_contract" text="Zakázka"/>
+        <text name="sdt_planner_contractInfo" text="Zakázka: %s (hotovo %.0f %%)"/>
+        <text name="sdt_planner_batches" text="Dávek (nádrž + baterie): %d"/>
+        <text name="sdt_planner_time" text="Odhad času letu: %.1f min"/>
+        <text name="sdt_planner_battery" text="Baterie: dávka až %.0f %%, výměn baterie %d"/>
+        <text name="sdt_planner_batteryLife" text="Výdrž baterie %.0f min s plnou nádrží, %.0f min prázdný"/>
+        <text name="sdt_planner_transit" text="Výška přeletu: %.0f m"/>
+        <text name="sdt_planner_transitObstacle" text="Výška přeletu: %.0f m (kvůli překážkám v cestě)"/>
+        <text name="sdt_planner_tooHigh" text="Překážka v cestě převyšuje limit %.0f m – přeparkuj vlek."/>
+        <text name="sdt_planner_area" text="Plocha k ošetření: %.2f ha"/>
+        <text name="sdt_planner_liters" text="Potřeba: %.0f l, k dispozici %.0f l"/>
+        <text name="sdt_planner_notEnough" text="Přípravku nestačí na celé pole – dron skončí, až vlek vyprázdní."/>
+        <text name="sdt_planner_product" text="Přípravek: %s"/>
+        <text name="sdt_planner_clipped" text="Část pole je mimo dosah – trasa pokrývá jen část uvnitř kruhu."/>
+        <text name="sdt_planner_hover" text="Pod kurzorem: pole %s"/>
+        <text name="sdt_planner_clickToSelect" text="Kliknutím ho vybereš"/>
+        <text name="sdt_planner_selected" text="Vybráno pole %s"/>
+        <text name="sdt_planner_started" text="Let spuštěn"/>
+        <text name="sdt_planner_returning" text="Dron se vrací na vlek"/>
+        <text name="sdt_planner_highestPoint" text="Nejvyšší bod na dráze: %.0f m nad terénem"/>
+        <text name="sdt_planner_highestPointNone" text="Nejvyšší bod na dráze: žádná překážka"/>
+        <text name="sdt_planner_legend" text="Zeleně je ohraničené vybrané pole, fialově letová plocha. Barvy čar trasy = dávky, tenká = přejezd mezi řádky. Červeně je část pole, která se kvůli naftě nebo baterii nenaplánovala."/>
+        <text name="sdt_planner_controls" text="Klik = výběr pole, tažení = posun mapy, kolečko = zoom."/>
+        <text name="sdt_status_areaNoPath" text="Dron: letová plocha nespojuje vlek s polem – uprav ji, nebo ji smaž"/>
+        <text name="sdt_button_drawArea" text="Kreslit letovou plochu"/>
+        <text name="sdt_button_editArea" text="Upravit letovou plochu"/>
+        <text name="sdt_button_closeArea" text="Uzavřít plochu"/>
+        <text name="sdt_button_cancelDraw" text="Zrušit kreslení"/>
+        <text name="sdt_button_undoPoint" text="Smazat poslední bod"/>
+        <text name="sdt_button_deleteArea" text="Smazat plochu"/>
+        <text name="sdt_planner_areaNeedField" text="Nejdřív vyber pole – letová plocha patří k poli"/>
+        <text name="sdt_planner_areaSaved" text="Letová plocha uložena (%d bodů)"/>
+        <text name="sdt_button_resetField" text="Pole od začátku"/>
+        <text name="sdt_planner_fieldReset" text="Dron zapomněl postup – poletí pole znovu od začátku"/>
+        <text name="sdt_planner_areaDeleted" text="Letová plocha smazána – dron letí přímo"/>
+        <text name="sdt_planner_areaCancelled" text="Kreslení zrušeno, plocha zůstala beze změny"/>
+        <text name="sdt_planner_areaMaxPoints" text="Plocha může mít nejvýš %d bodů"/>
+        <text name="sdt_planner_flightArea" text="Letová plocha: %d bodů (přelet jen v ní nebo nad polem)"/>
+        <text name="sdt_planner_areaHomeOutside" text="Vlek stojí mimo letovou plochu – nelze letět."/>
+        <text name="sdt_planner_areaNoPath" text="Letová plocha nespojuje vlek s polem – nelze letět."/>
+        <text name="sdt_planner_areaFix" text="Uprav plochu, aby obsahovala vlek a sahala až k poli, nebo ji smaž."/>
+        <text name="sdt_planner_transitLength" text="Přelet přímo: tam %.0f m, zpět %.0f m (1. dávka), celkem %.1f km"/>
+        <text name="sdt_planner_transitLengthArea" text="Přelet plochou: tam %.0f m, zpět %.0f m (1. dávka), celkem %.1f km"/>
+        <text name="sdt_planner_drawing" text="Kreslení letové plochy: %d bodů"/>
+        <text name="sdt_planner_drawHint" text="Obtáhni cestu od vleku k poli mimo budovy a stromy. Klik na první bod plochu uzavře."/>
+        <text name="sdt_planner_controlsDraw" text="Klik = přidat bod, tažení = posun mapy, kolečko = zoom."/>
+        <text name="input_SDT_TOGGLE_GENERATOR" text="Elektrocentrála zap./vyp."/>
+        <text name="input_SDT_TOGGLE_LINES" text="Dron: čáry ve světě zap./vyp."/>
+        <text name="sdt_state_secured" text="zajištěn na plošině"/>
+        <text name="sdt_hud_generatorDisabled" text="vypnutá"/>
+        <text name="sdt_fill_batteries" text="Baterie %s %%"/>
+        <text name="sdt_fill_batteryDrone" text="dron %.0f"/>
+        <text name="sdt_fill_batteriesCharging" text="Baterie (nabíjí) %s %%"/>
+        <text name="sdt_configuration_batteries" text="Baterie dronu"/>
+        <text name="sdt_configuration_generators" text="Elektrocentrály"/>
+        <text name="sdt_generators_one" text="1 centrála"/>
+        <text name="sdt_generators_two" text="2 centrály (rychlejší nabíjení baterií)"/>
+        <text name="sdt_configuration_antenna" text="Anténa vysílačky"/>
+        <text name="sdt_configuration_gps" text="GPS"/>
+        <text name="sdt_antenna_none" text="Základní anténa"/>
+        <text name="sdt_antenna_boosted" text="Zesílená anténa (dosah +35 %)"/>
+        <text name="sdt_antenna_large" text="Velká směrová anténa (dosah +70 %)"/>
+        <text name="sdt_gps_standard" text="Běžná GPS"/>
+        <text name="sdt_gps_rtk" text="Přesná GPS s RTK (o 15 % méně postřiku)"/>
+        <text name="sdt_configuration_relayStrength" text="Síla tyče"/>
+        <text name="sdt_relay_standard" text="Běžná tyč (dosah 300 m)"/>
+        <text name="sdt_relay_strong" text="Silná tyč (dosah 400 m)"/>
+        <text name="sdt_storeCategoryTrailers" text="Vleky s drony"/>
+        <text name="sdt_storeCategoryEquipment" text="Vybavení dronů"/>
+        <text name="sdt_storeCategoryCanisters" text="Kanystry"/>
+        <text name="sdt_fill_dieselGenerators" text="Nafta (centrály) %s %%"/>
+        <text name="sdt_relaySlot_store" text="Uložit tyč na vlek"/>
+        <text name="sdt_relaySlot_take" text="Vyndat tyč (baterie %d %%)"/>
+        <text name="sdt_relaySlot_full" text="Na vleku není volný držák tyče"/>
+        <text name="sdt_relaySlot_unfolded" text="Rozloženou tyč nejde uložit, nejdřív ji slož"/>
+        <text name="sdt_relaySlot_powered" text="Zapnutou tyč nejde uložit, nejdřív ji vypni"/>
+        <text name="sdt_relaySlot_noPole" text="Tuhle tyč teď uložit nejde"/>
+        <text name="sdt_relaySlot_spawnFailed" text="Tyč se nepodařilo vyndat, zůstala na vleku"/>
+        <text name="sdt_status_outOfReach" text="Dron: zbytek pole je mimo dosah nebo signál – přesuň vlek nebo tyč a spusť znovu"/>
+        <text name="sdt_status_noSignal" text="Dron: ztráta signálu, let přerušen"/>
+        <text name="sdt_state_waitRelay" text="čeká na relé – tyči dochází baterie"/>
+        <text name="sdt_relay_blockedDrone" text="Tyč teď drží spojení s letícím dronem"/>
+        <text name="sdt_relay_battery" text="Baterie tyče"/>
+        <text name="sdt_relay_batteryEmpty" text="Baterie tyče je vybitá"/>
+        <text name="sdt_relay_notUnfolded" text="Tyč musí být rozložená"/>
+        <text name="sdt_relay_occupied" text="V tyči někdo je"/>
+        <text name="sdt_state_waitPower" text="čeká na proud – %s"/>
+        <text name="sdt_hud_noPowerOff" text="zapni elektrocentrálu"/>
+        <text name="sdt_hud_noPowerFolded" text="rozlož vlek"/>
+        <text name="sdt_hud_noPowerFuel" text="elektrocentrála nemá naftu"/>
+        <text name="sdt_warning_noPower" text="Čerpadlo potřebuje proud: %s"/>
+        <text name="sdt_hud_generatorPump" text="pohání čerpadlo"/>
+        <text name="sdt_planner_legendSignal" text="Tyrkysově je dosah signálu vleku, oranžově dosah zapnutých tyčí s vlekem spojených (tenký kruh = kam dron doletí na baterii). Barevná ikona tyče = zapnutá, šedá = vypnutá nebo složená."/>
+        <text name="sdt_relayPole_name" text="Retranslační tyč"/>
+        <text name="sdt_relayPole_function" text="Prodlužuje dosah rádia vleku s dronem. Postav ji vzpřímeně na zem v dosahu vleku a rozlož (R). Nastup do ní (E), zapni ji (B); vpravo dole uvidíš baterii. Baterie vydrží asi 5 hodin, nabíjí se na vleku s běžící centrálou nebo u nabíjecí stanice."/>
+        <text name="sdt_droneTablet_name" text="Tablet dronu"/>
+        <text name="sdt_droneTablet_function" text="Mobilní vysílačka: v ruce klávesou R otevře plánovač vleku v dosahu a umožní start a ovládání mise na dálku."/>
+        <text name="sdt_tablet_open" text="Otevřít plánovač dronu"/>
+        <text name="sdt_tablet_noConnection" text="NO CONNECTION"/>
+        <text name="sdt_relay_unfold" text="Rozložit tyč"/>
+        <text name="sdt_relay_fold" text="Složit tyč"/>
+        <text name="sdt_relay_on" text="Zapnout tyč"/>
+        <text name="sdt_relay_off" text="Vypnout tyč"/>
+        <text name="sdt_relay_notUpright" text="Tyč musí stát vzpřímeně"/>
+        <text name="input_SDT_DRAIN_DRONE" text="Dron: vypustit nádrž do vleku"/>
+        <text name="input_SDT_PUMP_TO_PALLET" text="Vlek: přečerpat nádrž do IBC"/>
+        <text name="sdt_hud_draining" text="Vypouštění dronu do vleku: %.0f l/min, v dronu %.1f l"/>
+        <text name="sdt_state_mixing" text="plní nádrž a míchá přípravek (%.0f l/min)"/>
+        <text name="sdt_state_mixingSwapping" text="plní nádrž, míchá přípravek a mění baterii"/>
+        <text name="sdt_status_noConcentrate" text="Dron: v hlavní nádrži je voda, ale v nádrži koncentrátu žádný koncentrát"/>
+        <text name="sdt_status_noWater" text="Dron: v nádrži je koncentrát, ale v hlavní nádrži chybí voda k míchání"/>
+        <text name="sdt_hud_mixing" text="Míchání: %.0f %% koncentrátu · voda %.0f l · koncentrát %.0f l"/>
+        <text name="sdt_hud_noConcentrate" text="Hlavní nádrž je s vodou – chybí koncentrát"/>
+        <text name="sdt_hud_noWater" text="Chybí voda v hlavní nádrži pro míchání"/>
+        <text name="sdt_planner_concentrateTank" text="Koncentrát: %.0f / %.0f l – %s"/>
+        <text name="sdt_planner_mixing" text="Míchání: voda + koncentrát (%.0f %% koncentrátu, %.0f %% vody) → %s"/>
+        <text name="sdt_planner_mixAvailable" text="K dispozici %.0f l přípravku (omezuje %s)"/>
+        <text name="sdt_planner_mixLimitWater" text="voda"/>
+        <text name="sdt_planner_mixLimitConcentrate" text="koncentrát"/>
+        <text name="sdt_planner_noConcentrate" text="Chybí koncentrát: v hlavní nádrži je voda, ale nádrž koncentrátu je prázdná (nebo v ní není hnojivo či herbicid)."/>
+        <text name="sdt_planner_noWater" text="Chybí voda: v nádrži koncentrátu je koncentrát, ale hlavní nádrž je prázdná."/>
+        <text name="sdt_hud_pumpingToPallet" text="Přečerpávání do IBC: %.0f l/min, ve vleku %.0f l"/>
+        <text name="sdt_warning_noPallet" text="Do %.0f m od vleku není IBC, která by přípravek z vleku přijala"/>
+        <text name="sdt_planner_settings" text="Nastavení letu"/>
+        <text name="sdt_setting_transitHeight" text="Výška přeletu nejméně: %.0f m"/>
+        <text name="sdt_setting_obstacleClearance" text="Odstup nad překážkami: %.0f m"/>
+        <text name="sdt_setting_sideClearance" text="Boční odstup od překážek: %.0f m"/>
+        <text name="sdt_setting_headlands" text="Úvratě: %.0f"/>
+        <text name="sdt_setting_start" text="Začít: %s"/>
+        <text name="sdt_setting_startRows" text="řádky"/>
+        <text name="sdt_setting_startHeadlands" text="úvratí"/>
+        <text name="sdt_planner_settingsHint" text="Klik na – / + nebo kolečko nad řádkem; klik na řádek ho vybere a tlačítka Snížit / Zvýšit vybrané dole ho mění. Dosah se přepočítá z baterie."/>
+        <text name="sdt_button_settingDown" text="Snížit vybrané"/>
+        <text name="sdt_button_settingUp" text="Zvýšit vybrané"/>
+        <text name="sdt_configuration_drone" text="Dron"/>
+        <text name="sdt_cfg_crateColor" text="Barva bedny"/>
+        <text name="sdt_cfg_tarpColor" text="Barva plachty"/>
+        <text name="sdt_cfg_tarpGrey" text="Tmavě šedá"/>
+        <text name="sdt_hitch_tractor" text="Oj s okem (traktor, nákladní auto)"/>
+        <text name="sdt_hitch_car" text="Kulová spojka (pickup)"/>
+        <text name="sdt_configuration_propellers" text="Vrtule dronu"/>
+        <text name="sdt_configuration_tips" text="Proužky na vrtulích"/>
+        <text name="sdt_prop_default" text="Podle modelu"/>
+        <text name="sdt_prop_black" text="Černé"/>
+        <text name="sdt_prop_white" text="Bílé"/>
+        <text name="sdt_prop_carbon" text="Karbonové"/>
+        <text name="sdt_prop_green" text="Fosforeskující zelená"/>
+        <text name="sdt_prop_yellow" text="Fosforeskující žlutá"/>
+        <text name="sdt_prop_orange" text="Fosforeskující oranžová"/>
+        <text name="sdt_tips_none" text="Bez proužků"/>
+        <text name="sdt_tips_red" text="Červené"/>
+        <text name="sdt_tips_blue" text="Modré"/>
+        <text name="sdt_configuration_droneS" text="Malý (20 l, záběr 6 m)"/>
+        <text name="sdt_configuration_droneM" text="Střední (40 l, záběr 9 m)"/>
+        <text name="sdt_configuration_droneL" text="Velký (75 l, záběr 11 m)"/>
+        <text name="sdt_drone_S" text="malý"/>
+        <text name="sdt_drone_M" text="střední"/>
+        <text name="sdt_drone_L" text="velký"/>
+        <text name="sdt_planner_drone" text="Dron %s: nádrž %.0f l, baterie %.2f kWh × %d ks"/>
+        <text name="sdt_warning_foldFirst" text="Nejdřív vlek slož (rozložený nejde připojit ani odpojit)"/>
+        <text name="sdt_foldObject" text="vlek"/>
+        <text name="sdt_warning_noDrone" text="Vlek nemá dron – dokup ho v dílně (Přizpůsobit)"/>
+        <text name="sdt_warning_noBatteries" text="Dron nemá baterii, nemůže vzlétnout – dokup baterie v dílně (Přizpůsobit)"/>
+        <text name="sdt_state_noDrone" text="vlek bez dronu"/>
+        <text name="sdt_state_noBatteries" text="bez baterií, nemůže vzlétnout"/>
+        <text name="sdt_hud_noDrone" text="Vlek bez dronu (dokup ho v dílně)"/>
+        <text name="sdt_hud_droneField" text="Dron: %s · pole %s · dávek: %d"/>
+        <text name="sdt_hud_droneNoField" text="Dron: %s · pole nevybráno, otevři plánovač"/>
+        <text name="sdt_toolbox_open" text="Otevřít bednu"/>
+        <text name="sdt_toolbox_menu" text="Kanystry v bedně"/>
+        <text name="sdt_toolbox_dlgClose" text="Zavřít bednu"/>
+        <text name="sdt_toolbox_stored" text="Kanystr uložen do bedny (%s)"/>
+        <text name="sdt_toolbox_dlgTitle" text="Bedna s kanystry"/>
+        <text name="sdt_toolbox_dlgDrain" text="%s – z nádrže"/>
+        <text name="sdt_toolbox_dlgNothing" text="V bedně nejsou kanystry a nádrž koncentrátu je prázdná – kanystr vložíš tak, že ho nad otevřenou bednou (klik levým tlačítkem ji otevře) pustíš do otvoru"/>
+        <text name="sdt_toolbox_slotFree" text="Ve slotu není kanystr"/>
+        <text name="sdt_toolbox_noCanisterItem" text="Kanystr tohoto druhu nejde vyrobit"/>
+        <text name="sdt_toolbox_spawnLimit" text="Je dosažen limit palet a objektů, předmět nejde vyrobit"/>
+        <text name="sdt_toolbox_spawnFailed" text="Kanystr se nepodařilo vyrobit, obsah zůstal na místě"/>
+        <text name="sdt_toolbox_canisterEmpty" text="Kanystr je prázdný"/>
+        <text name="sdt_toolbox_noTank" text="Vlek nemá koncentrátovou nádrž"/>
+        <text name="sdt_toolbox_tankMismatch" text="V koncentrátové nádrži je jiná látka – nejdřív ji vypusť do kanystrů"/>
+        <text name="sdt_toolbox_tankRejects" text="Koncentrátová nádrž tuto látku nepřijímá"/>
+        <text name="sdt_toolbox_genFull" text="Nádrž elektrocentrály je plná"/>
+        <text name="sdt_toolbox_genNoTank" text="Vlek nemá elektrocentrálu"/>
+        <text name="sdt_handPour_diesel" text="Nalít naftu do elektrocentrály"/>
+        <text name="sdt_handPour_concentrate" text="Nalít do koncentrátové nádrže"/>
+        <text name="sdt_handPour_stop" text="Zastavit nalévání"/>
+        <text name="sdt_toolbox_pourNoCanister" text="U hrdla nádrže není kanystr"/>
+        <text name="sdt_toolbox_dlgTakeItem" text="%s – kanystr"/>
+        <text name="sdt_toolbox_tankFull" text="Koncentrátová nádrž je plná"/>
+        <text name="sdt_toolbox_tankEmpty" text="Koncentrátová nádrž je prázdná"/>
+        <text name="sdt_toolbox_typeNotAllowed" text="Tuto látku kanystr nepřijme"/>
+        <text name="fillType_sdtConcentrateFertilizer" text="Koncentrované hnojivo"/>
+        <text name="fillType_sdtConcentrateHerbicide" text="Koncentrovaný herbicid"/>
+        <text name="sdt_canisterFertilizer_name" text="Koncentrované hnojivo – kanystr 20 l"/>
+        <text name="sdt_canisterHerbicide_name" text="Koncentrovaný herbicid – kanystr 20 l"/>
+        <text name="sdt_canisterDiesel_name" text="Nafta – kanystr 20 l"/>
+        <text name="sdt_canister_function" text="Koncentrát pro servisní vlek postřikového dronu. Kanystr vlož do bedny vleku a vylij do koncentrátové nádrže; mixér ho ředí vodou z hlavní nádrže."/>
+        <text name="input_SDT_DRONE_VIEW" text="Pohled z dronu (C zpět)"/>
+        <text name="sdt_setting_activeDrones" text="Drony v misi: %.0f"/>
+        <text name="sdt_state_waitPad" text="čeká na uvolnění plošiny (letí druhý dron)"/>
+        <text name="sdt_trailer_middle" text="Servisní vlek pro postřikové drony Middle"/>
+        <text name="sdt_trailer_mini" text="Servisní vlek pro postřikové drony Mini"/>
+        <text name="sdt_trailer_max" text="Servisní vlek pro postřikové drony XL"/>
+        <text name="sdt_status_generatorOff" text="Dron: baterie se nenabíjí, elektrocentrála je vypnutá"/>
+        <text name="sdt_hotspot_drone" text="Dron"/>
+        <text name="sdt_hotspot_droneN" text="Dron %d"/>
+        <text name="sdt_action_generatorOn" text="Zapnout elektrocentrálu"/>
+        <text name="sdt_action_generatorOff" text="Vypnout elektrocentrálu"/>
+        <text name="sdt_action_groundDrainOn" text="Vypustit koncentrát do kanystrů vedle vleku"/>
+        <text name="sdt_action_groundDrainOff" text="Zastavit vypouštění koncentrátu"/>
+        <text name="sdt_warning_trailerUnfolded" text="Vlek je rozložený a drží na místě. Slož ho, aby tahač mohl odjet."/>
+        <text name="sdt_status_trailerMoved" text="Dron: vlek se rozjel, let přerušen"/>
+            <text name="sdt_warning_tilt" text="Vlek tu stojí příliš nakloněný (podélně %+.1f°, příčně %+.1f°, nejvýš %.0f°) – odstav ho na rovnější místo"/>
+        <text name="sdt_hud_tilt" text="Náklon vleku:"/>
+        <text name="sdt_hud_tiltLong" text="podélně %+.1f°"/>
+        <text name="sdt_hud_tiltSide" text="příčně %+.1f°"/>
+        <text name="sdt_hud_tiltMax" text="   (nejvýš %.0f°)"/>
+</texts>
+</l10n>

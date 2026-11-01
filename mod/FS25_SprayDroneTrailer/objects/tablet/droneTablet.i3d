@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<i3D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="droneTablet" version="1.6" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="i3dConverter" version="1.0" />
+  </Asset>
+
+  <Files>
+    <File fileId="1" filename="$data/shaders/vehicleShader.xml" /><File fileId="2" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_diffuse.png" /><File fileId="3" filename="$data/shared/detailLibrary/flat_normal.png" /><File fileId="4" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_specular.png" /><File fileId="5" filename="../../vehicles/sprayDroneTrailerMiddle/textures/sdt_brand.dds" /><File fileId="6" filename="$data/shared/default_normal.png" /><File fileId="7" filename="$data/shared/default_vmask.png" /><File fileId="8" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_diffuse.png" /><File fileId="9" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticGraniteGrainSmall_specular.png" /><File fileId="10" filename="$data/shared/white_diffuse.png" /><File fileId="11" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubberBlack_diffuse.png" /><File fileId="12" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_normal.png" /><File fileId="13" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_specular.png" /></Files>
+
+
+  <Materials>
+    <Material name="SDT_BrandDecal" materialId="5" customShaderId="1" alphaBlending="true">
+      <CustomParameter name="alphaBlendingClipThreshold" value="1" /><CustomParameter name="clearCoatIntensity" value="0.3" /><CustomParameter name="clearCoatSmoothness" value="0.7" /><CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Plastic" materialId="1" diffuseColor="0.0313726 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.03" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="9" /><Texture fileId="10" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Rubber" materialId="2" diffuseColor="0.0156863 0.0156863 0.0156863 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.03 0.03 0.03" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="12" /><Custommap name="detailSpecular" fileId="13" /><Texture fileId="10" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Screen" materialId="4" diffuseColor="0.0196078 0.0705882 0.141176 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.07 0.14" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="10" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_ScreenOff" materialId="3" diffuseColor="0.00784314 0.00784314 0.00784314 1" customShaderId="1">
+    <CustomParameter name="clearCoatIntensity" value="0.8" /><CustomParameter name="clearCoatSmoothness" value="0.9" /><CustomParameter name="colorScale" value="0.006 0.007 0.009" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="10" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="droneTablet.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <TransformGroup name="droneTablet" nodeId="17">
+      <TransformGroup name="firstPersonNode" nodeId="18" translation="0.214 0.274 -0.565579" rotation="0 0 0" />
+      <TransformGroup name="graphics" nodeId="19">
+        <Shape name="droneTablet_vis" translation="0 0.09 0" rotation="-90 -0 0" shapeId="1" clipDistance="100" nodeId="20" castsShadows="true" receiveShadows="true" materialIds="1,2,3,4" />
+        <Shape name="tabletScreenOn" translation="0 0.09 0" rotation="-90 -0 0" shapeId="2" clipDistance="100" nodeId="21" castsShadows="true" receiveShadows="true" materialIds="4">
+          <TransformGroup name="brand_BZUK_tablet" translation="0 0.0198 0.01" nodeId="22">
+            <Shape name="BrandLockupOnDark_tablet_BZUK" translation="0 0.000800001 -1.55526e-09" shapeId="3" nodeId="23" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+            <Shape name="BrandStripe_tabletBar_BZUK" translation="0 0.000800002 -0.062" shapeId="4" nodeId="24" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+          </TransformGroup>
+          <TransformGroup name="brand_KAPKA_tablet" translation="0 0.0198 0.01" nodeId="25" visibility="false">
+            <Shape name="BrandLockupOnDark_tablet_KAPKA" translation="0 0.000800001 -1.55526e-09" shapeId="5" nodeId="26" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+            <Shape name="BrandStripe_tabletBar_KAPKA" translation="0 0.000800002 -0.062" shapeId="6" nodeId="27" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+          </TransformGroup>
+          <TransformGroup name="brand_ROSA_tablet" translation="0 0.0198 0.01" nodeId="28" visibility="false">
+            <Shape name="BrandLockupOnDark_tablet_ROSA" translation="0 0.000800001 -1.55526e-09" shapeId="7" nodeId="29" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+            <Shape name="BrandStripe_tabletBar_ROSA" translation="0 0.000800002 -0.062" shapeId="8" nodeId="30" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+          </TransformGroup>
+          <TransformGroup name="brand_STRATUS_tablet" translation="0 0.0198 0.01" nodeId="31" visibility="false">
+            <Shape name="BrandLockupOnDark_tablet_STRATUS" translation="0 0.000800001 -1.55526e-09" shapeId="9" nodeId="32" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+            <Shape name="BrandStripe_tabletBar_STRATUS" translation="0 0.000800002 -0.062" shapeId="10" nodeId="33" castsShadows="false" receiveShadows="true" decalLayer="1" materialIds="5" />
+          </TransformGroup>
+        </Shape>
+      </TransformGroup>
+      <TransformGroup name="handNode" nodeId="34" translation="-0.036 0.093 -0.022" rotation="-169.815994 13.287 91.924004" />
+    </TransformGroup>
+  </Scene>
+
+</i3D>

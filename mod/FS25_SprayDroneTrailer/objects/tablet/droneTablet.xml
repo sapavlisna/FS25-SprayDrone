@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Ruční nástroj (jako baterka): po koupi je v inventáři ručních nástrojů. i3d, obrázek a čísla v i3dMappings dává
+     blender/build_link_items.py. Tablet v ruce poznává SprayDroneLink.lua podle konce názvu souboru. -->
+<handTool type="base">
+    <annotation>Mobilní vysílačka (tablet) pro dálkové ovládání rozloženého vleku s dronem; otevře plánovač, dokud je hráč ve spojení.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_droneTablet_name</name>
+        <functions>
+            <function>$l10n_sdt_droneTablet_function</function>
+        </functions>
+        <image>objects/tablet/store_droneTablet.dds</image>
+        <price>400</price>
+        <lifetime>1000</lifetime>
+        <dailyUpkeep>0</dailyUpkeep>
+        <showInStore>true</showInStore>
+        <rotation>0</rotation>
+        <brand>BZUK</brand>
+        <species>HANDTOOL</species>
+        <category>sprayDroneEquipment handtoolsMisc</category>
+        <canBeSold>true</canBeSold>
+    </storeData>
+
+    <base>
+        <filename>objects/tablet/droneTablet.i3d</filename>
+        <graphics node="graphics" lockFirstPerson="true"/>
+        <handNode node="handNode"/>
+        <firstPersonNode node="firstPersonNode"/>
+    </base>
+
+    <i3dMappings>
+        <i3dMapping id="graphics" node="0&gt;1"/>
+        <i3dMapping id="handNode" node="0&gt;2"/>
+        <i3dMapping id="firstPersonNode" node="0&gt;0"/>
+        <i3dMapping id="tabletScreenOn" node="0&gt;1|1"/>
+    </i3dMappings>
+</handTool>

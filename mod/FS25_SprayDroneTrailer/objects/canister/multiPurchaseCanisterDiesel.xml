@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Nákup více kanystrů najednou (vanilla multipleItemPurchase jako multiPurchasePallet_*): v obchodě se volí počet, kanystry
+     se objeví těsně vedle sebe. Samotný kanystr je canisterDiesel.xml (v obchodě skrytý). -->
+<vehicle type="multipleItemPurchase">
+    <annotation>Nákup 1–10 kanystrů 20 l nafty najednou; vlastní kanystr je canisterDiesel.xml.</annotation>
+
+    <storeData>
+        <name>$l10n_sdt_canisterDiesel_name</name>
+        <functions>
+            <function>$l10n_sdt_canister_function</function>
+        </functions>
+        <specs>
+            <capacity>20</capacity>
+            <fillTypes>DIESEL</fillTypes>
+            <weight ignore="true"/>
+        </specs>
+        <image>objects/canister/store_canisterDiesel.dds</image>
+        <price>45</price>
+        <allowLeasing>false</allowLeasing>
+        <canBeSold>false</canBeSold>
+        <rotation>0</rotation>
+        <shopDynamicTitle>true</shopDynamicTitle>
+        <shopHeight>0.5</shopHeight>
+        <brand>BZUK</brand>
+        <category>sprayDroneCanisters</category>
+        <financeCategory>OTHER</financeCategory>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_typeDesc_pallet</typeDesc>
+        <filename>$data/objects/multiPurchaseItem/multiPurchaseItem.i3d</filename>
+        <size width="0.7" length="1.3" height="0.34"/>
+        <input allowed="false"/>
+        <canBeReset>false</canBeReset>
+        <components>
+            <component centerOfMass="0 0.1 0" solverIterationCount="10" mass="20"/>
+        </components>
+        <showInVehicleMenu>false</showInVehicleMenu>
+        <mapHotspot available="false"/>
+    </base>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="DIESEL" capacity="20"/>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <multipleItemPurchase filename="objects/canister/canisterDiesel.xml" isVehicle="true">
+        <offsets>
+            <offset amount="2" offset="0.16 0 0"/>
+            <offset amount="3" offset="0.16 0 0.12"/>
+            <offset amount="5" offset="0.16 0 0.24"/>
+            <offset amount="7" offset="0.16 0 0.36"/>
+            <offset amount="9" offset="0.16 0 0.48"/>
+        </offsets>
+        <itemPositions>
+            <itemPosition position="-0 0 -0" rotation="0 0 0"/>
+            <itemPosition position="-0.32 0 -0" rotation="0 0 0"/>
+            <itemPosition position="-0 0 -0.24" rotation="0 0 0"/>
+            <itemPosition position="-0.32 0 -0.24" rotation="0 0 0"/>
+            <itemPosition position="-0 0 -0.48" rotation="0 0 0"/>
+            <itemPosition position="-0.32 0 -0.48" rotation="0 0 0"/>
+            <itemPosition position="-0 0 -0.72" rotation="0 0 0"/>
+            <itemPosition position="-0.32 0 -0.72" rotation="0 0 0"/>
+            <itemPosition position="-0 0 -0.96" rotation="0 0 0"/>
+            <itemPosition position="-0.32 0 -0.96" rotation="0 0 0"/>
+        </itemPositions>
+    </multipleItemPurchase>
+
+    <multipleItemPurchaseAmountConfigurations>
+        <multipleItemPurchaseAmountConfiguration name="1" price="0"/>
+        <multipleItemPurchaseAmountConfiguration name="2" price="45"/>
+        <multipleItemPurchaseAmountConfiguration name="3" price="90"/>
+        <multipleItemPurchaseAmountConfiguration name="4" price="135"/>
+        <multipleItemPurchaseAmountConfiguration name="5" price="180"/>
+        <multipleItemPurchaseAmountConfiguration name="6" price="225"/>
+        <multipleItemPurchaseAmountConfiguration name="7" price="270"/>
+        <multipleItemPurchaseAmountConfiguration name="8" price="315"/>
+        <multipleItemPurchaseAmountConfiguration name="9" price="360"/>
+        <multipleItemPurchaseAmountConfiguration name="10" price="405"/>
+    </multipleItemPurchaseAmountConfigurations>
+</vehicle>

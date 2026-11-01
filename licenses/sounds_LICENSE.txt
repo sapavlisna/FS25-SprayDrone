@@ -1,0 +1,18 @@
+droneRotorLoop.ogg
+==================
+
+Zdroj:    "Big Slow Heavy Drone Hovering Idle Loop"
+Autor:    qubodup (https://freesound.org/people/qubodup/)
+URL:      https://freesound.org/people/qubodup/sounds/854382/
+Licence:  Creative Commons 0 (CC0 1.0 Universal, public domain)
+          https://creativecommons.org/publicdomain/zero/1.0/
+
+Původní nahrávka (také CC0):
+          "Dji Mavic Mini 2 hover above ground UP-DOWN XY mic placement Zoom H5.wav"
+          Sadiquecat, https://freesound.org/people/Sadiquecat/sounds/683298/
+
+Úpravy pro mod (2026-09-28): stažen náhled HQ (MP3, mono, 44,1 kHz), oříznuto 60 ms z obou konců,
+výška snížena na 3/4 převzorkováním (zpomalení), smyčka uzavřena crossfadem 0,6 s, normalizace
+na -3 dBFS, převod do Ogg Vorbis (mono, 44,1 kHz). Skript: out/tmp/zvuk/make_loop.py v projektu.
+
+CC0 nevyžaduje uvedení autora; uvádí se pro dohledatelnost.
