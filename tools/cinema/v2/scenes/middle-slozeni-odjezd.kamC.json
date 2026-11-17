@@ -1,0 +1,59 @@
+{
+ "popis": "8.1 oblet proti směru hodin, 8.2 FOL za soupravou",
+ "typ": "C / PC",
+ "pohyb": "ORB-CW → FOL",
+ "smer": "CW",
+ "fov": "38 / 40",
+ "vyska": "2,6 → 3,0 m, r = 10 m; 4,5 m",
+ "zabery": [
+  {
+   "id": "middle-8.1",
+   "od": 2.0,
+   "do": 12.0
+  },
+  {
+   "id": "middle-8.2",
+   "od": 14.0,
+   "do": 23.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camOrbit",
+   "radius": 10,
+   "radius2": 10,
+   "height": 2.6,
+   "height2": 3.0,
+   "angle0": -135.0,
+   "angle1": -180.0,
+   "lx": 0.0,
+   "ly": 1.6,
+   "lz": 0.0,
+   "fov": 38,
+   "fov2": 36,
+   "tau": 0.3,
+   "duration": 14.0,
+   "ease": "smooth",
+   "check": false,
+   "target": "middle"
+  },
+  {
+   "at": 14.0,
+   "cmd": "camFollow",
+   "target": "pickup",
+   "ox": 6,
+   "oy": 4.5,
+   "oz": -14,
+   "lx": 0,
+   "ly": 1.5,
+   "lz": 8,
+   "fov": 40,
+   "duration": 11,
+   "ease": "smooth",
+   "tau": 0.7,
+   "tauLook": 0.6,
+   "check": false
+  }
+ ]
+}

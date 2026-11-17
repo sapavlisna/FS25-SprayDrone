@@ -1,0 +1,50 @@
+{
+ "popis": "nízký tele pohled od konce silnice (druhá varianta 1.1), souprava projede těsně u kamery",
+ "typ": "C",
+ "pohyb": "STAT, tele, nízko",
+ "smer": "–",
+ "fov": "12",
+ "vyska": "0,8 m, z = −657,5, x = −80",
+ "zabery": [
+  {
+   "id": "mini-1.1",
+   "od": 0,
+   "do": 9
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 16,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -25,
+     "y": 0.9,
+     "z": -669,
+     "rel": "terrain",
+     "tx": 30,
+     "ty": 2.2,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 12
+    },
+    {
+     "t": 16,
+     "x": -25,
+     "y": 0.9,
+     "z": -669,
+     "rel": "terrain",
+     "tx": 30,
+     "ty": 2.2,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 12
+    }
+   ]
+  }
+ ]
+}

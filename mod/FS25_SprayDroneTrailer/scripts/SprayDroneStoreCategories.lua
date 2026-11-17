@@ -49,6 +49,9 @@ function SprayDroneStoreCategories.hidePFItems(storeManager)
         local item = storeManager:getItemByXMLFilename(SprayDroneStoreCategories.modDirectory .. filename)
         if item ~= nil and item.showInStore then
             item.showInStore = false
+            if SprayDroneDebug and SprayDroneDebug.ENABLED then
+                Logging.info("SprayDrone: %s bez Precision Farming v obchodě skryto", filename)
+            end
         end
     end
 end
@@ -59,6 +62,7 @@ SprayDroneStoreCategories.listener = {
     end
 }
 addModEventListener(SprayDroneStoreCategories.listener)
+
 
 -- Pořadí vleků v obchodě: ShopController.displayItemSortFunction řadí položky se stejným orderValue (= orderId kategorie)
 -- od NEJDRAŽŠÍ (sellPrice2 < sellPrice1), pak podle xmlFilename - pořadí v modDesc ani storeData na to nemá vliv.

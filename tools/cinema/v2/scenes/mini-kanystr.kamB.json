@@ -1,0 +1,55 @@
+{
+ "popis": "vyvýšený pevný pohled zepředu zprava: bedna i hrdlo v jednom záběru",
+ "typ": "PC",
+ "pohyb": "STAT",
+ "smer": "–",
+ "fov": "28",
+ "vyska": "2,6 m, (−3,2; 4,2)",
+ "zabery": [
+  {
+   "id": "mini-5.1",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "mini-5.2",
+   "od": 7.5,
+   "do": 14.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 20,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -3.2,
+     "y": 2.6,
+     "z": 4.2,
+     "tat": "mini",
+     "tx": -0.65,
+     "ty": 1.6,
+     "tz": 1.8,
+     "fov": 28
+    },
+    {
+     "t": 20,
+     "at": "mini",
+     "x": -3.2,
+     "y": 2.6,
+     "z": 4.2,
+     "tat": "mini",
+     "tx": -0.65,
+     "ty": 1.6,
+     "tz": 1.8,
+     "fov": 28
+    }
+   ]
+  }
+ ]
+}

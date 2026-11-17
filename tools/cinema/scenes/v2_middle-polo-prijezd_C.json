@@ -1,0 +1,154 @@
+{
+ "name": "v2_middle-polo-prijezd_C",
+ "title": "middle-polo-prijezd | kamera C: tele od západu proti jízdě, komprese",
+ "v2": {
+  "akce": "middle-polo-prijezd",
+  "kamera": "C",
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.25,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -650,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 10
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "pickup",
+   "x": -625,
+   "z": 455,
+   "kmh": 14,
+   "radius": 2,
+   "mode": "line"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -610,
+     "y": 2.0,
+     "z": 449,
+     "rel": "terrain",
+     "tx": -640,
+     "ty": 1.8,
+     "tz": 455,
+     "trel": "terrain",
+     "fov": 22
+    },
+    {
+     "t": 15,
+     "x": -610,
+     "y": 2.0,
+     "z": 449,
+     "rel": "terrain",
+     "tx": -640,
+     "ty": 1.8,
+     "tz": 455,
+     "trel": "terrain",
+     "fov": 22
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 15.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "pickup",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

@@ -1,0 +1,128 @@
+{
+ "popis": "spol-1 pevný široký záběr ze západu, spol-2 jízda zepředu R→L, spol-3 oblet nad řadou",
+ "typ": "C / PC",
+ "pohyb": "STAT → TRK R→L → ORB-CW",
+ "smer": "R→L / CW",
+ "fov": "42 / 46 / 50",
+ "vyska": "2,0 m; 1,7 m; 3 → 16 m",
+ "zabery": [
+  {
+   "id": "spol-1",
+   "od": "t=0",
+   "do": "h1 +4"
+  },
+  {
+   "id": "spol-2",
+   "od": "h2 +0",
+   "do": "h2 +8"
+  },
+  {
+   "id": "spol-3",
+   "od": "h3 +0",
+   "do": "h3 +8"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 11,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -745,
+     "y": 2.0,
+     "z": 148,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 5.0,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 42
+    },
+    {
+     "t": 11,
+     "x": -745,
+     "y": 2.0,
+     "z": 148,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 5.0,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 42
+    }
+   ]
+  },
+  {
+   "after": "h2",
+   "cmd": "camPath",
+   "duration": 8.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -672,
+     "y": 1.7,
+     "z": 112,
+     "rel": "terrain",
+     "tx": -680,
+     "ty": 4.0,
+     "tz": 138,
+     "trel": "terrain",
+     "fov": 46
+    },
+    {
+     "t": 4.25,
+     "x": -694,
+     "y": 1.7,
+     "z": 112,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 4.0,
+     "tz": 138,
+     "trel": "terrain",
+     "fov": 46
+    },
+    {
+     "t": 8.5,
+     "x": -716,
+     "y": 1.7,
+     "z": 112,
+     "rel": "terrain",
+     "tx": -705,
+     "ty": 4.0,
+     "tz": 138,
+     "trel": "terrain",
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "after": "h3",
+   "cmd": "camOrbit",
+   "radius": 26,
+   "radius2": 24,
+   "height": 3.0,
+   "height2": 16.0,
+   "angle0": 20,
+   "angle1": -110,
+   "lx": 0.0,
+   "ly": 0.0,
+   "lz": 0.0,
+   "fov": 50,
+   "fov2": 50,
+   "tau": 0.3,
+   "duration": 8.5,
+   "ease": "smooth",
+   "check": false,
+   "x": -694,
+   "y": 3.0,
+   "z": 142,
+   "rel": "terrain"
+  }
+ ]
+}

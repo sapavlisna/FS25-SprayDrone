@@ -1,0 +1,178 @@
+{
+ "name": "c27_dusk",
+ "title": "Záběr 2.7: soumrak, zapnutí elektrocentrály, světla (Middle)",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -690,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": -684,
+   "z": 132,
+   "force": true
+  },
+  {
+   "cmd": "setTime",
+   "hour": 18.85
+  },
+  {
+   "cmd": "lights",
+   "vehicle": "pickup",
+   "mask": 255
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "on": false,
+   "batteries": 0.4,
+   "fuel": 25
+  },
+  {
+   "cmd": "camSet",
+   "at": "middle",
+   "x": 9.0,
+   "y": 1.7,
+   "z": -4.0,
+   "tat": "middle",
+   "tx": 0.5,
+   "ty": 1.6,
+   "tz": 1.0,
+   "fov": 42
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 13,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 9.0,
+     "y": 1.7,
+     "z": -4.0,
+     "tat": "middle",
+     "tx": 0.5,
+     "ty": 1.6,
+     "tz": 1.0,
+     "fov": 42
+    },
+    {
+     "t": 6,
+     "at": "middle",
+     "x": 6.5,
+     "y": 1.6,
+     "z": -0.5,
+     "tat": "middle",
+     "tx": 0.7,
+     "ty": 1.5,
+     "tz": 1.8,
+     "fov": 38
+    },
+    {
+     "t": 13,
+     "at": "middle",
+     "x": 4.2,
+     "y": 1.5,
+     "z": 1.2,
+     "tat": "middle",
+     "tx": 0.75,
+     "ty": 1.5,
+     "tz": 2.3,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "on": true
+  },
+  {
+   "sleep": 10.5
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "on": false,
+   "batteries": 1.0
+  },
+  {
+   "cmd": "lights",
+   "vehicle": "pickup",
+   "mask": 0
+  }
+ ]
+}

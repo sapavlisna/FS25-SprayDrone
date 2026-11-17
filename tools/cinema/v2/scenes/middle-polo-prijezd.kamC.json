@@ -1,0 +1,50 @@
+{
+ "popis": "tele od západu proti jízdě, komprese",
+ "typ": "C",
+ "pohyb": "STAT tele",
+ "smer": "–",
+ "fov": "22",
+ "vyska": "2,0 m, (-610, 449)",
+ "zabery": [
+  {
+   "id": "middle-3.2",
+   "od": 1.0,
+   "do": 14.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -610,
+     "y": 2.0,
+     "z": 449,
+     "rel": "terrain",
+     "tx": -640,
+     "ty": 1.8,
+     "tz": 455,
+     "trel": "terrain",
+     "fov": 22
+    },
+    {
+     "t": 15,
+     "x": -610,
+     "y": 2.0,
+     "z": 449,
+     "rel": "terrain",
+     "tx": -640,
+     "ty": 1.8,
+     "tz": 455,
+     "trel": "terrain",
+     "fov": 22
+    }
+   ]
+  }
+ ]
+}

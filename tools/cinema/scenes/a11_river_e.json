@@ -1,0 +1,29 @@
+{
+  "name": "a11_river_e",
+  "title": "Záběr 5.7 (varianta e): kamera za dronem a nad ním, dron letí na západ přes řeku proti slunci a jeho odrazu",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true},
+    {"cmd": "waitDrone", "trailer": "middle", "cond": "parked", "timeout": 120, "optional": true},
+    {"sleep": 1.0},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": 398, "z": -262, "yaw": 270, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "setField", "field": 83, "crop": "WHEAT", "growth": 3},
+    {"sleep": 1.0},
+    {"cmd": "selectField", "trailer": "middle", "field": 83},
+    {"cmd": "resetField", "trailer": "middle"},
+    {"cmd": "fillSet", "trailer": "middle"},
+    {"cmd": "camSet", "at": "middle:drone1", "x": 0, "y": 5, "z": -12, "tat": "middle:drone1", "tx": 0, "ty": -1, "tz": 6, "fov": 38},
+    {"sleep": 1.0},
+    {"cmd": "startFlight", "trailer": "middle", "fill": false},
+    {"sleep": 6.0},
+    {"cmd": "camFollow", "target": "middle:drone1", "ox": 0, "oy": 5, "oz": -13, "lx": 0, "ly": -2, "lz": 8, "ox2": 5, "oy2": 3, "oz2": -10, "lx2": 0, "ly2": -2, "lz2": 8,
+     "tau": 0.7, "tauLook": 0.5, "fov": 38, "fov2": 34, "duration": 18, "ease": "smooth"},
+    {"sleep": 1.0},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.3},
+    {"sleep": 9.0},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true}
+  ]
+}

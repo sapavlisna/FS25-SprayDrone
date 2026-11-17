@@ -1,0 +1,174 @@
+{
+ "name": "v2_mini-rozlozeni_C",
+ "title": "mini-rozlozeni | kamera C: pevný záběr zezadu: plošina se rozkládá směrem ke kameře",
+ "v2": {
+  "akce": "mini-rozlozeni",
+  "kamera": "C",
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.1"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 10.33,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 3,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 4,
+   "crop": "MAIZE",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 5,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "mini",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": -690,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "mini",
+   "open": false,
+   "optional": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 17,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 0.3,
+     "y": 1.5,
+     "z": -9.5,
+     "tx": 0.3,
+     "ty": 0.9,
+     "tz": -2.5,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 17,
+     "at": "mini",
+     "x": 0.3,
+     "y": 1.5,
+     "z": -9.5,
+     "tx": 0.3,
+     "ty": 0.9,
+     "tz": -2.5,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "unfold",
+   "wait": false
+  },
+  {
+   "sleep": 13.0
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

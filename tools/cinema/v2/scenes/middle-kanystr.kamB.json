@@ -1,0 +1,88 @@
+{
+ "popis": "5.1 pevně zezadu na skříň, 5.2 nízká pevná kamera u hrdla",
+ "typ": "PC / D",
+ "pohyb": "NAJ → STAT",
+ "smer": "–",
+ "fov": "34 → 26 / 30",
+ "vyska": "1,5 → 1,35 m; 2,4 m",
+ "zabery": [
+  {
+   "id": "middle-5.1",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "middle-5.2",
+   "od": 7.5,
+   "do": 15.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 0,
+     "y": 1.5,
+     "z": -7.2,
+     "tat": "middle",
+     "tx": -0.7,
+     "ty": 1.0,
+     "tz": -2.0,
+     "fov": 34
+    },
+    {
+     "t": 7.5,
+     "at": "middle",
+     "x": -0.4,
+     "y": 1.35,
+     "z": -5.0,
+     "tat": "middle",
+     "tx": -0.75,
+     "ty": 0.9,
+     "tz": -2.0,
+     "fov": 26
+    }
+   ]
+  },
+  {
+   "at": 7.5,
+   "cmd": "camPath",
+   "duration": 12.5,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -3.8,
+     "y": 2.4,
+     "z": 2.2,
+     "tat": "middle",
+     "tx": -0.55,
+     "ty": 1.7,
+     "tz": 1.25,
+     "fov": 30
+    },
+    {
+     "t": 12.5,
+     "at": "middle",
+     "x": -3.8,
+     "y": 2.4,
+     "z": 2.2,
+     "tat": "middle",
+     "tx": -0.55,
+     "ty": 1.7,
+     "tz": 1.25,
+     "fov": 30
+    }
+   ]
+  }
+ ]
+}

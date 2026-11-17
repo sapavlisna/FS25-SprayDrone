@@ -1,0 +1,12 @@
+{
+  "steps": [
+    {"cmd": "setWeather", "weather": "SUN", "variation": 1},
+    {"cmd": "setTime", "hour": 18.2},
+    {"cmd": "setFog", "reset": true},
+    {"cmd": "setField", "field": 3, "crop": "WHEAT", "growth": 6},
+    {"cmd": "setField", "field": 4, "crop": "MAIZE", "growth": 3},
+    {"cmd": "setField", "field": 5, "crop": "WHEAT", "growth": 3},
+    {"cmd": "setField", "field": 38, "crop": "WHEAT", "growth": 8},
+    {"sleep": 1.0}
+  ]
+}

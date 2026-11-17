@@ -1,0 +1,246 @@
+{
+ "popis": "t = 2 s dron na plošině (7.0, 3 s statika), t = 6,5 s `startFlight` (okno 7.1 do t = 13,5), potom `waitDrone spraying` (let ≈ 260 m: ≈ 35–45 s), značky w1/w2/w3 po 6,5 s, `returnHome`.",
+ "vlek": "middle",
+ "beat": "7",
+ "zabery": [
+  "middle-7.0",
+  "middle-7.1",
+  "middle-7.2",
+  "middle-7.3",
+  "middle-7.4"
+ ],
+ "misto": "POLO → pole 91 (−710, 701)",
+ "cas": "11:45",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.75,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -625,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "nodeVis",
+   "trailer": "middle",
+   "show": "antennaLarge,gpsRtkBox,antennaBase"
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "middle",
+   "field": 91
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "main",
+   "fill": "LIQUIDFERTILIZER",
+   "liters": 1000
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "conc",
+   "fill": "LIQUIDFERTILIZER",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "open": false,
+   "optional": true
+  },
+  {
+   "cmd": "play",
+   "trailer": "middle",
+   "command": "windOff"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "mark": "det"
+  },
+  {
+   "cmd": "mark",
+   "name": "det",
+   "optional": true
+  },
+  {
+   "sleep": 4.5
+  },
+  {
+   "mark": "start"
+  },
+  {
+   "cmd": "mark",
+   "name": "start",
+   "optional": true
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "middle",
+   "fill": false
+  },
+  {
+   "sleep": 7.0
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "spraying",
+   "timeout": 200
+  },
+  {
+   "mark": "w1"
+  },
+  {
+   "cmd": "mark",
+   "name": "w1",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "mark": "w2"
+  },
+  {
+   "cmd": "mark",
+   "name": "w2",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "mark": "w3"
+  },
+  {
+   "cmd": "mark",
+   "name": "w3",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

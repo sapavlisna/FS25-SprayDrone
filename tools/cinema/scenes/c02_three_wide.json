@@ -1,0 +1,201 @@
+{
+ "name": "c02_three_wide",
+ "title": "Záběr 0.2: tři vleky vedle sebe, pomalý pohyb kamery",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": -705,
+   "z": 138,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -694,
+   "z": 136,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -683,
+   "z": 138,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650,max,mt655,middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "camSet",
+   "x": -712,
+   "y": 1.4,
+   "z": 162,
+   "rel": "terrain",
+   "tx": -698,
+   "ty": 2.3,
+   "tz": 142,
+   "trel": "terrain",
+   "fov": 44
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -712,
+     "y": 1.4,
+     "z": 162,
+     "rel": "terrain",
+     "tx": -698,
+     "ty": 2.3,
+     "tz": 142,
+     "trel": "terrain",
+     "fov": 44
+    },
+    {
+     "t": 6,
+     "x": -694,
+     "y": 1.8,
+     "z": 163,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 2.3,
+     "tz": 142,
+     "trel": "terrain",
+     "fov": 44
+    },
+    {
+     "t": 12,
+     "x": -676,
+     "y": 1.5,
+     "z": 162,
+     "rel": "terrain",
+     "tx": -690,
+     "ty": 2.3,
+     "tz": 142,
+     "trel": "terrain",
+     "fov": 44
+    }
+   ],
+   "wait": true,
+   "timeout": 37
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

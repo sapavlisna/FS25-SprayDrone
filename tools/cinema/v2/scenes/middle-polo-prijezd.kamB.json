@@ -1,0 +1,50 @@
+{
+ "popis": "z hladiny (kamera 5 m nad vodou) STAT: souprava dojede a zastaví na louce",
+ "typ": "PC",
+ "pohyb": "STAT",
+ "smer": "–",
+ "fov": "32",
+ "vyska": "2,6 m, (-642, 447), na břehu 8 m severně od trasy",
+ "zabery": [
+  {
+   "id": "middle-3.2",
+   "od": 1.0,
+   "do": 14.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -642,
+     "y": 2.6,
+     "z": 446.5,
+     "rel": "terrain",
+     "tx": -620,
+     "ty": 1.8,
+     "tz": 456,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 15,
+     "x": -642,
+     "y": 2.6,
+     "z": 446.5,
+     "rel": "terrain",
+     "tx": -620,
+     "ty": 1.8,
+     "tz": 456,
+     "trel": "terrain",
+     "fov": 32
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "popis": "nízko zezadu z pole: souprava dojede a zastaví zadním koncem k nám, potok vpravo v pozadí",
+ "typ": "PC",
+ "pohyb": "STAT nízko",
+ "smer": "–",
+ "fov": "34",
+ "vyska": "0,8 m, (666, -15)",
+ "zabery": [
+  {
+   "id": "max-3.2",
+   "od": 1.0,
+   "do": 13.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 660,
+     "y": 3.0,
+     "z": -13.0,
+     "rel": "terrain",
+     "tx": 674,
+     "ty": 2.0,
+     "tz": -49.0,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 14,
+     "x": 660,
+     "y": 3.0,
+     "z": -13.0,
+     "rel": "terrain",
+     "tx": 674,
+     "ty": 2.0,
+     "tz": -49.0,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

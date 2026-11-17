@@ -1,0 +1,50 @@
+{
+ "popis": "nízko od východu proti jízdě: souprava vjede na dvůr a zabrzdí",
+ "typ": "PC",
+ "pohyb": "STAT (nad zábradlím)",
+ "smer": "–",
+ "fov": "36",
+ "vyska": "1,7 m, (−666, 145)",
+ "zabery": [
+  {
+   "id": "mini-3.2",
+   "od": 1.0,
+   "do": 13.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -666,
+     "y": 1.7,
+     "z": 145,
+     "rel": "terrain",
+     "tx": -697,
+     "ty": 1.6,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 36
+    },
+    {
+     "t": 14,
+     "x": -666,
+     "y": 1.7,
+     "z": 145,
+     "rel": "terrain",
+     "tx": -697,
+     "ty": 1.6,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 36
+    }
+   ]
+  }
+ ]
+}

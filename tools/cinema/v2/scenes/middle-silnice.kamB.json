@@ -1,0 +1,63 @@
+{
+ "popis": "těsný průjezd z jižní strany, švenk po směru jízdy, konec ve 3/4 zezadu",
+ "typ": "PC→C",
+ "pohyb": "PAN-L (po směru jízdy)",
+ "smer": "R→L",
+ "fov": "34 → 40 → 36",
+ "vyska": "1,7 m, z = -655,5 (7 m od osy)",
+ "zabery": [
+  {
+   "id": "middle-2.1",
+   "od": 0.5,
+   "do": 7.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 10,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 20,
+     "y": 1.7,
+     "z": -655.5,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 6,
+     "fov": 34
+    },
+    {
+     "t": 3.5,
+     "x": 20,
+     "y": 1.7,
+     "z": -655.5,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 4,
+     "fov": 40
+    },
+    {
+     "t": 10,
+     "x": 20,
+     "y": 1.7,
+     "z": -655.5,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 1.8,
+     "tz": -2,
+     "fov": 36
+    }
+   ],
+   "tsmooth": 0.35
+  }
+ ]
+}

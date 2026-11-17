@@ -1,0 +1,135 @@
+{
+ "popis": "Souprava vjede z x = −735 na dvůr k bodu (−690, 140) rychlostí 14 km/h a zastaví (radius 2); nikdo nevystupuje. Konečná poloha = FARM_SET (b04).",
+ "vlek": "mini",
+ "beat": "3",
+ "zabery": [
+  "mini-3.2"
+ ],
+ "misto": "DVŮR (−690, 140)",
+ "cas": "10:10",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 10.17,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 3,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 4,
+   "crop": "MAIZE",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 5,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "mini",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 400,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": -735,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "jd3650",
+   "x": -690,
+   "z": 140,
+   "kmh": 14,
+   "radius": 2,
+   "mode": "line"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 14.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "jd3650",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

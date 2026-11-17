@@ -1,0 +1,41 @@
+{
+ "popis": "tracking z jihu (slunce vzadu, L→R) – záloha",
+ "typ": "PC",
+ "pohyb": "TRK (camFollow) vysoko z jihu",
+ "smer": "R→L",
+ "fov": "32 → 30",
+ "vyska": "3,0–3,2 m, 17 m od jízdy (jih)",
+ "zabery": [
+  {
+   "id": "middle-3.1",
+   "od": 0.5,
+   "do": 9.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camFollow",
+   "target": "pickup",
+   "ox": -17,
+   "oy": 3.0,
+   "oz": 10,
+   "lx": 0,
+   "ly": 2.6,
+   "lz": -1.5,
+   "fov": 32,
+   "duration": 9.5,
+   "ease": "smooth",
+   "tau": 0.5,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": -17,
+   "oy2": 3.2,
+   "oz2": -6,
+   "lx2": 0,
+   "ly2": 2.6,
+   "lz2": -1.5,
+   "fov2": 30
+  }
+ ]
+}

@@ -1,0 +1,204 @@
+{
+ "popis": "7.0 zepředu, 7.1 jeřáb zleva zezadu, 7.2 FOL zepředu 3/4, 7.3 TOP vysoko, 7.4 FOL nízko zezadu",
+ "typ": "D / C / PC",
+ "pohyb": "NAJ → JIB-U → FOL (čelo) → TOP → FOL nízko",
+ "smer": "–",
+ "fov": "28 / 36 / 38 / 30 / 36",
+ "vyska": "0,4–0,7 m; 1,0 → 6 m; 2 m; 48 m; 1,2 m",
+ "zabery": [
+  {
+   "id": "max-7.0",
+   "od": "t=2,0",
+   "do": "t=5,0"
+  },
+  {
+   "id": "max-7.1",
+   "od": "start +0",
+   "do": "start +7"
+  },
+  {
+   "id": "max-7.2",
+   "od": "w1b +0",
+   "do": "w1b +6,5"
+  },
+  {
+   "id": "max-7.3",
+   "od": "w2 +0",
+   "do": "w2 +6,5"
+  },
+  {
+   "id": "max-7.4",
+   "od": "w3 +0",
+   "do": "w3 +6,5"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 2.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max:drone1",
+     "x": 0.2,
+     "y": 0.7,
+     "z": 3.2,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 28
+    },
+    {
+     "t": 2.0,
+     "at": "max:drone1",
+     "x": 0.2,
+     "y": 0.7,
+     "z": 3.2,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 28
+    }
+   ]
+  },
+  {
+   "at": 2.0,
+   "cmd": "camPath",
+   "duration": 4.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max:drone1",
+     "x": 0.2,
+     "y": 0.7,
+     "z": 3.2,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 28
+    },
+    {
+     "t": 4.0,
+     "at": "max:drone1",
+     "x": 0.2,
+     "y": 0.45,
+     "z": 1.6,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 26
+    }
+   ]
+  },
+  {
+   "at": 6.5,
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 12,
+     "y": 1.0,
+     "z": -9,
+     "tat": "max",
+     "tx": 0,
+     "ty": 4.0,
+     "tz": -2.7,
+     "fov": 36
+    },
+    {
+     "t": 7.0,
+     "at": "max",
+     "x": 14,
+     "y": 6.0,
+     "z": -10,
+     "tat": "max",
+     "tx": 0,
+     "ty": 4.5,
+     "tz": -2.7,
+     "fov": 34
+    }
+   ],
+   "tsmooth": 0.3
+  },
+  {
+   "after": "w1b",
+   "cmd": "camFollow",
+   "target": "max:drone1",
+   "ox": 5.0,
+   "oy": 2.2,
+   "oz": 10,
+   "lx": 2,
+   "ly": 0,
+   "lz": -3,
+   "fov": 38,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.9,
+   "tauLook": 0.6,
+   "check": false
+  },
+  {
+   "after": "w2",
+   "cmd": "camPath",
+   "duration": 6.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max:drone1",
+     "x": 0,
+     "y": 48,
+     "z": -1.0,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0,
+     "tz": 1.0,
+     "fov": 30
+    },
+    {
+     "t": 6.5,
+     "at": "max:drone1",
+     "x": 0,
+     "y": 48,
+     "z": -1.0,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0,
+     "tz": 1.0,
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "after": "w3",
+   "cmd": "camFollow",
+   "target": "max:drone1",
+   "ox": 0,
+   "oy": 1.2,
+   "oz": -7,
+   "lx": 0,
+   "ly": 0.3,
+   "lz": 3,
+   "fov": 36,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.6,
+   "tauLook": 0.5,
+   "check": false
+  }
+ ]
+}

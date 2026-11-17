@@ -1,0 +1,37 @@
+{
+ "popis": "oblet proti směru hodin od pravého zadního rohu k pravému boku (strana potoka, úzký pás)",
+ "typ": "C",
+ "pohyb": "ORB-CCW",
+ "smer": "CCW",
+ "fov": "40 → 38",
+ "vyska": "2,0 → 3,0 m, r = 9,5 → 8,5 m",
+ "zabery": [
+  {
+   "id": "max-4.1",
+   "od": 2.0,
+   "do": 11.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camOrbit",
+   "radius": 9.5,
+   "radius2": 8.5,
+   "height": 2.0,
+   "height2": 3.0,
+   "angle0": 26.6,
+   "angle1": 96.7,
+   "lx": 0.0,
+   "ly": 2.0,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 38,
+   "tau": 0.3,
+   "duration": 14,
+   "ease": "smooth",
+   "check": false,
+   "target": "max"
+  }
+ ]
+}

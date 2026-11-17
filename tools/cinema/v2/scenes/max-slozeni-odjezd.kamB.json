@@ -1,0 +1,76 @@
+{
+ "popis": "8.1 oblet proti směru hodin, 8.2 tele z východu přes potok se sledováním cíle",
+ "typ": "C",
+ "pohyb": "ORB-CCW → STAT + sledování",
+ "smer": "CCW / R→L",
+ "fov": "40 / 22",
+ "vyska": "2,0 → 3,0 m; 1,3 m",
+ "zabery": [
+  {
+   "id": "max-8.1",
+   "od": 2.0,
+   "do": 11.0
+  },
+  {
+   "id": "max-8.2",
+   "od": 13.0,
+   "do": 23.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camOrbit",
+   "radius": 12,
+   "radius2": 11,
+   "height": 2.0,
+   "height2": 3.0,
+   "angle0": -31.0,
+   "angle1": 243.4,
+   "lx": 0.0,
+   "ly": 2.0,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 38,
+   "tau": 0.3,
+   "duration": 13.0,
+   "ease": "smooth",
+   "check": false,
+   "target": "max"
+  },
+  {
+   "at": 13.0,
+   "cmd": "camPath",
+   "duration": 13,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 688,
+     "y": 4.0,
+     "z": -57.0,
+     "rel": "terrain",
+     "tat": "mt655",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 22
+    },
+    {
+     "t": 13,
+     "x": 688,
+     "y": 4.0,
+     "z": -57.0,
+     "rel": "terrain",
+     "tat": "mt655",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 22
+    }
+   ],
+   "tsmooth": 0.4
+  }
+ ]
+}

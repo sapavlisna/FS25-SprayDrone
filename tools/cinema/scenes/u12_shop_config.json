@@ -1,0 +1,162 @@
+{
+ "name": "u12_shop_config",
+ "title": "Záběr 1.2: konfigurace Middle, dron S/M/L a počet baterií s cenami",
+ "steps": [
+  {
+   "cmd": "ui",
+   "op": "close"
+  },
+  {
+   "cmd": "ui",
+   "op": "shopOpen"
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "shopCat",
+   "id": "SPRAYDRONETRAILERS"
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "shopItem",
+   "n": 2
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "shopConfig"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "cfgCam",
+   "turn": 0.9,
+   "rotX": 0.22,
+   "zoom": 5.6,
+   "duration": 12.5,
+   "bg": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 1.2
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDrone",
+   "state": 1
+  },
+  {
+   "sleep": 1.4
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDrone",
+   "state": 3
+  },
+  {
+   "sleep": 1.4
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDrone",
+   "state": 2
+  },
+  {
+   "sleep": 1.2
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneBattery",
+   "state": 1
+  },
+  {
+   "sleep": 0.9
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneBattery",
+   "state": 2
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneBattery",
+   "state": 3
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneBattery",
+   "state": 4
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneBattery",
+   "state": 5
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneBattery",
+   "state": 6
+  },
+  {
+   "sleep": 1.6
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "ui",
+   "op": "cfgBack"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "shopBack"
+  },
+  {
+   "sleep": 0.3
+  },
+  {
+   "cmd": "ui",
+   "op": "close"
+  }
+ ]
+}

@@ -27,6 +27,8 @@
 
 SprayDroneSound = {}
 
+local DEBUG = SprayDroneDebug.ENABLED
+
 SprayDroneSound.CHANNELS = {
     { name = "generator", driver = "generatorRunning", upTime = 2500, downTime = 3500, minPitch = 0.55, volumeExponent = 0.5 },
     { name = "generatorHum", driver = "generatorRunning", upTime = 3000, downTime = 2500, minPitch = 0.8, volumeExponent = 1 },
@@ -109,15 +111,29 @@ SprayDroneSound.DRIVERS = {
 
 SprayDroneSound.UNFOLD_STAGES = { 0.98 }   -- spec.unfold, při kterém cvakne dron (rozložen / začátek skládání); Pavel 2026-10-13: stačí jedno kliknutí
 
+SprayDroneSound.DEBUG_FILE_POLL_TIME = 1000
+
 -- Záznam zvuků do log.txt (Pavel 2026-10-22: hledá se zvuk, který zůstal hrát po odpojení hadice). SoundManager:playSample a stopSample
 -- se obalí a zapíše se každé spuštění a zastavení vzorku, který patří vozidlu z tohoto modu (i zvuky z XML: animace, spojky, WaterTrailer,
 -- podvozek): vozidlo, název a soubor vzorku, uzel, důvod a poslední akce. Důvod (stav, který zvuk řídí) předává skript přes because();
 -- bez něj zůstane prázdný. Smyčky se zapisují jen při změně (start / stop), jednorázové zvuky při každém přehrání.
+SprayDroneSound.DEBUG_LOG = true
 SprayDroneSound.MOD_NAME = g_currentModName
 
 function SprayDroneSound.noteAction(text)
     SprayDroneSound.lastAction = text
     SprayDroneSound.lastActionTime = g_time
+    if SprayDroneSound.DEBUG_LOG then
+        Logging.info("SDT akce: %s", text)
+    end
+end
+
+local function describeSample(sample)
+    local file = sample.filename ~= nil and Utils.getFilenameFromPath(sample.filename) or "?"
+    if sample.templateName ~= nil then
+        return string.format("%s [šablona %s, %s]", sample.sampleName or "?", sample.templateName, file)
+    end
+    return string.format("%s [%s]", sample.sampleName or "?", file)
 end
 
 -- Důvod dalšího spuštění / zastavení (platí pro nejbližší volání playSample / stopSample, pak se smaže).
@@ -125,8 +141,51 @@ function SprayDroneSound.because(text)
     SprayDroneSound.reason = text
 end
 
+local function logSample(sample, what, extra, vehicle)
+    local target = vehicle or sample.modifierTargetObject
+    local reason = SprayDroneSound.reason
+    SprayDroneSound.reason = nil
+    local node = ""
+    if sample.linkNode ~= nil and entityExists(sample.linkNode) then
+        node = ", uzel " .. getName(sample.linkNode)
+    end
+    local last = SprayDroneSound.lastAction
+    Logging.info("SDT zvuk: %s %s na %s (id %s%s)%s – %s | poslední akce: %s", what, describeSample(sample),
+        target.configFileNameClean or "?", tostring(target.id), node, extra or "", reason or "bez udaného důvodu",
+        last ~= nil and string.format("%s, před %d ms", last, g_time - SprayDroneSound.lastActionTime) or "žádná")
+end
+
 -- Informační řádek o změně řídicího stavu (vzorek se přitom nespouští ani nezastavuje).
 function SprayDroneSound.log(vehicle, sample, what, text)
+    if SprayDroneSound.DEBUG_LOG then
+        SprayDroneSound.reason = text
+        logSample(sample, what, nil, vehicle)
+    end
+end
+
+-- Vzorek patří vozidlu z tohoto modu nebo cizímu vozidlu, které je zdrojem vodní hadice (sdtSoundWatch, nastavuje SprayDroneWaterHose); modifierTargetObject
+-- nastavuje loadSampleFromXML i cloneSample, vanilla specializace tam dávají vozidlo.
+local function isOwnSample(sample)
+    local target = sample ~= nil and sample.modifierTargetObject or nil
+    return target ~= nil and type(target) == "table" and (target.customEnvironment == SprayDroneSound.MOD_NAME or target.sdtSoundWatch == true)
+end
+
+if SprayDroneSound.DEBUG_LOG and not SprayDroneSound.hooked then
+    SprayDroneSound.hooked = true
+    SoundManager.playSample = Utils.overwrittenFunction(SoundManager.playSample, function(self, superFunc, sample, delay, afterSample)
+        if isOwnSample(sample) and (sample.loops ~= 0 or not sample.sdtLogOn) then
+            sample.sdtLogOn = true
+            logSample(sample, sample.loops == 0 and "START" or "JEDNORÁZOVĚ", delay ~= nil and delay > 0 and string.format(", zpoždění %d ms", delay) or nil)
+        end
+        return superFunc(self, sample, delay, afterSample)
+    end)
+    SoundManager.stopSample = Utils.overwrittenFunction(SoundManager.stopSample, function(self, superFunc, sample, delay, fadeOut)
+        if isOwnSample(sample) and sample.sdtLogOn then
+            sample.sdtLogOn = false
+            logSample(sample, "STOP")
+        end
+        return superFunc(self, sample, delay, fadeOut)
+    end)
 end
 
 -- Spuštění / zastavení vzorku s udaným důvodem (logují se v obalu SoundManageru).
@@ -163,6 +222,8 @@ function SprayDroneSound.loadSounds(self, xml, key)
         end
         if channel.sample ~= nil then
             channel.baseVolume = g_soundManager:getSampleVolumeScale(channel.sample)
+        elseif SprayDroneStation.DEBUG_SOUND then
+            Logging.info("SDT zvuk: vrstva '%s' se nenačetla", def.name)
         end
         table.insert(spec.sound.channels, channel)
     end
@@ -175,6 +236,24 @@ function SprayDroneSound.loadSounds(self, xml, key)
         end
         table.insert(spec.sound.events, event)
     end
+end
+
+-- Ladění (jen s SprayDroneDebug.ENABLED): v debug.xml jde na klientovi zapnout mixér bez logiky míchání: <debug soundMixer="true"/>
+function SprayDroneSound.pollDebug()
+    if g_time - (SprayDroneSound.lastDebugPoll or -1e9) < SprayDroneSound.DEBUG_FILE_POLL_TIME then
+        return
+    end
+    SprayDroneSound.lastDebugPoll = g_time
+    local path = getUserProfileAppPath() .. SprayDroneDebug.FILE
+    local mixer = false
+    if fileExists(path) then
+        local handle = loadXMLFile("sdtDebugSound", path)
+        if handle ~= nil and handle ~= 0 then
+            mixer = Utils.getNoNil(getXMLBool(handle, "debug#soundMixer"), false)
+            delete(handle)
+        end
+    end
+    SprayDroneSound.debugMixer = mixer
 end
 
 -- Zvuk vleku se pouští podle pole spec: u pole dronu (míchání) stačí, když platí u některého z dronů.
@@ -205,6 +284,15 @@ SprayDroneSound.STATE_NAMES = { [0] = "dron na vleku", [1] = "dron letí dávku"
 SprayDroneSound.FLOW_QUIET_MS = 800
 SprayDroneSound.FLOW_EPSILON = 0.01
 
+local function constantName(prefix, value)
+    for name, v in pairs(SprayDroneStation) do
+        if type(name) == "string" and name:sub(1, #prefix) == prefix and v == value then
+            return name:sub(#prefix + 1)
+        end
+    end
+    return tostring(value)
+end
+
 function SprayDroneSound.getCommandName(command)
     for name, v in pairs(SprayDroneCommandEvent) do
         if type(name) == "string" and type(v) == "number" and v == command and name:find("^[A-Z_]+$") and not name:find("BITS") then
@@ -223,9 +311,128 @@ function SprayDroneSound.getToolboxCommandName(command)
     return tostring(command)
 end
 
+local function fillUnitLabel(self, spec, i)
+    local role = i == spec.fillUnitIndex and "hlavní" or i == spec.dieselFillUnitIndex and "nafta" or i == SprayDroneStation.getConcentrateUnit(self) and "koncentrát" or "jednotka"
+    return string.format("%s %d (%s)", role, i, g_fillTypeManager:getFillTypeNameByIndex(self:getFillUnitFillType(i)) or "?")
+end
+
+function SprayDroneSound.watch(self, dt)
+    local spec = self[SprayDroneStation.SPEC_NAME]
+    local root = SprayDroneDrones.getRoot(self)
+    local w = spec.sdtWatch
+    if w == nil then
+        w = { values = {}, fills = {} }
+        spec.sdtWatch = w
+    end
+    local name = string.format("%s (id %s)", self.configFileNameClean or "?", tostring(self.id))
+    local function change(key, value, text)
+        local old = w.values[key]
+        if old ~= value then
+            w.values[key] = value
+            if old ~= nil then
+                Logging.info("SDT děj: %s: %s", name, text(old, value))
+            end
+        end
+    end
+    local function onOff(on, off)
+        return function(_, new)
+            return new and on or off
+        end
+    end
+    change("entered", SprayDroneStation.getIsEntered(self), onOff("hráč nastoupil do vleku", "hráč vystoupil z vleku"))
+    local foldable = self.spec_foldable
+    if foldable ~= nil then
+        change("foldMoving", math.abs(foldable.foldMoveDirection or 0) > 0.1, function(_, moving)
+            return moving and string.format("skládání / rozkládání vleku začalo (směr %d)", foldable.foldMoveDirection) or "skládání / rozkládání vleku skončilo"
+        end)
+        change("unfolded", self:getIsUnfolded() == true, onOff("vlek je rozložený", "vlek už není rozložený"))
+    end
+    change("generatorEnabled", root.generatorEnabled == true, onOff("centrála povolena", "centrála zakázána"))
+    change("generatorRunning", root.generatorRunning == true, onOff("centrála běží", "centrála stojí"))
+    change("fieldId", root.fieldId or 0, function(old, new)
+        return string.format("vybrané pole %d -> %d", old, new)
+    end)
+    change("transfer", root.transferMode, function(old, new)
+        return string.format("přečerpávání %s -> %s", constantName("TRANSFER_", old), constantName("TRANSFER_", new))
+    end)
+    for k = 1, root.numDrones or 1 do
+        local d = SprayDroneDrones.getSpec(self, k)
+        if d ~= nil then
+            local tag = "dron " .. k
+            change(tag .. "state", d.state, function(old, new)
+                return string.format("%s: %s -> %s", tag, SprayDroneSound.STATE_NAMES[old] or old, SprayDroneSound.STATE_NAMES[new] or new)
+            end)
+            change(tag .. "mission", d.missionActive == true, onOff(tag .. ": mise začala", tag .. ": mise skončila"))
+            change(tag .. "status", d.status, function(_, new)
+                return string.format("%s: hlášení %s", tag, constantName("STATUS_", new))
+            end)
+            change(tag .. "unfold", d.unfold >= 1 and 2 or (d.unfold > 0 and 1 or 0), function(_, new)
+                return string.format("%s: %s", tag, new == 2 and "rozložen" or (new == 0 and "složen" or "rozkládá / skládá se"))
+            end)
+            change(tag .. "pumping", d.isPumping == true, onOff(tag .. ": plnění nádrže začalo", tag .. ": plnění nádrže skončilo"))
+            change(tag .. "mixing", d.isMixing == true, onOff(tag .. ": míchání začalo", tag .. ": míchání skončilo"))
+            change(tag .. "swapping", d.isSwapping == true, onOff(tag .. ": výměna baterie", tag .. ": výměna baterie hotová"))
+            change(tag .. "wait", (d.waitingForCharge and "nabití" or d.waitingForPower and "proud" or d.waitingForRelay and "relé" or d.waitingForClearance and "volný prostor") or "nic", function(old, new)
+                return string.format("%s: čeká na %s -> %s", tag, old, new)
+            end)
+        end
+    end
+    local pumpSlot = spec.pumpSlot
+    if pumpSlot ~= nil then
+        change("pumpSlot", pumpSlot.occupied == true, function(_, occupied)
+            return occupied and string.format("pumpa uložena na vleku (nafta %.1f l)", pumpSlot.diesel) or "pumpa vyndána z vleku"
+        end)
+    end
+    local tb = spec.toolbox
+    if tb ~= nil then
+        for i, part in ipairs(tb.parts) do
+            change("box" .. i, part.open == true, onOff(string.format("bedna %d otevřena", i), string.format("bedna %d zavřena", i)))
+        end
+        change("groundDrain", tb.groundDrain == true, onOff("vypouštění koncentrátu na zem začalo", "vypouštění koncentrátu na zem skončilo"))
+        change("pouring", tb.pouring == true, onOff("nalévání z kanystru začalo", "nalévání z kanystru skončilo"))
+    end
+    local fillUnit = self.spec_fillUnit
+    local moving = false
+    if fillUnit ~= nil then
+        for i, unit in ipairs(fillUnit.fillUnits) do
+            local level = unit.fillLevel
+            local f = w.fills[i]
+            if f == nil then
+                w.fills[i] = { last = level, quiet = 0 }
+            else
+                if math.abs(level - f.last) > SprayDroneSound.FLOW_EPSILON then
+                    if not f.moving then
+                        f.moving, f.start, f.startTime = true, f.last, g_time
+                        Logging.info("SDT děj: %s: nádrž %s: hladina %s z %.1f l", name, fillUnitLabel(self, spec, i), level > f.last and "začala stoupat" or "začala klesat", f.last)
+                    end
+                    f.quiet = 0
+                elseif f.moving then
+                    f.quiet = f.quiet + dt
+                    if f.quiet >= SprayDroneSound.FLOW_QUIET_MS then
+                        f.moving = false
+                        Logging.info("SDT děj: %s: nádrž %s: hladina se ustálila na %.1f l (%+.1f l za %.1f s)", name, fillUnitLabel(self, spec, i), level,
+                            level - f.start, (g_time - f.startTime - f.quiet) / 1000)
+                    end
+                end
+                f.last = level
+                moving = moving or f.moving
+            end
+        end
+    end
+    if moving then
+        self:raiseActive()
+    end
+end
+
 -- Akce hráče, které řeší vanilla skript (skládání vleku klávesou X): doplní se řádek "SDT akce:", ať je v logu vidět, kdo a odkud je spustil.
 local vanillaFold = Foldable.actionEventFold
 Foldable.actionEventFold = function(self, ...)
+    if SprayDroneStation ~= nil and self[SprayDroneStation.SPEC_NAME] ~= nil and SprayDroneSound.DEBUG_LOG then
+        local player = g_localPlayer
+        local seat = player ~= nil and player.getCurrentVehicle ~= nil and player:getCurrentVehicle() or nil
+        SprayDroneSound.noteAction(string.format("klávesa skládání (X): vlek %s (id %s), hráč sedí v %s", self.configFileNameClean or "?", tostring(self.id),
+            seat == nil and "nikde" or seat == self and "tomto vleku" or (seat.configFileNameClean or "jiném vozidle")))
+    end
     return vanillaFold(self, ...)
 end
 
@@ -233,10 +440,16 @@ function SprayDroneSound.updateSounds(self, dt)
     if not self.isClient then
         return
     end
+    if SprayDroneSound.DEBUG_LOG then
+        SprayDroneSound.watch(self, dt)
+    end
     local spec = self[SprayDroneStation.SPEC_NAME]
     local sound = spec.sound
     if sound == nil then
         return
+    end
+    if DEBUG then
+        SprayDroneSound.pollDebug()
     end
     local busy = false
     for _, channel in ipairs(sound.channels) do
@@ -244,6 +457,9 @@ function SprayDroneSound.updateSounds(self, dt)
         if sample ~= nil then
             local def = channel.def
             local target = SprayDroneSound.getDriver(self, def.driver)
+            if DEBUG and SprayDroneSound.debugMixer and def.driver == "isMixing" then
+                target = true
+            end
             if not channel.initialized then
                 -- první průchod (po načtení, připojení do hry, probuzení vleku při nastoupení) stav jen převezme, ať se
                 -- už běžící centrála neroztáčí znovu jako při startu motoru

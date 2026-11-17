@@ -1,0 +1,367 @@
+{
+ "name": "v2_mini-detaily_B",
+ "title": "mini-detaily | kamera B: druhá varianta: jiné strany a opačný pohyb (STAT-orbit heliport, TILT-D, NAJ šachta, TRK R→L, NAJ navíječ)",
+ "v2": {
+  "akce": "mini-detaily",
+  "kamera": "B",
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.2",
+   "mini-4.3",
+   "mini-4.4",
+   "mini-4.5",
+   "mini-4.6"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 10.37,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 3,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 4,
+   "crop": "MAIZE",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 5,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "mini",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": -690,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "mini",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "mini",
+   "unit": "conc",
+   "fill": "HERBICIDE",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "mini",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "mini",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650",
+   "maxTilt": 6
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 2.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini:drone1",
+     "x": -2.2,
+     "y": 0.9,
+     "z": -3.2,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.15,
+     "tz": 0,
+     "fov": 34
+    },
+    {
+     "t": 2.0,
+     "at": "mini:drone1",
+     "x": -2.2,
+     "y": 0.9,
+     "z": -3.2,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.15,
+     "tz": 0,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini:drone1",
+     "x": -2.2,
+     "y": 0.9,
+     "z": -3.2,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.15,
+     "tz": 0,
+     "fov": 34
+    },
+    {
+     "t": 5.5,
+     "at": "mini:drone1",
+     "x": -1.4,
+     "y": 0.5,
+     "z": -1.5,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.15,
+     "tz": 0,
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -1.8,
+     "y": 1.5,
+     "z": 4.6,
+     "tat": "mini",
+     "tx": -0.05,
+     "ty": 1.6,
+     "tz": 2.3,
+     "fov": 36
+    },
+    {
+     "t": 5.5,
+     "at": "mini",
+     "x": -1.8,
+     "y": 1.5,
+     "z": 4.6,
+     "tat": "mini",
+     "tx": -0.05,
+     "ty": 0.8,
+     "tz": 2.3,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 2.6,
+     "y": 2.2,
+     "z": -0.6,
+     "tat": "mini",
+     "tx": 0.5,
+     "ty": 0.95,
+     "tz": 1.6,
+     "fov": 32
+    },
+    {
+     "t": 5.5,
+     "at": "mini",
+     "x": 1.6,
+     "y": 1.9,
+     "z": 0.6,
+     "tat": "mini",
+     "tx": 0.5,
+     "ty": 0.95,
+     "tz": 1.6,
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -2.8,
+     "y": 1.7,
+     "z": 3.8,
+     "tat": "mini",
+     "tx": -0.4,
+     "ty": 1.3,
+     "tz": 1.7,
+     "fov": 36
+    },
+    {
+     "t": 5.5,
+     "at": "mini",
+     "x": -2.8,
+     "y": 1.4,
+     "z": 0.4,
+     "tat": "mini",
+     "tx": -0.4,
+     "ty": 1.3,
+     "tz": 1.7,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -4.2,
+     "y": 1.6,
+     "z": 2.8,
+     "tat": "mini",
+     "tx": -0.72,
+     "ty": 0.95,
+     "tz": 0.2,
+     "fov": 34
+    },
+    {
+     "t": 5.0,
+     "at": "mini",
+     "x": -1.8,
+     "y": 1.0,
+     "z": 1.0,
+     "tat": "mini",
+     "tx": -0.72,
+     "ty": 0.95,
+     "tz": 0.2,
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "sleep": 5.0
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

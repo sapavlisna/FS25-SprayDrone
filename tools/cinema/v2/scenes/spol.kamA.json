@@ -1,0 +1,138 @@
+{
+ "popis": "spol-1 pomalé najetí zdálky na tři vleky se startujícími drony, spol-2 boční jízda zezadu L→R, spol-3 jeřáb nahoru",
+ "typ": "C / PC",
+ "pohyb": "NAJ → TRK L→R → JIB-U",
+ "smer": "L→R",
+ "fov": "44 / 50 / 50",
+ "vyska": "1,6 → 2,2 m; 1,7 m; 1,6 → 14 m",
+ "zabery": [
+  {
+   "id": "spol-1",
+   "od": "t=0",
+   "do": "h1 +4"
+  },
+  {
+   "id": "spol-2",
+   "od": "h2 +0",
+   "do": "h2 +8"
+  },
+  {
+   "id": "spol-3",
+   "od": "h3 +0",
+   "do": "h3 +8"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 11,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -712,
+     "y": 1.6,
+     "z": 190,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 5.0,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 44
+    },
+    {
+     "t": 11,
+     "x": -702,
+     "y": 2.2,
+     "z": 172,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 6.0,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 44
+    }
+   ]
+  },
+  {
+   "after": "h2",
+   "cmd": "camPath",
+   "duration": 8.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -714,
+     "y": 1.7,
+     "z": 164,
+     "rel": "terrain",
+     "tx": -698,
+     "ty": 4.0,
+     "tz": 142,
+     "trel": "terrain",
+     "fov": 50
+    },
+    {
+     "t": 4.25,
+     "x": -694,
+     "y": 1.8,
+     "z": 165,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 4.5,
+     "tz": 142,
+     "trel": "terrain",
+     "fov": 50
+    },
+    {
+     "t": 8.5,
+     "x": -674,
+     "y": 1.7,
+     "z": 164,
+     "rel": "terrain",
+     "tx": -690,
+     "ty": 4.0,
+     "tz": 142,
+     "trel": "terrain",
+     "fov": 50
+    }
+   ]
+  },
+  {
+   "after": "h3",
+   "cmd": "camPath",
+   "duration": 8.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -694,
+     "y": 1.6,
+     "z": 178,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 3.0,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 50
+    },
+    {
+     "t": 8.5,
+     "x": -694,
+     "y": 14.0,
+     "z": 182,
+     "rel": "terrain",
+     "tx": -694,
+     "ty": 5.0,
+     "tz": 140,
+     "trel": "terrain",
+     "fov": 50
+    }
+   ]
+  }
+ ]
+}

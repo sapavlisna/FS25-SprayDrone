@@ -1,0 +1,3579 @@
+{
+ "out/trailer/v2/raw/mini/4/mini-rozlozeni_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.5,
+  "out_s": 16.5,
+  "nejlepsi_okno": [
+   3.5,
+   14.0
+  ],
+  "nalezy": [
+   "0–4 s: sestava stojí složená, rezerva před akcí 2 s, čisté.",
+   "4–7 s: stěny se sklápí, panely se rozkládají, v 6 s je stěna ve vzduchu (animace).",
+   "8–12 s: dron se rozkládá a sjíždí na heliport; od 12 s stojí, kamera už jen jemně dojíždí (obletu ubývá).",
+   "Bez cizích objektů, kola na zemi, světlo OK. Tahač vlevo ořezaný, záměrně."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/1-2/mini-silnice_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "0–16 s: kamera celou dobu uvnitř keře – přes půl obrazu větev s listy (Z4).",
+   "Soupravu je vidět jen jako malý objekt za větví (2–10 s), nečitelná.",
+   "Z1/Z4: nelze použít žádný výřez."
+  ],
+  "oprava": "Kamera A (x=-55, y=1,2, z=-656) je ve křoví na jižní krajnici. Posunout o ~10–15 m po silnici (x=-40 nebo -70) a o 2–3 m blíž k asfaltu (z≈-659) nebo zvednout na y≈1,8; případně keř odebrat/zakrýt. Ověřit dry-runem snímkem.",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/1-2/mini-silnice_B_t1.mkv": {
+  "stav": "ok",
+  "in_s": 1.0,
+  "out_s": 10.0,
+  "nejlepsi_okno": [
+   2.5,
+   8.5
+  ],
+  "nalezy": [
+   "0–3 s: souprava z dálky přibližuje, tele, malá ale čitelná; vodárna v pozadí (OK).",
+   "3–7 s: těsný průjezd, tahač i vlek (BZUK) plně v záběru, švenk po směru jízdy, kola na silnici.",
+   "7–16 s: odjíždí do dálky ve 3/4 zezadu, zůstává v záběru.",
+   "Světlo OK. Poslední snímek má pts mezeru 33 ms (16,87 s) – mimo užitý výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/1-2/mini-silnice_C_t1.mkv": {
+  "stav": "ok",
+  "in_s": 1.5,
+  "out_s": 9.5,
+  "nejlepsi_okno": [
+   2.5,
+   8.0
+  ],
+  "nalezy": [
+   "Kamera ~26 m od silnice, souprava jede před stromořadím; čitelná od 2 s do 8 s.",
+   "4–6 s: souprava je v nejlepším čitelném místě (tahač plně, vlek částečně před křovím).",
+   "Menší než B a jen v dálce (nesplňuje 'těsně kolem kamery' z 2.1) – záložní varianta.",
+   "Bez cizích objektů, světlo OK."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/1-2/mini-silnice_D_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "0–16 s: v popředí celou dobu žlutočerná výstražná cedule a řada bílo-černých zábran/barelů (Z2/Z4), zakrývá levou třetinu a spodek záběru.",
+   "Vpravo kmen stromu a keř, souprava jede úzkým výřezem uprostřed.",
+   "11–13 s: tahač projíždí těsně před objektivem a vyjíždí vlevo mimo záběr, ořezaný; konec (14–16 s) prázdná silnice."
+  ],
+  "oprava": "Kamera D (x=-80, y=0,8, z=-657,5) stojí za značkou a zábranou. Posunout o ~15 m (x≈-65 nebo -95) nebo na druhou stranu silnice (z≈-668), zvednout na y≈1,0, nebo značku a zábrany dočasně odebrat. Tele fov 12 nechat; konec zkrátit, aby záběr končil s vozidlem v kadru.",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "0–7 s: v záběru cizí tahač JD a zelený sklápěč (Z1/Z3) před soupravou, na dvoře u stodoly – isolate je neodstranil.",
+   "8–10 s: kamera zajede do porostu (sorgo/kukuřice), listy před objektivem, souprava mizí (Z4).",
+   "Souprava je navíc na 0–6 s zakrytá cizími stroji."
+  ],
+  "oprava": "Zvětšit isolate radius/odparkovat cizí stroje u stodoly (nebo posunout kameru tak, aby je nebylo vidět). Konec trajektorie (oz2=-7, 25 m vlevo) končí v poli – posunout kameru na cestu/dál od porostu, ox2≈20 a oy≥1,6, nebo záběr zkrátit na 7 s.",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.0,
+  "out_s": 8.5,
+  "nejlepsi_okno": [
+   2.5,
+   8.0
+  ],
+  "nalezy": [
+   "Protisvětlo: tahač i vlek v siluetě, štítek BZUK nečitelný (Z8), celkově tmavé.",
+   "0–1,5 s: v popředí plot (Z4); 8,5–10 s: do záběru zajíždí kryt stodoly vpravo.",
+   "2–8 s: souprava čitelná v profilu, jede vpravo (L→R podle scénáře), kola na zemi, rovný horizont."
+  ],
+  "oprava": "Pro lepší světlo posunout čas (10:10 → později odpoledne, slunce za kamerou) nebo kameru na jižní stranu; odstranit/obejít plot v 0–1,5 s (start kamery o ~5 m dál od plotu).",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.5,
+  "out_s": 9.0,
+  "nejlepsi_okno": [
+   4.5,
+   8.5
+  ],
+  "nalezy": [
+   "0–6 s: levá třetina obrazu je stěna stodoly (Z4 – zakrývá prostor, ale ne vozidlo); v 4–6 s v pozadí malá kráva (Z3).",
+   "6–9 s: tahač vjíždí z protisvětla, přední strana tahače ve stínu (Z8), vlek za ním skoro neviditelný.",
+   "10 s: tahač v extrémním close-upu, ořezaný, vlek mimo záběr.",
+   "Souprava jede po trávě, ne po štěrkové cestě."
+  ],
+  "oprava": "Posunout kameru dál od stěny stodoly (x o ~6 m na západ) a zvětšit fov, aby se tahač ve 10 s nevyřízl; případně končit již v 9 s. Ověřit, že trasa vede po štěrku.",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_D_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 4.5,
+  "nejlepsi_okno": [
+   0.5,
+   4.5
+  ],
+  "nalezy": [
+   "Zezadu vysoko za soupravou, tahač i vlek BZUK uprostřed, plynulý FOL, horizont rovně.",
+   "Od ~4 s je v dálce pod přístřeškem vidět cizí červený teleskopický manipulátor (Z3), ve 6–10 s zřetelně.",
+   "Souprava jede z pole na štěrk a zpět do trávy – zdá se, že nejede po cestě."
+  ],
+  "oprava": "Odstranit/odparkovat červený manipulátor ze stodoly (isolate) nebo změnit směr jízdy tak, aby stodola nebyla v pozadí; pak lze použít celý záběr 0,5–9,5 s.",
+  "hodnotil": "kontrolor obrazu (mini-silnice/cesta/rozlozeni)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "0–14,9 s: v popředí celou dobu kovové zábradlí a žlab (spodní třetina, svislé sloupky přes obraz) – Z4.",
+   "Uprostřed obrazu velká zelená ikona hotspotu s kapkou (od 0 s do konce) – Z5.",
+   "Souprava se objeví až v 4 s jako malý tahač za zábradlím, od 10 s jede za sloupkem, vlek nečitelný.",
+   "V pozadí vlevo cizí červený stroj pod přístřeškem (Z3, daleko)."
+  ],
+  "oprava": "Kameru A (−668; 0,8; 146) posunout o ~6 m od žlabu (jiná strana dvora nebo y≈1,5 nad zábradlí), vypnout ikony hotspotů ve světě; ověřit snímkem.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 9.5,
+  "out_s": 14.5,
+  "nejlepsi_okno": [
+   9.5,
+   14.5
+  ],
+  "nalezy": [
+   "0–7 s: prázdný dvůr (stodola, sila), nic se neděje; tahač vjíždí zleva až v 7,5 s.",
+   "8–9 s: tahač a vlek ořezané levým okrajem; od 10 s celá souprava, zabrzdí ~12 s a stojí do konce (rezerva po akci 2,5 s OK).",
+   "Souprava je malá (~15 % šířky), ale čitelná (tahač, červená bedna BZUK). Světlo OK, bez cizích objektů.",
+   "pts mezera 33 ms v 14,87 s – mimo užitý výřez."
+  ],
+  "oprava": "Úvod 7 s je prázdný: posunout příjezd soupravy o ~6 s dřív (nebo kratší čekání před startem záznamu) a zúžit fov 32→24, aby souprava byla větší.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_C_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "0–14,9 s: v popředí velká černá kráva ležící na trávě (Z3, zvíře) a pastvina, plot přes celou šířku.",
+   "Souprava jede daleko za plotem a přístřeškem s krmítkem, malá a od 8 s částečně zakrytá přístřeškem (Z4).",
+   "V záběru drobné ikony hotspotů u plotu (Z5)."
+  ],
+  "oprava": "Kameru C (−640; 1,4; 152) přesunout mimo pastvinu (o ~15 m na sever na štěrk) nebo odstranit zvířata (isolate animals); zvednout y≈1,8 nad plot.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_D_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.0,
+  "out_s": 14.5,
+  "nejlepsi_okno": [
+   2.0,
+   14.5
+  ],
+  "nalezy": [
+   "Vyvýšený boční celek: stodola v pozadí, souprava vjíždí zleva (plně v záběru od 2 s), jede doprava, zabrzdí ~11,5 s a stojí do konce (rezerva po akci ~3 s).",
+   "Souprava malá (~10–12 % šířky), ale kompletní a čitelná (zelený JD, červená bedna). Žádné cizí objekty, kola na zemi, světlo OK.",
+   "0–2 s: souprava na okraji vlevo, na začátku není rezerva před akcí (záměrně při příjezdu)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/4/mini-rozlozeni_B_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.5,
+  "out_s": 16.0,
+  "nejlepsi_okno": [
+   3.0,
+   14.5
+  ],
+  "nalezy": [
+   "0–4 s: složený vlek zezadu zprava, rezerva před akcí; 4–7 s: stěny se sklápějí, v 6 s panel ve vzduchu (animace), plošina se rozkládá.",
+   "7–10 s: dron se rozkládá na heliportu; od 10 s stojí, oblet pomalu pokračuje (stodola v pozadí, červená).",
+   "Tahač vpravo ořezaný, záměrně. Bez cizích objektů, světlo OK, kola na zemi.",
+   "pts mezera 33 ms až v 18,3 s – mimo výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/4/mini-rozlozeni_C_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.5,
+  "out_s": 14.0,
+  "nejlepsi_okno": [
+   3.5,
+   13.5
+  ],
+  "nalezy": [
+   "Pevný záběr zezadu: celé rozložení čitelné (panel v 6 s přes půl obrazu, pak plošina k nám); tahač v ose za vlekem.",
+   "11–17 s: ramena dronu se překrývají s kabinou tahače (kompozice slabší, ale čitelné).",
+   "Bez cizích objektů, světlo OK, horizont rovně. pts mezera 50 ms v 18,30 s – mimo výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/4/mini-rozlozeni_D_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "0–17 s: záběr míří na pastvinu a přístřešek (hotspoty, krávy v pozadí), vlek se vůbec nevidí.",
+   "Od 7 s do konce jen kolo a blatník tahače u levého okraje; rozkládání vleku probíhá mimo záběr (Z1).",
+   "Z3: krávy na pastvině v pozadí, Z5: ikony hotspotů."
+  ],
+  "oprava": "Kamera D 'at mini' (−8; 0,9; 4,0) míří špatným směrem: přepočítat kotvu vůči yaw vleku (jízda podél pravého boku), cíl na střed plošiny; ověřit dry-runem snímkem.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/4/mini-detaily_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.5,
+  "out_s": 29.5,
+  "nejlepsi_okno": [
+   [
+    2.5,
+    7.0
+   ],
+   [
+    7.8,
+    11.5
+   ],
+   [
+    13.5,
+    18.5
+   ],
+   [
+    19.0,
+    23.5
+   ],
+   [
+    25.0,
+    29.5
+   ]
+  ],
+  "nalezy": [
+   "4.2 (2–7,5): nájezd na plošinu s dronem a heliportem, vrtule stojí, hadice mimo heliport – OK.",
+   "4.3 (7,5–13): elektrocentrála (oranžová), modré čerpadlo, násypka čitelné v 8–11,5 s; od 12 s tilt do stodoly, centrála jen na dolním okraji, výfuk nevidět.",
+   "4.4 (13–18,5): šachta baterií otevřená, 2 baterie ve slotech vidět shora, dron ve šachtě není, nádrž se štítkem 300 l – OK.",
+   "4.5 (18,5–24): pohyb L→R přes kufr, čerpadlo a násypku; nádrž 300 l je skoro mimo záběr vlevo (jen okraj v 19 s).",
+   "4.6 (24–29,5): od ~24,5 s navíječ s modrou cívkou, hadice vede k heliportu, dron vzadu; OK.",
+   "Bez cizích objektů, světlo OK; poslední snímek pts mezera 33 ms (30,42 s)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/4/mini-detaily_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.0,
+  "out_s": 29.5,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    7.5
+   ],
+   [
+    10.0,
+    13.0
+   ],
+   [
+    13.5,
+    18.5
+   ],
+   [
+    19.0,
+    23.5
+   ],
+   [
+    25.0,
+    29.5
+   ]
+  ],
+  "nalezy": [
+   "4.2 (2–7,5): oblet heliportu s dronem, vrtule stojí – OK.",
+   "4.3 (7,5–13): první ~2 s (8–9,5 s) prázdná obloha a keře (TILT-D začíná nad horizontem), centrála se objeví až v 10 s a ze zadní strany (klec bez panelu).",
+   "4.4 (13–18,5): šachta s otevřeným víkem, sloty baterií částečně zakryté víkem v 17–18 s.",
+   "4.5 (18,5–24): přehled vleku, nádrž 300 l mimo záběr.",
+   "4.6 (24–29,5): nájezd k navíječi s cívkou, hadice k heliportu – OK.",
+   "Bez cizích objektů; pts mezera 33 ms v 30,37 s mimo výřez."
+  ],
+  "oprava": "4.3: začít tilt z úrovně centrály (ne z oblohy) nebo zkrátit na 10–13 s; v 4.4 zvednout kameru o ~0,3 m, aby víko nezakrývalo sloty.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.0,
+  "out_s": 17.5,
+  "nejlepsi_okno": [
+   [
+    3.0,
+    8.0
+   ],
+   [
+    10.5,
+    17.5
+   ]
+  ],
+  "nalezy": [
+   "5.1 (0–7): celek zezadu, víko pravé bedny se odklopí ve 3–4 s; najetí končí na logu bedny (6–8 s), kanystry v bedně ani zvedání kanystru nejsou vidět; štítek kanystru v 5.1 není.",
+   "5.2: od 10 s oranžový kanystr visí ve vzduchu nad násypkou bez opory (Z9, 'neviditelná ruka'), v 16 s se naklání a spodek je vidět; štítek 'HERBICID – koncentrovaný postřik 20 l' čitelný ~12–17 s, látka sedí na herbicid.",
+   "Vlévání koncentrátu není vidět (žádná kapalina), po 18 s kanystr zmizí; vpravo velký tahač (zadní tříbodový závěs) – OK.",
+   "Bez cizích kanystrů, světlo OK. pts mezera 50 ms v 21,45 s mimo výřez."
+  ],
+  "oprava": "Pro 5.1 ukázat zvednutí kanystru z bedny (cíl kamery na kanystr, ne na logo); u 5.2 kameru nechat u hrdla, ale schovat spodek kanystru (odstup ≥1,5 m).",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.0,
+  "out_s": 17.5,
+  "nejlepsi_okno": [
+   3.0,
+   17.5
+  ],
+  "nalezy": [
+   "Vyvýšený pevný celek: vlek s dronem na heliportu vzadu, víko bedny se odklopí ve 3 s.",
+   "6–8 s kanystr se zjeví ve vzduchu nad bednou, 9–15 s visí nad hrdlem (nad násypkou) bez opory, v 16 s se otáčí a spodek je vidět (Z9).",
+   "Štítek kanystru je z této vzdálenosti nečitelný (< 1 s čitelnosti) – 5.1 nesplněno; vlévání nevidět.",
+   "Bez cizích objektů, světlo OK, čistý záběr."
+  ],
+  "oprava": "Kameru přiblížit (fov 40→28) nebo zvednout cílový bod na kanystr, aby byl štítek čitelný; jinak použít jen jako celek.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 8.5,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   8.5,
+   15.5
+  ],
+  "nalezy": [
+   "Kamera nízko u hrdla se dívá nahoru: stodola a obloha vyplňují většinu obrazu; 0–5 s jen násypka a čerpadlo bez děje.",
+   "6–8 s a 16–17 s kanystr přilétá/odlétá přes levý okraj, ořezaný a se spodkem (Z9); 9–15 s kanystr visí nad hrdlem, štítek 'HERBICID' malý, ~1 s čitelný.",
+   "Tahač JD vpravo není vidět; 5.1 (bedna) tu vůbec není. Vlévání nevidět.",
+   "Světlo OK (modrá obloha), bez cizích objektů."
+  ],
+  "oprava": "Použít jen pro 5.2; kameru posunout o ~1 m dál a zvednout y 0,8→1,2, aby kanystr nebyl na okraji.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_D_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 9.0,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "0–8 s: blízký nájezd na logo pravé bedny (víko zavřené, kanystry nejsou), 5.1 ('víko, 4 kanystry, štítek') chybí.",
+   "9–15 s: kanystr nad hrdlem, otočený hrdlem dolů (poloha vlévání), štítek 'HERBICID koncentrovaný postřik 20 l' dobře čitelný (otočený o 180°), hrdlo nádobky v záběru – nejlepší 5.2 ze čtyř.",
+   "16–17 s kanystr odlétá nahoru, 18–21 s hrdlo prázdné (rezerva po akci ~4 s). Kapalina není vidět, kanystr bez opory (Z9, spodek ne).",
+   "Světlo OK, bez cizích objektů."
+  ],
+  "oprava": "Pro 5.1 doplnit záběr zvednutí kanystru z bedny (kamera D na polici místo loga).",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/6/mini-planovac_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 6.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    6.0
+   ]
+  ],
+  "nalezy": [
+   "6.1 (0,5–5,5): statika zboku, tablet leží vpravo dole (BZUK logo, modrá obrazovka v klidu – rozsvícení se nepozná), kola, navíječ, nádrž čitelné; tahač jen vzadu. OK.",
+   "6.2/6.3 (7–23 s): celé UI s mapou; od 7 s v kartě 'POLE 4' dvě červená varování: 'Chybí koncentrát: v hlavní nádrži je voda, ale nádrž koncentrátu je prázdná (nebo v ní není hnojivo či herbicid).' a 'Přípravku nestačí na celé pole – dron skončí, až vlek vyprázdní.' (Z5 – červené hlášky).",
+   "Karta nesedí k vleku Mini s herbicidem: 'Přípravek: Tekuté hnojivo', 'Vlek: 300 l – Voda', 'Koncentrát: 0 / 50 l', potřeba/zásoba 37 / 20 l.",
+   "Stránka 'Pole' se celou dobu nemění, přepnutí na 'Let' není; v 23 s stránka 'Mise'. Mapa se přibližuje plynule, kurzor není vidět."
+  ],
+  "oprava": "Před záznamem: setTank conc fill HERBICIDE (50 l) místo EMPTY a hlavní nádrž voda 300 l, v plánovači zvolit přípravek herbicid pro pole 4 a ověřit, že nejsou červená varování; pak natočit znovu 6.2/6.3, použít z tohoto klipu jen 6.1.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/6/mini-planovac_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.0,
+  "out_s": 6.0,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    6.0
+   ]
+  ],
+  "nalezy": [
+   "6.1 (0–6): nájezd z přední strany vleku (štítek BZUK) na tablet a navíječ; tablet vyplní střed v 4–6 s, modrá obrazovka s logem (rozsvícení se nepozná). OK.",
+   "6.2/6.3 (7–23 s): UI s mapou, stejná červená varování v kartě pole ('Chybí koncentrát: v hlavní nádrži je voda, ale nádrž koncentrátu je prázdná …' a 'Přípravku nestačí na celé pole – dron skončí, až vlek vyprázdní.') – Z5.",
+   "Výběr: 7–9 s 'Pole 4', v 10–11 s skočí na 'Pole 3' a zpět na 'Pole 4' ve 12 s (neodpovídá plánu skoku na vedlejší pole); stránka 'Let' (8–20 s) → 'Mise' (21 s+).",
+   "Karta uvádí 'Přípravek: Tekuté hnojivo' a 'Vlek: 300 l – Voda' (ne herbicid)."
+  ],
+  "oprava": "Stejné jako A: koncentrát herbicid 50 l a přípravek herbicid před záznamem; skok výběru dělat na pole 4 z pole 3 jen jednou.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-let_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 1.0,
+  "out_s": 33.5,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    9.5
+   ],
+   [
+    16.0,
+    22.5
+   ],
+   [
+    24.0,
+    29.5
+   ],
+   [
+    30.0,
+    33.5
+   ]
+  ],
+  "nalezy": [
+   "7.1 (0–9,5): jeřáb u plošiny, dron stojí na heliportu a od 5 s vzlétá nad tahač, stromy mimo osu stoupání; OK.",
+   "7.2 (10–23): 10 s prázdná obloha, 11–15 s dron malý a daleko, od 16 s FOL zezadu: dron + mlha v řádcích kukuřice, mlha bílá (ne zřetelně bílomodrá), čitelné do 22,5 s.",
+   "7.3 (23–29,5): TOP, stopa postřiku na řádku dobře vidět, dron malý, čisté.",
+   "7.4 (30–38): 30–33,5 s dron s mlhou přes trávu nízko; od ~34 s dron za stromy a sloupem s dráty (Z4), od 36 s postřik skončil a dron jen visí nad polem.",
+   "Bez cizích vozidel (JD jen v 7.1), světlo OK. pts mezera 50 ms v 39,05 s mimo výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-let_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.0,
+  "out_s": 33.5,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    9.5
+   ],
+   [
+    16.0,
+    22.5
+   ],
+   [
+    30.0,
+    33.5
+   ]
+  ],
+  "nalezy": [
+   "7.1 (0–9,5): pevný záběr z dálky před stodolou, dron startuje z plošiny a stoupá kolem stodoly, v 8–10 s zajede za větve stromu; čitelné, ale vlek malý.",
+   "7.2: 11–15 s dron drobný, vpravo cizí červený stroj pod přístřeškem (Z3, daleko); od 16 s FOL vysoko, mlha v řádcích dobře čitelná do 22,5 s.",
+   "7.3 (23–29,5): TOP z 95 m – dron a mlha jen pár pixelů, v poli tmavé kruhové artefakty, záběr nepoužitelný.",
+   "7.4: 30–33,5 s TRK s mlhou OK; v ~35 s větev s listy přes obraz (Z4); 36–38 s dron bez mlhy.",
+   "Světlo OK. pts mezera 33 ms v 39,07 s mimo výřez."
+  ],
+  "oprava": "7.3: sjet kameru na ~40–45 m (jako C) a fov 45→30; cizí stroj pod přístřeškem odstranit isolate nebo kameru natočit jinam.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-let_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 38.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    9.5
+   ],
+   [
+    16.0,
+    17.5
+   ],
+   [
+    23.5,
+    29.0
+   ],
+   [
+    30.0,
+    32.5
+   ],
+   [
+    35.0,
+    38.5
+   ]
+  ],
+  "nalezy": [
+   "7.1 (0–9,5): jeřáb zleva zezadu, platforma + tahač vlevo, dron vzlétá a stoupá nad pole; OK.",
+   "7.2: 10–15 s dron malý, v 15 s skoro nevidět; v 16–17,5 s FOL zepředu (3/4) dron s mlhou čitelný, od 18 s dron ořezaný levým okrajem a jen mlha uprostřed (Z4/Z7); pod přístřeškem vzadu cizí červený stroj (16–22 s, daleko).",
+   "7.3 (23–29,5): TOP 42 m – dron a bílá mlha v řádcích dobře čitelné, OK.",
+   "7.4: 30–32,5 s nízký FOL zezadu s mlhou, 33–34 s strom a dráty přes obraz (Z4); 35–38,5 s dron vyfocený čistě před stodolou, ale bez mlhy.",
+   "Světlo OK. pts mezera 50 ms v 39,30 s mimo výřez."
+  ],
+  "oprava": "7.2: kameru zepředu posunout víc do osy letu (dron do středu, fov 34→40), aby dron neutíkal vlevo.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-navrat-servis_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 1.5,
+  "out_s": 22.0,
+  "nejlepsi_okno": [
+   [
+    1.5,
+    7.0
+   ],
+   [
+    8.0,
+    15.0
+   ],
+   [
+    16.0,
+    22.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–7): dron sestupuje za stromy, kamera ho sleduje, od 6 s visí nad heliportem, dosednutí je až na střihu (~7,5 s); dron je v záběru celou dobu.",
+   "7.6 (8–15): oblet proti směru hodin kolem dronu na desce, hadice napojená k nádrži; v 8–9 s nad dronem krátce plave baterie (Z9, 'neviditelná ruka'), výměna baterie se z této vzdálenosti nečte; doplnění nádrže (20 l) nepoznat.",
+   "16–22 s: statický záběr z boku, dron na heliportu s hadicí, bez děje.",
+   "V pozadí cizí červený stroj pod přístřeškem (14 s, daleko). Světlo OK, kola na zemi. pts mezera 50 ms v 22,70 s mimo výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-navrat-servis_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.5,
+  "out_s": 7.0,
+  "nejlepsi_okno": [
+   [
+    1.5,
+    7.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–7): vlek zprava před stodolou, dron přilétá z dálky a visí nad heliportem; malý a daleko, ale čitelný.",
+   "7.7 (8–22): kamera nízko u boku vleku míří na nádrž, kufr a kolo; dron je celou dobu MIMO záběr (vpravo nahoře jen ramena a hadice v 8–9 s) – Z7; v 8–10 s plave sama baterie (modrý štítek 'S') bez opory (Z9).",
+   "Výměna baterie ani doplnění nejsou k vidění; 10–22 s statika s kufrem bez děje.",
+   "Cizí objekty nejsou, světlo OK. pts mezera 50 ms v 22,70 s."
+  ],
+  "oprava": "Pro 7.7: kamera B míří na šachtu vlevo místo na dron; cíl přehodit na dron/šachtu (heliport vpravo nahoře), zvednout y 0,5→1,0 a otočit o ~35° doprava.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-navrat-servis_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 22.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    7.0
+   ],
+   [
+    8.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–7): FOL shora zezadu za sestupem dronu, tahač vlevo, dron se snáší na heliport – čitelné.",
+   "7.6 (8–22): oblet po směru hodin; baterie plave nad dronem v ~8,5 s (Z9), výměna se nečte; doplnění nádrže nepoznat, nádrž 300 l vidět až od 19 s.",
+   "12–16 s na pozadí cizí červený stroj v přístřešku (Z3, daleko); od 16 s kamera nízko podél vleku, dron malý na konci desky.",
+   "Světlo OK. pts mezera 50 ms v 22,70 s."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-navrat-servis_D_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.0,
+  "out_s": 22.0,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    7.0
+   ],
+   [
+    9.0,
+    11.5
+   ],
+   [
+    12.0,
+    22.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–7): dron přilétá (červené kontrolky), od 5 s klesá k vleku a přistává na heliport ~7 s – nejčitelnější přistání.",
+   "7.7 (8–22): blízký nájezd na dron s hadicí; v 9–11 s nad dronem plave vybitá baterie (modrý štítek 'S') a nová zapadne do dronu – jediný záběr, kde je výměna vidět, ale ramena a horní část dronu jsou ořezané horním okrajem (8–11 s) a baterie je přímo na okraji obrazu.",
+   "12–22 s ODJ: dron celý, hadice připojená, doplnění nádrže se nezobrazuje (bez ukazatele), jen statika.",
+   "Světlo OK, bez cizích objektů."
+  ],
+  "oprava": "Kameru D v 7.7 odsunout o ~0,5 m a cíl o ~0,25 m výš, aby se vešla baterie nad dronem; doplnění ukázat pohledem na navíječ/ukazatel nádrže.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.5,
+  "out_s": 23.5,
+  "nejlepsi_okno": [
+   [
+    2.5,
+    14.5
+   ],
+   [
+    18.5,
+    23.5
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–15): jeřáb shora zepředu zleva; dron skládá ramena (4–7 s), plošina se skládá (8–10 s), v 11 s stěna ve vzduchu, od 12 s zavřená červená bedna; čisté, tahač vpravo.",
+   "8.2 (16–23): tele zezadu přes pole k oplocenému přístřešku; 16–18 s tahač ořezaný levým okrajem, od 19 s jede pryč, v 21–23 s malý.",
+   "V 8.2 u přístřešku drobné ikony hotspotů (Z5) a kráva v dálce (Z3). Světlo OK. pts mezera 50 ms v 27,75 s."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.5,
+  "out_s": 14.5,
+  "nejlepsi_okno": [
+   [
+    2.5,
+    14.5
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–15): boční celek před stodolou, dron skládá ramena (5–8 s), plošina sklopena v 9–11 s, panel s heliportem ve vzduchu v 11 s, zavřená bedna ve 13 s; tahač vpravo ořezaný (záměrně).",
+   "8.2 (16–23): tele přes ohradu – plotové laťky přes celý obraz (Z4), souprava miniaturní před stodolou; v 21–23 s se tahač s vlekem podivně naklání při zatáčení (možný náklon > 6°, Z6).",
+   "Světlo OK. pts bez mezer."
+  ],
+  "oprava": "8.2: kamera za plotem, přesunout o ~8 m na štěrk bez ohrady a zvětšit souprava (fov 20→14); zkontrolovat náklon při zatáčení.",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_C_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.0,
+  "out_s": 22.0,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    14.5
+   ],
+   [
+    15.5,
+    22.0
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–15): pevný nízký záběr zezadu, dron skládá ramena (5–8 s), plošina se zvedá (8–10 s), stěna přes celý obraz v 11 s (animace, zrcadlený nápis BZUK je z animace), zavřená bedna od 12 s – čisté, dobře čitelné.",
+   "8.2 (16–23): FOL za soupravou, zadní stěna BZUK a tahač jedou pryč po štěrku, od ~20 s přejedou na trávu; v 23 s je vlek velký dole v kadru.",
+   "V 20–23 s v pozadí drobné ikony hotspotů u přístřešku (Z5) a kráva v dálce (Z3). Světlo OK, horizont rovně. pts mezera 33 ms v 27,82 s mimo výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (mini dvůr/rozložení/detaily/kanystr/plánovač/let/návrat/složení)"
+ },
+ "out/trailer/v2/raw/middle/1-2/middle-silnice_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 9.5,
+  "nejlepsi_okno": [
+   [
+    2.5,
+    9.0
+   ]
+  ],
+  "nalezy": [
+   "1.1 (0–6 s): tele STAT, pickup s vlekem se blíží po silnici, od 4 s čitelný (BZUK, dron na střeše), světlo OK, žádné cizí objekty.",
+   "7–9 s: těsný průjezd, vlek s dronem velký vlevo, ořezaný levým okrajem (záměrně průjezd kolem kamery).",
+   "2.1: kamera se za vozidlem neotáčí (statická), od 10 s do konce 7 s prázdná silnice – 3/4 zezadu chybí.",
+   "Dopravní značka a stromy jsou součást silnice, nic nezavazí."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/1-2/middle-silnice_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.0,
+  "out_s": 6.5,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    6.5
+   ]
+  ],
+  "nalezy": [
+   "Kamera nízko v trávě (0–2 s tráva v popředí), souprava jede po silnici v dálce za loukou; vodárna v pozadí.",
+   "3–6 s: souprava profilem před stromy, plně čitelná (BZUK, dron), kola na silnici.",
+   "7–16 s: souprava mizí daleko za stromy, miniaturní (Z4, nečitelné); těsný průjezd z plánu není, vozidlo jede 15–25 m od kamery.",
+   "Světlo OK, bez cizích objektů."
+  ],
+  "oprava": "Kamera B (x=20, y=1,4, z=−649,5) je moc daleko od jízdní dráhy – posunout o ~8 m k silnici (z≈−656) a zvednout o 0,3 m nad trávu; konec zkrátit na 7 s.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/1-2/middle-silnice_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.0,
+  "out_s": 6.0,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    6.0
+   ]
+  ],
+  "nalezy": [
+   "Podobný záběr jako B, souprava ještě menší (~10 % šířky), po 4 s ji částečně zakrývají kmeny a koruny stromů (Z4).",
+   "8–16 s souprava miniaturní, mezi stromy; nepoužitelné.",
+   "Světlo OK, bez cizích vozidel. Záložní varianta k A/D."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/1-2/middle-silnice_D_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 7.0,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    6.8
+   ]
+  ],
+  "nalezy": [
+   "1.1 (0–6 s): tele z nízkého svahu, pickup s vlekem sjíždí na kameru po asfaltu, čitelný od 3 s, BZUK a dron na střeše vidět; značka vlevo je součást silnice.",
+   "6–7 s: průjezd těsně kolem objektivu, vlek ořezaný vpravo (záměrně).",
+   "8–16 s: prázdná silnice, konec bez vozidla (2.1 otočení za vozidlem chybí); ptáci na obloze nevadí.",
+   "pts mezera 50 ms v 16,85 s – mimo výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-cesta_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.0,
+  "out_s": 10.0,
+  "nejlepsi_okno": [
+   [
+    7.8,
+    10.0
+   ],
+   [
+    3.5,
+    7.8
+   ]
+  ],
+  "nalezy": [
+   "Boční tracking nízko v trávě: 0–1,5 s tráva a žlutá značka/sloup v popředí, sloup a dráty v 0–2 s.",
+   "2–7 s: pickup je ořezaný pravým okrajem (kabina polovinou mimo), vlek uprostřed čitelný (BZUK, dron); od ~8 s je celý pickup v záběru.",
+   "Pozadí: vodárna, stodola, plot – součást krajiny, bez cizích vozidel; světlo OK, kola na zemi.",
+   "Souprava jede zleva doprava, scénář chce R→L (TRK R→L)."
+  ],
+  "oprava": "Posunout cíl kamery o ~1,5 m dopředu ve směru jízdy nebo fov 24→30, aby se pickup nestříhal; nebo kameru na druhou stranu cesty kvůli směru R→L.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-cesta_B_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "0–1,5 s použitelné (pickup+vlek na silnici, sloupy), pak 2–5,5 s kamera uvnitř keře – listí přes celý obraz (Z4), 6 s kmen stromu zakrývá vlek.",
+   "9–10 s kamera zajíždí k stěně přístřešku a do listí; celkově zešeřelé (stín), protisvětlo.",
+   "Použitelná okna jen 0–1,8 s a 6,8–8,6 s (obě < 2 s)."
+  ],
+  "oprava": "Kamera B (26 m vpravo od osy, y≈1,0–1,3) projíždí keři u cesty – posunout o ~6–8 m dál od keřů (na louku), y≥1,6, trajektorii vést mimo koruny; ověřit dry-runem snímkem.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-cesta_C_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "V popředí vpravo cizí červený kombajn pod přístřeškem (Z3) a štěrková plocha; souprava jede daleko za loukou, miniaturní (~3 % šířky).",
+   "Souprava se nepřibližuje (nárůst jen 0,5→1 % zorného pole), pickup/BZUK nečitelné.",
+   "Světlo OK."
+  ],
+  "oprava": "Kamera C (x=−700, z=167,5, fov 24→18) míří od stodoly; odparkovat/odstranit kombajn z přístřešku (isolate vehicles) a kameru posunout o ~20 m blíž k cestě (z≈175) nebo fov 24→14 na konci; přesunout mimo dohled stodoly.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-cesta_D_t1.mkv": {
+  "stav": "ok",
+  "in_s": 1.5,
+  "out_s": 10.0,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    10.0
+   ]
+  ],
+  "nalezy": [
+   "FOL zezadu: vlek (zadní stěna BZUK, dron na střeše, výstražné pruhy) uprostřed, jede po travnatém pruhu mezi cestou a polem, kola na zemi, horizont rovně, světlo OK.",
+   "0–1,5 s sloup přes obraz vlevo (pak mizí); keře a stodola vlevo nezavazí, bez cizích vozidel.",
+   "Pickup je celou dobu skrytý za vlekem (vidět jen zadní stěna vleku) – scénář 'pickup jede po štěrkové cestě' splněn jen zčásti."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.5,
+  "out_s": 8.0,
+  "nejlepsi_okno": [
+   [
+    2.5,
+    7.0
+   ]
+  ],
+  "nalezy": [
+   "Pevná kamera ze severu: souprava vjíždí zprava na louku před hladinou (voda, rákos, stromy v pozadí – požadováno), zastaví ~7 s.",
+   "Vlevo velký strom a keř v popředí (~20 % obrazu); pickup od ~6 s skrytý za keřem, zůstává jen vlek.",
+   "14–15 s větev s listím přes celý obraz (Z4). Souprava malá (~15 % šířky), čitelná. Kamera nacouvává, ale hladinu odhaluje jen mírně.",
+   "pts mezera 50 ms v 16,0 s – mimo výřez."
+  ],
+  "oprava": "Posunout kameru A o ~6 m doprava (x≈−629), aby strom a keř nestály v ose; zvednout y z 6 na 3,5 m a nechat větev mimo záběr; stopnout záběr v 13 s.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_B_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "Kamera 5 m nad hladinou ~35 m od soupravy: celý obraz vodní hladina a pás rákosu, souprava za rákosem miniaturní (~5 % šířky) a zakrytá (Z4, Z1).",
+   "Souprava jen 'BZUK' štítek mezi rákosem; pickup nečitelný; nemá cenu ani jako celek."
+  ],
+  "oprava": "Kamera B (−625; 5; 490) → přesunout z hladiny na břeh poloostrova do ~12 m od místa zastavení, např. (−640; 2,5; 450), cíl na (−618; 457), fov 32; rákos nesmí být mezi kamerou a vlekem.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_C_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "Kamera (−605; 1,4; 462) stojí v rákosu a křoví: vlevo hustý rákos (Z4), vpravo keř, v pozadí sila a zařízení farmy (cizí objekty).",
+   "Pickup je skrytý za keřem od 3 s, vidět jen vlek vlevo od keře, souprava ~8 % šířky; voda se neukáže."
+  ],
+  "oprava": "Kameru C posunout o ~8–10 m na sever/západ mimo rákos a keř (např. (−610; 1,8; 450)), cíl nechat na (−650; 1,8; 455); nebo keře u zastavení odebrat.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_D_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.0,
+  "out_s": 6.5,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    6.5
+   ]
+  ],
+  "nalezy": [
+   "Vyvýšený záběr (strom vlevo) na louku, hladinu a rákos: 0–3 s souprava velká a čitelná, odjíždí od kamery k hladině.",
+   "4–15 s souprava malá (~7 % šířky), zastaví ~8 s a stojí; vlevo keř částečně zakrývá pickup (Z4); od 9 s statika bez děje.",
+   "Voda s nízkou mlhou nad hladinou (přirozená), světlo OK, bez cizích objektů. Kamera nenacouvává (ODJ chybí)."
+  ],
+  "oprava": "Fov 32→24 nebo kameru o ~8 m blíž k místu zastavení, aby souprava nebyla v 4–15 s miniaturní; keř vlevo mírně posunout.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    11.0,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "0–2,5 s složená souprava čistě; 3–10,5 s oblet probíhá skrz rákos – rákos a pálky přes většinu obrazu (Z4), rozkládání (plachty, žebřík, stožár) je téměř celé zakryté.",
+   "Od 11 s čisté jen hotový stav (plachty rozvinuté, nádrž 1000 l, dron na plošině), bez děje.",
+   "Pickup v pozadí s křovím (listí v korbě)."
+  ],
+  "oprava": "Trajektorii A (r=9→8,5 m, y 1,6→2,4) posunout, aby oblet nešel přes pás rákosu u vleku: zvednout na y≥2,6 m od začátku nebo oblet vést z druhé strany (levý bok), případně rákos v okruhu 10 m odebrat.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 8.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    8.0
+   ]
+  ],
+  "nalezy": [
+   "Pevný nízký záběr zezadu zleva: 0–3 s zavřený vlek, 3–7 s rozkládání čitelné (plachty se sklápí, odhalí se nádrž 1000 l, centrála, dron na střeše, žebřík); od 3 s keř vlevo zakrývá pickup.",
+   "8–15 s větve s listím přes obraz, od 12 s téměř zcela zakrytý vlek (Z4).",
+   "Rezerva před akcí ~2,5 s OK, po akci (7,5–8,5 s) jen ~1 s."
+  ],
+  "oprava": "Kamera B posunout o ~2 m od keře (vpravo/dozadu) nebo keř odebrat; záběr končit v 8,5 s.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_C_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   0,
+   0
+  ],
+  "nalezy": [
+   "Pevný záběr přímo zezadu: vlek vidět jen zezadu (zadní stěna s BZUK), celých 15 s se mění jen dron na střeše (rozevření ramen ~6 s).",
+   "Rozvinutí plachet, žebříku a stožáru z tohoto směru není vidět (Z1), nic se nehýbe, unikátních snímků jen ~23 %.",
+   "Čisté, světlo OK, bez cizích objektů – ale 4.1 neukazuje."
+  ],
+  "oprava": "Kameru C přesunout z osy za vlekem na bok (10 m od pravého boku, y 1,5 m, cíl na střed vleku), aby bylo vidět sklápění plachet a žebříku; ověřit dry-runem snímkem.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_D_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "0–2,5 s složený vlek v pořádku; 3–8,5 s boční jízda vede skrz rákos (pálky přes obraz, Z4), rozkládání zakryté; kolo v popředí pálky.",
+   "9–15 s čistě hotový stav zboku (nádrž 1000 l, žebřík, dron), pickup vpravo; děj chybí.",
+   "Žádné cizí objekty, světlo OK."
+  ],
+  "oprava": "Jízdu D začít/vést dál od rákosu: boční jízdu posunout na ~10 m od osy a zvednout na y≥1,5 m od t=0; rákos podél jízdní dráhy odebrat (jízda 8 m od osy zasahuje do pásu).",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-detaily_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 3.0,
+  "out_s": 29.5,
+  "nejlepsi_okno": [
+   [
+    4.3,
+    7.5
+   ],
+   [
+    7.6,
+    11.5
+   ],
+   [
+    13.8,
+    18.5
+   ],
+   [
+    19.0,
+    24.0
+   ],
+   [
+    25.0,
+    29.5
+   ]
+  ],
+  "nalezy": [
+   "4.2 (2–7,5): 2–4,2 s tráva přes spodek (začátek tiltu), od 4,3 s žebřík s navíječem hadice, dron nahoře – OK.",
+   "4.3 (7,5–13): od 7,6 s kolejnice plachty, nádrž 1000 l a nádobka čitelné do 11,5 s; v 12–13 s jen stromy a keře (prázdný konec).",
+   "4.4 (13–18,5): od 13,8 s otevřená truhla s plynovými vzpěrami, v ní 1 baterie ve slotu zeleně svítí, heliport s dronem – OK; v pickupu listí keře v korbě (14–16 s, Z4).",
+   "4.5 (18,5–24): nádrž 1000 l se štítkem, čerpadlo, násypka, bez děje, čisté – OK.",
+   "4.6 (24–29,5): tilt/jib podél stožáru s GPS a anténou, dron na heliportu – OK.",
+   "Látka: nádobka bílá, štítek 1000 l vody. pts mezera 50 ms v 30,35 s – mimo výřez."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-detaily_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 29.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    7.0
+   ],
+   [
+    9.5,
+    13.0
+   ],
+   [
+    13.5,
+    18.5
+   ],
+   [
+    19.0,
+    24.0
+   ],
+   [
+    25.0,
+    29.5
+   ]
+  ],
+  "nalezy": [
+   "4.2 (2–7,5): žebřík, nádrž, centrála zespodu, plynule posunuto – OK (0,5–7 s), vpravo okraj pickupu.",
+   "4.3 (7,5–13): 8–9,3 s keře a korba pickupu s listím (Z4), od 9,5 s kolejnice, navíječ, žebřík, nádrž – OK.",
+   "4.4 (13–18,5): heliport s dronem a otevřené víko truhly shora; víko zakrývá vnitřek truhly (baterie nejsou vidět) – 4.4 sloty nesplněno.",
+   "4.5 (18,5–24): nájezd na nádrž 1000 l se štítkem, čerpadlo, násypka – OK.",
+   "4.6 (24–29,5): nahoru podél stožáru k anténě a GPS na obloze – OK, ale nahoře jen obloha a stromy."
+  ],
+  "oprava": "4.4: zvednout kameru o ~0,4 m a posunout doprava, aby víko nezakrývalo sloty s bateriemi; 4.3 začít až po průjezdu keřem (cíl keř v 8–9 s odstranit).",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/5/middle-kanystr_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.0,
+  "out_s": 17.5,
+  "nejlepsi_okno": [
+   [
+    3.0,
+    8.5
+   ],
+   [
+    10.5,
+    17.5
+   ]
+  ],
+  "nalezy": [
+   "5.1 (0–8): celek zezadu zleva, roleta skříně se zvedá ve 3 s, police se zelenými kanystry vidět, ale štítky kanystrů nečitelné (celek), najetí na štítek chybí.",
+   "5.2 (10–21): kanystr (zelený) visí bez opory nad násypkou (Z9, 'neviditelná ruka') od 12 s, v 16 s se naklání, štítek 'HNOJIVO' čitelný ve 13–15 s; kapalina se nevlévá.",
+   "Látka sedí na hnojivo. Pickup vpravo, nádrž vlevo ořezaná. Světlo OK, bez cizích kanystrů. pts mezera 50 ms v 21,75 s."
+  ],
+  "oprava": "Pro 5.1 dojet kamerou těsně ke štítku kanystru (≥1 s čitelný); u 5.2 ukázat vlévání (kapalina/animace) a schovat spodek kanystru.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/5/middle-kanystr_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.0,
+  "out_s": 17.5,
+  "nejlepsi_okno": [
+   [
+    3.0,
+    8.0
+   ],
+   [
+    9.5,
+    17.5
+   ]
+  ],
+  "nalezy": [
+   "5.1 (0–8): pevný celek zezadu, roleta nahoru ve 3 s, police s kanystry vidět, štítky nečitelné; bez najetí.",
+   "5.2 (9–21): záběr z boku na dron-sestavu, kanystr visí bez opory nad násypkou (Z9) 9–15 s, naklání se v 16 s; štítek kanystru je malý (<1 s čitelný).",
+   "Nádrž vlevo ořezaná, žebřík vpravo; kapalina nevidět. Světlo OK, čisté."
+  ],
+  "oprava": "Zúžit fov (40→28) a zvednout cíl na kanystr, aby byl štítek 'HNOJIVO' čitelný; pro 5.1 dojet ke štítku.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/5/middle-kanystr_C_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.0,
+  "out_s": 17.5,
+  "nejlepsi_okno": [
+   [
+    2.5,
+    8.0
+   ],
+   [
+    9.5,
+    17.5
+   ]
+  ],
+  "nalezy": [
+   "5.1 (0–8): 0–2 s detail zadní stěny (BZUK, výstražný štítek), ve 2–3 s roleta jede nahoru, od 3 s blízko police zelených kanystrů, štítky '20 l' čitelné 3–8 s (najetí končí na štítku, ≥5 s).",
+   "5.2 (9–21): blízký záběr nádobky/násypky s čerpadlem; kanystr visí bez opory nad hrdlem (Z9, vlastní animace hry), štítek 'HNOJIVO' + piktogram čitelný 10–13 s, v 16 s se naklání.",
+   "Látka odpovídá vleku (hnojivo, zelené kanystry). Kapalina nevidět. Světlo OK, bez cizích objektů; pts mezera 50 ms v 21,5 s."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-let_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 72.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    6.5
+   ],
+   [
+    52.0,
+    57.0
+   ],
+   [
+    58.0,
+    63.0
+   ],
+   [
+    64.0,
+    72.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (0–7): nájezd na dron na heliportu, čisté, štítek BZUK; použitelné 0,5–6,5 s.",
+   "7.1/7.2 (8–52 s): kamera je uvnitř pásu rákosu – pálky a listy přes celý obraz, dron vzlétá a letí za nimi, vidět jen jako malý stín (Z4); 44 s nepoužitelných.",
+   "7.2 (52–57): boční nízký záběr, dron s postřikem nad polem, cesta v pozadí – OK; mlha bílozelená (ne žlutozelená).",
+   "7.3 (58–63): TOP, stopa postřiku v řádcích čitelná, dron malý. 7.4 (64–72): nízký boční tracking, dron celý s mlhou – dobré.",
+   "Žádné cizí vozidlo, světlo OK. pts mezera 50 ms v 74,35 s."
+  ],
+  "oprava": "Kameru 7.1/7.2 (A: 0,45–1,2 m nad zemí u vleku) vést mimo pás rákosu: zvednout na y≥2,5 m nebo stát na louce 8 m od vleku od rákosu; rákos u vleku odebrat.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-let_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 57.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    16.5
+   ],
+   [
+    52.0,
+    57.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (0–7): nájezd z jiné strany na dron s tlumivým rámem, hadice na heliportu – OK. 7.1 (8–16): pevná kamera zdola, dron vzlétá nad vlek a stoupá na oblohu – čisté, výborné.",
+   "16–51 s: dron odletěl z kadru, jen obloha, stromy a rákos (nic se neděje), nepoužitelné.",
+   "7.2 (52–57): FOL vysoko, dron s postřikem nad polem – OK. 7.3 (58–63) a 7.4 (64–72): prázdné pole, dron v záběru není (kamera míří do rovné zelené plochy, Z1).",
+   "Světlo OK, bez cizích objektů."
+  ],
+  "oprava": "7.3: kamera 100 m nad polem míří vedle dronu – cíl přesměrovat na dronu (at middle:drone1), snížit na ~40 m; 7.4 (pohled z palubní kamery) selhal – použít záložní TRK z A/C.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-let_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.8,
+  "out_s": 72.0,
+  "nejlepsi_okno": [
+   [
+    3.8,
+    7.0
+   ],
+   [
+    8.0,
+    15.5
+   ],
+   [
+    52.0,
+    53.8
+   ],
+   [
+    58.0,
+    63.0
+   ],
+   [
+    64.0,
+    72.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (0–7): 0–3,5 s polovinu obrazu zakrývá černý panel (víko truhly, Z4), od 3,8 s dron na heliportu zblízka – použitelné.",
+   "7.1 (8–15): široký záběr z boku, dron vzlétá nad vodou za vlekem, voda a dům v pozadí – OK; keř vlevo.",
+   "15–52 s: dron mimo záběr, větve s listím přes pravý horní roh, na hladině cizí remorkér s člunem (Z3/Z4) – nepoužitelné.",
+   "7.2 (52–57): dron s postřikem těsně u kamery, od 54 s ořezaný levým okrajem. 7.3 (58–63): TOP čitelný. 7.4 (64–72): nízký TRK, dron celý s mlhou podél cesty – OK.",
+   "Mlha bílozelená. Světlo OK."
+  ],
+  "oprava": "7.0: začít nájezd až za víkem (kamera o 0,5 m doprava) nebo víko truhly zavřít; 7.2 kameru posunout o ~1,5 m doprava (dron uprostřed); větev a remorkér nechat mimo záběr (kameru 2 m nahoru).",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-navrat-servis_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.0,
+  "out_s": 8.0,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    8.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8): PAN-L, dron přilétá a sestupuje k vleku, sila v pozadí, dosednutí ~8 s – čitelné, čisté.",
+   "7.6/7.7 (9–23): vysoký záběr shora z boku na střechu s heliportem; dron stojí, hadice a výměna baterie nejsou vidět, truhla zavřená/mimo záběr, doplnění nádrže se nepozná.",
+   "Pickup stojí v keři – listí prorůstá korbou (Z4/Z6). Světlo OK, voda v pozadí vidět.",
+   "pts mezera 50 ms v 23,55 s."
+  ],
+  "oprava": "7.6: snížit kameru z 2,4 na ~1,6 m a směřovat na truhlu a hadici (cíl na heliport), odstranit keř za pickupem.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-navrat-servis_B_t1.mkv": {
+  "stav": "ok",
+  "in_s": 1.5,
+  "out_s": 12.0,
+  "nejlepsi_okno": [
+   [
+    1.5,
+    8.0
+   ],
+   [
+    9.0,
+    12.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8): dron přilétá z dálky, sestupuje (červené kontrolky), 3–5 s zblízka, dosednutí ~8 s – OK.",
+   "7.6/7.7 (9–12): jediný záběr, kde je vidět výměna: truhla otevřená, vybitá baterie vylétá ze slotu (9–10,5 s, Z9 'neviditelná ruka'), hadice napojená na horní část dronu s modrým konektorem; sloty vlevo s bateriemi.",
+   "12–23 s: statika, dron ořezaný pravým okrajem, nic se neděje – nepoužitelné.",
+   "Doplnění nádrže se z tohoto záběru nepozná. Světlo OK, bez cizích objektů."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-navrat-servis_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    8.0
+   ],
+   [
+    9.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8): FOL shora, dron přilétá nad vodu a sedá na heliport – plynulé, čitelné.",
+   "7.6 (8–23): oblet z výšky na střechu, dron stojí s hadicí (modrý konektor vidět od 17 s); výměna baterie ani doplnění nejsou vidět, truhla mimo záběr.",
+   "Pickup v keři, listí v korbě (Z4/Z6). Světlo OK, voda v pozadí.",
+   "pts mezera 50 ms v 23,3 s."
+  ],
+  "oprava": "Orbit snížit na ~1,6 m a zaměřit na truhlu s bateriemi; keř u pickupu odebrat.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-navrat-servis_D_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 16.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    8.0
+   ],
+   [
+    9.0,
+    16.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8): dron zblízka zdola, přistává ~8 s – nejčitelnější přílet; přes strom a rákos v pozadí.",
+   "7.6/7.7 (9–22): blízký nájezd na dron na heliportu, hadice napojená (modrý konektor), zelené LED; baterie ani truhla nejsou v záběru, výměna se nezobrazuje.",
+   "12–22 s statika, dron ořezaný shora a zleva; dole nádobka a pickup (korba) vpravo. Světlo OK."
+  ],
+  "oprava": "Do 7.7 přehodit cíl na šachtu/truhlu vlevo od dronu (kamera o 0,4 m doleva), aby byla vidět baterie.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    2.5
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–15): od 3 s odjezd kamery vede skrz rákos – pálky přes obraz po zbytek záběru (Z4); skládání (dron, plachty, žebřík, stožár) je zakryté, 7–14 s jen vlek za pálkami.",
+   "8.2 (16–26): vlek s pickupem za keřem přes celý levý/střed obrazu (Z4), vozidlo mizí za ním; souprava jede pryč nečitelně.",
+   "Čistá jsou jen 0–2,5 s (před akcí)."
+  ],
+  "oprava": "Trajektorii A (ODJ od x=−6,−5 k −12,−12) vést opačným směrem (od vleku k severu/jihu, mimo rákos) a zvednout y≥2,8 m; keř pro 8.2 odstranit nebo kameru posunout o ~6 m.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 9.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    9.0
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–14): pevný vysoký záběr zezadu: dron se skládá (4–6 s), plachty se sklápí, čisté, světlo OK, voda a rákos v pozadí; keř vlevo nezavazí.",
+   "Po 7 s statika zavřeného vleku; stožár a žebřík se z tohoto směru nepoznají.",
+   "8.2 (15–26): tele z dálky přes keře, vlek miniaturní a od 18 s skrytý za keřem (Z4), strom a keř v popředí – nepoužitelné.",
+   "pts bez mezer."
+  ],
+  "oprava": "8.2: kameru posunout o ~8 m doprava, mimo strom a keř, y 1,8 m, cíl na dráhu odjezdu; 8.1 stačí.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_C_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    10.0,
+    14.5
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–14): oblet skrz rákos – pálky přes obraz 0–9 s (Z4), skládání zakryté; od 10 s čistý boční záběr na zavřený vlek (statika, nic se neskládá).",
+   "8.2 (15–26): FOL zezadu, od 17 s keř přes vlek (Z4), od 20 s listí v popředí vlevo dole; vlek jede pryč v profilu zezadu.",
+   "Plynulost OK, světlo OK, bez cizích objektů."
+  ],
+  "oprava": "Oblet C vést po obvodu bez rákosu (r≥10 m nebo y≥2,4 m), keř před trasou odjezdu odebrat; zkrátit 8.1 na 0–9 s s čistým zábrem.",
+  "hodnotil": "kontrolor obrazu (middle)"
+ },
+ "out/trailer/v2/raw/max/1-2/max-silnice_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 9.5,
+  "nejlepsi_okno": [
+   [
+    1.5,
+    9.5
+   ]
+  ],
+  "nalezy": [
+   "1.1 (0–8 s): tele STAT proti jízdě, souprava roste z dálky od 1 s, od ~4 s čitelný tahač i vlek (BZUK, dva drony na střeše), kola na asfaltu, světlo OK, bez cizích objektů.",
+   "8–10 s: těsný průjezd, vlek velký a ořezaný levým okrajem (záměrně).",
+   "2.1: kamera se za vozidlem neotáčí (statická), od 11 s do konce 6 s prázdná silnice – 3/4 zezadu chybí."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/1-2/max-silnice_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.5,
+  "out_s": 7.5,
+  "nejlepsi_okno": [
+   [
+    2.5,
+    7.5
+   ]
+  ],
+  "nalezy": [
+   "Kamera nízko v trávě (0–2 s tráva v popředí), souprava jede po silnici daleko za loukou, vodárna v pozadí.",
+   "3–7 s: souprava v profilu před stromy, čitelná (BZUK, drony), kola na silnici.",
+   "8–16 s: souprava miniaturní a mizí za stromy; těsný průjezd z plánu (13 m od osy) není, vozidlo je 25 m a víc od kamery.",
+   "Světlo OK, bez cizích vozidel."
+  ],
+  "oprava": "Kameru B posunout o ~8 m blíž k silnici (z≈−656) a zvednout o 0,3–0,5 m nad trávu; konec zkrátit na 8 s.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/1-2/max-silnice_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.0,
+  "out_s": 7.0,
+  "nejlepsi_okno": [
+   [
+    3.0,
+    7.0
+   ]
+  ],
+  "nalezy": [
+   "Podobný záběr jako B, souprava ještě menší; 3–6 s ji částečně kryjí kmeny a koruny stromů před ní (Z4).",
+   "8–16 s souprava miniaturní mezi stromy, nepoužitelné. Záložní varianta k A/D."
+  ],
+  "oprava": "Kameru C posunout o ~8 m k ose silnice a mimo koruny stromů, y 1,6 m; konec zkrátit na 8 s.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/1-2/max-silnice_D_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 8.5,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    8.5
+   ]
+  ],
+  "nalezy": [
+   "1.1 (0–7 s): nízký tele z krajnice, souprava sjíždí na kameru, od 3 s čitelná, BZUK a drony vidět; značka vlevo je součást silnice.",
+   "5–7 s: souprava v mírném stínu, tahač tmavší (není protisvětlo, ještě použitelné).",
+   "7–8,5 s: průjezd těsně kolem objektivu, vlek ořezaný vpravo (záměrně).",
+   "9–17 s prázdná silnice, 2.1 (otočení za vozidlem) chybí."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/3/max-zaparkovani_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 5.0,
+  "out_s": 14.0,
+  "nejlepsi_okno": [
+   [
+    5.5,
+    9.5
+   ]
+  ],
+  "nalezy": [
+   "Kamera nízko nad bramborami, první 4 s prázdný záběr, souprava vjíždí zprava od 4 s.",
+   "8–14 s: souprava malá (~15 % šířky), jede od kamery, od 10 s zadní část vleku zakrytá keřem a rákosím.",
+   "Zastavení není dobře čitelné (zadní konec nejblíž kameře podle plánu není)."
+  ],
+  "oprava": "Kameru A posunout o ~4 m blíž k pásu (x 670) a vpravo od keře, y 1,0 m; cíl na zadní konec vleku.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/3/max-zaparkovani_B_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    14.0
+   ]
+  ],
+  "nalezy": [
+   "Celý klip kamera v rákosu a keři (Z4): rákos přes spodních 60 % obrazu.",
+   "7–14 s souprava jen jako silueta za stébly, vlek zakrytý rákosem, čitelná pouze horní část s drony."
+  ],
+  "oprava": "Kameru B přesunout o 6–8 m od břehu k poli (x ≈ 674, z −38) a zvednout na ≥2,5 m, aby koukala přes rákos; nebo rákos před kamerou odebrat.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/3/max-zaparkovani_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 12.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "nalezy": [
+   "Tele zdálky od jihu proti jízdě: vlek zezadu s dronem na střeše, BZUK, 0–3 s velký.",
+   "4–14 s souprava se zmenšuje a stojí (~10 % šířky) při okraji rákosu; zadní konec nejblíž kameře podle plánu OK, ale malý.",
+   "Světlo OK, bez cizích objektů; strom a farma v pozadí."
+  ],
+  "oprava": "Kameru C posunout o ~12 m blíž (z ≈ 15) nebo zvýšit zoom.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/3/max-zaparkovani_D_t1.mkv": {
+  "stav": "ok",
+  "in_s": 4.5,
+  "out_s": 14.5,
+  "nejlepsi_okno": [
+   [
+    5.0,
+    14.0
+   ]
+  ],
+  "nalezy": [
+   "Vyvýšený boční záběr 3,5 m: souprava vjíždí zprava od 5 s, jede po pásu, od 11 s stojí; čitelná (BZUK, drony, tahač).",
+   "0–4 s prázdný záběr, na konci rezerva ~3 s. Rákos za soupravou nezavazí, světlo OK, kola na zemi."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/4/max-rozlozeni_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 15.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "Oblet po směru hodin kolem zadní části: plachty se zdvihají (3–7 s), žebřík, stožár a displej, drony na střeše; kola na zemi, nic nezavazí.",
+   "Od 8 s boční pohled na rozložený vlek s tahačem, světlo OK, rákos za vlekem jen v pozadí.",
+   "pts výpadek 15,5 s (50 ms), zanedbatelný."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/4/max-rozlozeni_B_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    8.0,
+    14.0
+   ]
+  ],
+  "nalezy": [
+   "0–7 s kamera v keři (Z4): listí přes celý obraz, rozkládání nevidět; od 8 s keř vlevo dole, vlek čitelný zboku.",
+   "Rozložení (plachty, žebřík) se děje v 3–7 s, tedy zrovna za listím."
+  ],
+  "oprava": "Oblet B vést o ~3 m dál od keře u potoka (r ≥ 11 m) a zvednout na 2,5–3 m; keř v okruhu 3 m od trasy odebrat.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/4/max-rozlozeni_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 15.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "Pevný záběr zezadu: vidět jen zadní stěnu s BZUK a drony nahoře, rozkládání plachet a žebříku není čitelné (boční strany jsou schované).",
+   "Druhý dron se rozložením zakrývá prvním; keř vpravo, světlo OK, bez cizích objektů."
+  ],
+  "oprava": "Kameru C posunout šikmo (3/4 zezadu, ~10 m vlevo) a zvednout na 2,6 m, ať je vidět bok i obě plošiny.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/4/max-rozlozeni_D_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 15.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "Boční jízda s jeřábem: plachty, žebřík, stožár a nádrže se rozkládají (3–8 s), čisté, vlek čitelný, světlo OK.",
+   "Od 10 s keř za zadním koncem vleku, nezavazí. Rezerva před i po akci dostatečná."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/4/max-detaily_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 10.0,
+  "out_s": 28.0,
+  "nejlepsi_okno": [
+   [
+    10.0,
+    13.0
+   ],
+   [
+    13.5,
+    18.5
+   ],
+   [
+    19.0,
+    24.0
+   ],
+   [
+    25.5,
+    28.0
+   ]
+  ],
+  "nalezy": [
+   "4.2 (2–7,5 s): kamera v listí keře, žebřík a nádrže vidět jen skrz větve (Z4) – nepoužitelné.",
+   "4.3 (7,5–13 s): 7,5–9,5 s listí přes obraz, od 10 s čisté, dron a žebřík vidět, plachty a kolejnice jako hlavní náplň chybí.",
+   "4.4 (13–18,5 s): čisté, plošina s dronem a hadice, truhla jen okrajově.",
+   "4.5 (18,5–24 s): čistý, elektrocentrála s výfukem, světlo OK.",
+   "4.6 (24–29,5 s): vodní ventily (25–27 s) čitelné, od 28 s keř zakrývá spodek záběru."
+  ],
+  "oprava": "4.2 a začátek 4.3: kameru posunout o ~1,5 m vpravo od keře a zvednout o 0,5 m; 4.6: keř před ventily odebrat nebo odjet kamerou dál.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/4/max-detaily_B_t1.mkv": {
+  "stav": "ok",
+  "in_s": 2.0,
+  "out_s": 29.5,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    7.5
+   ],
+   [
+    8.0,
+    13.0
+   ],
+   [
+    13.5,
+    18.5
+   ],
+   [
+    19.0,
+    24.0
+   ],
+   [
+    27.8,
+    29.5
+   ]
+  ],
+  "nalezy": [
+   "4.2 (2–7,5): NAJ na žebřík zepředu, čisté, keř jen vlevo na okraji.",
+   "4.3 (7,5–13): vlek s plachtami a dronem v pohybu, tahač MT655 u okraje (vlastní), čisté.",
+   "4.4 (13–18,5): shora na plošinu s dronem a heliportem (ne truhla s navíječi podle plánu), čisté.",
+   "4.5 (18,5–24): nádrže a centrála, čisté, světlo OK.",
+   "4.6 (24–29,5): do 27,5 s listí keře přes obraz (Z4), pak čistý detail vodního ventilu a nádrže."
+  ],
+  "oprava": "4.6: začátek posunout o 3 s (kamera obejde keř) nebo keř odebrat; 4.4 vrátit kameru k truhle a navíječům.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "Celý klip (0–19 s) kamera uvnitř rákosu a keře (Z4): stébla přes celý obraz.",
+   "Pumpa, hadice (sací do potoka, výstupní na ventil A) ani potok nejsou nikde vidět; jen 0–1 s okraj nádrže 3000 L.",
+   "5m.3/5m.4: nelze posoudit zmizení pumpy – v záběru není ani pumpa, ani prázdné místo."
+  ],
+  "oprava": "Kameru zvednout nad rákos (≥3 m) a stavět ji k pumpě podél břehu, nebo rákos a keře v okruhu ~6 m od pumpy a sání odebrat a pumpu postavit na holý úsek břehu; sací koš a cedulky VSTUP/VÝSTUP dát do záběru shora šikmo. 5m.3/5m.4 po úpravě znovu natočit.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_B_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–8 s pevný záběr: vlek s žebříkem a drony vzadu, před ním hustý rákos a keře přes 60 % obrazu, pumpa a hadice nejsou vidět.",
+   "8–11 s jeřáb k hladině: jen rákos a kousek vody, sací koš a cedulky VSTUP/VÝSTUP nevidět.",
+   "12–19 s kamera v rákosu (stébla), nic čitelné."
+  ],
+  "oprava": "Kameru zvednout nad rákos (≥3 m) a stavět ji k pumpě podél břehu, nebo rákos a keře v okruhu ~6 m od pumpy a sání odebrat a pumpu postavit na holý úsek břehu; sací koš a cedulky VSTUP/VÝSTUP dát do záběru shora šikmo. 5m.3/5m.4 po úpravě znovu natočit.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_C_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "Uzamčený rám 1 m v rákosu: stébla přes celý obraz, nahoře úzký pruh s okrajem vleku a dronem.",
+   "Pumpa, hadice, potok nevidět; 5m.3 a 5m.4 (zmizení pumpy) jsou totožné, protože pumpa v rámu není vůbec čitelná."
+  ],
+  "oprava": "Kameru zvednout nad rákos (≥3 m) a stavět ji k pumpě podél břehu, nebo rákos a keře v okruhu ~6 m od pumpy a sání odebrat a pumpu postavit na holý úsek břehu; sací koš a cedulky VSTUP/VÝSTUP dát do záběru shora šikmo. 5m.3/5m.4 po úpravě znovu natočit.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_D_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–11 s rákos v popředí, v pozadí vlek s dronem a tahač, pumpa a hadice nevidět.",
+   "12–19 s kamera v rákosu (zblízka stébla a listí), nečitelné; potok nevidět."
+  ],
+  "oprava": "Kameru zvednout nad rákos (≥3 m) a stavět ji k pumpě podél břehu, nebo rákos a keře v okruhu ~6 m od pumpy a sání odebrat a pumpu postavit na holý úsek břehu; sací koš a cedulky VSTUP/VÝSTUP dát do záběru shora šikmo. 5m.3/5m.4 po úpravě znovu natočit.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    3.5
+   ],
+   [
+    9.0,
+    10.5
+   ],
+   [
+    16.5,
+    17.5
+   ]
+  ],
+  "nalezy": [
+   "5m.5 (0,5–7,5): 0–3 s mlýnek (násypka s mřížkou, motor) vedle zadku Maxu čitelný, hadice k vápnové spojce není vidět; 4–8 s orbit zajede do keře (Z4).",
+   "5m.6 (8–16,5): big bag 9–10 s v rákosu; 11–15 s levituje na čistém nebi bez opory a bez mlýnku v záběru (Z9); 16–17 s vápno teče, ale jen úzký pruh pod bagem.",
+   "5m.7 (17–20,5) a 5m.8 (21–29): kamera v rákosu, motor, prstenec, kohout i hadice do Maxu nečitelné.",
+   "Mlha vápna bílá, ale v záběru jen krátce (16–17 s)."
+  ],
+  "oprava": "Mlýnek i big bag přesunout na holý úsek pásu (bez rákosu) a kamery vést ve výšce ≥2,5 m nad rákosím; 5m.7 a 5m.8 znovu natočit z místa, kde je vidět hadice od výstupu mlýnku na vápnovou spojku Maxu (kohout) a prstenec mlýnku. Big bag nechat klesat s viditelnou oporou/jeřábem (teď levituje na pozadí nebe).",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_B_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    10.5
+   ],
+   [
+    20.0,
+    21.5
+   ]
+  ],
+  "nalezy": [
+   "5m.5 (0,5–7,5): kamera v rákosu (Z4), jen Max za stébly, mlýnek ani hadice nevidět.",
+   "5m.6: 9–10 s dobrý záběr mlýnek + big bag s rákosem, 11–17 s big bag levituje na nebi (slunce v objektivu 14–15 s, Z8, Z9).",
+   "5m.7: 20–21 s zblízka spodek šnek/trychtýř, ale záběr kryjí stébla; 5m.8 oblet 22–29 s skončí v keři, Max s hadicí nevidět."
+  ],
+  "oprava": "Mlýnek i big bag přesunout na holý úsek pásu (bez rákosu) a kamery vést ve výšce ≥2,5 m nad rákosím; 5m.7 a 5m.8 znovu natočit z místa, kde je vidět hadice od výstupu mlýnku na vápnovou spojku Maxu (kohout) a prstenec mlýnku. Big bag nechat klesat s viditelnou oporou/jeřábem (teď levituje na pozadí nebe).",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 17.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    8.5
+   ],
+   [
+    9.0,
+    10.5
+   ],
+   [
+    16.5,
+    17.5
+   ]
+  ],
+  "nalezy": [
+   "5m.5 (0,5–7,5): tele z dálky: mlýnek (násypka, motor, šnek) stojí vedle zadku Maxu, Max čitelný, ale hadice mlýnek → vápnová spojka není rozpoznatelná (spojka krytá mlýnkem a rákosem).",
+   "5m.6: 9–10,5 s nejlepší záběr (mlýnek, big bag a rybník) – naplnění big bagem ale není vidět; 11–16 s big bag levituje na pozadí nebe a stromů bez opory (Z9); 16,5–17,5 s bílé vápno teče, krátce.",
+   "5m.7 (17–20,5): kamera přes rákos, mlýnek a prstenec se jen tuší, motor se spustí nečitelně.",
+   "5m.8 (21–29): kamera v rákosu a keři (Z4) – otevření kohoutu, vápno v hadici ani Max nejsou vidět."
+  ],
+  "oprava": "Mlýnek i big bag přesunout na holý úsek pásu (bez rákosu) a kamery vést ve výšce ≥2,5 m nad rákosím; 5m.7 a 5m.8 znovu natočit z místa, kde je vidět hadice od výstupu mlýnku na vápnovou spojku Maxu (kohout) a prstenec mlýnku. Big bag nechat klesat s viditelnou oporou/jeřábem (teď levituje na pozadí nebe).",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/7/max-let_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 69.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    5.5
+   ],
+   [
+    8.0,
+    19.5
+   ],
+   [
+    47.0,
+    52.5
+   ],
+   [
+    60.0,
+    69.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (2–5 s): detail dronu na plošině, čisté; vlevo dole u nádrže malý nezřetelný objekt (možná figura).",
+   "7.1 (8–19 s): jeřáb; 8–11 s kamera v rákosu, drony jen na horizontu a malé; od 12 s vzlet viditelný, drony odlétají nad pole.",
+   "22–45 s prázdná čekací smyčka (statický široký záběr, drony už pryč) – nepoužít.",
+   "7.2 FOL (47–52 s): první dron velký v bílé mlze (bílá OK), druhý jen tmavá silueta/stín za mlhou; dvě dráhy tvoří V, ne dvě souběžné řádky.",
+   "7.3 TOP (cca 53–60 s): oba drony jen jako dva malé kříže, bílá stopa vápna není při pohledu shora vidět (jen starý bílý obdélník v rohu).",
+   "7.4 (60–69 s): nízko přes zelené pole s rybníkem, ne strniště, jediný dron bez mlhy; Max se nevidí."
+  ],
+  "oprava": "7.2: kameru posunout vlevo o ~4 m od osy, aby byly oba drony vedle sebe; 7.3 snížit z 32 na ~20 m a zapnout postřik před záběrem; 7.4 přesunout nad strniště.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/7/max-let_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 69.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    5.5
+   ],
+   [
+    8.0,
+    19.0
+   ],
+   [
+    47.0,
+    52.5
+   ],
+   [
+    60.5,
+    69.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (2–5 s): NAJ na dron 2, čisté, světlo OK.",
+   "7.1 (8–23 s): pevná kamera v rákosu, vlek jako tmavá silueta proti obloze (protisvětlo), rákos přes spodní třetinu; vzlet obou dronů čitelný, drony pak odlétají do dálky.",
+   "24–45 s prázdná čekací smyčka (drony pryč, statický záběr) – nepoužít.",
+   "7.2 FOL vysoko (47–52 s): první dron v bílé mlze, druhý menší vedle/za, mlha bílá, plocha postřiku se mění – dobrý záběr.",
+   "7.3 TOP z 110 m (53–60 s): drony a stopa téměř nečitelné (pixely).",
+   "7.4 (60–69 s): tracking jediného dronu nad zeleným polem a silnicí, bez mlhy, ne strniště."
+  ],
+  "oprava": "7.1: kameru zvednout z rákosu na ≥2 m a otočit proti slunci; 7.3 snížit z 110 na ~35 m; 7.4 nad strniště se stopou.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/7/max-let_C_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 69.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    5.5
+   ],
+   [
+    8.0,
+    19.5
+   ],
+   [
+    46.5,
+    52.0
+   ],
+   [
+    60.5,
+    69.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (2–5 s): dron zepředu, čisté; na bříšku dronu černý obdélník místo štítku (chybějící textura).",
+   "7.1 (8–20 s): jeřáb zleva zezadu, Max s tahačem a rybníkem čitelný, drony vzlétají a odlétají, světlo OK.",
+   "21–45 s prázdná čekací smyčka (statický záběr) – nepoužít.",
+   "7.2 FOL zepředu 3/4 (46–52 s): dron 1 velký vlevo v bílé mlze, dron 2 vzadu vpravo ve vlastní mlze – dvě souběžné dráhy vidět nejlépe ze tří variant.",
+   "7.3 TOP 48 m (53–60 s): oba drony vidět jako křížky, stopa se shora nezobrazí; v záběru bílí ptáci (nezávadné).",
+   "7.4 (60–69 s): FOL nízko za dronem nad zeleným polem a rybníkem, v dálce Max; ne strniště, mlha chybí."
+  ],
+  "oprava": "7.4: použít jen první 4 s (dron s Maxem v dálce); 7.3 zapnout postřik před záběrem, aby byla vidět stopa.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/7/max-navrat-servis_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 9.0,
+  "out_s": 24.0,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    24.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8,5 s): kamera uvnitř keře a rákosu (Z4), přílet a přistání neviditelné – vyrazeno.",
+   "7.6 (9–24 s): oblet kolem dronu na desce, čisté, vlek s truhlou, hadice, otevřená truhla a tahač; světlo OK.",
+   "Dron je v 9 s už přistálý – přistání bez záznamu."
+  ],
+  "oprava": "7.5: kameru A posunout o ~5 m od keře a zvednout nad rákos (y ≥ 2 m), tele směr nad potok.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/7/max-navrat-servis_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 24.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    8.5
+   ],
+   [
+    9.0,
+    24.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8,5 s): nízká statika zleva zezadu, přílet dronu od 4 s shora vpravo, přistání částečně kryje střecha a obrazovka; velký list v popředí vlevo dole (Z4 lehce).",
+   "7.7 (9–24 s): detail dron s hadicí zboku, čisté, ale truhla a výměna baterie v záběru nejsou (jen dron a hadice)."
+  ],
+  "oprava": "7.7: kameru zvednout na 3,6 m nad truhlu s bateriemi, aby byla vidět výměna; list v 7.5 odebrat.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/7/max-navrat-servis_C_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 24.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    24.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8,5 s): FOL za dronem nad rybníkem, přistání na přední plochu čitelné, tahač a Max v záběru, světlo OK.",
+   "7.6 (9–24 s): oblet po směru hodin kolem dronu na desce, čisté, hadice, truhla, druhý dron na zadní ploše.",
+   "pts výpadek 24,1 s (50 ms), zanedbatelný."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/7/max-navrat-servis_D_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 24.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    24.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8,5 s): záběr shora vpravo, první 4 s prázdná plocha, od 4 s dron přilétá shora a přistává (8 s).",
+   "7.7 (9–24 s): detail dronu s hadicí a baterií, čisté, jemný pohyb, čitelné; výměna baterie do truhly není kompletně vidět."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/8/max-slozeni-odjezd_A_t1.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 26.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    26.0
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–13 s): jeřáb zvysoka zleva zezadu: drony se skládají, plachty se svinují (4–7 s), čisté, světlo OK.",
+   "8.2 (14–26 s): tele zezadu, souprava odjíždí po poli ke cestě, kola na zemi; 17–20 s souprava ve stínu stromu (tmavší), keř vpravo nezavazí.",
+   "pts výpadek 26,05 s (50 ms), zanedbatelný."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/8/max-slozeni-odjezd_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 9.0,
+  "out_s": 24.0,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    13.5
+   ],
+   [
+    15.5,
+    24.0
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–8 s): oblet v rákosu a keři, 3–8 s listí a stébla přes obraz (Z4), skládání dronů a plachet nečitelné.",
+   "8.2 (8–24 s): tahač MT655 těsně u kamery 8–9 s (ořez), od 9 s čistý boční jízdní záběr, 14–15 s keř v popředí vlevo; vlastní tahač, nic cizího.",
+   "pts výpadek 26,05 s (50 ms), zanedbatelný."
+  ],
+  "oprava": "8.1: oblet B vést po obvodu bez rákosu (r ≥ 9 m, y ≥ 2,4 m), keř vpravo od vleku odebrat; 8.2 nechat.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/max/8/max-slozeni-odjezd_C_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.0,
+  "out_s": 21.0,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    14.0
+   ],
+   [
+    15.0,
+    21.0
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–14 s): pevný nízký záběr zezadu, vidět jen zadní stěnu a drony, které se skládají; plachty a žebřík (boční) nejsou vidět, po 8 s statika.",
+   "8.2 (15–26 s): FOL za soupravou, od 21 s vlek vyplní polovinu záběru (kamera najede těsně), tahač není vidět; keř vpravo.",
+   "pts výpadek 26,6 s (50 ms), zanedbatelný."
+  ],
+  "oprava": "8.1: kameru dát šikmo zezadu zleva (3/4) y 2 m, aby byl vidět bok s plachtami a žebříkem; 8.2 FOL zpomalit, odstup ≥ 6 m.",
+  "hodnotil": "kontrolor obrazu (max)"
+ },
+ "out/trailer/v2/raw/prod/prod/prod-rada_A_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    17.0,
+    22.5
+   ]
+  ],
+  "nalezy": [
+   "0–16 s kanystry (světle zelený, oranžový, žlutý) i pytel vápna levitují: pod každým je oddělený stín cca půl výšky předmětu (Z6/Z9).",
+   "Kanystry mají hladkou čelní stranu bez nápisu a štítku: HNOJIVO / HERBICID / nafta nelze přečíst, rozliší je jen barva.",
+   "12–16 s pytel zboku zezadu: nápis VÁPNO vzhůru nohama a jen napůl vidět.",
+   "17–22 s big bag s štítkem 'calcium carbonate [CaCO3] [E-170]' stojí na zemi, čitelný; 23 s začíná pumpa/násypka."
+  ],
+  "oprava": "Nahrazeno pokusem t2 (předměty už stojí na zemi).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/prod/prod/prod-rada_B_t1.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    17.0,
+    22.5
+   ]
+  ],
+  "nalezy": [
+   "0–16 s pytel a kanystry levitují (oddělený stín pod nimi), pořadí zprava doleva: pytel, žlutý, oranžový, zelený kanystr.",
+   "0–6 s nápis VÁPNO vzhůru nohama; kanystry bez čitelného štítku.",
+   "17–22 s big bag na zemi, štítek CaCO3 čitelný, vlevo dole kousek pytle, vpravo kraj pumpy."
+  ],
+  "oprava": "Nahrazeno pokusem t2.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/prod/prod/prod-rada_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 49.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    16.5
+   ],
+   [
+    17.0,
+    22.5
+   ],
+   [
+    23.0,
+    40.5
+   ],
+   [
+    41.0,
+    49.0
+   ]
+  ],
+  "nalezy": [
+   "t2 je výrazně lepší než t1: kanystry (zelený, oranžový, žlutý) i pytel teď stojí na betonu, kontaktní stín těsně pod nimi, nic nelevituje.",
+   "0–11 s tři kanystry po ~3 s statiky, ale čelní strana je hladká bez textu: HNOJIVO / HERBICID / nafta se nepřečtou, jen barva; 12–16 s pytel zboku ze zadní strany, nápis VÁPNO vzhůru nohama a pytel je dole ořezaný okrajem záběru.",
+   "17–22 s big bag s CaCO3 štítkem čitelný, TILT-U k poutkům; stojí na zemi.",
+   "23–33 s násypka (žlutý okraj, černý trychtýř) a pumpa (žlutá nádrž, červený motor, červená/modrá spojka): barvy spojek vidět, texty VSTUP / VÝSTUP / VÁPNO nečitelné; 33–41 s relé tyč s teleskopem na stativu, zelený LED jen drobný bod nahoře.",
+   "41–49 s závěrečný celek: kanystry, pytel, big bag, pumpa, násypka a tyč vedle sebe v jedné řadě na zemi před stodolou, kanystry drobné; nic cizího, světlo OK."
+  ],
+  "oprava": "Doplnit čitelné štítky na kanystry (HNOJIVO/HERBICID/nafta) a otočit pytel nápisem ke kameře; u pumpy a násypky kamerou zachytit cedulky VSTUP/VÝSTUP/VÁPNO zblízka.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/prod/prod/prod-rada_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 49.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    16.5
+   ],
+   [
+    17.0,
+    22.5
+   ],
+   [
+    23.0,
+    40.5
+   ],
+   [
+    41.0,
+    49.0
+   ]
+  ],
+  "nalezy": [
+   "t2 lepší než t1: pytel a kanystry stojí na betonu s kontaktním stínem, bez levitace.",
+   "0–6 s pytel vápna, nápis VÁPNO vzhůru nohama (kamera na odvrácené straně), dole ořez; 7–16 s žlutý, oranžový a zelený kanystr po ~3 s, hladká čelní strana bez štítku.",
+   "17–22 s big bag s CaCO3 štítkem čitelný, vlevo pytel a vpravo pumpa vedle sebe; 20–22 s detail štítku čistý.",
+   "23–33 s pumpa s modrou a červenou spojkou (text VSTUP/VÝSTUP nečitelný) a násypka se žlutým okrajem; 33–41 s relé tyč; 41–49 s celek řady (stejný jako A).",
+   "Nic cizího, světlo OK. Řada je souvislá a prochází jí kamera."
+  ],
+  "oprava": "Jako A: štítky kanystrů, pytel natočit nápisem ke kameře, cedulky pumpy a násypky; A a B jsou téměř shodné.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/prod/prod/prod-vleky_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 12.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    7.0
+   ],
+   [
+    9.0,
+    12.0
+   ]
+  ],
+  "nalezy": [
+   "prod-1 (0–7 s): celek řady z odstupu před stodolou, kanystry, pytel, big bag, pumpa, násypka a tyč stojí na zemi vedle sebe; vleky vpravo za stodolou jako drobné tmavé siluety (drony S/M/L nerozlišitelné), v 0–1 s tráva v popředí.",
+   "prod-6 (8–12 s): detail truhly nabíječek (logo BZUK, otevřené víko, šachta), baterie ve slotech ale nejsou jasně vidět; 8 s začíná stěnou stodoly přes polovinu obrazu (Z4).",
+   "prod-7 (13–27 s): TRK od stodoly doprava: vleky stojí za rohem stodoly jako tmavé, malé a částečně zakryté stodolou; od 20 s vpředu přístřešek a ohrada pro dobytek (Z4); drony S/M/L na vlecích nejsou čitelné, rozdíl velikostí nejde poznat.",
+   "V záběru je John Deere v průjezdu stodoly a pickup (vleky spol) – dle scénáře povoleno jen v pozadí."
+  ],
+  "oprava": "prod-7: kameru dát na volný beton přímo před vleky, výš (2 m) a blíž (~12 m), aby byly vidět drony S, M, L; prod-6: zblízka shora do šachet s bateriemi; prod-1: kratší odstup.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini+max+middle/epilog/spol_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 6.0,
+  "out_s": 35.0,
+  "nejlepsi_okno": [
+   [
+    6.0,
+    22.0
+   ],
+   [
+    24.0,
+    35.0
+   ]
+  ],
+  "nalezy": [
+   "0–5 s a 23 s kamera uvnitř porostu (sorgo/kukuřice, Z4): vleky skoro nevidět; od 6 s volný výhled na dvůr před stodolou.",
+   "6–13 s (spol-1): tři soupravy před stodolou – Mini s JD (platforma rozložená) vlevo, Max s MT655 uprostřed, Middle s pickupem vpravo; drony (2–4) krouží v okolí stodoly a nad stromy, světlo OK; vleky malé (~8–10 % šířky).",
+   "14–22 s (spol-2): boční jízda doleva podél řady, soupravy se neprekrývají, ale jsou vidět zboku jen jako malé siluety; od 20 s tmavší (vlek ve stínu stodoly).",
+   "Vlevo na dvoře leží kanystry a pytel (cizí předměty z prod, Z2) po celých 6–22 s.",
+   "24–35 s (spol-3): JIB-U ze země k pohledu shora, tři soupravy na dvoře a stodola; drony ale už nejsou v záběru, soupravy jsou malé."
+  ],
+  "oprava": "Odstranit kanystry a pytel z dvora (zbytek prod); start a konec kamery přesunout z porostu; TRK a JIB vést blíž (vleky aspoň 25 % šířky), drony držet v záběru (droneHover do konce JIB).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini+max+middle/epilog/spol_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 23.0,
+  "out_s": 35.0,
+  "nejlepsi_okno": [
+   [
+    23.0,
+    35.0
+   ]
+  ],
+  "nalezy": [
+   "0–13 s kamera uvnitř břízy (listí přes celý obraz, Z4), vleky nevidět; 14–17 s tele přes dvůr: soupravy malé, drony ve vzduchu, vlevo černá kráva a ohrada (Z3).",
+   "17–22 s kamera uvnitř stodoly (zdi, sloupy, Z4), soupravy jen v otvoru vrat.",
+   "23–35 s JIB-U: shora přehledně tři soupravy v řadě (Mini s JD nahoře? vlevo dole platforma, Max uprostřed, Middle nahoře), drony 1–3 hover vpravo vedle řady; ale na pastvině jsou krávy (Z3) a cizí pytel u dolního okraje (Z2).",
+   "Použitelný jen konec (spol-3)."
+  ],
+  "oprava": "Kameru B přesunout z břízy a stodoly na volný dvůr; odstranit krávy (isolate animals) a pytel/kanystry; lepší je pokus A.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/max/6/max-planovac_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 25.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    6.0
+   ],
+   [
+    7.0,
+    25.0
+   ]
+  ],
+  "nalezy": [
+   "6.1 (0–6 s): statický boční záběr na centrálu a nádrž 3000 L s žlutým tahačem, trávou a rákosem vzadu; displej plánovače (černý panel s logem BZUK) se od ~2 s rozsvítí modře, je ale malý v pravé polovině obrazu.",
+   "6.2 (7–20 s): mapa s kruhem dosahu, výběr pole 59 přeskočí na pole 60, mapa se plynule přibližuje, karta pole čitelná; v 7–8 s dole růžové ikony vozidel (Z5, drobné); cyan ikona vpravo nahoře po celou dobu.",
+   "6.3 (21–25 s): přepnutí na stránku MISE, karta čitelná.",
+   "6.4 (26–44 s): fialová letová plocha je od prvního snímku hotový trojúhelník od vlku (ikona) k poli 60, nenakresluje se po bodech, mapa se nehýbe (MAPA-R chybí); v kartě fialový i červený pruh (červená hláška o vleku mimo plochu, Z5) – 6.4 nepoužitelné.",
+   "Text v kartě je drobný, ale čitelný při plném rozlišení."
+  ],
+  "oprava": "6.4: nastavit plochu tak, aby vlek byl uvnitř (bez červené hlášky) a natočit postupné přidávání bodů s posunem mapy doprava; 6.2 před záznamem schovat ikony vozidel.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/max/6/max-planovac_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 25.5,
+  "nejlepsi_okno": [
+   [
+    1.5,
+    6.0
+   ],
+   [
+    7.0,
+    25.0
+   ]
+  ],
+  "nalezy": [
+   "6.1 (0–6 s): najetí na centrálu, displej s logem BZUK se rozsvítí modře ve 2 s a v 4–6 s je velký a čitelný (lepší než A); kolem tráva a rákos, tahač vlevo.",
+   "6.2/6.3 (7–25 s): stejný průběh jako A (pole 59 → 60, přiblížení, karta, stránka MISE); růžové ikony vozidel dole od 8 s do konce, cyan ikona nahoře.",
+   "6.4 (26–45 s): stejný hotový fialový trojúhelník, červená hláška v kartě (Z5), mapa se nehýbe; ikony vozidel dole v záběru."
+  ],
+  "oprava": "Jako A; navíc posunout mapu, ať ikony vozidel nejsou v záběru. 6.1 z B je lepší než z A (displej větší).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/6/middle-planovac_A_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 7.0,
+  "out_s": 30.0,
+  "nejlepsi_okno": [
+   [
+    7.0,
+    30.0
+   ]
+  ],
+  "nalezy": [
+   "6.1 (0–6 s): kamera zboku zezadu těsně u vleku, listí keře kryje levou třetinu a spodek obrazu (Z4); vidět pickup, centrálu a tablet (displej s BZUK) nahoře, displej plánovače se ale nerozsvěcuje čitelně.",
+   "6.2 (7–15 s): mapa s polem 91 (jižně od poloostrova, barevné dráhy), MAPA− plynule oddálí mapu, kruh dosahu viditelný.",
+   "Od 7 s v kartě pole dvě červená varování (Z5: o koncentrátu a přípravku) a oranžový pruh 'Výška přeletu'.",
+   "13–30 s po oddálení nahoře ikony vozidel a budov (žluté, modré, růžové, cyan; Z5 cizí ikony).",
+   "6.3 (23–30 s): stránka MISE s kartou, čitelná, pozice mapy se nemění."
+  ],
+  "oprava": "6.1 natočit z místa bez listí; před záznamem nastavit koncentrát a přípravek (červená varování pryč); ikony cizích vozidel odstranit (isolate).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/6/middle-planovac_B_t1.mkv": {
+  "stav": "slabsi",
+  "in_s": 7.0,
+  "out_s": 30.0,
+  "nejlepsi_okno": [
+   [
+    7.0,
+    30.0
+   ]
+  ],
+  "nalezy": [
+   "6.1 (0–6 s): kamera v listí (zelená koruna přes ~45 % obrazu, Z4), vidět centrála a zadek pickupu; displej se nerozsvítí čitelně.",
+   "7–30 s shodný obsah s A: pole 91, MAPA−, červená varování v kartě (Z5), po oddálení ikony vozidel a budov nahoře; karta čitelná."
+  ],
+  "oprava": "Jako A; 6.1 z A je o něco lepší (listí jen vlevo).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/6/mini-planovac_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 29.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    5.5
+   ],
+   [
+    6.5,
+    29.5
+   ]
+  ],
+  "nalezy": [
+   "t2 ≈ t1: v kartě pole 4 zůstávají dvě červená varování (Z5: 'Chybí koncentrát…', 'Přípravek nastavit…') po celou dobu.",
+   "6.1 (0–5 s): statika zboku, tablet leží dole, modrá obrazovka s logem BZUK (rozsvícení se nepozná); kola, navíječ, nádrž čitelné, v pozadí sila.",
+   "6.2 (6–22 s): mapa pole 4, MAPA+ plynule přiblíží; ikony vozidel (žluté, modré, růžové) kolem farmy.",
+   "6.3 (22–29,5 s): přepnutí na stránku MISE a LET; karta čitelná."
+  ],
+  "oprava": "Před záznamem naplnit koncentrát herbicid 50 l a vybrat přípravek.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/6/mini-planovac_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 1.0,
+  "out_s": 28.0,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    6.0
+   ],
+   [
+    7.0,
+    28.0
+   ]
+  ],
+  "nalezy": [
+   "t2 ≈ t1: červená varování v kartě pole 4/3 zůstávají (Z5).",
+   "6.1 (0–6 s): najetí z přední strany vleku (štítek BZUK) na tablet a navíječ; tablet vyplní střed ve 4–6 s, modrá obrazovka; čisté (lepší než A).",
+   "6.2/6.3 (7–28 s): mapa, výběr přeskočí z pole 3 na pole 4, přiblížení; ikony vozidel a hotspotů kolem farmy."
+  ],
+  "oprava": "Jako A: opravit koncentrát a přípravek před záznamem.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_A_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "Celý klip 0–19 s kamera uvnitř rákosu: stébla a listy přes celý obraz (Z4), od 8 s mezera s polem a drátem, ale pumpa ani hadice ani potok nejsou vidět.",
+   "5m.1–5m.4 nelze posoudit; kompozice se nemění (pevný záběr)."
+  ],
+  "oprava": "t2 se proti t1 nezměnil: kamera zůstala uvnitř rákosu a keře. Kamery stavět mimo rákos (u hrany pole, y ≥ 2 m), pumpu postavit na holý úsek břehu a sací hadici i potok dát do záběru shora šikmo.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_B_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–7 s pevně hustý rákos a keře přes 80 % obrazu, pumpa a hadice nejsou vidět.",
+   "8–11 s jeřáb k hladině jen přes stébla, vody je vidět jen pruh vpravo; 12–19 s keř vlevo před vlekem Max (BZUK), pumpa chybí, listí kryje polovinu obrazu (Z4)."
+  ],
+  "oprava": "t2 se proti t1 nezměnil: kamera zůstala uvnitř rákosu a keře. Kamery stavět mimo rákos (u hrany pole, y ≥ 2 m), pumpu postavit na holý úsek břehu a sací hadici i potok dát do záběru shora šikmo.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_C_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "Uzamčený rám 0–19 s jen stébla rákosu na celém obraze (Z4); pumpa, hadice, potok ani vlek nejsou vidět.",
+   "5m.3 a 5m.4 (zmizení pumpy) nelze rozlišit."
+  ],
+  "oprava": "t2 se proti t1 nezměnil: kamera zůstala uvnitř rákosu a keře. Kamery stavět mimo rákos (u hrany pole, y ≥ 2 m), pumpu postavit na holý úsek břehu a sací hadici i potok dát do záběru shora šikmo.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_D_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–7 s rákos v popředí, 8–11 s jeřáb přes rákos a listí (vidět kousek pole), 12–19 s keř vpravo kryje půl obrazu a Max (BZUK) jako zadní strana na kraji (Z4).",
+   "Pumpa, hadice a potok nevidět."
+  ],
+  "oprava": "t2 se proti t1 nezměnil: kamera zůstala uvnitř rákosu a keře. Kamery stavět mimo rákos (u hrany pole, y ≥ 2 m), pumpu postavit na holý úsek břehu a sací hadici i potok dát do záběru shora šikmo.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_A_t3.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–19 s pevný boční záběr nízko: ve spodní třetině bramborová nať (kamera v plodině, Z4), Max s dronem a tahač jedou v pozadí zleva doprava, zastaví na kraji záběru.",
+   "Pumpa, hadice ani ventil nejsou v záběru; nad pásem rákosí v dálce; mizející pumpa nejde posoudit."
+  ],
+  "oprava": "Kamery jsou už mimo rákos (zlepšení proti t2), ale pumpa je ~2–3 % šířky záběru, sací ani výstupní hadice a potok nejsou vidět. Pumpu i kameru posunout k sobě (do 4–5 m, fov 25–30), pumpu postavit na břeh přímo u vody a před vlek; hadice (sání do potoka, výstup na ventil A) musí být vytažené.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_B_t3.mkv": {
+  "stav": "slabsi",
+  "in_s": 12.0,
+  "out_s": 19.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    7.5
+   ],
+   [
+    12.0,
+    19.0
+   ]
+  ],
+  "nalezy": [
+   "t3 je lepší než t2: kamera je venku z rákosu a vidí Max zezadu (BZUK, dron na střeše) i pás s rákosím a potokem; v 8–10 s pan k hladině potoka (čistý, bez překážek).",
+   "Žlutá pumpa v rámu stojí na trávě vedle zadku Maxu, jako malý bod (~2 % šířky), nejblíž k vleku, ne u vody; hadice nevidět; cedulky VSTUP/VÝSTUP nečitelné.",
+   "12–19 s statický záběr (možný základ pro 5m.3/5m.4), pumpa v něm je ale miniaturní; pole bramborů vlevo bez zakrytí.",
+   "Světlo OK, žádná cizí vozidla."
+  ],
+  "oprava": "Kamery jsou už mimo rákos (zlepšení proti t2), ale pumpa je ~2–3 % šířky záběru, sací ani výstupní hadice a potok nejsou vidět. Pumpu i kameru posunout k sobě (do 4–5 m, fov 25–30), pumpu postavit na břeh přímo u vody a před vlek; hadice (sání do potoka, výstup na ventil A) musí být vytažené.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_C_t3.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–19 s pevný záběr: Max z boku vlevo (nádrže 3000 L, dron na střeše) a bramborové pole v celé spodní polovině obrazu; kamera v plodině (Z4).",
+   "Pumpa, hadice ani potok nejsou vidět."
+  ],
+  "oprava": "Kamery jsou už mimo rákos (zlepšení proti t2), ale pumpa je ~2–3 % šířky záběru, sací ani výstupní hadice a potok nejsou vidět. Pumpu i kameru posunout k sobě (do 4–5 m, fov 25–30), pumpu postavit na břeh přímo u vody a před vlek; hadice (sání do potoka, výstup na ventil A) musí být vytažené.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_D_t3.mkv": {
+  "stav": "slabsi",
+  "in_s": 8.0,
+  "out_s": 11.5,
+  "nejlepsi_okno": [
+   [
+    8.0,
+    11.5
+   ],
+   [
+    12.0,
+    19.0
+   ]
+  ],
+  "nalezy": [
+   "0–7 s Max s tahačem z dálky v poli, pás s rákosím vpravo; pumpa ani hadice vidět nejsou.",
+   "8–11 s pan: Max (BZUK) vlevo, před ním žlutá pumpa v rámu na trávě (~4 % šířky) a v pozadí čitelný potok s rákosím a můstkem; hadice nevidět; nejlepší část.",
+   "12–19 s zpět Max s tahačem zboku, pumpa mimo záběr; pole bramborů vlevo dole (částečně Z4)."
+  ],
+  "oprava": "Kamery jsou už mimo rákos (zlepšení proti t2), ale pumpa je ~2–3 % šířky záběru, sací ani výstupní hadice a potok nejsou vidět. Pumpu i kameru posunout k sobě (do 4–5 m, fov 25–30), pumpu postavit na břeh přímo u vody a před vlek; hadice (sání do potoka, výstup na ventil A) musí být vytažené.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 22.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    8.5
+   ],
+   [
+    9.0,
+    10.5
+   ],
+   [
+    16.0,
+    21.5
+   ]
+  ],
+  "nalezy": [
+   "t2 je lepší než t1: mlýnek (násypka s mřížkou, žebřík, šnek, červený motor, modrá spojka) je nový model, čitelný, stojí na trávě u pole a kola dosedají.",
+   "5m.5 (0–8 s): orbit kolem mlýnku čistý, Max jen v pozadí a ve 4–8 s mimo záběr; hadice k spojce nevidět.",
+   "5m.6 (9–17 s): 9–10 s big bag stojí vedle mlýnku na zemi, pak levituje na nebi bez opory (Z9) a z mlýnku nic nevidět; 16–17 s bílý proud vápna padá z bagu do násypky (použitelné).",
+   "5m.7 (18–21 s): detail motor, šnek, modrá spojka, čitelný; 22–33 s kamera v rákosu (Z4), konec nepoužitelný.",
+   "Hadice od výstupu mlýnku k vápnové spojce Maxu není nikde vidět (5m.5, 5m.8 bez klíčového prvku); big bag v 10,5–17 s levituje na čistém nebi, pod ním jen bílý sloupec vápna (Z9); 5m.8 ukazuje jen stojící mlýnek s Maxem v dálce."
+  ],
+  "oprava": "Přidat hadici mlýnek → vápnová spojka Maxu (a ověřit viditelnost); big bag nechat klesnout do záběru s mlýnkem (kamera ze strany, ne z nebe) nebo záběr 5m.6 natočit jinak; 5m.8 doplnit napnutou hadicí a svítícím prstencem.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 9.0,
+  "out_s": 33.0,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    10.5
+   ],
+   [
+    22.0,
+    33.0
+   ]
+  ],
+  "nalezy": [
+   "0–8 s kamera za rákosím, Max jen napůl za stébly, mlýnek není vidět (Z4).",
+   "9–10 s big bag stojí vedle mlýnku, pole a obzor čisté; 11–17 s big bag levituje na nebi, slunce v objektivu 13–15 s (Z8, Z9); 16–17 s proud vápna.",
+   "18–21 s pohled zespodu na násypku a žebřík, motor jen mezerou (zakrývá konstrukce).",
+   "22–33 s orbit kolem mlýnku, čistý, mlýnek čitelný, Max vzadu v 28–33 s; hadice mlýnek → Max nevidět.",
+   "Hadice od výstupu mlýnku k vápnové spojce Maxu není nikde vidět (5m.5, 5m.8 bez klíčového prvku); big bag v 10,5–17 s levituje na čistém nebi, pod ním jen bílý sloupec vápna (Z9); 5m.8 ukazuje jen stojící mlýnek s Maxem v dálce."
+  ],
+  "oprava": "Přidat hadici mlýnek → vápnová spojka Maxu (a ověřit viditelnost); big bag nechat klesnout do záběru s mlýnkem (kamera ze strany, ne z nebe) nebo záběr 5m.6 natočit jinak; 5m.8 doplnit napnutou hadicí a svítícím prstencem.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_C_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 33.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    10.5
+   ],
+   [
+    16.0,
+    33.0
+   ]
+  ],
+  "nalezy": [
+   "Nejlepší z t2: 0–8 s čistý orbit kolem mlýnku, Max těsně za ním (zadek s nádržemi), čitelný, žádná překážka.",
+   "9–10 s big bag stojí vedle mlýnku, v pozadí rybník (čisté); 11–15 s levitace na nebi s ptáky (Z9); 16–17 s bílý proud vápna z bagu do násypky, vidět i Max vlevo.",
+   "18–21 s detail motoru, šneku a spojky, čitelný; 22–33 s celek obou strojů vedle sebe u rákosí a potoka, kamera čistá.",
+   "Hadice nevidět, prstenec mlýnku nesvítí; kohout Maxu mimo záběr."
+  ],
+  "oprava": "Přidat hadici mlýnek → vápnová spojka Maxu (a ověřit viditelnost); big bag nechat klesnout do záběru s mlýnkem (kamera ze strany, ne z nebe) nebo záběr 5m.6 natočit jinak; 5m.8 doplnit napnutou hadicí a svítícím prstencem.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_A_t3.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 33.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    8.5
+   ],
+   [
+    9.0,
+    10.5
+   ],
+   [
+    16.0,
+    21.5
+   ]
+  ],
+  "nalezy": [
+   "t3 ≈ t2/A: 0–8 s čistý orbit kolem mlýnku s Maxem těsně v pozadí, 18–21 s detail motoru a šneku, čitelné.",
+   "9–10 s big bag u mlýnku na zemi, 11–17 s levituje na nebi (Z9), 16–17 s sloupec vápna.",
+   "22–33 s celek z dálky přes bramborovou nať (spodní třetina obrazu, Z4 lehce), Max a mlýnek vedle sebe u rákosí, statický konec.",
+   "Hadice od výstupu mlýnku k vápnové spojce Maxu není nikde vidět (5m.5, 5m.8 bez klíčového prvku); big bag v 10,5–17 s levituje na čistém nebi, pod ním jen bílý sloupec vápna (Z9); 5m.8 ukazuje jen stojící mlýnek s Maxem v dálce."
+  ],
+  "oprava": "Přidat hadici mlýnek → vápnová spojka Maxu (a ověřit viditelnost); big bag nechat klesnout do záběru s mlýnkem (kamera ze strany, ne z nebe) nebo záběr 5m.6 natočit jinak; 5m.8 doplnit napnutou hadicí a svítícím prstencem.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-mlynek_B_t3.mkv": {
+  "stav": "slabsi",
+  "in_s": 9.0,
+  "out_s": 33.0,
+  "nejlepsi_okno": [
+   [
+    9.0,
+    10.5
+   ],
+   [
+    22.5,
+    33.0
+   ]
+  ],
+  "nalezy": [
+   "0–8 s pevný celek přes brambory: spodní 40 % obrazu je plodina (Z4), Max s tahačem a mlýnek v dálce, málo čitelné.",
+   "9–10 s big bag stojí u mlýnku; 11–17 s levituje na nebi, slunce v objektivu 13–15 s (Z8, Z9), 16–17 s sloup vápna.",
+   "18–21 s pohled zespodu přes žebřík a rám, motor se jen tuší (Z4).",
+   "22–33 s orbit kolem mlýnku, čistý, čitelný, v 28–33 s v záběru okraj Maxu; hadice nevidět.",
+   "Hadice od výstupu mlýnku k vápnové spojce Maxu není nikde vidět (5m.5, 5m.8 bez klíčového prvku); big bag v 10,5–17 s levituje na čistém nebi, pod ním jen bílý sloupec vápna (Z9); 5m.8 ukazuje jen stojící mlýnek s Maxem v dálce."
+  ],
+  "oprava": "Přidat hadici mlýnek → vápnová spojka Maxu (a ověřit viditelnost); big bag nechat klesnout do záběru s mlýnkem (kamera ze strany, ne z nebe) nebo záběr 5m.6 natočit jinak; 5m.8 doplnit napnutou hadicí a svítícím prstencem.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/3/max-zaparkovani_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 8.0,
+  "out_s": 14.9,
+  "nejlepsi_okno": [
+   [
+    8.5,
+    14.9
+   ]
+  ],
+  "nalezy": [
+   "t2 je lepší než t1 (kamera už není uvnitř rákosu): pevný záběr přes pás s rákosím vpravo, pole s bramborami vlevo.",
+   "0–7 s prázdný záběr (7 s čekání), tahač Max vjíždí zleva od 8 s, vlek s dronem čitelný (BZUK), jede po pásu.",
+   "10–14 s rákos a keř v popředí vpravo zakrývají tahač a přední část vleku (Z4 částečně); zastavení nejblíž zadkem ke kameře nevidět, vlek je při konci stále v pohybu."
+  ],
+  "oprava": "Kameru zvednout o 0,5 m a posunout o ~3 m vlevo od rákosí; začátek zkrátit o 6 s.",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/4/max-rozlozeni_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 15.4,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    15.4
+   ]
+  ],
+  "nalezy": [
+   "t2 je lepší než t1 (kamera už není v keři): oblet zleva zezadu, vlek velký, BZUK čitelné.",
+   "4–8 s plachty se rozvinou, žebřík se sklopí, dron a stožár se zvednou; 8–15 s rozložený vlek zboku, nádrže 3000 L, drony na střeše, tahač vpravo.",
+   "Stébla rákosu a keř jen v dolním okraji (6–15 s), nezakrývají vlek; kola na zemi, světlo OK."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nové)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_A_t4.mkv": {
+  "stav": "slabsi",
+  "in_s": 8.0,
+  "out_s": 19.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    7.5
+   ],
+   [
+    12.0,
+    18.5
+   ]
+  ],
+  "nalezy": [
+   "t4 je lepší než t3/A (kamera už není v bramborové nati, nízký výhled přes pás): Max zezadu (BZUK, drony, žlutý tahač) stojí na kraji potoka, vpravo rákos a potok.",
+   "Pumpa (žlutá s černým rámem) je v 8–14 s u zadku Maxu na trávě jako drobný objekt (~2 % šířky), stojí na zemi, nelevituje; hadice ani cedulky nejsou vidět.",
+   "5m.3/5m.4 (pevný záběr 12–18 s): kamera se pomalu přibližuje k zadku Maxu, pumpa je mimo střed a malá; 'zmizení' pumpy by nebylo čitelné.",
+   "Světlo OK, žádné cizí objekty; spodní část záběru je bramborová nať, ale bez zakrytí hlavního objektu."
+  ],
+  "oprava": "Kamery jsou už venku z rákosu a pumpa je v záběru, ale hadice (sání do potoka, výstup na ventil A) chybí a pumpa je jen ~3–5 % šířky: pumpu a kameru přiblížit na ~4 m (fov 25–30), pumpu postavit k hraně potoka a ověřit, že se hadice po připojení vykreslí; cedulky VSTUP/VÝSTUP natočit ke kameře.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_B_t4.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 7.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    7.5
+   ],
+   [
+    12.0,
+    19.0
+   ]
+  ],
+  "nalezy": [
+   "t4 je mírně lepší než t3/B: záběr z trávy proti zadku Maxu (BZUK, drony nahoře, žebřík) s potokem a rákosím vpravo; Max stojí čitelně uvnitř záběru.",
+   "Pumpa je zřetelná jako žlutá/černá krabice na trávě těsně za zadkem Maxu (~5 % šířky, 0–7 s a 12–19 s), stojí na zemi; hadice a cedulky nejsou vidět; keř vlevo dole nezakrývá.",
+   "8–11 s pan nad hladinu: potok a rákos čisté, sací hadice v potoce není.",
+   "Použitelné jako uzamčený rám pro 5m.3/5m.4 (12–19 s) po přiblížení a doplnění hadic."
+  ],
+  "oprava": "Kamery jsou už venku z rákosu a pumpa je v záběru, ale hadice (sání do potoka, výstup na ventil A) chybí a pumpa je jen ~3–5 % šířky: pumpu a kameru přiblížit na ~4 m (fov 25–30), pumpu postavit k hraně potoka a ověřit, že se hadice po připojení vykreslí; cedulky VSTUP/VÝSTUP natočit ke kameře.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_C_t4.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–18 s stejný pevný záběr nízko přes bramborovou nať (dolní polovina obrazu je plodina, Z4): Max zboku vlevo (nádrže 3000 L, drony), pumpa ani hadice ani potok nejsou vidět.",
+   "Oproti t3/C beze změny."
+  ],
+  "oprava": "Kameru C přesunout na pás mezi Max a potok, aby byl vidět ventil a pumpa; teď míří přes pole do boku Maxu.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/max/5m/max-pumpa_D_t4.mkv": {
+  "stav": "slabsi",
+  "in_s": 8.0,
+  "out_s": 19.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    7.5
+   ],
+   [
+    8.0,
+    11.0
+   ],
+   [
+    12.0,
+    19.0
+   ]
+  ],
+  "nalezy": [
+   "t4 je lepší než t3/D: kamera nízko přes brambory k potoku, v 0–7 s je Max s tahačem v dálce zleva a žlutá pumpa na trávě u rákosí (~2 % šířky), stojí na zemi.",
+   "8–11 s pan podél břehu: Max (BZUK) vlevo, pumpa u rákosu a čistá hladina potoka; hadice nevidět.",
+   "12–19 s vzdálený boční záběr Maxu s tahačem a rákosím za ním; pumpa mimo záběr; spodek brambory (Z4 částečně)."
+  ],
+  "oprava": "Kamery jsou už venku z rákosu a pumpa je v záběru, ale hadice (sání do potoka, výstup na ventil A) chybí a pumpa je jen ~3–5 % šířky: pumpu a kameru přiblížit na ~4 m (fov 25–30), pumpu postavit k hraně potoka a ověřit, že se hadice po připojení vykreslí; cedulky VSTUP/VÝSTUP natočit ke kameře.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_A_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    1.0
+   ],
+   [
+    10.0,
+    11.4
+   ]
+  ],
+  "nalezy": [
+   "1–9 s kamera uvnitř sorga (Z4): souprava jen jako drobná silueta nad listy, od 3 s zakrytá stodolou; končí venku na štěrku až v 10 s.",
+   "0 s a 10 s čisté, ale souprava je malá; TRK uprostřed neodpovídá plánu (kamera má být ~25 m od cesty u štěrku).",
+   "Stejná vada jako t1/A (kamera v porostu), cizí stroje na dvoře už nejsou vidět (zlepšení)."
+  ],
+  "oprava": "Kameru A posunout z pole sorga na kraj cesty (~25 m od štěrku, y ≥ 1,8 m nad porost).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_B_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    8.0
+   ]
+  ],
+  "nalezy": [
+   "Protisvětlo: souprava (JD + vlek s červenou bednou) jako tmavá siluetka malé velikosti (~12 % šířky), BZUK nečitelný, celý záběr tmavý (Z8).",
+   "0–1,5 s plot a přístřešek před objektivem (Z4), 8,5–11 s přístřešek zakrývá pravou třetinu; v 9–10 s je souprava za ním.",
+   "t2 ≈ t1/B, bez zlepšení."
+  ],
+  "oprava": "Natočit z opačné strany cesty (slunce za kamerou) nebo posunout čas; odstranit plot z úvodu.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_C_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "0–11 s kamera uvnitř přístřešku, před objektivem stěna z fošen a sloupy (Z4), zleva jen kus červené kabiny cizího manipulátoru (Z1/Z3); souprava není vůbec vidět.",
+   "Horší než t1/C (tam byla alespoň souprava čitelná v 4,5–8,5 s)."
+  ],
+  "oprava": "Kameru C přesunout ven z přístřešku (o ≥ 8 m na západ) a směrovat na cestu, ne na stěnu.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-cesta_D_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 9.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    9.5
+   ]
+  ],
+  "nalezy": [
+   "FOL zezadu za soupravou: JD 3650 s vlekem (červená bedna BZUK) uprostřed obrazu, jede přes pole a pak po zarostlé cestě, plynulý chod, kola na zemi, horizont rovný, světlo OK.",
+   "V pozadí vpravo v přístřešku/u stodoly stojí cizí červený stroj (manipulátor, Z1/Z3) – viditelný od 4 s, ve 6–10 s zřetelně.",
+   "Souprava jede po trávě vedle cesty, ne po štěrku (plán TRK L→R z boku se mění na FOL); je to ale použitelné jako 3.1.",
+   "t2 je shodné s t1/D, cizí stroj odstraněn nebyl."
+  ],
+  "oprava": "Odparkovat červený manipulátor ze stodoly (isolate), pak je celý záběr 0,5–10 s ok.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 8.0,
+  "out_s": 14.9,
+  "nejlepsi_okno": [
+   [
+    7.0,
+    14.9
+   ]
+  ],
+  "nalezy": [
+   "Celých 14,9 s kovové zábradlí a žlab v popředí vpravo (sloupky, svislá konstrukce přes ~25 % obrazu, Z4); ikona hotspotu už není (zlepšení proti t1).",
+   "Souprava (JD + vlek) je malá, od 6 s vjíždí zprava dozadu za zábradlí, 10–14 s jede doprava v záběru, kryje ji jen sloupek; zastavení čitelné ve 12–14 s.",
+   "Kráva není vidět; světlo OK; v pozadí cizí stroj u stodoly vlevo (červený, malý)."
+  ],
+  "oprava": "Kameru A posunout o ~6 m od žlabu (jiná strana dvora) nebo výš (1,5 m), ať zábradlí není v záběru.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 14.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    14.5
+   ]
+  ],
+  "nalezy": [
+   "Výrazné zlepšení proti t1/B: JD s vlekem přijíždí zprava přes dvůr od začátku (0 s), vlek BZUK a bedna jsou velké a čitelné; kamera nízko, stodola vzadu.",
+   "6–10 s sestava před stodolou, 10–14 s zastaví vlevo u sil; kola na zemi, světlo OK, žádné zvíře, zábradlí ani hotspot v záběru.",
+   "V pozadí vlevo na konci dvora jen cizí červený stroj u stodoly (Z1) malý v 0–2 s, nevadí."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_C_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "Celý klip v popředí černá kráva (Z3) a plot přes celou šířku, před přístřeškem s krmítkem (Z4).",
+   "Souprava jede daleko za plotem jako drobný zelený tahač (~3 % šířky), vlek nečitelný; od 8 s částečně za přístřeškem.",
+   "t2 ≈ t1/C, kráva dál na místě."
+  ],
+  "oprava": "Kameru C přesunout mimo pastvinu (o ~15 m na sever na štěrk) a odstranit zvířata (isolate animals).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/4/mini-rozlozeni_D_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 17.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    17.5
+   ]
+  ],
+  "nalezy": [
+   "t2 je výrazně lepší než t1/D (tam záběr mířil na pastvinu): boční statický záběr před červenou stodolou, vlek stojí 0–3 s složený (rezerva), 4–7 s se stěny sklápějí a panel plošiny se rozkládá, 7–10 s dron na heliportu, od 10 s stojí.",
+   "Kola na zemi, nic cizího ani zvíře, světlo OK; tahač vpravo ořezaný (záměrně). Od 12 s jen statika rozloženého vleku (rezerva po akci)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/4/mini-detaily_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 30.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    7.0
+   ],
+   [
+    8.0,
+    13.0
+   ],
+   [
+    14.0,
+    18.5
+   ],
+   [
+    19.5,
+    24.0
+   ],
+   [
+    25.0,
+    30.0
+   ]
+  ],
+  "nalezy": [
+   "t2 je lepší než t1/B: 4.2 (0–7 s) NAJ na dron na heliportu s kruhem a H, lyžiny vidět, vrtule stojí – čisté.",
+   "4.3 (8–13 s): elektrocentrála (žlutá/oranžová skříň v kleci, panel se zásuvkami), čerpadlo a mixér; tilt už začíná u centrály (ne na obloze), výfuk jen částečně.",
+   "4.4 (14–19 s): otevřená šachta baterií s víkem, sloty a modré LED proužky čitelné, kabel nezakrývá; 4.5 (19–24 s): nádobka, mixér, čerpadlo a nádrž 300 L, čitelné.",
+   "4.6 (25–30 s): navíječ s modrou hadicí a koncovkou, kolo tahač; místo ODJ je NAJ, ale čisté a čitelné.",
+   "Bez cizích objektů, světlo OK."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_A_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    9.0
+   ],
+   [
+    10.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "5.1 (0–8 s): nájezd na pravou bednu, víko se odklopí (3 s), uvnitř světle zelené kanystry, 5–6 s jeden oranžový kanystr vykukuje nad bednou; zvednutí kanystru jen letmo (štítek v 5.1 nečitelný).",
+   "5.2 (9–15 s): oranžový kanystr 'HERBICID' stojí nad hrdlem nádobky, štítek je čitelný ve 11–14 s (~1,5 s), 15 s se naklání; kamera zezadu přes tahač JD.",
+   "16–17 s kanystr odlétá doprava nahoru a vidět je spodek (Z9) – použít jen do 15,5 s; v bedně světle zelené kanystry neodpovídají oranžovému kanystru herbicidu (Z/látka).",
+   "Nic cizího, světlo OK."
+  ],
+  "oprava": "Sladit barvu kanystrů v bedně s herbicidem (oranžová) nebo zvednout oranžový, ne zelený.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 3.0,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    3.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "Vyvýšený pevný celek: vlek s dronem na heliportu vlevo nahoře, víko bedny se odklopí ve 3 s, zelené kanystry v bedně vidět.",
+   "5–8 s kanystr se zjeví ve vzduchu vedle bedny a přilétá, 9–14 s visí oranžový kanystr nad nádobkou bez opory, naklání se v 15 s; 16–17 s odlétá se spodkem v záběru (Z9).",
+   "Štítek HERBICID je z této vzdálenosti nečitelný (< 1 s)."
+  ],
+  "oprava": "Přiblížit (fov 40→28) nebo cílit na kanystr, aby byl štítek čitelný; použít jen jako celek.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_C_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 8.5,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    8.5,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "Kamera nízko pod stodolou, dívá se nahoru: 0–5 s jen červená stodola, obloha a horní okraj nádobky, žádný děj (5.1 chybí).",
+   "6–8 s kanystr přilétá zleva, 9–15 s visí nad nádobkou s malým štítkem (< 1 s čitelný), odlétá v 16 s (Z9 na obloze bez opory).",
+   "Použitelné jen pro 5.2."
+  ],
+  "oprava": "Kameru zvednout/vzdálit, aby bylo vidět bednu a ruku kanystru; teď většinu záběru zabírá stodola.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/5/mini-kanystr_D_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "Nejlepší z t2: 5.1 (0–7 s) NAJ na bednu zblízka, víko se odklopí, zelené kanystry uvnitř, v 5 s vyjede oranžový kanystr (štítek HERBICID čitelný).",
+   "5.2 (8–15 s): oranžový kanystr nad hrdlem nádobky, štítek 'HERBICID' dobře čitelný ~7 s, hrdlo v záběru, naklání se ve 15 s; stodola v pozadí.",
+   "17 s kanystr odlétá vlevo – použít do 15,5 s. Barva kanystrů v bedně (zelené) vs oranžový kanystr: nesoulad (Z/látka)."
+  ],
+  "oprava": "Sladit barvu kanystrů v bedně s herbicidem.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-let_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 38.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    11.0
+   ],
+   [
+    15.0,
+    21.5
+   ],
+   [
+    22.0,
+    28.0
+   ],
+   [
+    28.5,
+    38.0
+   ]
+  ],
+  "nalezy": [
+   "7.1 (0–11 s): pevný záběr před stodolou, dron na heliportu, vzlétá v 5–7 s a stoupá kolem stodoly, od 9 s malý proti obloze (JIB-U ve výšce).",
+   "11–14 s dron malý a vzdálený, vpravo dole cizí červený stroj pod přístřeškem (Z1/Z3, drobný) – nevyužít.",
+   "7.2 (15–21 s): FOL shora zezadu, dron s bílomodrou (bílou) mlhou nad kukuřicí, čitelné; 7.3 (22–27 s): TOP, úzká stopa mlhy po řádcích, malá, ale čitelná; 7.4 (28–38 s): nízký boční pohled, dron s mlhou přes řádky, v 30–33 s listnaté stromy v pozadí, v 36–38 s dron s mlhou odlétá.",
+   "Bez cizích objektů v použitých úsecích, světlo OK. Lepší než t1/B (tam bylo 7.4 a 7.3 chybné)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-let_C_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 38.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    11.0
+   ],
+   [
+    15.0,
+    21.5
+   ],
+   [
+    22.0,
+    28.0
+   ],
+   [
+    29.0,
+    38.5
+   ]
+  ],
+  "nalezy": [
+   "7.1 (0–11 s): pevný záběr zboku zepředu na rozloženou plošinu s dronem a JD; dron vzlétá v 5–7 s, stoupá a odlétá doprava; 9–14 s dron malý nad poli (čistá obloha, ptáci).",
+   "7.2 (15–21 s): FOL zepředu 3/4: dron velký s bílou mlhou, v pozadí stodola a přístřešek, nejlepší záběr 7.2; 7.3 (22–28 s): TOP s úzkou stopou mlhy po řádcích.",
+   "7.4 (29–38 s): dron od předu, mlha, v pozadí stromy a větrné čerpadlo; konec s dronem u stodoly.",
+   "Od 14 s vpravo dole je zadní stěna přístřešku s cizím červeným strojem (Z1/Z3, drobně) v 12–14 s, v 7.2 nezasahuje."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-navrat-servis_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 22.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    7.0
+   ],
+   [
+    10.0,
+    22.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–7 s): dron přilétá zespodu přes strom a stodolu, 5–7 s se vznáší nad heliportem; vlek vpravo dole; dosednutí v záběru není (střih na 7.6).",
+   "7.6/7.7 (8–22 s): detail dronu na heliportu s hadicí a modrou koncovkou; v 8 s plave modrá baterie ve vzduchu nad dronem (Z9), pak hadice poskočí; vlastní výměna baterie a doplnění nádrže se nečte.",
+   "Pozadí: přístřešek s cizím červeným strojem (Z1/Z3, drobný) po celé 7.6; statika od 10 s, jemný pohyb kamery."
+  ],
+  "oprava": "7.7: kamera má být u truhly s bateriemi, ne jen na dronu; cizí červený stroj odstranit (isolate).",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-navrat-servis_C_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 7.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    7.5
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–7 s): vysoký záběr zezadu za dronem, dron přilétá, klesá a přistává na heliport (7 s) – čitelné, tahač s plošinou v záběru; světlo OK.",
+   "7.6/7.7 (8–22 s): kamera zboku nízko na centrálu a truhlu s logem, dron NENÍ v záběru (jen koncovka hadice v 8–9 s vpravo nahoře, Z7); statika bez děje, centrála zabírá půl obrazu – 7.6/7.7 nepoužitelné."
+  ],
+  "oprava": "7.6: kameru namířit na dron na heliportu a na truhlu s bateriemi (doleva a výš), ne na centrálu.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/7/mini-navrat-servis_D_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 14.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    13.5
+   ],
+   [
+    15.0,
+    22.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–7 s): nejčitelnější přílet: dron zespodu přilétá, 5–7 s sestupuje a přistává na heliport, vlek s JD vlevo; čisté.",
+   "7.6 (8–14 s): blízký záběr na dron na heliportu s hadicí a modrou koncovkou, štítek S čitelný, světlo OK, přes siluetu sil; výměna baterie v dronu se ale neukáže (baterie v záběru není).",
+   "7.7 (15–22 s): navíječ s modrou hadicí, tablet a truhla s logem; dron mimo záběr, výměna baterie nečitelná.",
+   "Oproti t1/D chybí plovoucí baterie (Z9 pryč), ale i výměna je pryč."
+  ],
+  "oprava": "7.6/7.7: přidat záběr truhly s bateriemi a dronu dohromady (kamera výš, vzdálenější), aby byla vidět výměna.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_A_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 27.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    15.0
+   ],
+   [
+    16.0,
+    27.5
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–15 s): jeřáb shora zleva, dron skládá ramena (2–6 s), plošina se sklápí (8–11 s), stěna přes půl obrazu v 11 s (animace), od 12 s zavřená červená bedna BZUK; stodola a sila v pozadí; čisté, tahač vpravo.",
+   "8.2 (16–28 s): tele zezadu: sestava JD s vlekem odjíždí od kamery po štěrku k přístřešku a polím, kola na zemi, horizont rovně, nic cizího v záběru.",
+   "Lepší než t1/A (tam byl tahač v 16–18 s ořezán)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 15.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–15 s): boční záběr před stodolou – dron se skládá (0–6 s), plošina se sklápí (8–11 s), stěna ve vzduchu v 11 s, bedna zavřená ve 12 s; čisté, tahač vpravo ořezaný (záměrně).",
+   "8.2 (16–28 s): tele přes dřevěnou ohradu: sloupky a lana přes spodní třetinu (Z4), souprava malá před stodolou; 22–28 s souprava za rohem stodoly, velká část kryta.",
+   "Stejná vada jako t1/B, zlepšení není."
+  ],
+  "oprava": "8.2: kameru posunout nad ohradu nebo za ni (y ≥ 1,6 m) a blíž k cestě.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/1-2/middle-silnice_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.0,
+  "out_s": 6.5,
+  "nejlepsi_okno": [
+   [
+    1.5,
+    6.5
+   ]
+  ],
+  "nalezy": [
+   "t2 ≈ t1/B: 0–6 s pickup s vlekem (BZUK, dron na střeše) jede po silnici od kamery z dálky a v 3–4 s projede těsně kolem (velký, vlek ořezán vpravo – záměrně), kamera v kraji silnice, kola na asfaltu, světlo OK.",
+   "7–17 s souprava mizí v dálce na zatáčející silnici, miniaturní (< 3 % šířky) – 10 s nepoužitelné; 2.1 (otočení za vozidlem) chybí.",
+   "Vlevo ve 3 s strom v popředí (Z4 krátce)."
+  ],
+  "oprava": "Konec zkrátit na 7 s; 2.1 natočit jako samostatný záběr s PAN za vozidlem.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-cesta_A_t2.mkv": {
+  "stav": "ok",
+  "in_s": 1.0,
+  "out_s": 10.9,
+  "nejlepsi_okno": [
+   [
+    1.0,
+    10.9
+   ]
+  ],
+  "nalezy": [
+   "Boční TRK nízko v trávě: pickup + vlek (BZUK, dron na střeše) jede zleva doprava přes louku podél cesty, plně v záběru (nic neořezává), plynulé, kola na zemi, světlo OK.",
+   "0–1 s značka a sloup v popředí a tráva (krátce Z4); 5–7 s větrné čerpadlo vzadu, 8–11 s přístřešek s dřevěnou ohradou vpravo (cizí červený stroj pod střechou drobně v 9–10 s).",
+   "Lepší než t1/A (tam byl pickup ořezaný)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-cesta_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 1.5,
+  "out_s": 10.9,
+  "nejlepsi_okno": [
+   [
+    1.5,
+    10.9
+   ]
+  ],
+  "nalezy": [
+   "TRK zleva doprava, souprava velká a čitelná (BZUK, dron, bílý pickup), jede po silnici a pak po trávě; kamera nízko, nic nezakrývá; strom vpravo v 2–3 s přejede jen kousek pickupu.",
+   "0–1,5 s značka a sloup přes obraz (použít od 1,5 s); 8–11 s přístřešek s ohradou vzadu, v něm drobný cizí červený stroj (Z1/Z3 nepatrně).",
+   "Výrazně lepší než t1/B (tam kamera v keři)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-cesta_C_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 7.0,
+  "out_s": 10.9,
+  "nejlepsi_okno": [
+   [
+    7.0,
+    10.9
+   ]
+  ],
+  "nalezy": [
+   "Kamera nízko v poli přes trávu: 0–7 s souprava v dálce jako drobná skvrna (~3–4 % šířky) před stromy, BZUK nečitelný; 7–10 s se přibližuje k přístřešku a je vidět zboku (pickup + vlek), čitelná.",
+   "Zlepšení proti t1/C (cizí kombajn pryč), ale kompozice slabá: kamera má cesta směr z boku, ne zdálky."
+  ],
+  "oprava": "Zkrátit na 7–11 s nebo kameru posunout o ~15 m blíž k cestě.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 2.0,
+  "out_s": 8.0,
+  "nejlepsi_okno": [
+   [
+    2.0,
+    8.0
+   ]
+  ],
+  "nalezy": [
+   "Pevná kamera ze severu: souprava vjíždí zprava (pickup 2 s, vlek 3 s) na louku před hladinou, voda, rákos a dům v pozadí; zastavení ~7 s.",
+   "Od 3 s keř v popředí zakrývá spodní polovinu vleku a pickup (Z4); od 9 s velký strom vpravo (kmen a koruna ~20 % obrazu), 10–15 s souprava malá (~8 % šířky) za keřem.",
+   "Stejná kompozice jako t1/A bez zlepšení."
+  ],
+  "oprava": "Kameru A posunout o ~6 m doprava mimo keř a zvednout o 0,4 m; strom vpravo odebrat.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 4.0,
+  "out_s": 15.0,
+  "nejlepsi_okno": [
+   [
+    4.0,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "Výrazně lepší než t1/B (kamera už není nad hladinou): kamera ze křoví na břehu, souprava přijíždí zprava zepředu (3–4 s), pak stojí na louce vpravo (vlek čitelný, BZUK, dron).",
+   "Před objektivem vlevo listí keře (spodní levý roh) po celou dobu (Z4 lehce); pickup od 8 s téměř skrytý za vlekem a keřem; voda v pozadí není vidět (jen stromy a mlha).",
+   "Voda (požadovaná v 3.2) chybí; souprava vpravo u kraje záběru."
+  ],
+  "oprava": "Kameru B posunout o ~2 m doleva od keře a otočit k hladině, aby byla v pozadí voda.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_C_t2.mkv": {
+  "stav": "vyrazeno",
+  "in_s": 0,
+  "out_s": 0,
+  "nejlepsi_okno": [],
+  "nalezy": [
+   "Celý klip (0–15 s) kamera uvnitř keře: listí a větve přes celý obraz (Z4), souprava není vůbec vidět.",
+   "Horší než t1/C."
+  ],
+  "oprava": "Kameru C přesunout ven z keře (~8–10 m na sever/západ), y 1,8 m.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/3/middle-polo-prijezd_D_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 15.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    15.0
+   ]
+  ],
+  "nalezy": [
+   "Vyvýšený záběr (strom vlevo) na louku: voda s mlhou, rákos, protější břeh i souprava (pickup + vlek BZUK, dron) jedou 0–3 s od kamery k hladině a zastaví ve 4 s, stojí do konce; voda je v pozadí celou dobu (cíl scény splněn).",
+   "Souprava je malá (~7–10 % šířky), ale kompletní a čitelná; keř vlevo nezakrývá. Světlo OK, kola na zemi, žádné cizí objekty.",
+   "Lepší než t1/D (keř nezakrývá pickup)."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_A_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "Výrazně lepší než t1/A (kamera už není v rákosu): boční vyvýšený záběr, 0–3 s složený vlek s dronem, 3–6 s plachty se rozvinou, žebřík se sklopí, stožár s anténou vyjede, dron na horní plošině.",
+   "Pickup vpravo částečně v keři (listí v korbě, Z4 okrajově); voda v pozadí není vidět, jen louka a stromy; kola na zemi, světlo OK."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "Lepší než t1/B: vlek zezadu zleva, 3–7 s plachty se rozvinou, odhalí se nádrž 1000 L, centrála, dron; rákos a voda v pozadí.",
+   "Keř vlevo zakrývá pickup a levý okraj po celou dobu (Z4 okrajově); žebřík a stožár se z tohoto směru nepoznají; od 8 s statika."
+  ],
+  "oprava": "Kameru B posunout o ~3 m od keře doprava a dopředu, ať je vidět bok se žebříkem.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_C_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "Výrazně lepší než t1/C (tam kamera zezadu): vyvýšený boční záběr zleva přes louku s rákosem v rohu (pálky vpravo dole od 4 s, Z4 okrajově): rozložení plachet, sklopení žebříku, vysunutí stožáru čitelné, dron na střeše.",
+   "Pickup vpravo ořezaný (záměrně), keře v pozadí, světlo OK, kola na zemi."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-rozlozeni_D_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 15.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "Výrazně lepší než t1/D (kamera už nejede skrz rákos): boční jízda s mírným odstupem, 3–6 s se plachty rozvinou, žebřík, stožár a dron na střeše čitelné; pickup vpravo, louka a strom v pozadí.",
+   "Rákos jen jemně v rozích; světlo OK, žádná překážka."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/4/middle-detaily_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 30.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    7.5
+   ],
+   [
+    7.5,
+    13.0
+   ],
+   [
+    14.0,
+    19.5
+   ],
+   [
+    20.0,
+    23.5
+   ],
+   [
+    24.0,
+    30.0
+   ]
+  ],
+  "nalezy": [
+   "4.2 (0–7,5 s): žebřík zblízka s příčkami, nádrž 1000 L a centrála za ním, čisté; vpravo okraj pickupu.",
+   "4.3 (7,5–13 s): kolejnice plachty s navíječem hadice, nádrž a nádobka, čisté (TRK místo plachty zblízka, ale kolejnice je vidět).",
+   "4.4 (14–19,5 s): shora na horní plošinu s heliportem, dronem a otevřenou truhlou nabíječek se vzpěrami; sloty vidět jen shora.",
+   "4.5 (20–23,5 s): nádrž 1000 L s popiskem NÁDRŽ 1000 L, čerpadlo a nádobka čitelné (lepší záběr než t1).",
+   "4.6 (24–30 s): TILT-U podél stožáru s anténou a GPS RTK, čisté, nad stromy modrá obloha, čitelné; nic cizího."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/5/middle-kanystr_A_t2.mkv": {
+  "stav": "ok",
+  "in_s": 3.0,
+  "out_s": 17.0,
+  "nejlepsi_okno": [
+   [
+    3.0,
+    8.5
+   ],
+   [
+    9.0,
+    16.5
+   ]
+  ],
+  "nalezy": [
+   "5.1 (0–8 s): zadek vleku, roleta nahoru ve 2–3 s, police se 48 zelenými kanystry, najetí na štítek '20 l' čitelné 5–8 s – splněno.",
+   "5.2 (9–16,5 s): pohled zboku na kanystr nad nádobkou, kanystr (zelený, štítek HNOJIVO nečitelný) visí bez opory ve vzduchu, v 15 s se naklání; spodek kanystru v záběru (Z9); v 16 s odlétá.",
+   "Lepší než t1/A (nádrž i nádobka viditelné)."
+  ],
+  "oprava": "5.2: kameru dát výš nebo blíž, aby kanystr nevisel v prázdnu.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/5/middle-kanystr_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 3.0,
+  "out_s": 16.5,
+  "nejlepsi_okno": [
+   [
+    3.0,
+    8.0
+   ],
+   [
+    8.0,
+    15.5
+   ]
+  ],
+  "nalezy": [
+   "5.1 (0–8 s): roleta nahoru ve 2–3 s, police s kanystry, štítky '20 l' čitelné 5–8 s (nájezd bez ořezu).",
+   "5.2 (8–15,5 s): kanystr zelený nad nádobkou, naklání se ve 15 s, kanystr visí ve vzduchu bez opory (Z9); stejný záběr jako A, pohled lehce zepředu s ladderem; 16 s kanystr odlétá nahoru.",
+   "Světlo OK, žádné cizí objekty."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-let_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 74.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    7.5
+   ],
+   [
+    8.0,
+    14.5
+   ],
+   [
+    48.0,
+    56.0
+   ],
+   [
+    58.0,
+    74.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (0–7 s): NAJ na dron M (BZ-M) na heliportu, čisté, štítek čitelný, voda a rákos v pozadí; druhý dron nikde.",
+   "7.1 (8–15 s): pevný záběr na vlek, dron vzlétá z plošiny (10–11 s) a odlétá, voda s domkem; od 15 s dron malý nad lesem; stejný vzlet čitelný do ~14 s.",
+   "17–47 s prázdná čekací smyčka: statický záběr na les, rákos a mlhu, dron odletěl – nepoužít (30 s).",
+   "7.2 (48–56 s): FOL zepředu shora: dron s žlutozelenou mlhou nad polem, cesta vedle, čitelné; 7.3 TOP (58–63 s) úzká stopa po řádcích, malá; 7.4 DRON (63–74 s): záběr z úrovně dronu, mlha, strom v pozadí – čisté, ale pohled je externí, ne z palubní kamery."
+  ],
+  "oprava": "Odstranit čekání 17–47 s (zkrátit film nebo zavést střih); 7.4 zkusit palubní kameru dronu.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-let_B_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.5,
+  "out_s": 74.0,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    7.5
+   ],
+   [
+    8.0,
+    19.0
+   ],
+   [
+    48.0,
+    56.0
+   ],
+   [
+    58.0,
+    74.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (0–7 s): NAJ na dron M z jiné strany, čisté, štítek BZ-M čitelný; tablet a stožár vzadu.",
+   "7.1 (8–19 s): kamera zespodu proti obloze, dron vzlétá nad vlek s anténou a odlétá, čisté, protisvětlo mírné (vlek tmavě, dron čitelný), ptáci.",
+   "20–47 s prázdná čekací smyčka (obloha a les, dron pryč) – nepoužít.",
+   "7.2 (48–56 s): FOL, dron s mlhou nad polem a cestou; 7.3 TOP (58–63 s) a 7.4 (64–74 s): FOL nízko za dronem nad cestou a polem, mlha čitelná, kamera mimo keře."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-let_C_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 4.0,
+  "out_s": 74.0,
+  "nejlepsi_okno": [
+   [
+    4.0,
+    7.5
+   ],
+   [
+    8.0,
+    15.5
+   ],
+   [
+    48.0,
+    57.0
+   ],
+   [
+    60.0,
+    74.0
+   ]
+  ],
+  "nalezy": [
+   "7.0 (0–7 s): 0–3 s černý panel (víko truhly, Z4) přes obraz, od 4 s dron zblízka na heliportu, čitelný; je to stejná vada jako t1/C.",
+   "7.1 (8–15 s): široký boční záběr: dron vzlétá nad vodou za vlekem, voda a domek, kamera nízko, čisté.",
+   "16–47 s: dron mimo záběr a v pravém horním rohu větev s listím (Z4) – nepoužitelné, prázdná smyčka.",
+   "7.2 (48–57 s): FOL z úrovně terénu, dron s mlhou; 7.3 TOP (58–63 s); 7.4 (64–74 s): nízko přes cestu a pole, dron s mlhou přelétá, čisté."
+  ],
+  "oprava": "Kameru C posunout od truhly (víko zakrývá 0–3 s) a od větve nad vodou.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-navrat-servis_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.5,
+  "out_s": 23.5,
+  "nejlepsi_okno": [
+   [
+    0.5,
+    8.0
+   ],
+   [
+    9.0,
+    23.5
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8 s): dron přilétá z dálky u sil, 5–8 s klesá k vleku s velkým stromem vpravo; dosednutí není vidět (dron zmizí za vlekem v 8 s), čisté, ale kamera ze země je nízko a dron je krátce.",
+   "7.6/7.7 (9–23 s): vysoký záběr shora zboku na střechu s dronem na heliportu, voda a rákos, pickup a keř vlevo; dron stojí, hadice napojená (modrý konektor ve 15–23 s); výměna baterie a truhla nejsou vidět.",
+   "Lepší než t1/A (kamera výš, vlek bez keře přes celou střechu), ale 7.7 chybí."
+  ],
+  "oprava": "7.7: doplnit záběr na truhlu s bateriemi a výměnu.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-navrat-servis_C_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 23.5,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    23.5
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8 s): vysoký FOL za přilétajícím dronem nad potokem a rákosem, dron se snáší na plošinu vleku (7–8 s), vlek s pickupem v záběru – čisté, plynulé, voda v pozadí (cíl splněn).",
+   "7.6 (8–23 s): oblet z výšky kolem dronu na heliportu, hadice s modrým konektorem napojená, voda a rákos v pozadí; keř vlevo nezakrývá.",
+   "Výměna baterie v záběru není (shora), truhla jen z boku; jinak čisté. Lepší než t1/C."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/7/middle-navrat-servis_D_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 22.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    8.0
+   ],
+   [
+    9.0,
+    22.0
+   ]
+  ],
+  "nalezy": [
+   "7.5 (0–8 s): dron zespodu přilétá a klesá za stromy (3–8 s dron zmenšený a částečně za korunou stromu, Z4), přistání je mimo záběr.",
+   "7.6/7.7 (9–22 s): blízký záběr na dron na heliportu s hadicí a zeleným LED, čistý a čitelný, statika od 12 s; baterie ani truhla nejsou v záběru, výměna není vidět.",
+   "Podobné jako t1/D."
+  ],
+  "oprava": "7.6/7.7: přidat záběr na truhlu s bateriemi.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_A_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 26.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    14.0
+   ],
+   [
+    15.0,
+    26.0
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–14 s): vyvýšený záběr zleva: 3–7 s se plachty svinou, dron se skládá a stožár zasouvá, 7–14 s zavřený vlek před rákosím a vodou; keř vlevo zakrývá pickup a část vleku (Z4 okrajově).",
+   "8.2 (15–26 s): tele ze země přes keře: keř před vlekem přes 40 % obrazu (Z4), pickup se objeví v 17–19 s a mizí za keřem; souprava jede doprava, čitelná jen částečně.",
+   "Lepší než t1/A (už není v rákosí), ale 8.2 je zakryté keřem."
+  ],
+  "oprava": "8.2: kameru posunout o ~4 m vpřed mimo keře nebo keře odebrat.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_B_t2.mkv": {
+  "stav": "slabsi",
+  "in_s": 0.0,
+  "out_s": 15.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    14.5
+   ]
+  ],
+  "nalezy": [
+   "8.1 (0–14 s): pevný záběr zezadu na vlek: dron se skládá (4 s), plachty se svinou, od 5 s statika zavřeného vleku s logem BZUK; stožár a žebřík z tohoto směru nejdou poznat; čisté, keř vlevo nezavazí, voda v pozadí.",
+   "8.2 (15–26 s): tele z dálky: vlek v 15–16 s malý, v 17 s se za keřem ztrácí a od 18 s je pryč; prázdný záběr louky, nepoužitelné.",
+   "Skládání čitelné jen z hlediska plachet a dronu."
+  ],
+  "oprava": "8.2: kameru dát blíž k cestě odjezdu a výš, aby sestava zůstala v záběru.",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ },
+ "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_C_t2.mkv": {
+  "stav": "ok",
+  "in_s": 0.0,
+  "out_s": 26.0,
+  "nejlepsi_okno": [
+   [
+    0.0,
+    14.5
+   ],
+   [
+    15.0,
+    26.0
+   ]
+  ],
+  "nalezy": [
+   "Výrazně lepší než t1/C (už ne skrz rákos): 8.1 (0–14 s) boční záběr zleva: plachty se svinou (4–7 s), dron se skládá, stožár zasouvá, žebřík se zvedá, zavřený vlek od 8 s; keř vlevo jen okrajově.",
+   "8.2 (15–26 s): FOL zepředu shora na odjezd: vlek s pickupem jede po louce kolem keřů ke kameře a pryč, voda a stromy v pozadí; od 17 s keře v dolní části záběru (Z4 okrajově), souprava plně vidět.",
+   "Světlo OK, žádné cizí objekty."
+  ],
+  "oprava": "",
+  "hodnotil": "kontrolor obrazu (t2/nove)"
+ }
+}

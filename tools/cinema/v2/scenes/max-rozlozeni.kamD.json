@@ -1,0 +1,62 @@
+{
+ "popis": "boční jízda podél levého boku zepředu dozadu s jeřábem nahoru",
+ "typ": "PC",
+ "pohyb": "TRK + JIB-U",
+ "smer": "R→L",
+ "fov": "38",
+ "vyska": "1,2 → 3,4 m, 9 m od osy",
+ "zabery": [
+  {
+   "id": "max-4.1",
+   "od": 2.0,
+   "do": 11.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 9,
+     "y": 1.2,
+     "z": 6.0,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0.5,
+     "fov": 38
+    },
+    {
+     "t": 7.0,
+     "at": "max",
+     "x": 9.3,
+     "y": 2.2,
+     "z": -1.5,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.2,
+     "tz": -1.5,
+     "fov": 38
+    },
+    {
+     "t": 14,
+     "at": "max",
+     "x": 9.6,
+     "y": 3.4,
+     "z": -9.5,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.4,
+     "tz": -3.0,
+     "fov": 36
+    }
+   ]
+  }
+ ]
+}

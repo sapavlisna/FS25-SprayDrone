@@ -1,0 +1,21 @@
+{
+  "name": "s04_unfold",
+  "title": "Záběr 4: souprava u pole, rozkládání vleku, orbit kolem zadního rohu, 5 s",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -690, "z": 167, "yaw": 90, "unfolded": false, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "at": "middle", "x": 4.2, "y": 1.6, "z": -5.0, "tat": "middle", "tx": 0, "ty": 1.3, "tz": -2.4, "fov": 50},
+    {"sleep": 2.0},
+    {"mark": "shot"},
+    {"record": "start", "seconds": 8},
+    {"cmd": "camPath", "duration": 5.2, "ease": "inout", "check": false,
+     "keys": [
+       {"t": 0, "at": "middle", "x": 4.2, "y": 1.6, "z": -5.0, "tat": "middle", "tx": 0, "ty": 1.3, "tz": -2.4, "fov": 50},
+       {"t": 2.6, "at": "middle", "x": 2.4, "y": 1.7, "z": -6.2, "tat": "middle", "tx": 0, "ty": 1.7, "tz": -2.2, "fov": 46},
+       {"t": 5.2, "at": "middle", "x": -2.8, "y": 1.9, "z": -5.6, "tat": "middle", "tx": 0, "ty": 2.2, "tz": -2.0, "fov": 44}
+     ]},
+    {"cmd": "unfoldTrailer", "trailer": "middle", "wait": true, "timeout": 30},
+    {"record": "stop"}
+  ]
+}

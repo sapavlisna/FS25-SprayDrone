@@ -1,0 +1,176 @@
+{
+ "name": "c62_bigbag",
+ "title": "Záběr 6.2: big bag se zvedne nad násypku a vyklopí",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true
+  },
+  {
+   "cmd": "detachFrom",
+   "parent": "max",
+   "child": "mill",
+   "optional": true
+  },
+  {
+   "cmd": "moveVehicle",
+   "vehicle": "mill",
+   "x": -748,
+   "z": 150,
+   "yaw": 90,
+   "optional": true
+  },
+  {
+   "cmd": "moveVehicle",
+   "id": 618,
+   "x": -760,
+   "z": 178,
+   "yaw": 90,
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -684,
+   "z": 162,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "play",
+   "trailer": "max",
+   "command": "spawnHopper"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "camSet",
+   "x": -697,
+   "y": 1.7,
+   "z": 173.5,
+   "rel": "terrain",
+   "tx": -691,
+   "ty": 2.6,
+   "tz": 167,
+   "trel": "terrain",
+   "fov": 46
+  },
+  {
+   "cmd": "bagLift",
+   "side": 3.2,
+   "up": 3.0,
+   "dx": 1,
+   "dz": 0,
+   "tLift": 3,
+   "tMove": 2.5,
+   "tLower": 1.5,
+   "tHold": 10,
+   "fill": 300,
+   "delay": 3.0
+  },
+  {
+   "sleep": 1.2
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -697,
+     "y": 1.7,
+     "z": 173.5,
+     "rel": "terrain",
+     "tx": -691,
+     "ty": 2.6,
+     "tz": 167,
+     "trel": "terrain",
+     "fov": 46
+    },
+    {
+     "t": 6,
+     "x": -695.8,
+     "y": 2.4,
+     "z": 173,
+     "rel": "terrain",
+     "tx": -691.3,
+     "ty": 3.3,
+     "tz": 167,
+     "trel": "terrain",
+     "fov": 44
+    },
+    {
+     "t": 12,
+     "x": -694.5,
+     "y": 2.8,
+     "z": 172.5,
+     "rel": "terrain",
+     "tx": -691.5,
+     "ty": 2.2,
+     "tz": 167,
+     "trel": "terrain",
+     "fov": 38
+    }
+   ]
+  },
+  {
+   "sleep": 12.5
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "play",
+   "trailer": "max",
+   "command": "hopperDrop"
+  }
+ ]
+}

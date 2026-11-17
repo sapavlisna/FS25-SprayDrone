@@ -1,0 +1,20 @@
+{
+  "name": "s06_spray",
+  "title": "Záběr 6: sledování dronu zezadu a shora nad řádky kukuřice, mlha postřiku, 5 s",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -690, "z": 167, "yaw": 90, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "selectField", "trailer": "middle", "field": 4},
+    {"cmd": "camSet", "at": "middle", "x": 6, "y": 5, "z": -6, "tat": "middle:drone1", "tx": 0, "ty": 0, "tz": 0, "fov": 40},
+    {"cmd": "startFlight", "trailer": "middle", "fill": false},
+    {"cmd": "waitDrone", "trailer": "middle", "cond": "spraying", "timeout": 90},
+    {"sleep": 2.5},
+    {"mark": "shot"},
+    {"record": "start", "seconds": 8},
+    {"cmd": "camFollow", "target": "middle:drone1", "ox": 0.5, "oy": 4.0, "oz": -10.5, "lx": 0, "ly": -1.5, "lz": 3, "tau": 0.5, "tauLook": 0.3,
+     "fov": 42, "fov2": 36, "duration": 5, "ease": "smooth", "wait": true, "timeout": 30},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true}
+  ]
+}

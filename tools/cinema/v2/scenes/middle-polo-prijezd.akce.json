@@ -1,0 +1,123 @@
+{
+ "popis": "Souprava (pickup + Middle) vjede z x = -670 na louku a zastaví v bodě (-625, 455), yaw 90 (pravý bok k jihu a k vodě).",
+ "vlek": "middle",
+ "beat": "3",
+ "zabery": [
+  "middle-3.2"
+ ],
+ "misto": "POLO (-625, 455), voda jižně",
+ "cas": "11:15",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.25,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -650,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 10
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "pickup",
+   "x": -625,
+   "z": 455,
+   "kmh": 14,
+   "radius": 2,
+   "mode": "line"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 15.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "pickup",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

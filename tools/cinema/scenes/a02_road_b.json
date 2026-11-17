@@ -1,0 +1,25 @@
+{
+  "name": "a02_road_b",
+  "title": "Záběr 2.1: asfaltka do slunce, souprava jede z protisvětla proti kameře (slunce v záběru, na konci sledování)",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -50, "z": -662.5, "yaw": 90, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "x": 60, "y": 1.1, "z": -668.5, "rel": "terrain", "tx": -171, "ty": 82.5, "tz": -608, "trel": "world", "fov": 34},
+    {"sleep": 2.0},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": 260, "z": -662.5, "kmh": 36},
+    {"sleep": 4.2},
+    {"mark": "shot"},
+    {"record": "start", "lead": 1.0},
+    {"cmd": "camPath", "duration": 6.8, "ease": "smooth", "wait": true, "check": true, "timeout": 30, "tsmooth": 0.35,
+     "keys": [
+       {"t": 0, "x": 60, "y": 1.1, "z": -668.5, "rel": "terrain", "tx": -171, "ty": 82.5, "tz": -608, "trel": "world", "fov": 34},
+       {"t": 2.5, "x": 60, "y": 1.1, "z": -668.5, "rel": "terrain", "tx": -171, "ty": 82.5, "tz": -608, "trel": "world", "fov": 33},
+       {"t": 4.6, "x": 60, "y": 1.1, "z": -668.5, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.7, "tz": 0, "fov": 28},
+       {"t": 6.8, "x": 60, "y": 1.1, "z": -668.5, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.6, "tz": 0, "fov": 27}
+     ]},
+    {"sleep": 0.2},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

@@ -1,0 +1,100 @@
+{
+ "popis": "7.5 shora zleva, 7.7 detail dronu a hadice zblízka (druhá varianta)",
+ "typ": "PC / D",
+ "pohyb": "STAT → NAJ → přejezd na navíječ",
+ "smer": "–",
+ "fov": "34 / 28 → 30",
+ "vyska": "3,0 m; 0,7–1,45 m",
+ "zabery": [
+  {
+   "id": "mini-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "mini-7.7",
+   "od": "servicing +0",
+   "do": "servicing +10"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 25,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 6,
+     "y": 3.0,
+     "z": -8,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 34
+    },
+    {
+     "t": 25,
+     "at": "mini",
+     "x": 6,
+     "y": 3.0,
+     "z": -8,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "after": "servicing",
+   "cmd": "camPath",
+   "duration": 10,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini:drone1",
+     "x": -2.0,
+     "y": 0.7,
+     "z": -1.9,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.45,
+     "tz": 0.1,
+     "fov": 28
+    },
+    {
+     "t": 5.5,
+     "at": "mini:drone1",
+     "x": -2.1,
+     "y": 0.8,
+     "z": -2.0,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.45,
+     "tz": 0.1,
+     "fov": 28
+    },
+    {
+     "t": 10,
+     "at": "mini",
+     "x": -2.7,
+     "y": 1.45,
+     "z": -0.9,
+     "tat": "mini",
+     "tx": -0.72,
+     "ty": 0.95,
+     "tz": 0.2,
+     "fov": 30
+    }
+   ]
+  }
+ ]
+}

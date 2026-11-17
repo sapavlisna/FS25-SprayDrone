@@ -1,0 +1,50 @@
+{
+ "popis": "pevný záběr zezadu: dva drony se rozkládají na dvou plochách",
+ "typ": "C",
+ "pohyb": "STAT",
+ "smer": "–",
+ "fov": "36",
+ "vyska": "1,8 m, 14 m za vlekem",
+ "zabery": [
+  {
+   "id": "max-4.1",
+   "od": 2.0,
+   "do": 11.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 0,
+     "y": 1.8,
+     "z": -14,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.6,
+     "tz": -2,
+     "fov": 36
+    },
+    {
+     "t": 14,
+     "at": "max",
+     "x": 0,
+     "y": 1.8,
+     "z": -14,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.6,
+     "tz": -2,
+     "fov": 36
+    }
+   ]
+  }
+ ]
+}

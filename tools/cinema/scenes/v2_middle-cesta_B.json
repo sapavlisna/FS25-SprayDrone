@@ -1,0 +1,145 @@
+{
+ "name": "v2_middle-cesta_B",
+ "title": "middle-cesta | kamera B: tracking z jihu (slunce vzadu, L→R) – záloha",
+ "v2": {
+  "akce": "middle-cesta",
+  "kamera": "B",
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.17,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 400,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -830,
+   "z": 172.5,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 11
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "pickup",
+   "x": -655,
+   "z": 172.5,
+   "kmh": 25,
+   "mode": "line",
+   "tel": true
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camFollow",
+   "target": "pickup",
+   "ox": -17,
+   "oy": 3.0,
+   "oz": 10,
+   "lx": 0,
+   "ly": 2.6,
+   "lz": -1.5,
+   "fov": 32,
+   "duration": 9.5,
+   "ease": "smooth",
+   "tau": 0.5,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": -17,
+   "oy2": 3.2,
+   "oz2": -6,
+   "lx2": 0,
+   "ly2": 2.6,
+   "lz2": -1.5,
+   "fov2": 30
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 10.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "pickup",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

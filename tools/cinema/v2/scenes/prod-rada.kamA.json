@@ -1,0 +1,321 @@
+{
+ "popis": "prod-2 TRK L→R se zastaveními 2,4 s u kanystrů a pytle, prod-3 TILT-U big bag, prod-4 TRK R→L násypka a pumpa, prod-5 ORB-CW reléová tyč, prod-8 ODJ celek",
+ "typ": "D / C",
+ "pohyb": "TRK / TILT-U / TRK / ORB / ODJ",
+ "smer": "L→R, R→L, CW",
+ "fov": "30 / 30 / 32 / 35 / 45",
+ "vyska": "0,45–2,0 m",
+ "zabery": [
+  {
+   "id": "prod-2",
+   "od": 2.0,
+   "do": 15.2
+  },
+  {
+   "id": "prod-3",
+   "od": 15.7,
+   "do": 21.2
+  },
+  {
+   "id": "prod-4",
+   "od": 22.2,
+   "do": 31.2
+  },
+  {
+   "id": "prod-5",
+   "od": 31.7,
+   "do": 39.2
+  },
+  {
+   "id": "prod-8",
+   "od": 39.7,
+   "do": 45.2
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 2.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -712.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -712.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 2.0,
+     "x": -712.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -712.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "at": 2.0,
+   "cmd": "camPath",
+   "duration": 13.2,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0.0,
+     "x": -712.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -712.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 2.4,
+     "x": -712.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -712.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 3.5999999999999996,
+     "x": -711.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -711.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 6.0,
+     "x": -711.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -711.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 7.2,
+     "x": -710.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -710.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 9.6,
+     "x": -710.0,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -710.0,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 10.799999999999999,
+     "x": -708.6,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -708.6,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 13.2,
+     "x": -708.6,
+     "y": 0.45,
+     "z": 153.3,
+     "rel": "terrain",
+     "tx": -708.6,
+     "ty": 0.3,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "at": 15.7,
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -706.7,
+     "y": 0.6,
+     "z": 154.2,
+     "rel": "terrain",
+     "tx": -706.7,
+     "ty": 0.2,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 5.5,
+     "x": -706.7,
+     "y": 0.6,
+     "z": 154.2,
+     "rel": "terrain",
+     "tx": -706.7,
+     "ty": 1.8,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "at": 22.2,
+   "cmd": "camPath",
+   "duration": 6.699999999999999,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0.0,
+     "x": -701.8,
+     "y": 0.8,
+     "z": 153.7,
+     "rel": "terrain",
+     "tx": -701.8,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 2.6,
+     "x": -701.8,
+     "y": 0.8,
+     "z": 153.7,
+     "rel": "terrain",
+     "tx": -701.8,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 4.1,
+     "x": -704.4,
+     "y": 0.8,
+     "z": 153.7,
+     "rel": "terrain",
+     "tx": -704.4,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 6.699999999999999,
+     "x": -704.4,
+     "y": 0.8,
+     "z": 153.7,
+     "rel": "terrain",
+     "tx": -704.4,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "at": 31.7,
+   "cmd": "camOrbit",
+   "radius": 3.6,
+   "radius2": 3.2,
+   "height": 1.6,
+   "height2": 1.4,
+   "angle0": 20,
+   "angle1": -230,
+   "lx": 0.0,
+   "ly": 0.0,
+   "lz": 0.0,
+   "fov": 35,
+   "fov2": 35,
+   "tau": 0.3,
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "x": -698.4,
+   "y": 1.3,
+   "z": 152,
+   "rel": "terrain"
+  },
+  {
+   "at": 39.7,
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -707.6,
+     "y": 1.2,
+     "z": 155.5,
+     "rel": "terrain",
+     "tx": -704.6,
+     "ty": 0.6,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 45
+    },
+    {
+     "t": 5.5,
+     "x": -707.6,
+     "y": 2.4,
+     "z": 169,
+     "rel": "terrain",
+     "tx": -704.6,
+     "ty": 0.6,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 45
+    }
+   ]
+  }
+ ]
+}

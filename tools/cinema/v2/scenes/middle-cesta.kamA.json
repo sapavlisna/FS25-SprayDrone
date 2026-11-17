@@ -1,0 +1,41 @@
+{
+ "popis": "tracking ze severu (scénář R→L): pickup s vlekem jede mezi loukami a stromy k poloostrovu",
+ "typ": "PC",
+ "pohyb": "TRK (camFollow)",
+ "smer": "R→L",
+ "fov": "38 → 35",
+ "vyska": "1,2–1,4 m, 14 m od jízdy (jih)",
+ "zabery": [
+  {
+   "id": "middle-3.1",
+   "od": 0.5,
+   "do": 9.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camFollow",
+   "target": "pickup",
+   "ox": -14,
+   "oy": 1.2,
+   "oz": 6,
+   "lx": 0,
+   "ly": 2.8,
+   "lz": -0.5,
+   "fov": 38,
+   "duration": 9.5,
+   "ease": "smooth",
+   "tau": 0.5,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": -14,
+   "oy2": 1.4,
+   "oz2": -7,
+   "lx2": 0,
+   "ly2": 2.8,
+   "lz2": -0.5,
+   "fov2": 35
+  }
+ ]
+}

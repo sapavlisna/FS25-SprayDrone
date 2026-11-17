@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="114">
+    <author>Pavel Mazálek</author>
+    <version>0.1.0.1</version>
+    <title>
+        <en>Spray Drone Cinema (dev)</en>
+        <cz>Spray Drone Cinema (vývoj)</cz>
+    </title>
+    <description>
+        <en><![CDATA[DEV-ONLY helper for filming the Spray Drone trailer. Does nothing unless modSettings/FS25_SprayDroneCinema/cmd.xml exists. Not for release.]]></en>
+        <cz><![CDATA[POUZE PRO VÝVOJ: pomůcka pro natáčení traileru. Nedělá nic, dokud neexistuje modSettings/FS25_SprayDroneCinema/cmd.xml.]]></cz>
+    </description>
+    <iconFilename>icon_cinema.dds</iconFilename>
+    <multiplayer supported="false"/>
+    <extraSourceFiles>
+        <sourceFile filename="scripts/SprayDroneCinema.lua"/>
+        <sourceFile filename="scripts/SprayDroneCinemaCamera.lua"/>
+        <sourceFile filename="scripts/SprayDroneCinemaWorld.lua"/>
+        <sourceFile filename="scripts/SprayDroneCinemaScene.lua"/>
+        <sourceFile filename="scripts/SprayDroneCinemaDrive.lua"/>
+        <sourceFile filename="scripts/SprayDroneCinemaUi.lua"/>
+        <sourceFile filename="scripts/SprayDroneCinemaV2.lua"/>
+    </extraSourceFiles>
+</modDesc>

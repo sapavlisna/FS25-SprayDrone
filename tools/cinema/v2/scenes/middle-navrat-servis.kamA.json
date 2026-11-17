@@ -1,0 +1,76 @@
+{
+ "popis": "7.5 švenk doleva za přilétajícím dronem (PAN-L), 7.6 oblet po směru hodin",
+ "typ": "PC",
+ "pohyb": "PAN-L → ORB-CW",
+ "smer": "CW",
+ "fov": "30 / 40",
+ "vyska": "1,5 m; orbit 1,6 → 1,5 m, r = 6,5 → 5,5",
+ "zabery": [
+  {
+   "id": "middle-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "middle-7.6",
+   "od": "servicing +0",
+   "do": "servicing +12"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 25,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -2,
+     "y": 2.8,
+     "z": 12,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 30
+    },
+    {
+     "t": 25,
+     "at": "middle",
+     "x": -2,
+     "y": 2.8,
+     "z": 12,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 30
+    }
+   ],
+   "tsmooth": 0.3
+  },
+  {
+   "after": "servicing",
+   "cmd": "camOrbit",
+   "radius": 6.5,
+   "radius2": 5.5,
+   "height": 1.6,
+   "height2": 1.5,
+   "angle0": -45.0,
+   "angle1": -153.4,
+   "lx": 0.0,
+   "ly": 0.2,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 40,
+   "tau": 0.3,
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "target": "middle:drone1"
+  }
+ ]
+}

@@ -1,0 +1,500 @@
+{
+  "_spolecne": {
+    "priorita": 0,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Čela válců: příčina nebyla v UV, ale v souběžných kruhových čelech (menší disk těsně na větším, např. těsnění na čele spojky nebo čelo mlýna v přírubě) - v enginu se prolínaly (z-fighting) a vypadalo to jako paprsky; Mesh._separate_caps v sdt_tanks.py je rozdělí o 0,7 mm pro všechny modely. Materiály: litý hliník SDT_AluCast (matná šedá se zrnem), SDT_PaintGrey, SDT_DeckPlate a nižší lesk bílých ploch (vleky a drony se změní až při dalším exportu, nádrž dronu zatím beze změny). Cedulky pumpy a násypky jsou přímo na trubce u spojky.",
+    "body": [
+      "Čela válců (víčka spojek Storz, čelo mlýna) mají UV „vějíř“ – textura se na kruhovém čele roztáhne do paprsků (černobílé u pumpy, žlutočerné u mlýna). Chyba je v mapování UV víček u lathe/cyl, ne v materiálu; oprava jedním místem pro všechny modely.",
+      "Bílé a světlé plochy (tělo čerpadla, zásobník mlýna, nádrž dronu) v enginu přesvěcují – chybí jim detailní textura a mají vysoký lesk; stačí materiál lakovaného plastu/plechu se slabším odleskem a jemnou texturou.",
+      "Nápisové cedulky (VSTUP, VÝSTUP, VÁPNO) visí na drátech z rámu – reálně jsou to samolepky nebo nýtované štítky přímo u spojky."
+    ]
+  },
+  "pump": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Místo cedulek jsou u spojek nápisy IN a OUT. Dříve: Ohýbaný rám s madly a patkami, motor s filtrem, tlumičem a startérem, zaoblená nádrž s velkým víčkem a stavoznakem, spirální skříň čerpadla s výpustí a zátkou, dvě spojky Storz (VSTUP a VÝSTUP) s barevnou objímkou, štítky na trubkách; rozměry ±4 cm. Pumpa má jen jeden vstup s ručním přepínáním režimu (levé tlačítko myši u spojky): „nádrž“ = konec sací hadice je spojka Storz na IBC / cisternu, „rybník“ = konec je sací koš, který se jen položí do vody; druhá vstupní spojka a štítek VSTUP RYBNÍK jsou pryč.",
+    "body": [
+      "Proporce: reálná přenosná motorová pumpa (Honda WB30, Koshin) je kompaktní – motor nahoře uprostřed rámu, spirální skříň čerpadla vpředu, krátké hrdlo sání a výtlaku. U nás dominují dlouhé bílé trubky s velkými spojkami, motor je malý a vzadu.",
+      "Nádrž: žlutý ležatý válec působí jako plynová bomba; reálná nádrž je hranatá zaoblená nádrž nad motorem s velkým víčkem.",
+      "Spirální skříň čerpadla chybí – místo ní je hladký bílý válec; chce to typickou „šnekovou“ skříň s výpustným šroubem a plnicí zátkou nahoře.",
+      "Tři spojky (dva vstupy a výstup) mají barevné kroužky – dobré pro hru, ale kroužky jsou tenké tóry kolem spojky; lepší je barevná objímka nebo víčko.",
+      "Rám: jednoduchá trubková klec bez ohybů a bez gumových patek; reálný rám má ohnuté rohy, madla a gumové silentbloky pod motorem.",
+      "Motor: chybí vzduchový filtr a rukojeť startéru je jen malý červený kvádr."
+    ]
+  },
+  "part_pump_head": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Místo cedulek nápisy IN a OUT. Dříve: Spirální skříň (šneková) s plnicí zátkou a vypouštěcím šroubem, tlakoměr, tři spojky Storz s těsněním, plochými packami a barevnou objímkou, štítky u spojek.",
+    "body": [
+      "Hladký válec místo spirální skříně čerpadla, chybí výpust a plnicí zátka.",
+      "Víčka spojek s UV vějířem."
+    ]
+  },
+  "part_pump_tank": {
+    "priorita": 2,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Hranatá zaoblená nádrž nad motorem, velké žebrované víčko, stavoznak a palivový kohout.",
+    "body": [
+      "Ležatý válec → hranatá zaoblená nádrž s velkým víčkem a stavoznakem."
+    ]
+  },
+  "part_pump_frame": {
+    "priorita": 2,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Rám z ohýbaných trubek, gumová madla, čtyři gumové patky, žádné závěsné cedulky.",
+    "body": [
+      "Rovné trubky bez ohybů, chybí madla a gumové patky; cedulky visí na drátech."
+    ]
+  },
+  "part_pump_engine": {
+    "priorita": 2,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Skříňový vzduchový filtr s křídlovou maticí, tlumič s krytem, startér s lankem a držadlem, jemnější žebrování válce.",
+    "body": [
+      "Chybí vzduchový filtr, startér je kvádr; žebrování válce je hrubé."
+    ]
+  },
+  "part_generator": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Přepracovaná centrála s ovládacím panelem (obě varianty). Dříve: Ovládací panel podle reálných rámových dieselových centrál (Hyundai DHY8500SE, Kipor KDE6700TA, Heron 8896147, Honda EG4500CX): digitální displej V / Hz / hodiny, klíč VYP-ZAP-START, červené nouzové STOP na žlutém lemu, kontrolky chod / olej / nabíjení, dvě zásuvky 230 V 16 A s odklopenými víčky, zásuvka nabíječky (modrá CEE), jistič 16 A, žhavení, výstup 12 V DC s víčkem, táhlo STOP motoru, mosazná zemnicí svorka, šrouby v rozích; nová nálepka panelu s popisky a oddíly. Víčko nádrže: příruba se šrouby, žebrovaná čepička, lanko a okénko ukazatele paliva na víku nádrže (E červeně, F zeleně, ručička); palivový kohout s červenou pákou a kalíkem na boku nádrže. Výfuk s drátěným krytem tlumiče, větrací mřížka na střeše. Rozměry obalu a všechny uzly beze změny.",
+    "body": [
+      "Panel měl jen analogový voltmetr, malý LCD s hodinami, klíč, jednu zásuvku a jistič; chyběly druhá zásuvka, nouzové zastavení, výstup 12 V, zemnění a víčka zásuvek.",
+      "U varianty se zadní průchodkou kabelu (Max) byla na panelu natištěná zásuvka NABÍJEČKA bez zásuvky.",
+      "Víčko nádrže byl hladký válec bez příruby, žeber a lanka, ukazatel paliva jen svislá trubice na boku.",
+      "Tlumič byl holý, bez krytu proti dotyku; na krytu žádná větrací mřížka; chyběl palivový kohout."
+    ]
+  },
+  "part_rear_hitch": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Upravený tažný věšák po dnešních změnách podvozku a oje. Dříve: Dva příčníky 100 × 100 mm přišroubované zespodu na spodní pásnice obou I-nosníků rámu (osm šroubů s podložkami), mezi nimi spojovací deska, pod nimi hlava věšáku s tažnou trubkou, trojúhelníkové žebro a dvě šikmé vzpěry od konců zadního příčníku; koule 50 mm, zásuvka 13 pólů na konzole s žebrem a oko řetízku na výztužném plechu. Koule zůstala na místě (z 0,58 m, 0,46 m za zádí), takže uzel rearHitchJoint, XML a výška kulové spojky mlýnkového vozíku se nemění.",
+    "body": [
+      "Věšák visel ve vzduchu: dvě krátké nožky se opíraly jen o spodní hranu zadního nosníku a mezi nosníky rámu (kde žádný spodek není) vůbec o nic.",
+      "Nožky procházely držákem registrační značky a tažná trubka vyčnívala přes půl metru volně za záď bez jediné vzpěry k rámu.",
+      "Vzpěry končily u trubky ve vzduchu bez styčníku.",
+      "Konzole zásuvky 13 pólů plavala vedle koule: nebyla spojená s trubkou."
+    ]
+  },
+  "mill": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Oj s nájezdovou brzdou, rozvaděč s jedním tlačítkem. Dříve: Skříň mlýna s víkem na pantech, upínkami a výstupním hrdlem; cyklon s kuželem, klapkou s protizávažím, přírubami a stavoznakem; násypka s kosými stěnami a sítem; šnek s kolenem a přírubami; stoupačka od hrdla mlýna do cyklonu s koleny a přírubami; protiskluzová paluba s odvodňovacími otvory. Uzly a rozměry beze změny. Prach při mletí (2026-10-23, ve hře neověřeno): nový uzel millDustIn u výsypky šneku do mlýna a částicový efekt effects/millDust.i3d (vstup za mletí, výstup z ústí foukací roury v režimu big bag).",
+    "body": [
+      "Zásobník: velká krabice se svislými lištami a plochou mříží nahoře – působí jako kontejner. Reálný zásobník kladivového mlýna je násypka s kosými stěnami a výztuhami, mříž (síto) bývá ze sítě nebo tyčí s rámem.",
+      "Mlýn (žlutý válec) je hladký válec se čtvercovým víkem – chybí typická skříň kladivového mlýna (větší průměr, výstupní hrdlo, víko na pantech a upínky).",
+      "Rozvod: šedé trubky se ostře lámou v pravém úhlu, bez kolen a přírub.",
+      "Odlučovač (bílý válec na podstavci) je bez detailu – chybí cyklonový kužel dole, výstupní klapka a příruby.",
+      "Paluba je hladká šedá deska – chybí slza/protiskluzový plech a odvodňovací otvory.",
+      "Kola a blatníky jsou v pořádku, oj je nejpropracovanější díl."
+    ]
+  },
+  "part_mill_mill": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Skříň s víkem na dvou pantech a třech upínkách, vyklenuté čelo s výstupním hrdlem a přírubou, revizní dvířka.",
+    "body": [
+      "Hladký válec → skříň kladivového mlýna s víkem na pantech, upínkami a výstupním hrdlem.",
+      "Čelo s UV vějířem (žlutočerné paprsky)."
+    ]
+  },
+  "part_mill_bin": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Cyklon s kuželem, přírubové víko s vyústěním a filtračním rukávem, stoupačka s koleny, klapka s protizávažím, stavoznak se sklem a plovákem, spojka Storz.",
+    "body": [
+      "Bílý válec bez detailu, přesvícený → cyklonový odlučovač s kuželem, klapkou a přírubami; stavoznak je jen modrý obdélník."
+    ]
+  },
+  "part_mill_hopper": {
+    "priorita": 2,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Nálevka s kosými stěnami od výsypu k lemu, pásnicové výztuhy a obruče, síto z drátěné mříže, nohy se styčníky a vzpěrami.",
+    "body": [
+      "Krabice se svislými lištami → násypka s kosými stěnami, výztuhami a sítem."
+    ]
+  },
+  "part_mill_engine": {
+    "priorita": 2,
+    "body": [
+      "Tlumič výfuku trčí vysoko na tenké trubce; chybí vzduchový filtr u karburátoru; motor sedí na dvou kvádrech bez silentbloků."
+    ],
+    "poznamka": "Tlumič nízko na krytu chlazení s kolenem a klapkou, suchý vzduchový filtr se sponami a sací hadicí, motor na U profilech a čtyřech silentblocích.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_mill_auger": {
+    "priorita": 2,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Vodorovný žlab a koleno s přírubami před šikmou trubkou, trubky v šedém nátěru.",
+    "body": [
+      "Trubky šnekového podavače se lámou v pravém úhlu bez kolen a přírub."
+    ]
+  },
+  "part_mill_deck_details": {
+    "priorita": 3,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Protiskluzový plech na palubě (materiál SDT_DeckPlate) a odvodňovací otvory.",
+    "body": [
+      "Hladká paluba → protiskluzový plech."
+    ]
+  },
+  "hopper": {
+    "priorita": 2,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Bez cedulek (zanikl díl part_hopper_labels). Dříve: Cedulky VÁPNO a VÝSTUP jsou teď přímo na lievku a na trubce u spojky (stav ke 2026-10-23); lievek, mříž a podavač čekají.",
+    "body": [
+      "Lievek je čistý tvar bez tloušťky plechu a bez výztuh na hranách; žlutý okraj je plochý rámeček.",
+      "Chybí mříž nebo trhač pytlů v lievku (reálně u násypek na pytle).",
+      "Motor a podavač pod lievkem jsou hezké, ale schované – rám by mohl mít víc otevřený bok.",
+      "Cedulka VÁPNO visí na drátech jako u pumpy."
+    ]
+  },
+  "part_hopper_funnel": {
+    "priorita": 2,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Bez cedulek.",
+    "body": [
+      "Bez tloušťky plechu a výztuh; chybí mříž nebo trhač pytlů."
+    ]
+  },
+  "part_hose_end": {
+    "priorita": 1,
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Hadice se spirálovou výztuhou z normálové textury po celé délce s leskem gumy, lisovaná objímka se dvěma sponami a gumovou ochranou ohybu, spojka Storz s těsněním a plochými packami.",
+    "body": [
+      "Hadice je hladký černý válec se třemi spirálními kroužky jen u koncovky – reálná tlaková/sací hadice má výraznou spirálu po celé délce nebo textilní opletení (stačí normálová textura s rýhováním po délce).",
+      "Přechod hadice → koncovka je bez sponky; reálně je tam páska nebo šroubová objímka.",
+      "Spojka Storz má zuby jako kvádry; chybí ploché výstupky (packy) a gumové těsnění.",
+      "Ve hře (snímek u cisterny) je hadice tlustá a matná bez odlesku – chybí jí jemný lesk gumy."
+    ]
+  },
+  "blowpipe": {
+    "priorita": 3,
+    "body": [
+      "Roura je hladká, chybí příruby se šrouby a výstupní rozšíření (difuzor) nad big bagem."
+    ],
+    "poznamka": "Tři přírubové spoje se šrouby a těsněním, kuželový difuzor s manžetou; ústí 2,0 m nad zemí kvůli poutkům vaku.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "trailer_mini": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Centrála s ovládacím panelem, kanystry v bedně nového tvaru s černým víčkem, baterie S / M / L v novém vzhledu, dron s čerpadlem pod nádrží, oj jako samostatný díl a nová konfigurace hran paluby (kov nebo dřevo, výchozí kov).",
+    "priorita": 3,
+    "body": [
+      "Boční odrazky: pás střídá červenou a bílou po 25 cm (americký styl, P.reflective_tape). Evropské značení boků bývá bílé nebo žluté, červená jen vzadu. Samostatné odrazky vpředu (bílé kulaté) a vzadu (červené trojúhelníky) chybí; svítilny jsou sdílené uzly hry (rearLight52, sideMarker05, plateNumberLight03) bez geometrie v Blenderu, takže se tam nedají zkontrolovat. Ve hře ověřit, že svítilny sedí na rozích zadního trámu.",
+      "Držák SPZ je holý černý hranol 56 x 6 x 14 cm pod zadním trámem bez rámečku, šroubů a držáku osvětlení.",
+      "Paluba (hnědá deska 1,74 x 4 m) je mezi zařízením hladká, bez úvazných ok, šroubů nebo spár desek; vlek nemá kam uvázat náklad. Doporučení: zapuštěná oka na vnitřní straně rámu (3 až 4 na stranu) a řady šroubů.",
+      "Blatníky jsou hladké zaoblené kryty bez rovné horní plochy a žebrování, uchycené konzolami 6 x 6 cm bez šroubů (FenderBracket); zvenčí vypadají jako druhá pneumatika, zadní okraje končí řezem bez zaoblení k rámu.",
+      "Zespodu je vidět mezera mezi černým kotoučem náboje a diskem; kotouč nemá šrouby ani víčko (ve hře přidá vlastní náboj vanilla kolo).",
+      "Brzda: oj má brzdovou páku a táhlo (Coupler_BrakeRod), které končí u čela rámu; táhla ani lanka k nábojům nejsou vidět. Priorita 3.",
+      "Plošina pro dron po rozložení: horní deska je tenká bez zvednutého okraje, nohy mají jen patku (bez příčné výztuhy), rohové černé bloky bez šroubů.",
+      "Bedna na kanystry: na předním okraji víka jsou dvě šedé destičky a rukojeť, boční okénko je zaoblený šedý obdélník bez rámečku a šroubů. Jinak věrohodná.",
+      "Podvozek je dobře: listová pera s U-šrouby, oka a závěsy, náprava a konzoly."
+    ]
+  },
+  "trailer_middle": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Centrála s ovládacím panelem, kanystry v bedně nového tvaru s černým víčkem, baterie S / M / L v novém vzhledu, dron s čerpadlem pod nádrží, oj jako samostatný díl a nová konfigurace hran paluby (kov nebo dřevo, výchozí kov).",
+    "priorita": 3,
+    "body": [
+      "Výsuvný žebřík je v modelu ve vysunuté poloze a prochází rozloženou plachtou: v náhledu vypadají horní konce kolejnic jako špičaté (šikmá trubka protíná plochu plachty). Ve hře žebřík sjíždí po složení plachty (foldLadder 2,3 až 2,6 s, plachta 2,6 až 3 s), takže je to jen artefakt stavu v Blenderu; ve hře ověřit, že se žebřík a plachta při skládání neprotínají.",
+      "Stožár antény je tenký teleskop do výšky asi 4,5 m bez ztužidel a bez koaxiálního kabelu od antény k přijímači (chybějící spoj); Yagi má boom 0,7 m, šest prvků a dvě černé krychle místo objímek. GPS houba na tyčce je věrohodná.",
+      "Nabíječka v truhle na horní plošině: víko je ploché černé a stojí svisle, bez vzpěr nebo viditelného ukotvení v otevřené poloze; panty jsou drobné šedé destičky.",
+      "Plachta a nástavba: spodní lem plachty je pravidelně zvlněný (vypadá jako vlnitý plech), černé svislé hranoly s šedými úchyty; velké šedé obdélníky jsou podklad pro decal (v Workbench bez textury). Nic chybného.",
+      "Odrazky jako u Mini: červeno-bílý pás po stranách, vzadu kromě decalů žádné samostatné odrazky; boční poziční světla na držácích za koncem plachty (SideMarkerBracket) jsou věrohodná.",
+      "Horní plošina 2,1 x 5,0 m je velká hladká plocha bez zábradlí (pro hru přijatelné, reálná plošina ve výšce 2,5 m by zábradlí potřebovala).",
+      "Z-fighting (rozbor souběžných ploch): Toolbox_Roof a TopCross_2 mají souběžnou plochu v z = 2,45 (0,13 m2, PaintDark vs Frame), viditelné jen zevnitř zadní skříně při otevřených dveřích. Ostatní souběžné dvojice jsou stejné barvy nebo jen varianty obchodu (dřevěná a kovová hrana paluby, velikosti nádrží a baterií), které hra nikdy nezobrazí zároveň.",
+      "Náhled v Blenderu: 72 článků vodní hadice (waterHoseSeg) stojí na počátku souřadnic a vypadají jako černá trubka plující pod vlekem; v i3d jsou skryté, ve hře je řídí skript."
+    ]
+  },
+  "trailer_max": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Centrála s ovládacím panelem, kanystry v bedně nového tvaru s černým víčkem, baterie S / M / L v novém vzhledu, dron s čerpadlem pod nádrží, oj jako samostatný díl a nová konfigurace hran paluby (kov nebo dřevo, výchozí kov).",
+    "priorita": 3,
+    "body": [
+      "Odrazky: červeno-bílý pás po celé délce boku, vzadu dvě podložky pro decal a červená odrazka na příčce tažného věšáku; vpředu bílé odrazky chybí.",
+      "Nabíječka: deset slotů ve dvou řadách, LED řady, rukojeť a modrý štítek jsou čisté; po bocích dvě studně pro cívky hadic s bílými poklopy. Víko truhly je ploché černé, bez vzpěr.",
+      "Stožár a anténa stejné jako u Middle: bez ztužidel a kabelu, objímky jsou černé krychle.",
+      "Žebřík: dvoudílný hliníkový s držáky na levém boku (LadderHolder_0 a _1), příčky a patky věrné. Beze změny.",
+      "Z-fighting: Toolbox_Roof a TopCross_5 (z = 2,73) souběžné jen ve skříni; Chest_Lid a Chest_LidLip, FenderLip a Fender (stejná barva) souběžné bez viditelného dopadu.",
+      "Nabíječka má 21,7 tis. tri (z toho asi 20 tis. baterie, 10 slotů x S/M/L); viz part_battery."
+    ]
+  },
+  "drone_S": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Čerpadlo pod nádrží."
+  },
+  "drone_M": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Čerpadlo pod nádrží."
+  },
+  "drone_L": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Čerpadlo pod nádrží."
+  },
+  "battery_S": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Baterie v novém vzhledu."
+  },
+  "battery_M": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Baterie v novém vzhledu."
+  },
+  "battery_L": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Baterie v novém vzhledu."
+  },
+  "limebag50": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Model pytle přegenerován po dnešních změnách."
+  },
+  "canister_Fertilizer": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Nový tvar kanystru s černým víčkem."
+  },
+  "canister_Herbicide": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Nový tvar kanystru s černým víčkem."
+  },
+  "canister_Diesel": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Nový tvar kanystru s černým víčkem."
+  },
+  "relay": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Model relé přegenerován po dnešních změnách."
+  },
+  "tablet": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Model tabletu přegenerován po dnešních změnách."
+  },
+  "limebigbag": {
+    "stav": "opraveno",
+    "datum": "2026-10-23",
+    "poznamka": "Místo palety se stojanem vanilla big bag (vak s poutky, zvedá se hákem); druh SDT_FINE_LIME, 1000 l, prázdný při koupi. Nová karta: vanilla big bag hry s materiálem vápna, v módu s náplní SDT_FINE_LIME."
+  },
+  "part_battery": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Baterie S / M / L v novém vzhledu.",
+    "priorita": 3,
+    "body": [
+      "Sloty baterií (Mini 4, Middle 6, Max 10) jsou čisté: rámeček, LED řada nad každým slotem, rukojeť a modrý štítek. Nenalezeny prvky ve vzduchu ani roztažené UV.",
+      "Každý slot nese varianty S, M, L zároveň (battery<N> má asi 2 000 tri, v Max 10 slotů = asi 20 tis. tri z 21,7 tis. celé nabíječky). Souběžné plochy variant S/M/L, které vyjdou v detekci z-fightingu, jsou jen v náhledu; ověřit, že i3d skrývá nepoužité velikosti a ve hře je viditelná jedna. Neupraveno."
+    ]
+  },
+  "part_drone_tank": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Čerpadlo pod nádrží dronu."
+  },
+  "part_mill_drawbar": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Oj s nájezdovou brzdou."
+  },
+  "part_mill_control_box": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Rozvaděč s jedním tlačítkem."
+  },
+  "part_mill_extra_details": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Upraveno spolu s novou ojí a rozvaděčem mlýnku."
+  },
+  "part_hopper_frame": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Bez cedulek."
+  },
+  "part_hopper_feeder": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Bez cedulek."
+  },
+  "part_drawbar_car": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Nový díl: oj za auto s kulovou hlavou (Middle, Mini), dvě délky."
+  },
+  "part_drawbar_max": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Nový díl: A-rám Maxu se spojkou za traktor nebo auto."
+  },
+  "part_wood_edge": {
+    "stav": "schvaleno",
+    "datum": "2026-10-24",
+    "poznamka": "Nový díl: hrana paluby z dřevěných desek (alternativa ke kovové hraně)."
+  },
+  "part_main_tanks": {
+    "priorita": 1,
+    "body": [
+      "Chyběl stavoznak: docstring sdt_bigtank ho slibuje (hladinoměr s hadičkou), ale v geometrii nebyl. Skutečné PE nádrže postřikovačů mají na čele svislou průhlednou hadičku se stupnicí. Doplněno u všech pěti velikostí (a u kulatých nádrží Maxu).",
+      "Hranaté nádrže 3000 a 5000 l vypadaly jako hladká bílá cihla: jen dvě vodorovná žebra po obvodu, horní plocha úplně plochá. Reálné rotačně lisované / vyfukované hranaté PE nádrže mají na horní ploše vylisovaná výztužná žebra. Přidána dvě podélná žebra na horní ploše.",
+      "Kulaté nádrže 800/1000/1500 l: proporce (válec s eliptickými dny, svarový lem, drážky na sedlech), hrdlo s víkem na výklopných šroubech, odvzdušnění, pojistný ventil, rám s gumovými podložkami, žebřík u 1500 l odpovídají reálným nádržím; závada nenalezena.",
+      "Nádrž je neprůsvitně bílá. Skutečné PE nádrže jsou často poloprůsvitné (hladinu je vidět); ve hře průhledný materiál není, proto se hladina ukazuje stavoznakem. Případná průsvitnost je na Pavlovo rozhodnutí (nový materiál v sdt_parts).",
+      "Hranaté nádrže mají ploché čelní a zadní stěny bez prolisů a bez filtračního košíku pod víkem; ve hře to není vidět, ponecháno (priorita 3).",
+      "Výpust, hadicový nátrubek, zadní vypouštěcí kohout a uzly (waterHosePort<velikost> je dítě č. 13 skupiny tankMain<velikost>) nezměněny: počet objektů ve skupině zůstal 14, i3dMappings sedí."
+    ],
+    "poznamka": "sdt_bigtank.py: nový _level_gauge/_gauge_tank (bílá stupnice na šedé podložce, svislá hadička modrá/světlá, dvě mosazná hrdla a dvě spony; vyčnívá max. 2,7 cm před čelo) volaný z build_main_tank i build_box_tank, plus dvě podélná žebra na horní ploše hranatých nádrží. Maxu stavoznak přidává jeden řádek v build_trailer_max.build_round_tank. Vše je v existujících meshech (Tank_Main*_Fittings, Tank_Main*), počet uzlů se nemění. Trojúhelníky: 800 l 15106 -> 15886, 1000 l 15202 -> 15982, 1500 l 16928 -> 17708, 3000 l a 5000 l 8526 -> 9394.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_induction_tank": {
+    "priorita": 1,
+    "body": [
+      "Stupnice litrů u varianty s přívodem plnicí hadice (pruh o 0,12 m vedle osy) byla rovná destička kolmá k ose X: na válci visela asi 2 cm od pláště a na kuželu odstávala jako ploutev (prvek ve vzduchu). Pruh a rysky jsou teď přitisknuté na plášť (otočené kolem osy nádrže), rysky rovnoběžné s obvodem.",
+      "Ve vleku Middle ležela čísla stupnice (10 až 50 l) na druhé straně osy než pruh, 0,2 m od rysek, a překrývala je přípojka. Čísla jsou teď těsně vedle rysek (rysky vedou od okraje pruhu k číslům, u varianty s hadicí na stranu od přípojky) a nálepka kopíruje válec.",
+      "Chyběla oplachovací tryska kanystrů (Amazone, Hardi, Lechler ji mají uprostřed mísy): přidána do mísy černá tryska ve tvaru zužujícího se kužele s hlavou, bajonetovými výstupky a šroubem.",
+      "Plocha pro štítek vpředu je rovný kvádr na válci (krajní hrany odstávají asi 13 mm od pláště). Zůstává (priorita 3): váže se na ni nálepka Decal_ConcLabel v sdt_labels.",
+      "Víčko hrdla je přišroubovaný kryt na lanku bez pantu a bez sítka v hrdle; ponecháno, pro hru dostačující (priorita 3).",
+      "Výpust s kohoutem, koleno a hadicový nátrubek, nohy, rám a patky: bez závad. Uzly concentrateNeckNode, limeInletNode a limeValveLever beze změny polohy."
+    ],
+    "poznamka": "sdt_tanks._induction_scale přepsána tak, aby pruh seděl na plášti (kužel i válec) i mimo osu, volitelně litres_max/step/big (používá ji i vápenná nádobka); nová konstanta INDUCTION_HOSE_SCALE_Y; _rinse_nozzle v míse (součást meshe Tank_Induction_Fittings). sdt_labels._concentrate: čísla podle CONC_Y_OFF (nastavuje build_equipment v build_trailer_middle), nálepky kolmo na plášť. Trojúhelníky: základní 5948 -> 6108, s přívodem hadice 6324 -> 6484.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_pump_unit": {
+    "priorita": 2,
+    "body": [
+      "Zálivková zátka na volutě (mosazný šestihran) celá ležela mimo spirálové těleso a levitovala 4 až 30 mm nad skříní. Má teď hliníkový bobek rostoucí ze skříně a mosaznou šestihrannou zátku.",
+      "Typ čerpadla: odstředivé monoblokové (motor, lucerna, spirála, sání s přírubou, výtlak nahoře s manometrem). Postřikovače běžně používají membránová / pístová čerpadla (Annovi Reverberi, Comet) se vzdušníkem; pro plnicí čerpadlo vleku je odstředivé reálné, takže ponecháno. Výměna za membránové s vzdušníkem by byl nový díl a je na Pavlovo rozhodnutí.",
+      "Motor se žebrováním, patkami, svorkovnicí s vývodkou, štítkem, ventilátorem pod drátěným krytem, lucerna, šrouby víka a příruby: proporce i materiály odpovídají; závada nenalezena.",
+      "Stojan z hranatých trubek s plechovou deskou nemá kotvicí šrouby k paletě. Neviditelné, ponecháno (priorita 3). Manometr má jen jednoduchý číselník, bez glycerinové náplně; ponecháno (priorita 3)."
+    ],
+    "poznamka": "sdt_tanks.build_pump: zálivková zátka dostala bobek ze skříně (hliník, kónický) a mosazný šestihran, takže drží na volutě. Trojúhelníky 6944 -> 7008. Poloha sání, výtlaku a manometru (pump_ports) beze změny.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_mixer": {
+    "priorita": 3,
+    "body": [
+      "Díl odpovídá popisu a hadicím: hliníková komora s přírubami (voda zprava, koncentrát zleva trychtýřem, směs dozadu), průhledítko, štítek, vypouštěcí zátka, rám se čtyřmi nohami, svislý motor se žebrováním přes lucernu se spojkou. Žádný prvek ve vzduchu, z-fighting ani chybné UV nenalezeny.",
+      "Skutečné míchací jednotky jsou potrubní statické mixéry nebo čerpadla s tryskou; svislý elektromotor na komoře je zjednodušená vlastní koncepce. Konzistentní s Lua (mixerMotor se točí / chvěje kolem svislé osy), ponecháno.",
+      "Motor nemá zdvihací oko ani rýhování štítu; kabel z krabice vede svisle na plastovou krabičku na palubě. Pouze kosmetika (priorita 3), neupraveno.",
+      "Uzly mixerMotor a mixerSoundNode se nemění."
+    ]
+  },
+  "part_lime_vessel": {
+    "priorita": 2,
+    "body": [
+      "Stupnice po 50 l měla stejnou chybu jako u indukční nádrže: pruh o 0,12 m vedle osy byl rovná destička, na válci R 0,37 m odstávala od pláště o 1,7 cm a na kuželu jako ploutev. Teď sedí na plášti. Vápenná nádobka používá sdílenou funkci sdt_tanks._induction_scale (vlastní kopie odstraněna).",
+      "Plocha pro štítek JEMNÉ VÁPNO je rovný kvádr na válci (krajní hrany odstávají asi 17 mm); ponecháno (priorita 3).",
+      "Žlutý pruh kolem válce, hadicová spojka Storz s kulovým kohoutem a otočnou pákou, výpust shodný s indukční nádobkou (rozvod k mixéru), stojan a víčko hrdla: v pořádku. Skutečné nádoby na vápno bývají větší IBC / kónické PE nádrže s míchadlem; zde záměrně zjednodušeno.",
+      "Uzly limeInletNode a limeValveLever beze změny."
+    ],
+    "poznamka": "sdt_lime.py: odstraněna vlastní _scale, stupnice jde přes T._induction_scale(fit, x, y, zb, R, cone_h, -0.12, litres_max=350, step=50, big=100) a sedí na plášti. Trojúhelníky 7036 -> 7036 (beze změny).",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_drone_fuselage": {
+    "priorita": 2,
+    "body": [
+      "[P2, opraveno] Trup byl jedna hladká bublina bez jediného detailu pod hřbetem; mezi trupem a nádrží nebyla spára. Přidán tmavý lem v pase (samostatný objekt Drone_Trim, aby ho neřezala boolean operace výřezu baterie) a tři boční chladicí štěrbiny na každém boku. Rozměry trupu beze změny.",
+      "[P2, opraveno] Čelní světla: bílé kroužky okolo černých čoček vypadaly jako čtyři knoflíky. Podle DJI T50 je dvojice v tmavé schránce a čočky jsou jasně bílé v tmavém lemu - předěláno (schránka na každou stranu + světlá čočka).",
+      "[P3, opraveno] Radar: ke kořeni stožáru přidána dvě malá čidla po stranách (jako na T50), tvar válce a límce zůstal.",
+      "[P3, nedodělané] Plášť trupu zůstává oblý (356 trojúhelníků); T50 má výraznější fasetované hrany a hřbet se stupněm mezi šedou a bílou částí. Změna by zasáhla výřez baterie, FillPort a polohy slotů ve vleku, proto ponecháno.",
+      "[P3, nedodělané] Zadní radar je plochá destička bez čoček; čelní FPV kamera pod přídí chybí.",
+      "Zachováno: uzly Drone_Body, Nose (pro azimut dronu), GpsMast, RadarRear; horní hrana trupu (výřez baterie, FillPort, DRONE_TILT_Z)."
+    ],
+    "poznamka": "Přibyl objekt Drone_Trim (lem v pase + boční štěrbiny, část part_fuselage), upraveny Nose a GpsMast; +440 trojúhelníků (1124 -> 1564). Rozměry dronu beze změny.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_drone_arm": {
+    "priorita": 1,
+    "body": [
+      "[P1, opraveno] Motorový zvon byl koblihovitý (zaoblený puk bez hran) a bez členění. Nový zvon je válcová skořepina s fazetou nahoře, tmavým žlábkem uprostřed a zapuštěným čelem; stejný tvar pro souosé (M, L) i jednoduché (S) motory.",
+      "[P1, opraveno] Tryska byla oranžová čepice na hladké trubce. Nahrazena odstředivou tryskou jako u T50: motorek, plochý kotouč s okrajem v barvě dronu a křídlová matice z oceli. Výstupní bod SprayNozzle_n zůstal na stejném místě (spodek matice).",
+      "[P2, opraveno] Skládací kloub tvořily dva černé kvádry. Nahrazen svislým válcovým čepem přesně v ose skládání (kořen ramena), zaobleným zajišťovacím návlekem se dvěma žebry a páčkou pojistky.",
+      "[P2, opraveno] Hadice vedla volně vedle ramene bez upevnění a bez koncovek. Přidány tři sponky na rameno (u ramen s tryskou; u S/L před krytem regulátoru) a šestihranné koncovky na obou koncích hadice.",
+      "[P3, nedodělané] Výložník S/L (tryska vně motoru) je jednoduchá trubka s kolenem bez upevnění k rameni; chybí mu vzpěra.",
+      "[P3, nedodělané] Žlutý pásek na trubce je jen dekorace (na T50 není), ponechán kvůli čitelnosti.",
+      "Zachováno: Arm_n (slot 0 = Carbon, propSource), Motor_n, Hub*_n, Nozzle_n, Led_n (světla nedotčena), ArmPivot_n, SprayNozzle_n a jejich polohy."
+    ],
+    "poznamka": "Díl part_arm: nový zvon motoru, odstředivá tryska, kloub s čepem, sponky a koncovky hadice. +350..+770 trojúhelníků (S 1516 -> 2136, M 1612 -> 2384, L 1940 -> 2712). Složené i rozložené rozměry dronu beze změny nebo menší.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_drone_rotor": {
+    "priorita": 1,
+    "body": [
+      "[P1, opraveno] List byl symetrická kosočtvercová deska a kořen končil v prázdnu těsně u malého kužele náboje (mezera 1,4 cm). Nový profil: zaoblená náběžná hrana, ostrá odtoková hrana, mírně vypouklá horní strana; zkroucení zachováno, špička zaoblenější.",
+      "[P1, opraveno] Náboj byl jen malý šedý kužel. Nový náboj má upínací kotouč o poloměru kořene listu (list v něm zapadá jako mezi dvěma deskami), matici a čepičku - pozice a výška vrtulí nezměněny (zvětšení v ose ani v rozpětí).",
+      "[P2, opraveno] Hustota sítě listu zůstala stejná (8 bodů průřezu, 7 pásů), takže trojúhelníky listů se nezměnily (M 2944 celkem).",
+      "[P3, nedodělané] Žádné šípovité zahnutí špičky (vyzkoušeno, ale zvětšovalo složené rozměry dronu o 1 cm) - proto vypnuto, parametr sweep v _blade_ring zůstal nulový.",
+      "Zachováno: Blade_<rameno><Top|Bottom><0|1>, dítě _Tip (proužek), slot 0 materiálu Prop_Blade (konfigurace barvy a karbonu v Lua), počátek listu = střed náboje, sdt_unfold_delta."
+    ],
+    "poznamka": "Díl part_rotor: nový profil listu (počet trojúhelníků beze změny 368 / 736 / 736), nový náboj (je součástí part_arm). Propisuje se i do složených listů na plošině.",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_drone_gear": {
+    "priorita": 2,
+    "body": [
+      "[P2, opraveno] Lyžiny byly rovné trubky s gumovými kapsami na koncích (jako zarážky); dron by v terénu zachytával hranou. Nyní mají nahoru zahnuté konce. Rovný střední úsek ve stejné výšce a poloměru, takže úchyty padClamp* a výška dosedu zůstávají.",
+      "[P2, opraveno] Gumové patky byly na koncích lyžin daleko od nohou. Přesunuty pod nohy (kam dopadá tíha), nad nimi černá botka na spojení nohy a lyžiny.",
+      "[P2, opraveno] Příčka mezi lyžinami se do nich jen zabodávala. Na obou koncích přibyla držáková svorka.",
+      "[P3, nedodělané] Nohy jsou kruhové trubky; reference ukazují spíš ploché nohy s vnitřní vzpěrou (nepotvrzeno ze všech úhlů).",
+      "Zachováno: Legs_L/R, Skid_L/R, SkidPad_*, SkidCross, osa a výška lyžin (y, z, poloměr), nejnižší bod -0,01 / -0,0142 (S,M / L)."
+    ],
+    "poznamka": "Díl part_gear: zahnuté lyžiny, patky pod nohama, botky, svorky příčky. 1016 -> 1216 trojúhelníků (všechny velikosti).",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_rim": {
+    "priorita": 2,
+    "body": [
+      "Zbytečně vysoký počet trojúhelníků: R15 (Mini, Middle) 5 700 a R22 (Max) 7 244 tri na jedno kolo, tedy 23 až 29 tis. tri na vlek jen za disky (u Mini asi 9 % celé scény). Příčina: 64 dílků po obvodu válce o poloměru 0,28 m (průhyb pod 1 mm, pod pneu nepoznat), podložky matic 16-stěn, špendlíky 10-stěn, otvory řezané 24-stěnnými válci, ventilek 8-stěn.",
+      "Podložky matic u R22 visí 3 mm nad dosedací plochou talíře (střed podložky 5 mm nad plochou, tloušťka 4 mm): prvek ve vzduchu, matice stojí na podložce, která nestojí na ničem.",
+      "Krytka náboje je rotační těleso s otvorem 0,5 mm na ose: normály se ve středu stahují a na R22 je uprostřed krytky vidět špendlíkový důlek.",
+      "Návrh (priorita 3, neřešeno): ostrá hrana oken v talíři (boolean bez zaoblení, zblízka fasetovaná), chybí lisovaný lem kolem oken a svarová linie talíř–ráfek; ventilek je jen krátký pahýl bez tělíska; okna R15 ukazují do tmavého prázdna, protože vnitřek náboje dodává až vanilla náboj."
+    ],
+    "poznamka": "sdt_rims.py: SEG = 48 po obvodu (ráfek, talíř), krytka a boss 28, podložky 10, špendlíky 8, otvory 20, ventilek 6; podložky R22 posazené na dosedací plochu; _revolve skládá prstenec s poloměrem pod 1 mm do jednoho vrcholu (bez důlku). Trojúhelníků na kolo: R15 5 700 -> 4 180 (-27 %), R22 7 244 -> 5 436 (-25 %). Vzhled shodný (náhledy tmp/vleky3/rim_pred_* a rim_po2_*). Disky vyexportovány do mod/FS25_SprayDroneTrailer/wheels/sdtRim15.i3d a sdtRim22.i3d, struktura i3d (uzly 0|0 a 0|1, materiály) beze změny (diff XML prázdný).",
+    "stav": "schvaleno",
+    "datum": "2026-10-24"
+  },
+  "part_tire": {
+    "priorita": 3,
+    "body": [
+      "Pneumatika je jen náhled pro obchod a kontroly (hra použije vanilla pneu): 3 312 tri (Mini, Middle) a 4 752 tri (Max) na kolo, tři podélné drážky běhounu. Do hry se nedostane, takže bez dopadu na výkon; neupraveno."
+    ]
+  }
+}

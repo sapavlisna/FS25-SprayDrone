@@ -1,0 +1,168 @@
+{
+ "name": "u13_shop_look",
+ "title": "Záběr 1.3: vzhled, design, hrany paluby, anténa, GPS a barva plachty",
+ "steps": [
+  {
+   "cmd": "ui",
+   "op": "close"
+  },
+  {
+   "cmd": "ui",
+   "op": "shopOpen"
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "shopCat",
+   "id": "SPRAYDRONETRAILERS"
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "shopItem",
+   "n": 2
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "shopConfig"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "cfgCam",
+   "turn": 1.1,
+   "rotX": 0.18,
+   "zoom": 6.4,
+   "duration": 12,
+   "bg": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 0.9
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "design",
+   "state": 2
+  },
+  {
+   "sleep": 0.85
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "design",
+   "state": 3
+  },
+  {
+   "sleep": 0.85
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "design",
+   "state": 4
+  },
+  {
+   "sleep": 0.85
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "design",
+   "state": 1
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneDeckEdge",
+   "state": 2
+  },
+  {
+   "sleep": 0.95
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneAntenna",
+   "state": 3
+  },
+  {
+   "sleep": 0.85
+  },
+  {
+   "cmd": "ui",
+   "op": "cfg",
+   "name": "sprayDroneGps",
+   "state": 2
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "ui",
+   "op": "cfgScroll",
+   "value": "max",
+   "duration": 1.0,
+   "wait": true,
+   "timeout": 10
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "cfgColor",
+   "which": 1,
+   "idx": 26,
+   "pick": 0.8,
+   "ok": 1.7,
+   "wait": true,
+   "timeout": 15
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "ui",
+   "op": "cfgBack"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "shopBack"
+  },
+  {
+   "sleep": 0.3
+  },
+  {
+   "cmd": "ui",
+   "op": "close"
+  }
+ ]
+}

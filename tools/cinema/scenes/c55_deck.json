@@ -1,0 +1,207 @@
+{
+ "name": "c55_deck",
+ "title": "Záběr 5.5: přistání na desce Mini, servis: hadice, výměna baterie, doplnění nádrže",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": -705,
+   "z": 138,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "mini",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "mini"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": -698,
+   "z": 150,
+   "force": true
+  },
+  {
+   "cmd": "camSet",
+   "at": "mini",
+   "x": 4.5,
+   "y": 1.7,
+   "z": -9.5,
+   "tat": "mini:drone1",
+   "tx": 0,
+   "ty": 0.5,
+   "tz": 0,
+   "fov": 40
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "mini",
+   "fill": false
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "airborne",
+   "timeout": 40
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "droneSet",
+   "trailer": "mini",
+   "battery": 0.2,
+   "tank": 1.5
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "near",
+   "dist": 28,
+   "timeout": 90
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.3
+  },
+  {
+   "cmd": "camPath",
+   "duration": 16,
+   "ease": "smooth",
+   "check": false,
+   "tsmooth": 0.35,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 4.5,
+     "y": 1.7,
+     "z": -9.5,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0,
+     "fov": 40
+    },
+    {
+     "t": 6,
+     "at": "mini",
+     "x": 3.6,
+     "y": 1.6,
+     "z": -7.5,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.3,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 11,
+     "at": "mini",
+     "x": 2.4,
+     "y": 1.5,
+     "z": -6.2,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 32
+    },
+    {
+     "t": 16,
+     "at": "mini",
+     "x": -2.2,
+     "y": 1.6,
+     "z": -6.5,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "servicing",
+   "timeout": 60
+  },
+  {
+   "mark": "parked"
+  },
+  {
+   "sleep": 10.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  }
+ ]
+}

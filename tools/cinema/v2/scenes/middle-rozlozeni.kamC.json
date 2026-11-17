@@ -1,0 +1,50 @@
+{
+ "popis": "pevný záběr zezadu: plachty, žebřík a stožár vyrůstají nad vlekem",
+ "typ": "C",
+ "pohyb": "STAT",
+ "smer": "–",
+ "fov": "36",
+ "vyska": "3,4 m, 10 m od pravého boku (zadní třetina)",
+ "zabery": [
+  {
+   "id": "middle-4.1",
+   "od": 2.0,
+   "do": 12.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -10,
+     "y": 3.4,
+     "z": -4,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 15,
+     "at": "middle",
+     "x": -10,
+     "y": 3.4,
+     "z": -4,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 36
+    }
+   ]
+  }
+ ]
+}

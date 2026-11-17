@@ -1,0 +1,118 @@
+{
+ "popis": "Souprava stojí na x = 90, yaw 270; tahač jede na západ do x = -95 rychlostí 36 km/h (mode line), záznam začíná 4,5 s po rozjezdu (souprava kolem x ≈ 60). Pickup s vlekem Middle (dron na střeše, plachty svinuté, žebřík složen).",
+ "vlek": "middle",
+ "beat": "1-2",
+ "zabery": [
+  "middle-1.1",
+  "middle-2.1"
+ ],
+ "misto": "SIL (asfaltka z = −662,5, jízda na západ)",
+ "cas": "11:00",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.0,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "-690,150",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": 90,
+   "z": -662.5,
+   "yaw": 270,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 9
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "pickup",
+   "x": -95,
+   "z": -662.5,
+   "kmh": 36,
+   "mode": "line",
+   "tel": true
+  },
+  {
+   "sleep": 4.5
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 16.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "pickup",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

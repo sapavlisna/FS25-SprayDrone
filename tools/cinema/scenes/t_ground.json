@@ -1,0 +1,14 @@
+{
+  "name": "t_ground",
+  "title": "Kontrola usazení vleků na terénu: boční pohled nízko na kola, snímky",
+  "steps": [
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -690, "z": 140, "yaw": 90, "unfolded": false},
+    {"sleep": 5.0},
+    {"cmd": "camSet", "at": "middle", "x": -1.0, "y": 0.5, "z": -7.0, "tat": "middle", "tx": 0, "ty": 0.5, "tz": -1.0, "fov": 40},
+    {"sleep": 1.0},
+    {"snap": "middle_zad"},
+    {"cmd": "camSet", "at": "middle", "x": -6.0, "y": 0.5, "z": -2.0, "tat": "middle", "tx": 0, "ty": 0.6, "tz": -1.5, "fov": 40},
+    {"sleep": 1.0},
+    {"snap": "middle_bok"}
+  ]
+}

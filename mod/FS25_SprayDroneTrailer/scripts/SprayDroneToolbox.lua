@@ -28,6 +28,8 @@
 
 SprayDroneToolbox = {}
 
+local DEBUG = SprayDroneDebug.ENABLED
+
 SprayDroneToolbox.modDirectory = g_currentModDirectory
 
 SprayDroneToolbox.MAX_SLOTS = 48                  -- Middle: skříň 2 řady x 6 x 4 patra / Max: 4 řady x 6 x 2 patra (Pavel 2026-10-09)
@@ -477,13 +479,39 @@ function SprayDroneToolbox.controller:update(dt)
     SprayDroneToolbox.updateSession(dt)
 end
 
+function SprayDroneToolbox.debugProbe() -- DEBUG
+    if SprayDroneToolbox.debugProbeUntil == nil or g_time > SprayDroneToolbox.debugProbeUntil or g_localPlayer == nil
+        or g_localPlayer.targeter == nil or g_time < (SprayDroneToolbox.debugProbeNext or 0) then
+        return
+    end
+    SprayDroneToolbox.debugProbeNext = g_time + 700
+    local node = g_localPlayer.targeter:getClosestTargetedNodeFromType(HandToolHands)
+    local text = "nic"
+    if node ~= nil and node ~= 0 and entityExists(node) then
+        local obj = g_currentMission:getNodeObject(node)
+        text = string.format("%s group=0x%x body=%s objekt=%s pickable=%s", getName(node), getCollisionFilterGroup(node), tostring(getRigidBodyType(node)),
+            obj ~= nil and tostring(obj.configFileName) or "-", tostring(g_localPlayer.hands ~= nil and g_localPlayer.hands:getCanPickUpNode(node)))
+    end
+    if text ~= SprayDroneToolbox.debugProbeLast then
+        SprayDroneToolbox.debugProbeLast = text
+        Logging.info("SDT DEBUG: cíl rukou: %s", text)
+    end
+end
+
 function SprayDroneToolbox.updateBox(self, dt)
     local spec = getSpec(self)
     local tb = spec ~= nil and spec.toolbox or nil
     if tb == nil then
         return
     end
+    if DEBUG then
+        SprayDroneToolbox.debugProbe()
+    end
     if self.isServer then
+        if DEBUG then -- příkazy i když vlek "spí" a nikdo v něm nesedí
+            SprayDroneToolbox.debugTiltUpdate(self)
+            SprayDroneDebug.update(self, dt)
+        end
         SprayDroneToolbox.updateIntake(self, dt)
         SprayDroneToolbox.updatePour(self, dt)
         SprayDroneToolbox.updateHandPour(self, dt)
@@ -868,6 +896,12 @@ function SprayDroneToolbox.findIntakeCanisters(self)
             if v.sdtEjectTime ~= nil and (holder ~= nil or (distance == nil and g_time - v.sdtEjectTime > SprayDroneToolbox.EJECT_PROTECT_MS)) then
                 v.sdtEjectTime = nil
             end
+            if DEBUG and SprayDroneToolbox.debugLog then
+                local lx, ly, lz = worldToLocal(self.rootNode, x, y, z)
+                local rx, ry, rz = localToLocal(SprayDroneToolbox.getRefNode(self), self.rootNode, 0, 0, 0)
+                Logging.info("SDT DEBUG: vsátí: kanystr v zóně=%s eject=%s držený=%s připnutý=%s rozdíl vůči bedně %.2f %.2f %.2f", tostring(distance ~= nil),
+                    tostring(v.sdtEjectTime), tostring(holder ~= nil), tostring(isCanisterMounted(v)), lx - rx, ly - ry, lz - rz)
+            end
             if distance ~= nil and v.sdtEjectTime == nil and not isCanisterMounted(v) then
                 table.insert(result, { vehicle = v, kind = kind, liters = v:getFillUnitFillLevel(SprayDroneToolbox.CANISTER_UNIT) or 0,
                     distance = distance, holder = holder, part = part })
@@ -1086,6 +1120,9 @@ function SprayDroneToolbox.updateIntake(self, dt)
     -- bedna vsává jen otevřená, každá jen do svých slotů
     local any = false
     for _, part in ipairs(tb.parts) do
+        if DEBUG and SprayDroneToolbox.debugLog then
+            Logging.info("SDT DEBUG: vsátí: bedna %d otevřeno=%s volný slot=%s", part.index, tostring(part.open), tostring(SprayDroneToolbox.getFreeSlot(tb, part)))
+        end
         part.canTake = part.open and SprayDroneToolbox.getFreeSlot(tb, part) ~= nil
         any = any or part.canTake
     end
@@ -1964,3 +2001,226 @@ function SprayDroneHandPourActivatable:deactivate() end
 
 function SprayDroneHandPourActivatable:draw() end
 
+---------------------------------------------------------------------------------------------------
+-- DEBUG: ladicí příkazy (SprayDroneDebug: toolboxFill, toolboxOpen, toolboxDialog, spawnCanister); jen server / hostitel
+
+function SprayDroneToolbox.debugFill(self) -- DEBUG
+    local tb = getSpec(self).toolbox
+    for i = 1, tb.slots do
+        tb.canisters[i].fillType = FillType.SDT_CONCENTRATE_FERTILIZER
+        tb.canisters[i].liters = tb.slotLiters
+    end
+    raiseDirty(self)
+end
+
+-- Vyrobí kanystr s 3 l a 8 s ho drží nakloněný hrdlem dolů nad hrdlem koncentrátové nádrže (test nalévání bez hráče).
+function SprayDroneToolbox.debugTilt(self, fillType) -- DEBUG
+    local tb = getSpec(self).toolbox
+    SprayDroneToolbox.spawnCanister(self, fillType or FillType.SDT_CONCENTRATE_FERTILIZER, 3, function(success, vehicle)
+        if success then
+            tb.debugTilt = { vehicle = vehicle, untilTime = g_time + 8000, neck = isDiesel(fillType) and tb.dieselNeckNode or tb.neckNode }
+        end
+    end)
+end
+
+function SprayDroneToolbox.debugTiltUpdate(self) -- DEBUG
+    local tb = getSpec(self).toolbox
+    local d = tb.debugTilt
+    if d == nil then
+        return
+    end
+    if g_time > d.untilTime or d.vehicle.isDeleted or d.neck == nil then
+        tb.debugTilt = nil
+        return
+    end
+    local nx, ny, nz = getWorldTranslation(d.neck)
+    d.vehicle.sdtEjectTime = g_time
+    d.vehicle:setAbsolutePosition(nx + 0.062, ny + 0.317 + 0.05, nz, 0, 0, math.pi)
+end
+
+-- Hráč se postaví 2,5 m od naposledy vyrobeného kanystru a podívá se na něj (kontrola, jak leží kanystry z obchodu).
+function SprayDroneToolbox.debugLookAtNewest(self) -- DEBUG
+    if not SprayDroneToolbox.debugIsNearest(self) then
+        return
+    end
+    local newest = nil
+    for _, v in ipairs(getVehicles()) do
+        if getUsableCanisterKind(self, v) ~= nil and (newest == nil or v.id > newest.id) then
+            newest = v
+        end
+    end
+    if newest == nil or g_localPlayer == nil then
+        return
+    end
+    local x, y, z = getWorldTranslation(newest.rootNode)
+    local fx, fz = x + 1.8, z + 1.8
+    local fy = getTerrainHeightAtWorldPos(g_terrainNode, fx, 0, fz)
+    g_localPlayer.mover:teleportTo(fx, fy + 0.05, fz, true)
+    local dx, dy, dz = x - fx, y - (fy + 1.65), z - fz
+    local l = MathUtil.vector3Length(dx, dy, dz)
+    local pitch, yaw = MathUtil.directionToPitchYaw(dx / l, dy / l, dz / l)
+    g_localPlayer.camera:setRotation(pitch, yaw, 0)
+end
+
+-- Do logu stav nalévání přes R: hrdla, kanystry u nich, držené kanystry, vzdálenost hráče, aktivovatelnost.
+function SprayDroneToolbox.debugHandPour(self) -- DEBUG
+    if not SprayDroneToolbox.debugIsNearest(self) then
+        return
+    end
+    local tb = getSpec(self).toolbox
+    local held = getHeldNodes()
+    local px, py, pz = getPlayerPosition(g_localPlayer)
+    for _, diesel in ipairs({ false, true }) do
+        local neck = diesel and tb.dieselNeckNode or tb.neckNode
+        local nx, ny, nz = 0, 0, 0
+        if neck ~= nil then
+            nx, ny, nz = getWorldTranslation(neck)
+        end
+        Logging.info("SDT DEBUG handPour diesel=%s hrdlo=%s [%.2f %.2f %.2f] hráč %.2f m, běží=%s, kandidátů %d, důvod %s", tostring(diesel),
+            tostring(neck), nx, ny, nz, px ~= nil and MathUtil.vector3Length(px - nx, py - ny, pz - nz) or -1,
+            tostring(diesel and tb.handPourDiesel or tb.handPourMain), #SprayDroneToolbox.findHandPourCanisters(self, diesel),
+            tostring(SprayDroneToolbox.getHandPourReason(self, diesel)))
+        for _, v in ipairs(getVehicles()) do
+            local kind = getUsableCanisterKind(self, v)
+            if kind ~= nil and isDiesel(kind) == diesel then
+                local cx, cy, cz = getCapPosition(v)
+                Logging.info("SDT DEBUG   kanystr %s víčko %.2f m od hrdla, držený=%s", tostring(v.id), MathUtil.vector3Length(cx - nx, cy - ny, cz - nz),
+                    tostring(getHolder(v, held) ~= nil))
+            end
+        end
+    end
+end
+
+-- Ladicí příkaz dostanou všechny vleky; provede ho jen ten, který je nejblíž kameře.
+function SprayDroneToolbox.debugIsNearest(self) -- DEBUG
+    local cx, cy, cz = getWorldTranslation(getCamera())
+    local function distanceTo(v)
+        local x, y, z = getWorldTranslation(v.rootNode)
+        return MathUtil.vector3Length(x - cx, y - cy, z - cz)
+    end
+    for other in pairs(SprayDroneToolbox.boxes) do
+        if other ~= self and distanceTo(other) < distanceTo(self) then
+            return false
+        end
+    end
+    return true
+end
+
+-- Kanystr 2,4 m před kamerou na zem (pro zvednutí myší při pohledu 35° dolů).
+function SprayDroneToolbox.debugSpawnAtCamera(self, fillType) -- DEBUG
+    if not SprayDroneToolbox.debugIsNearest(self) then
+        return
+    end
+    local cam = getCamera()
+    local cx, cy, cz = getWorldTranslation(cam)
+    local dx, _, dz = localDirectionToWorld(cam, 0, 0, -1)
+    local len = math.sqrt(dx * dx + dz * dz)
+    local x, z = cx + dx / len * 2.4, cz + dz / len * 2.4
+    local y = getTerrainHeightAtWorldPos(g_terrainNode, x, 0, z) + 0.1
+    SprayDroneToolbox.spawnCanister(self, fillType or FillType.SDT_CONCENTRATE_FERTILIZER, 20, function(ok) end, { x, y, z, MathUtil.getYRotationFromDirection(dx, dz) })
+end
+
+-- Sada na zkoušku: od každého druhu (hnojivo, herbicid, nafta) dva plné kanystry v řadě 2 m za kamerou, mimo dosah sání. -- DEBUG
+function SprayDroneToolbox.debugSpawnSet(self) -- DEBUG
+    if not SprayDroneToolbox.debugIsNearest(self) then
+        return
+    end
+    local cam = getCamera()
+    local cx, _, cz = getWorldTranslation(cam)
+    local dx, _, dz = localDirectionToWorld(cam, 0, 0, -1)
+    local len = math.sqrt(dx * dx + dz * dz)
+    dx, dz = dx / len, dz / len
+    local types = { FillType.SDT_CONCENTRATE_FERTILIZER, FillType.SDT_CONCENTRATE_FERTILIZER, FillType.SDT_CONCENTRATE_HERBICIDE, FillType.SDT_CONCENTRATE_HERBICIDE, FillType.DIESEL, FillType.DIESEL }
+    for i, fillType in ipairs(types) do
+        local side = (i - 3.5) * 0.6
+        local x, z = cx - dx * 2 + dz * side, cz - dz * 2 - dx * side
+        local y = getTerrainHeightAtWorldPos(g_terrainNode, x, 0, z) + 0.1
+        SprayDroneToolbox.spawnCanister(self, fillType, 20, function(ok) end, { x, y, z, MathUtil.getYRotationFromDirection(dx, dz) })
+    end
+end
+
+-- Nejbližší kanystr k místnímu hráči: do logu, jestli ho jdou zvednout, a dá ho hráči do rukou.
+function SprayDroneToolbox.debugPickup(self, nonDiesel) -- DEBUG
+    local hands = g_localPlayer ~= nil and g_localPlayer.hands or nil
+    local px, py, pz = getPlayerPosition(g_localPlayer)
+    if hands == nil or px == nil then
+        return
+    end
+    local best, bestDistance = nil, math.huge
+    for _, v in ipairs(getVehicles()) do
+        local kind = getUsableCanisterKind(self, v)
+        if kind ~= nil and not (nonDiesel and isDiesel(kind)) then
+            local x, y, z = getWorldTranslation(v.rootNode)
+            local d = MathUtil.vector3Length(x - px, y - py, z - pz)
+            if d < bestDistance then
+                best, bestDistance = v, d
+            end
+        end
+    end
+    if best == nil then
+        Logging.info("SDT DEBUG: žádný kanystr")
+        return
+    end
+    local can = hands:getCanPickUpNode(best.rootNode)
+    Logging.info("SDT DEBUG: nejbližší kanystr %.1f m, jde zvednout: %s, hmotnost %s", bestDistance, tostring(can), tostring(best:getTotalMass()))
+    if can then
+        Logging.info("SDT DEBUG: pickUpTarget -> %s", tostring(hands:pickUpTarget({ node = best.rootNode, distance = 1.5 })))
+    end
+end
+
+-- Vezme nejbližší kanystr do rukou a 15 s ho drží nad otvorem bedny (přepisuje kinematický uzel rukou), test vsátí z rukou.
+function SprayDroneToolbox.debugHold(self) -- DEBUG
+    if not SprayDroneToolbox.debugIsNearest(self) then
+        return
+    end
+    SprayDroneToolbox.debugLog = true
+    SprayDroneToolbox.debugPickup(self)
+    local x, y, z = getWorldTranslation(SprayDroneToolbox.getRefNode(self))
+    SprayDroneToolbox.debugHoldPos = { x, y + 0.25, z, g_time + 15000 }
+    if not SprayDroneToolbox.debugHoldHooked and HandToolHands ~= nil and SprayDroneDebug ~= nil and SprayDroneDebug.ENABLED then
+        SprayDroneToolbox.debugHoldHooked = true
+        HandToolHands.updateKinematicNode = Utils.appendedFunction(HandToolHands.updateKinematicNode, function(hands)
+            local pos = SprayDroneToolbox.debugHoldPos
+            if pos ~= nil and g_time < pos[4] then
+                local node = hands:getKinematicNode()
+                if node ~= nil then
+                    setWorldTranslation(node, pos[1], pos[2], pos[3])
+                end
+            end
+        end)
+    end
+end
+
+-- Volný kanystr přímo nad otvorem bedny (test vsátí; po EJECT_PROTECT_MS se vsaje, je-li bedna otevřená).
+function SprayDroneToolbox.debugDropOnBox(self) -- DEBUG
+    SprayDroneToolbox.debugLog = true
+    local x, y, z = getWorldTranslation(SprayDroneToolbox.getRefNode(self))
+    SprayDroneToolbox.spawnCanister(self, FillType.SDT_CONCENTRATE_FERTILIZER, 20, function(ok) end, { x, y + 0.3, z, 0 })
+end
+
+function SprayDroneToolbox.debugDropHeld(self) -- DEBUG
+    if SprayDroneToolbox.debugIsNearest(self) then
+        dropFromHands(g_localPlayer)
+    end
+end
+
+function SprayDroneToolbox.debugToggleOpen(self) -- DEBUG
+    for _, part in ipairs(getSpec(self).toolbox.parts) do
+        SprayDroneToolbox.setOpen(self, not part.open, part)
+    end
+end
+
+function SprayDroneToolbox.debugDialog(self) -- DEBUG
+    SprayDroneToolbox.openDialog(self)
+end
+
+function SprayDroneToolbox.debugSpawnCanister(self) -- DEBUG
+    local tb = getSpec(self).toolbox
+    local started, reason = SprayDroneToolbox.spawnCanister(self, FillType.SDT_CONCENTRATE_FERTILIZER, tb.slotLiters, function(success, vehicle)
+        Logging.info("SDT DEBUG: spawnCanister %s, hmotnost %s t, nosnost rukou %s t", success and "hotovo" or "selhalo",
+            success and tostring(vehicle:getTotalMass()) or "-", tostring(HandToolHands ~= nil and HandToolHands.MAXIMUM_PICKUP_MASS or "?"))
+    end)
+    if not started then
+        Logging.warning("SDT DEBUG: spawnCanister se nespustil (%s)", tostring(reason))
+    end
+end

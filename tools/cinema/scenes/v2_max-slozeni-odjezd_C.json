@@ -1,0 +1,249 @@
+{
+ "name": "v2_max-slozeni-odjezd_C",
+ "title": "max-slozeni-odjezd | kamera C: 8.1 pevný nízký záběr zezadu, 8.2 FOL za soupravou",
+ "v2": {
+  "akce": "max-slozeni-odjezd",
+  "kamera": "C",
+  "vlek": "max",
+  "beat": "8",
+  "zabery": [
+   "max-8.1",
+   "max-8.2"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 13.75,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -55.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "SDT_FINE_LIME",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 13.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 0,
+     "y": 1.4,
+     "z": -14,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.6,
+     "tz": -2,
+     "fov": 36
+    },
+    {
+     "t": 13.0,
+     "at": "max",
+     "x": 0,
+     "y": 1.4,
+     "z": -14,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.6,
+     "tz": -2,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": false
+  },
+  {
+   "sleep": 10.5
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "mt655",
+   "x": 675,
+   "z": -78,
+   "kmh": 18,
+   "mode": "line"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "camFollow",
+   "target": "mt655",
+   "ox": 0,
+   "oy": 3.0,
+   "oz": -18,
+   "lx": 0,
+   "ly": 1.8,
+   "lz": 10,
+   "fov": 40,
+   "duration": 12,
+   "ease": "smooth",
+   "tau": 0.8,
+   "tauLook": 0.6,
+   "check": false
+  },
+  {
+   "sleep": 9.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "mt655",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "popis": "8.1 pevný nízký záběr zezadu, 8.2 FOL za soupravou",
+ "typ": "C / PC",
+ "pohyb": "STAT → FOL",
+ "smer": "–",
+ "fov": "36 / 40",
+ "vyska": "1,4 m; 3,0 m",
+ "zabery": [
+  {
+   "id": "max-8.1",
+   "od": 2.0,
+   "do": 11.0
+  },
+  {
+   "id": "max-8.2",
+   "od": 13.0,
+   "do": 23.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 13.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 0,
+     "y": 1.4,
+     "z": -14,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.6,
+     "tz": -2,
+     "fov": 36
+    },
+    {
+     "t": 13.0,
+     "at": "max",
+     "x": 0,
+     "y": 1.4,
+     "z": -14,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.6,
+     "tz": -2,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "at": 13.0,
+   "cmd": "camFollow",
+   "target": "mt655",
+   "ox": 0,
+   "oy": 3.0,
+   "oz": -18,
+   "lx": 0,
+   "ly": 1.8,
+   "lz": 10,
+   "fov": 40,
+   "duration": 12,
+   "ease": "smooth",
+   "tau": 0.8,
+   "tauLook": 0.6,
+   "check": false
+  }
+ ]
+}

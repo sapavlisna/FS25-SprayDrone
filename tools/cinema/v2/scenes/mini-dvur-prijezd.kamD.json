@@ -1,0 +1,50 @@
+{
+ "popis": "vyvýšený boční pohled z jihovýchodu",
+ "typ": "PC",
+ "pohyb": "STAT",
+ "smer": "–",
+ "fov": "34",
+ "vyska": "2,8 m, (−680, 170)",
+ "zabery": [
+  {
+   "id": "mini-3.2",
+   "od": 1.0,
+   "do": 13.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -680,
+     "y": 2.8,
+     "z": 170,
+     "rel": "terrain",
+     "tx": -700,
+     "ty": 1.5,
+     "tz": 143,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 14,
+     "x": -680,
+     "y": 2.8,
+     "z": 170,
+     "rel": "terrain",
+     "tx": -700,
+     "ty": 1.5,
+     "tz": 143,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

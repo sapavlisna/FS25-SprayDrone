@@ -1,0 +1,18 @@
+{
+  "name": "t_obs_b",
+  "title": "Test OBS B: pevná kamera bez sledování vozidla (zvýraznění jen jízdy samotné), telemetrie",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -150, "z": -662.5, "yaw": 90, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "x": 40, "y": 1.4, "z": -672, "rel": "terrain", "tx": 30, "ty": 1.6, "tz": -662.5, "trel": "terrain", "fov": 40},
+    {"sleep": 2.0},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": 260, "z": -662.5, "kmh": 50, "tel": true},
+    {"sleep": 7.5},
+    {"mark": "shot"},
+    {"record": "start"},
+    {"sleep": 7.0},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

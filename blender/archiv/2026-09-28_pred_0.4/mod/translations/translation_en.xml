@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="input_SDT_OPEN_PLANNER" text="Drone: flight planner"/>
+        <text name="input_SDT_START_FLIGHT" text="Drone: start flight"/>
+        <text name="input_SDT_RETURN_HOME" text="Drone: return home"/>
+        <text name="sdt_hud_field" text="Drone field: %s"/>
+        <text name="sdt_hud_noField" text="none (flight planner Alt+7)"/>
+        <text name="sdt_hud_route" text="Drone batches left: %d"/>
+        <text name="sdt_hud_drone" text="Drone: %s | tank %.0f/%.0f l | battery %.0f %%"/>
+        <text name="sdt_state_parked" text="on trailer"/>
+        <text name="sdt_state_flying" text="flying a batch"/>
+        <text name="sdt_state_returning" text="returning"/>
+        <text name="sdt_state_servicing" text="refilling and swapping battery"/>
+        <text name="sdt_status_fieldDone" text="Drone: field is done, nothing left to spray"/>
+        <text name="sdt_status_trailerEmpty" text="Drone: trailer tank is empty"/>
+        <text name="sdt_status_unreachable" text="Drone: the rest of the field is beyond battery range"/>
+        <text name="sdt_status_aborted" text="Drone: mission aborted (trailer folded or field missing)"/>
+        <text name="sdt_status_notAllowed" text="Drone: the field can no longer be treated (contract ended or field not owned)"/>
+        <text name="sdt_warning_noField" text="There is no field here"/>
+        <text name="sdt_warning_noFieldSelected" text="Select a field in the flight planner first"/>
+        <text name="sdt_warning_notOwned" text="Foreign field – not owned by your farm and no contract"/>
+        <text name="sdt_warning_missionNoSpray" text="The contract on this field does not allow spraying"/>
+        <text name="sdt_warning_missionProduct" text="The contract needs a different product than the trailer holds"/>
+        <text name="sdt_warning_missionRunning" text="The drone is flying – change the field after it returns"/>
+        <text name="sdt_warning_outOfRange" text="The field is out of drone range"/>
+        <text name="sdt_warning_droneFlying" text="The drone is airborne – returning, fold after it lands"/>
+        <text name="sdt_button_close" text="Close"/>
+        <text name="sdt_button_start" text="Start flight"/>
+        <text name="sdt_button_returnHome" text="Return home"/>
+        <text name="sdt_planner_title" text="Drone flight planner"/>
+        <text name="sdt_planner_trailer" text="TRAILER"/>
+        <text name="sdt_planner_trailerTank" text="Trailer: %.0f l – %s"/>
+        <text name="sdt_planner_params" text="Range %.0f m, working width %.0f m"/>
+        <text name="sdt_planner_noField" text="No field selected"/>
+        <text name="sdt_planner_hintSelect" text="Click a field with a blue or gold outline inside the range circle."/>
+        <text name="sdt_planner_field" text="Field %s"/>
+        <text name="sdt_planner_ownField" text="Own field"/>
+        <text name="sdt_planner_contract" text="Contract"/>
+        <text name="sdt_planner_contractTag" text="contract"/>
+        <text name="sdt_planner_contractInfo" text="Contract: %s (%.0f %% done)"/>
+        <text name="sdt_planner_batches" text="Batches (tank + battery): %d"/>
+        <text name="sdt_planner_area" text="Area to treat: %.2f ha"/>
+        <text name="sdt_planner_liters" text="Needed: %.0f l, available %.0f l"/>
+        <text name="sdt_planner_notEnough" text="Not enough product for the whole field – the drone stops when the trailer is empty."/>
+        <text name="sdt_planner_product" text="Product: %s"/>
+        <text name="sdt_planner_clipped" text="Part of the field is out of range – the route covers only the part inside the circle."/>
+        <text name="sdt_planner_hover" text="Under cursor: field %s"/>
+        <text name="sdt_planner_clickToSelect" text="Click to select it"/>
+        <text name="sdt_planner_selected" text="Selected field %s"/>
+        <text name="sdt_planner_started" text="Flight started"/>
+        <text name="sdt_planner_returning" text="The drone is returning to the trailer"/>
+        <text name="sdt_planner_legend" text="Outlines: green = selected, blue = own, gold = contract, red = not allowed. Route line colors = batches."/>
+        <text name="sdt_planner_controls" text="Click = select field, drag = pan map, wheel = zoom."/>
+    </texts>
+</l10n>

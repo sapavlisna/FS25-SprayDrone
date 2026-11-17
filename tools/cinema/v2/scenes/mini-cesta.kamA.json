@@ -1,0 +1,41 @@
+{
+ "popis": "ověřený tracking z jihu (b03_gravel): kamera 25–28 m od cesty, stodola v pozadí",
+ "typ": "PC",
+ "pohyb": "TRK (camFollow)",
+ "smer": "R→L",
+ "fov": "34 → 31",
+ "vyska": "1,7–1,8 m, 24 → 20 m vlevo",
+ "zabery": [
+  {
+   "id": "mini-3.1",
+   "od": 0.5,
+   "do": 7.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camFollow",
+   "target": "jd3650",
+   "ox": 24,
+   "oy": 1.7,
+   "oz": 6,
+   "lx": 0,
+   "ly": 3.2,
+   "lz": -2,
+   "fov": 34,
+   "duration": 9,
+   "ease": "smooth",
+   "tau": 0.5,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": 20,
+   "oy2": 1.8,
+   "oz2": -7,
+   "lx2": 0,
+   "ly2": 3.2,
+   "lz2": -2,
+   "fov2": 31
+  }
+ ]
+}

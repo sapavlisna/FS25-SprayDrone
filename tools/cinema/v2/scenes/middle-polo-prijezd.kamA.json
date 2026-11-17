@@ -1,0 +1,83 @@
+{
+ "popis": "ze severu: couvání kamery odhalí hladinu a rákos za soupravou (protisvětlo)",
+ "typ": "PC→C",
+ "pohyb": "ODJ (statické klíče, dráha za soupravou)",
+ "smer": "–",
+ "fov": "32 → 28",
+ "vyska": "3,8 → 4,8 m, (-641, 431) → (-645, 424)",
+ "zabery": [
+  {
+   "id": "middle-3.2",
+   "od": 6.0,
+   "do": 13.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 6,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -641,
+     "y": 3.8,
+     "z": 431,
+     "rel": "terrain",
+     "tx": -629,
+     "ty": 1.8,
+     "tz": 458,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 6,
+     "x": -641,
+     "y": 3.8,
+     "z": 431,
+     "rel": "terrain",
+     "tx": -629,
+     "ty": 1.8,
+     "tz": 458,
+     "trel": "terrain",
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "at": 6,
+   "cmd": "camPath",
+   "duration": 8,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -641,
+     "y": 3.8,
+     "z": 431,
+     "rel": "terrain",
+     "tx": -629,
+     "ty": 1.8,
+     "tz": 458,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 8,
+     "x": -645,
+     "y": 4.8,
+     "z": 424,
+     "rel": "terrain",
+     "tx": -629,
+     "ty": 1.8,
+     "tz": 459,
+     "trel": "terrain",
+     "fov": 28
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "popis": "pevný záběr zezadu: plošina se rozkládá směrem ke kameře",
+ "typ": "C",
+ "pohyb": "STAT",
+ "smer": "–",
+ "fov": "34",
+ "vyska": "1,5 m, 9,5 m za vlekem",
+ "zabery": [
+  {
+   "id": "mini-4.1",
+   "od": 2.0,
+   "do": 14.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 17,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 0.3,
+     "y": 1.5,
+     "z": -9.5,
+     "tx": 0.3,
+     "ty": 0.9,
+     "tz": -2.5,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 17,
+     "at": "mini",
+     "x": 0.3,
+     "y": 1.5,
+     "z": -9.5,
+     "tx": 0.3,
+     "ty": 0.9,
+     "tz": -2.5,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

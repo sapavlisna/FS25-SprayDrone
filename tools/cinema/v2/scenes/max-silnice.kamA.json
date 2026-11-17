@@ -1,0 +1,62 @@
+{
+ "popis": "tele ze západního konce silnice proti jízdě, souprava roste z dálky",
+ "typ": "C",
+ "pohyb": "STAT (pomalé oddálení)",
+ "smer": "–",
+ "fov": "14 → 22",
+ "vyska": "1,2 m nad krajnicí, z = −656",
+ "zabery": [
+  {
+   "id": "max-1.1",
+   "od": 0,
+   "do": 8
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 16,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -43,
+     "y": 1.4,
+     "z": -658,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 14
+    },
+    {
+     "t": 8,
+     "x": -43,
+     "y": 1.4,
+     "z": -658,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 16
+    },
+    {
+     "t": 16,
+     "x": -43,
+     "y": 1.4,
+     "z": -658,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 22
+    }
+   ]
+  }
+ ]
+}

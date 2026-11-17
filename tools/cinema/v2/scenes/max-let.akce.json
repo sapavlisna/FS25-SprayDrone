@@ -1,0 +1,280 @@
+{
+ "popis": "t = 2 s dron 1 na plošině (7.0), t = 6,5 s `startFlight drone=0` (druhý dron o ≈ 3 s později), `coverLines auto2` (jen dvě sousední dráhy), `waitDrone spraying` oba, značky w1b/w2/w3 po 6,5 s (7.2–7.4), `returnHome` obou.",
+ "vlek": "max",
+ "beat": "7",
+ "zabery": [
+  "max-7.0",
+  "max-7.1",
+  "max-7.2",
+  "max-7.3",
+  "max-7.4"
+ ],
+ "misto": "POTOK → pole 60 (535, 33) – strniště",
+ "cas": "13:15",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 13.25,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -43.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "max",
+   "field": 60
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "max"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER",
+   "liters": 3000
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "SDT_FINE_LIME",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "cmd": "play",
+   "trailer": "max",
+   "command": "windOff"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "coverLines",
+   "trailer": "max",
+   "field": 60,
+   "keep": "auto2",
+   "optional": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "mark": "det"
+  },
+  {
+   "cmd": "mark",
+   "name": "det",
+   "optional": true
+  },
+  {
+   "sleep": 4.5
+  },
+  {
+   "mark": "start"
+  },
+  {
+   "cmd": "mark",
+   "name": "start",
+   "optional": true
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "max",
+   "fill": false,
+   "drone": 0
+  },
+  {
+   "sleep": 7.0
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "spraying",
+   "drone": 1,
+   "timeout": 250
+  },
+  {
+   "mark": "w1"
+  },
+  {
+   "cmd": "mark",
+   "name": "w1",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "spraying",
+   "drone": 2,
+   "timeout": 90
+  },
+  {
+   "mark": "w1b"
+  },
+  {
+   "cmd": "mark",
+   "name": "w1b",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "mark": "w2"
+  },
+  {
+   "cmd": "mark",
+   "name": "w2",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "mark": "w3"
+  },
+  {
+   "cmd": "mark",
+   "name": "w3",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "drone": 0
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

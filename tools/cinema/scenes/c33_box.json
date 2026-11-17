@@ -1,0 +1,210 @@
+{
+ "name": "c33_box",
+ "title": "Záběr 3.3: bedna na kanystry, kanystry, nalévání koncentrátu",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -676,
+   "z": 146,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "dbg",
+   "command": "emptyTanks"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "conc",
+   "fill": "EMPTY"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "main",
+   "fill": "WATER",
+   "liters": 400
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": -672,
+   "z": 152,
+   "force": true
+  },
+  {
+   "cmd": "camSet",
+   "at": "middle",
+   "x": -5.5,
+   "y": 1.7,
+   "z": -7.0,
+   "tat": "middle",
+   "tx": 0,
+   "ty": 1.5,
+   "tz": -2.3,
+   "fov": 44
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -5.5,
+     "y": 1.7,
+     "z": -7.0,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 1.5,
+     "tz": -2.3,
+     "fov": 44
+    },
+    {
+     "t": 4,
+     "at": "middle",
+     "x": -4.2,
+     "y": 1.8,
+     "z": -5.0,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 1.5,
+     "tz": -2.3,
+     "fov": 40
+    },
+    {
+     "t": 8,
+     "at": "middle",
+     "x": -3.6,
+     "y": 2.0,
+     "z": -0.5,
+     "tat": "middle",
+     "tx": -0.4,
+     "ty": 1.7,
+     "tz": 1.0,
+     "fov": 38
+    },
+    {
+     "t": 14,
+     "at": "middle",
+     "x": -3.8,
+     "y": 2.1,
+     "z": 1.6,
+     "tat": "middle",
+     "tx": -0.5,
+     "ty": 1.7,
+     "tz": 1.2,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "dbgCmd",
+   "trailer": "middle",
+   "command": "toolboxOpen"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "dbgCmd",
+   "trailer": "middle",
+   "command": "toolboxFill"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "canisterPour",
+   "trailer": "middle",
+   "fill": "fertilizer",
+   "liters": 20,
+   "tLift": 2.0,
+   "tTilt": 2.0,
+   "tPour": 6.0
+  },
+  {
+   "sleep": 9.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "dbgCmd",
+   "trailer": "middle",
+   "command": "toolboxOpen"
+  },
+  {
+   "cmd": "dbgCmd",
+   "trailer": "middle",
+   "command": "status"
+  }
+ ]
+}

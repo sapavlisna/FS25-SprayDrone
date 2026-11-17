@@ -1,0 +1,92 @@
+{
+ "popis": "displej na vleku (STAT), mapa: skok výběru na vzdálenější pole a přiblížení (MAPA+), karta, fialová plocha + pomalý posun mapy doprava (MAPA-R)",
+ "typ": "D / UI",
+ "pohyb": "STAT → MAPA+ → STAT → MAPA-R",
+ "smer": "R (posun mapy)",
+ "fov": "32 (svět)",
+ "vyska": "1,8 m, 3,8 m od displeje",
+ "zabery": [
+  {
+   "id": "max-6.1",
+   "od": 0.5,
+   "do": 5.5
+  },
+  {
+   "id": "max-6.2",
+   "od": 7.5,
+   "do": 14.9
+  },
+  {
+   "id": "max-6.3",
+   "od": 15.2,
+   "do": 19.4
+  },
+  {
+   "id": "max-6.4",
+   "od": 20.0,
+   "do": 28.9
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 6,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 3.6,
+     "y": 1.8,
+     "z": -1.0,
+     "tat": "max",
+     "tx": 0.95,
+     "ty": 1.5,
+     "tz": 0.68,
+     "fov": 32
+    },
+    {
+     "t": 6,
+     "at": "max",
+     "x": 3.6,
+     "y": 1.8,
+     "z": -1.0,
+     "tat": "max",
+     "tx": 0.95,
+     "ty": 1.5,
+     "tz": 0.68,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "at": 10.4,
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": 590,
+   "z": 15,
+   "zoom": 3.0,
+   "duration": 4.0
+  },
+  {
+   "at": 20.0,
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": 600,
+   "z": 15,
+   "zoom": 2.4,
+   "duration": 0.01
+  },
+  {
+   "at": 20.5,
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": 560,
+   "z": 15,
+   "zoom": 2.4,
+   "duration": 8.0
+  }
+ ]
+}

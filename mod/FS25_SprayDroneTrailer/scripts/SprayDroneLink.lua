@@ -362,6 +362,11 @@ function SprayDroneLink.getCoverageLines(circles, segments)
     return result
 end
 
+-- Azimut pro hráče (stupně od severu = -Z mapy, po směru hodin) ze směru dir (rad, atan2(dz, dx)).
+function SprayDroneLink.getAzimuth(dir)
+    return (math.deg(math.atan2(math.cos(dir), -math.sin(dir)))) % 360
+end
+
 -- Oblast rádia stanice: kruh spec.maxRange (u vleku už s anténou z konfigurace v obchodě) se středem v domově dronu.
 function SprayDroneLink.getRadio(vehicle)
     local spec = vehicle[SprayDroneStation.SPEC_NAME]
@@ -691,6 +696,26 @@ function SprayDroneLink.getTargetLabel(entry)
     end
     local state = entry.missionActive and "sdt_tablet_stateMission" or (entry.unfolded and "sdt_tablet_stateUnfolded" or "sdt_tablet_stateFolded")
     return string.format(g_i18n:getText("sdt_tablet_target"), name, entry.distance, g_i18n:getText(state))
+end
+
+-- Proč by tablet teď nic neotevřel (klíč textu / popis pro ladění), nil = otevře.
+function SprayDroneLink.getTabletBlocker()
+    if g_localPlayer == nil then
+        return "bez místního hráče"
+    end
+    if SprayDroneLink.getHeldTablet() == nil then
+        return "hráč nedrží tablet"
+    end
+    if g_gui ~= nil and g_gui:getIsGuiVisible() then
+        return "je otevřené GUI"
+    end
+    if g_localPlayer.getCurrentVehicle ~= nil and g_localPlayer:getCurrentVehicle() ~= nil then
+        return "hráč sedí ve vozidle"
+    end
+    if #SprayDroneLink.getTabletTargets() == 0 then
+        return "žádný vlek ani kufr s dronem ve spojení (NO CONNECTION)"
+    end
+    return nil
 end
 
 -- Otevře plánovač tabletem: bez step výchozí cíl (pickTarget), se step o tolik dál od cíle otevřeného plánovače (nebo naposled

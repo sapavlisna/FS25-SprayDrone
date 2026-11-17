@@ -1,0 +1,269 @@
+{
+ "name": "v2_middle-navrat-servis_A",
+ "title": "middle-navrat-servis | kamera A: 7.5 švenk doleva za přilétajícím dronem (PAN-L), 7.6 oblet po směru hodin",
+ "v2": {
+  "akce": "middle-navrat-servis",
+  "kamera": "A",
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 12.08,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -625,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "nodeVis",
+   "trailer": "middle",
+   "show": "antennaLarge,gpsRtkBox,antennaBase"
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "middle",
+   "field": 91
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "main",
+   "fill": "LIQUIDFERTILIZER",
+   "liters": 1000
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "conc",
+   "fill": "LIQUIDFERTILIZER",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "open": false,
+   "optional": true
+  },
+  {
+   "cmd": "play",
+   "trailer": "middle",
+   "command": "windOff"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": -621,
+   "z": 465,
+   "force": true
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "middle",
+   "fill": false
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "airborne",
+   "timeout": 40
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "droneSet",
+   "trailer": "middle",
+   "battery": 0.2,
+   "tank": 1.5
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "near",
+   "dist": 34,
+   "timeout": 200
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 25,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -2,
+     "y": 2.8,
+     "z": 12,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 30
+    },
+    {
+     "t": 25,
+     "at": "middle",
+     "x": -2,
+     "y": 2.8,
+     "z": 12,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 30
+    }
+   ],
+   "tsmooth": 0.3
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "servicing",
+   "timeout": 60
+  },
+  {
+   "mark": "servicing"
+  },
+  {
+   "cmd": "camOrbit",
+   "radius": 6.5,
+   "radius2": 5.5,
+   "height": 1.6,
+   "height2": 1.5,
+   "angle0": -45.0,
+   "angle1": -153.4,
+   "lx": 0.0,
+   "ly": 0.2,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 40,
+   "tau": 0.3,
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "target": "middle:drone1"
+  },
+  {
+   "cmd": "mark",
+   "name": "servicing",
+   "optional": true
+  },
+  {
+   "sleep": 14.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

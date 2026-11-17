@@ -1,0 +1,83 @@
+{
+ "hlavicka": {
+  "film": "spol",
+  "popis": "spol (epilog, tři vleky)",
+  "verze": 1,
+  "fps": 60,
+  "rozliseni": "1920x1080",
+  "celkova_delka_s": 23.0,
+  "cilova_delka_s": 25,
+  "pocet_strihu": 4,
+  "pravidlo_klipu": "poslední hodnocený take akce × kamery, nikdy vyrazeno; in/out vždy uvnitř nejlepsi_okno",
+  "slaba_mista": [
+   "všechny záběry slabé: soupravy malé, vlevo kanystry a pytel z prod (Z2), v B krávy (Z3)",
+   "drony ve vzduchu jen v prvním záběru (spol-1)"
+  ]
+ },
+ "strihy": [
+  {
+   "beat": "epilog",
+   "zaber": "spol-1",
+   "klip": "out/trailer/v2/raw/mini+max+middle/epilog/spol_A_t1.mkv",
+   "kamera": "A",
+   "take": 1,
+   "stav": "slabsi",
+   "in_s": 6.5,
+   "out_s": 13.0,
+   "delka_s": 6.5,
+   "prechod": "cut",
+   "typ": "C",
+   "pohyb": "NAJ",
+   "smer": "-",
+   "poznamka": "tři soupravy před stodolou, drony krouží; vleky malé; vlevo na dvoře leží kanystry a pytel z prod (Z2)"
+  },
+  {
+   "beat": "epilog",
+   "zaber": "spol-2",
+   "klip": "out/trailer/v2/raw/mini+max+middle/epilog/spol_A_t1.mkv",
+   "kamera": "A",
+   "take": 1,
+   "stav": "slabsi",
+   "in_s": 14.0,
+   "out_s": 20.0,
+   "delka_s": 6.0,
+   "prechod": "cut",
+   "typ": "PC",
+   "pohyb": "TRK",
+   "smer": "L→R",
+   "poznamka": "boční jízda podél řady, soupravy jen jako malé siluety; kanystry a pytel vlevo (Z2)"
+  },
+  {
+   "beat": "epilog",
+   "zaber": "spol-3",
+   "klip": "out/trailer/v2/raw/mini+max+middle/epilog/spol_A_t1.mkv",
+   "kamera": "A",
+   "take": 1,
+   "stav": "slabsi",
+   "in_s": 24.5,
+   "out_s": 31.0,
+   "delka_s": 6.5,
+   "prechod": "cut",
+   "typ": "C",
+   "pohyb": "JIB-U",
+   "smer": "-",
+   "poznamka": "jeřáb nahoru k pohledu na tři soupravy; drony už nejsou v záběru, soupravy malé"
+  },
+  {
+   "beat": "epilog",
+   "zaber": "spol-3",
+   "klip": "out/trailer/v2/raw/mini+max+middle/epilog/spol_B_t1.mkv",
+   "kamera": "B",
+   "take": 1,
+   "stav": "slabsi",
+   "in_s": 31.0,
+   "out_s": 35.0,
+   "delka_s": 4.0,
+   "prechod": "cut",
+   "typ": "C",
+   "pohyb": "ORB",
+   "smer": "CW",
+   "poznamka": "pohled shora na tři soupravy a drony; krávy na pastvině (Z3) a cizí pytel u okraje (Z2)"
+  }
+ ]
+}

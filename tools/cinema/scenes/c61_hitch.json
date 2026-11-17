@@ -1,0 +1,156 @@
+{
+ "name": "c61_hitch",
+ "title": "Záběr 6.1: Max couvá a zapřáhne mlýnek",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "vehicles/sdtLimeMill/sdtLimeMill.xml",
+   "x": -740,
+   "z": 158,
+   "yaw": 90,
+   "once": "mill"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "detachFrom",
+   "parent": "max",
+   "child": "mill",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -684,
+   "z": 158,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "moveVehicle",
+   "vehicle": "mill",
+   "x": -708.1400000000001,
+   "z": 158,
+   "yaw": 90
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655,mill",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "camSet",
+   "x": -703,
+   "y": 1.8,
+   "z": 172,
+   "rel": "terrain",
+   "tx": -702,
+   "ty": 1.4,
+   "tz": 158,
+   "trel": "terrain",
+   "fov": 42
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.8
+  },
+  {
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -703,
+     "y": 1.8,
+     "z": 172,
+     "rel": "terrain",
+     "tx": -702,
+     "ty": 1.4,
+     "tz": 158,
+     "trel": "terrain",
+     "fov": 42
+    },
+    {
+     "t": 8,
+     "x": -703,
+     "y": 1.6,
+     "z": 168,
+     "rel": "terrain",
+     "tx": -703,
+     "ty": 1.2,
+     "tz": 158,
+     "trel": "terrain",
+     "fov": 36
+    },
+    {
+     "t": 15,
+     "x": -704,
+     "y": 1.5,
+     "z": 166,
+     "rel": "terrain",
+     "tx": -705,
+     "ty": 1.0,
+     "tz": 158,
+     "trel": "terrain",
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "cmd": "reverseAttach",
+   "vehicle": "mt655",
+   "parent": "max",
+   "child": "mill",
+   "kmh": 6,
+   "wait": true,
+   "timeout": 60
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

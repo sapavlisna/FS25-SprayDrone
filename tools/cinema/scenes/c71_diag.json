@@ -1,0 +1,472 @@
+{
+ "name": "c71_diag",
+ "title": "diag",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -690,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "middle",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "middle",
+   "fill": false
+  },
+  {
+   "mark": "START"
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle"
+  },
+  {
+   "mark": "RETURN"
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "droneStatus",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 0.5
+  }
+ ]
+}

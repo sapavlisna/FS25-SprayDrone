@@ -1,0 +1,75 @@
+{
+ "popis": "7.5 tele pevně: oba drony se vracejí a po sobě přistávají, 7.6 oblet proti směru hodin kolem dronu 1 na desce",
+ "typ": "PC",
+ "pohyb": "STAT tele → ORB-CCW",
+ "smer": "CCW",
+ "fov": "24 / 40",
+ "vyska": "1,4 m; orbit 2,4 → 2,0 m, r = 7 → 5,5",
+ "zabery": [
+  {
+   "id": "max-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "max-7.6",
+   "od": "servicing +0",
+   "do": "servicing +12"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 30,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": -10,
+     "y": 1.4,
+     "z": 10,
+     "tat": "max",
+     "tx": 0,
+     "ty": 3.5,
+     "tz": -2.7,
+     "fov": 24
+    },
+    {
+     "t": 30,
+     "at": "max",
+     "x": -10,
+     "y": 1.4,
+     "z": 10,
+     "tat": "max",
+     "tx": 0,
+     "ty": 3.5,
+     "tz": -2.7,
+     "fov": 24
+    }
+   ]
+  },
+  {
+   "after": "servicing",
+   "cmd": "camOrbit",
+   "radius": 7.0,
+   "radius2": 5.5,
+   "height": 2.4,
+   "height2": 2.0,
+   "angle0": 119.7,
+   "angle1": 386.6,
+   "lx": 0.0,
+   "ly": 0.5,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 40,
+   "tau": 0.3,
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "target": "max:drone1"
+  }
+ ]
+}

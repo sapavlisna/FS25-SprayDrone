@@ -1,0 +1,161 @@
+{
+ "name": "v2_mini-silnice_A",
+ "title": "mini-silnice | kamera A: tele ze západního konce silnice proti jízdě, souprava roste z dálky",
+ "v2": {
+  "akce": "mini-silnice",
+  "kamera": "A",
+  "vlek": "mini",
+  "beat": "1-2",
+  "zabery": [
+   "mini-1.1",
+   "mini-2.1"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 10.0,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "mini",
+   "park": "-690,150",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": 90,
+   "z": -662.5,
+   "yaw": 270,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650",
+   "maxTilt": 9
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "jd3650",
+   "x": -95,
+   "z": -662.5,
+   "kmh": 36,
+   "mode": "line",
+   "tel": true
+  },
+  {
+   "sleep": 4.5
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 16,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -55,
+     "y": 1.2,
+     "z": -656,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 14
+    },
+    {
+     "t": 8,
+     "x": -55,
+     "y": 1.2,
+     "z": -656,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 16
+    },
+    {
+     "t": 16,
+     "x": -55,
+     "y": 1.2,
+     "z": -656,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 22
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 16.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "jd3650",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "popis": "detail štítku: blízký pomalý nájezd na police, pak statika u hrdla",
+ "typ": "D",
+ "pohyb": "NAJ → STAT",
+ "smer": "–",
+ "fov": "28 → 26 / 30",
+ "vyska": "1,55–1,7 m, 1,6 m od police",
+ "zabery": [
+  {
+   "id": "mini-5.1",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "mini-5.2",
+   "od": 7.5,
+   "do": 14.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -2.2,
+     "y": 1.55,
+     "z": 0.9,
+     "tat": "mini",
+     "tx": -0.7,
+     "ty": 0.95,
+     "tz": 1.23,
+     "fov": 28
+    },
+    {
+     "t": 7.5,
+     "at": "mini",
+     "x": -1.9,
+     "y": 1.7,
+     "z": 0.5,
+     "tat": "mini",
+     "tx": -0.7,
+     "ty": 0.95,
+     "tz": 1.23,
+     "fov": 26
+    }
+   ]
+  },
+  {
+   "at": 7.5,
+   "cmd": "camPath",
+   "duration": 12.5,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -2.4,
+     "y": 1.3,
+     "z": 3.2,
+     "tat": "mini",
+     "tx": -0.6,
+     "ty": 1.7,
+     "tz": 2.3,
+     "fov": 30
+    },
+    {
+     "t": 12.5,
+     "at": "mini",
+     "x": -2.4,
+     "y": 1.3,
+     "z": 3.2,
+     "tat": "mini",
+     "tx": -0.6,
+     "ty": 1.7,
+     "tz": 2.3,
+     "fov": 30
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,132 @@
+{
+ "popis": "7.1 pevná kamera zpředu zprava (TILT), 7.2 FOL vysoko, 7.3 TOP statický nad polem, 7.4 tracking zprava",
+ "typ": "C / PC",
+ "pohyb": "STAT → FOL → TOP statický → TRK",
+ "smer": "L→R (7.4)",
+ "fov": "40 → 34 / 36 / 32 / 32",
+ "vyska": "1,2 m; FOL 7 m; TOP 45 m nad polem (sleduje dron); TRK 1,5 m",
+ "zabery": [
+  {
+   "id": "mini-7.1",
+   "od": "t=2 +0",
+   "do": "t=2 +7"
+  },
+  {
+   "id": "mini-7.2",
+   "od": "w1 +0",
+   "do": "w1 +6,5"
+  },
+  {
+   "id": "mini-7.3",
+   "od": "w2 +0",
+   "do": "w2 +6,5"
+  },
+  {
+   "id": "mini-7.4",
+   "od": "w3 +0",
+   "do": "w3 +6,5"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 9.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -9,
+     "y": 1.2,
+     "z": 3.5,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 40
+    },
+    {
+     "t": 9.0,
+     "at": "mini",
+     "x": -9,
+     "y": 1.2,
+     "z": 3.5,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "after": "w1",
+   "cmd": "camFollow",
+   "target": "mini:drone1",
+   "ox": 0,
+   "oy": 7.0,
+   "oz": -11,
+   "lx": 0,
+   "ly": -2,
+   "lz": 3,
+   "fov": 36,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.9,
+   "tauLook": 0.6,
+   "check": false
+  },
+  {
+   "after": "w2",
+   "cmd": "camPath",
+   "duration": 6.5,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -697,
+     "y": 45,
+     "z": 228,
+     "rel": "terrain",
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0.8,
+     "fov": 32
+    },
+    {
+     "t": 6.5,
+     "x": -697,
+     "y": 45,
+     "z": 228,
+     "rel": "terrain",
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0.8,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "after": "w3",
+   "cmd": "camFollow",
+   "target": "mini:drone1",
+   "ox": -8.5,
+   "oy": 1.5,
+   "oz": -2.5,
+   "lx": 0,
+   "ly": 0,
+   "lz": 1.0,
+   "fov": 32,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.5,
+   "tauLook": 0.4,
+   "check": false
+  }
+ ]
+}

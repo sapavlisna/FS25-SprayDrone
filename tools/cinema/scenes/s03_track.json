@@ -1,0 +1,19 @@
+{
+  "name": "s03_track",
+  "title": "Záběr 3: tracking zboku podél pole, stodola v pozadí, 4 s",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -668, "z": 172.5, "yaw": 270, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "x": -690, "y": 4.0, "z": 183, "rel": "terrain", "tx": -690, "ty": 1.4, "tz": 172.5, "trel": "terrain", "fov": 45},
+    {"sleep": 2.0},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": -830, "z": 172.5, "kmh": 25},
+    {"sleep": 1.5},
+    {"mark": "shot"},
+    {"record": "start", "seconds": 7},
+    {"cmd": "camFollow", "target": "pickup", "ox": 12, "oy": 4.0, "oz": -3.5, "lx": 0, "ly": 1.1, "lz": -3.5, "tau": 0.25, "tauLook": 0.2,
+     "fov": 36, "fov2": 32, "duration": 4, "ease": "smooth", "wait": true, "check": false, "timeout": 30},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

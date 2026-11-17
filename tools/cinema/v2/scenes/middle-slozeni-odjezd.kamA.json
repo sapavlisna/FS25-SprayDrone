@@ -1,0 +1,89 @@
+{
+ "popis": "8.1 odjezd kamery od vleku (ODJ) při skládání, 8.2 TRK L→R za odjíždějící soupravou",
+ "typ": "C",
+ "pohyb": "ODJ → TRK L→R",
+ "smer": "L→R",
+ "fov": "36 / 30",
+ "vyska": "2,8 → 3,4 m; 3,2 m",
+ "zabery": [
+  {
+   "id": "middle-8.1",
+   "od": 2.0,
+   "do": 12.0
+  },
+  {
+   "id": "middle-8.2",
+   "od": 14.0,
+   "do": 23.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 6,
+     "y": 2.8,
+     "z": -5,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 14.0,
+     "at": "middle",
+     "x": 11,
+     "y": 3.4,
+     "z": -12,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "at": 14.0,
+   "cmd": "camPath",
+   "duration": 11,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -635,
+     "y": 3.2,
+     "z": 437,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 30
+    },
+    {
+     "t": 11,
+     "x": -617,
+     "y": 3.2,
+     "z": 437,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 30
+    }
+   ],
+   "tsmooth": 0.4
+  }
+ ]
+}

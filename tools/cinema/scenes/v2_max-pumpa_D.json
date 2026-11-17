@@ -1,0 +1,356 @@
+{
+ "name": "v2_max-pumpa_D",
+ "title": "max-pumpa | kamera D: 5m.2 druhý jeřáb z druhé strany a druhý uzamčený rám pro 5m.3/5m.4",
+ "v2": {
+  "akce": "max-pumpa",
+  "kamera": "D",
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 12.58,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -43.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "EMPTY",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "EMPTY"
+  },
+  {
+   "cmd": "playerTo",
+   "x": 681,
+   "z": -39.0,
+   "force": true
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/pump/waterPump.xml",
+   "x": 677.2,
+   "z": -30.0,
+   "yaw": 0,
+   "diesel": 10
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "stationAt",
+   "trailer": "max",
+   "port": 1,
+   "pd": 3.0,
+   "cd": 3.2,
+   "dy": 0.0,
+   "cyaw": 0
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 680.5,
+     "y": 3.5,
+     "z": -16,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 7.0,
+     "x": 680.5,
+     "y": 3.5,
+     "z": -16,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whPond"
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "cmd": "dbg",
+   "command": "whOut"
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "cmd": "dbg",
+   "command": "pumpOn"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 3.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 670,
+     "y": 3.4,
+     "z": -19,
+     "rel": "terrain",
+     "tx": 684.5,
+     "ty": 0.3,
+     "tz": -32.6,
+     "trel": "terrain",
+     "fov": 40
+    },
+    {
+     "t": 3.5,
+     "x": 672,
+     "y": 1.8,
+     "z": -20,
+     "rel": "terrain",
+     "tx": 684.5,
+     "ty": 0.3,
+     "tz": -32.6,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "sleep": 3.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 668,
+     "y": 1.8,
+     "z": -17,
+     "rel": "terrain",
+     "tx": 677.2,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 7.0,
+     "x": 668,
+     "y": 1.8,
+     "z": -17,
+     "rel": "terrain",
+     "tx": 677.2,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "pumpOff"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "sleep": 1.6
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

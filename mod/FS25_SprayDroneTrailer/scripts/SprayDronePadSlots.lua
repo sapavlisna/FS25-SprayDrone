@@ -441,6 +441,7 @@ function SprayDronePadSlots.doTake(self, player, padIndex, isLocal)
     SprayDroneSound.noteAction(string.format("dron %s na plošině %d vleku %s se skládá ke sundání", spec.pads[padIndex], padIndex, tostring(self.id)))
 end
 
+-- Přendá dron Mini do bedny / na plošinu (R s prázdnýma rukama u druhého místa, ladění padMiniStow / padMiniDeploy). Okamžitě, bez
 -- animace (Pavel 2026-10-29): dron se v nové poloze rovnou objeví složený / rozložený (SprayDronePad.setDroneOnPlate). Vrací klíč
 -- textu s důvodem, když to nejde, jinak nil.
 function SprayDronePadSlots.moveMiniTo(self, onPlate)
@@ -463,6 +464,10 @@ function SprayDronePadSlots.moveMiniTo(self, onPlate)
     SprayDroneSound.noteAction(string.format("Mini %s: dron přendán %s", tostring(self.id), onPlate and "na plošinu" or "do bedny"))
     raiseDirty(self)
     return nil
+end
+
+function SprayDronePadSlots.debugMoveMini(self, onPlate)
+    return SprayDronePadSlots.moveMiniTo(self, onPlate)
 end
 
 -- Server, z onUpdate vleku: složený dron čekající na sundání se sundá. Když se mezitím něco změnilo (mise, přečerpání, Mini zavírá

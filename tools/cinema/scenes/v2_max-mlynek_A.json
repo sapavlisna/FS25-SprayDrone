@@ -1,0 +1,391 @@
+{
+ "name": "v2_max-mlynek_A",
+ "title": "max-mlynek | kamera A: 5m.5 oblet proti směru hodin kolem hadice, 5m.6 sledování klesajícího big bagu, 5m.7 nájezd na mlýnek, 5m.8 TRK L→R",
+ "v2": {
+  "akce": "max-mlynek",
+  "kamera": "A",
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 12.7,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -43.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "EMPTY",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "playerTo",
+   "x": 681,
+   "z": -39.0,
+   "force": true
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "vehicles/sdtLimeMill/sdtLimeMill.xml",
+   "x": 677.8,
+   "z": -26.0,
+   "yaw": 0,
+   "once": "mill"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "moveVehicle",
+   "vehicle": "mill",
+   "x": 677.8,
+   "z": -26.0,
+   "yaw": 0
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camOrbit",
+   "radius": 6.0,
+   "radius2": 4.5,
+   "height": 2.6,
+   "height2": 2.2,
+   "angle0": 20,
+   "angle1": 160,
+   "lx": 0.0,
+   "ly": 0.0,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 38,
+   "tau": 0.3,
+   "duration": 8.0,
+   "ease": "smooth",
+   "check": false,
+   "x": 677.8,
+   "y": 1.2,
+   "z": -26.0,
+   "rel": "terrain"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whConnect5"
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "bagLift",
+   "target": "mill",
+   "side": 3.2,
+   "up": 3.4,
+   "dx": 0,
+   "dz": 1,
+   "tLift": 3.0,
+   "tMove": 2.5,
+   "tLower": 1.5,
+   "tHold": 9.0,
+   "fill": 300,
+   "delay": 1.0
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 8.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mill",
+     "x": 6.5,
+     "y": 1.6,
+     "z": 4.0,
+     "tat": "bigBag_lime",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 40
+    },
+    {
+     "t": 8.5,
+     "at": "mill",
+     "x": 6.0,
+     "y": 2.0,
+     "z": 3.0,
+     "tat": "bigBag_lime",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0,
+     "fov": 36
+    }
+   ],
+   "tsmooth": 0.4
+  },
+  {
+   "sleep": 9.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 4.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mill",
+     "x": 3.2,
+     "y": 1.4,
+     "z": -0.3,
+     "tat": "mill",
+     "tx": 0.2,
+     "ty": 1.1,
+     "tz": 0.0,
+     "fov": 34
+    },
+    {
+     "t": 4.0,
+     "at": "mill",
+     "x": 1.8,
+     "y": 1.5,
+     "z": 0.1,
+     "tat": "mill",
+     "tx": 0.2,
+     "ty": 1.1,
+     "tz": 0.0,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 9.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 664,
+     "y": 3.0,
+     "z": -14,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.2,
+     "tz": -26,
+     "trel": "terrain",
+     "fov": 38
+    },
+    {
+     "t": 9.0,
+     "x": 664,
+     "y": 3.0,
+     "z": -21,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.2,
+     "tz": -26,
+     "trel": "terrain",
+     "fov": 38
+    }
+   ]
+  },
+  {
+   "cmd": "dbg",
+   "command": "whValve"
+  },
+  {
+   "sleep": 8.0
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff",
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "mill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

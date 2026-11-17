@@ -1,0 +1,37 @@
+{
+ "popis": "oblet proti směru hodin od pravého zadního rohu k pravému boku (žebřík, jih, voda)",
+ "typ": "C",
+ "pohyb": "ORB-CCW",
+ "smer": "CCW",
+ "fov": "40 → 38",
+ "vyska": "3,2 → 3,6 m, r = 8,5 → 8 m",
+ "zabery": [
+  {
+   "id": "middle-4.1",
+   "od": 2.0,
+   "do": 12.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camOrbit",
+   "radius": 8.5,
+   "radius2": 8,
+   "height": 3.2,
+   "height2": 3.6,
+   "angle0": -49.4,
+   "angle1": 18.4,
+   "lx": 0.0,
+   "ly": 1.8,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 38,
+   "tau": 0.3,
+   "duration": 15,
+   "ease": "smooth",
+   "check": false,
+   "target": "middle"
+  }
+ ]
+}

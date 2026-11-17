@@ -1,0 +1,88 @@
+{
+ "popis": "7.5 nízká statika zepředu zprava, 7.7 detail výměny baterie (nájezd k šachtě)",
+ "typ": "PC / D",
+ "pohyb": "STAT → NAJ",
+ "smer": "–",
+ "fov": "34 / 32 → 28",
+ "vyska": "0,9 m; 1,6 → 1,5 m",
+ "zabery": [
+  {
+   "id": "mini-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "mini-7.7",
+   "od": "servicing +0",
+   "do": "servicing +10"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 25,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -9,
+     "y": 0.9,
+     "z": 6,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 34
+    },
+    {
+     "t": 25,
+     "at": "mini",
+     "x": -9,
+     "y": 0.9,
+     "z": 6,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "after": "servicing",
+   "cmd": "camPath",
+   "duration": 10,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 2.7,
+     "y": 1.6,
+     "z": -0.6,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 32
+    },
+    {
+     "t": 10,
+     "at": "mini",
+     "x": 2.2,
+     "y": 1.5,
+     "z": -1.0,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 28
+    }
+   ]
+  }
+ ]
+}

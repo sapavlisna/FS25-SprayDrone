@@ -1,0 +1,131 @@
+{
+ "popis": "5m.2 druhý jeřáb z druhé strany a druhý uzamčený rám pro 5m.3/5m.4",
+ "typ": "C / D",
+ "pohyb": "JIB-D → STAT (uzamčený)",
+ "smer": "–",
+ "fov": "40 → 34 / 34",
+ "vyska": "3,2 → 1,0 m; 1,2 m",
+ "zabery": [
+  {
+   "id": "max-5m.1",
+   "od": 0.5,
+   "do": 7.0
+  },
+  {
+   "id": "max-5m.2",
+   "od": 7.5,
+   "do": 10.5
+  },
+  {
+   "id": "max-5m.3",
+   "od": 11.0,
+   "do": 13.5
+  },
+  {
+   "id": "max-5m.4",
+   "od": 14.2,
+   "do": 15.7
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 680.5,
+     "y": 3.5,
+     "z": -16,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 7.0,
+     "x": 680.5,
+     "y": 3.5,
+     "z": -16,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "at": 7.0,
+   "cmd": "camPath",
+   "duration": 3.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 670,
+     "y": 3.4,
+     "z": -19,
+     "rel": "terrain",
+     "tx": 684.5,
+     "ty": 0.3,
+     "tz": -32.6,
+     "trel": "terrain",
+     "fov": 40
+    },
+    {
+     "t": 3.5,
+     "x": 672,
+     "y": 1.8,
+     "z": -20,
+     "rel": "terrain",
+     "tx": 684.5,
+     "ty": 0.3,
+     "tz": -32.6,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "at": 10.5,
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 668,
+     "y": 1.8,
+     "z": -17,
+     "rel": "terrain",
+     "tx": 677.2,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 7.0,
+     "x": 668,
+     "y": 1.8,
+     "z": -17,
+     "rel": "terrain",
+     "tx": 677.2,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

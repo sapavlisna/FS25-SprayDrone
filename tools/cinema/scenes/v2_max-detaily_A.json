@@ -1,0 +1,369 @@
+{
+ "name": "v2_max-detaily_A",
+ "title": "max-detaily | kamera A: TILT-U žebřík, TRK L→R plachty, NAJ truhla a navíječe, STAT dvě centrály, ODJ ventily a vápnová spojka",
+ "v2": {
+  "akce": "max-detaily",
+  "kamera": "A",
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.2",
+   "max-4.3",
+   "max-4.4",
+   "max-4.5",
+   "max-4.6"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 12.37,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -55.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "SDT_FINE_LIME",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 2.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": -4.8,
+     "y": 0.5,
+     "z": -1.0,
+     "tat": "max",
+     "tx": -1.9,
+     "ty": 0.2,
+     "tz": -1.7,
+     "fov": 36
+    },
+    {
+     "t": 2.0,
+     "at": "max",
+     "x": -4.8,
+     "y": 0.5,
+     "z": -1.0,
+     "tat": "max",
+     "tx": -1.9,
+     "ty": 0.2,
+     "tz": -1.7,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": -4.8,
+     "y": 0.5,
+     "z": -1.0,
+     "tat": "max",
+     "tx": -1.9,
+     "ty": 0.2,
+     "tz": -1.7,
+     "fov": 36
+    },
+    {
+     "t": 5.5,
+     "at": "max",
+     "x": -4.8,
+     "y": 0.5,
+     "z": -1.0,
+     "tat": "max",
+     "tx": -1.9,
+     "ty": 2.6,
+     "tz": -1.7,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": -5.0,
+     "y": 2.0,
+     "z": -6.0,
+     "tat": "max",
+     "tx": -1.2,
+     "ty": 2.6,
+     "tz": -5.0,
+     "fov": 32
+    },
+    {
+     "t": 5.5,
+     "at": "max",
+     "x": -5.0,
+     "y": 2.0,
+     "z": 2.0,
+     "tat": "max",
+     "tx": -1.2,
+     "ty": 2.6,
+     "tz": 3.0,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 5.0,
+     "y": 3.5,
+     "z": -7.0,
+     "tat": "max",
+     "tx": 0.7,
+     "ty": 2.6,
+     "tz": -2.5,
+     "fov": 36
+    },
+    {
+     "t": 5.5,
+     "at": "max",
+     "x": 2.6,
+     "y": 3.2,
+     "z": -3.6,
+     "tat": "max",
+     "tx": 0.7,
+     "ty": 2.6,
+     "tz": -2.5,
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 3.2,
+     "y": 2.2,
+     "z": 3.6,
+     "tat": "max",
+     "tx": 0,
+     "ty": 1.8,
+     "tz": 1.4,
+     "fov": 40
+    },
+    {
+     "t": 5.5,
+     "at": "max",
+     "x": 3.2,
+     "y": 2.2,
+     "z": 3.6,
+     "tat": "max",
+     "tx": 0,
+     "ty": 1.8,
+     "tz": 1.4,
+     "fov": 40
+    }
+   ]
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": -2.3,
+     "y": 1.9,
+     "z": -2.2,
+     "tat": "max",
+     "tx": -1.0,
+     "ty": 1.6,
+     "tz": -2.2,
+     "fov": 34
+    },
+    {
+     "t": 5.0,
+     "at": "max",
+     "x": -6.5,
+     "y": 2.4,
+     "z": -1.0,
+     "tat": "max",
+     "tx": -1.0,
+     "ty": 1.6,
+     "tz": -3.0,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "sleep": 5.0
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

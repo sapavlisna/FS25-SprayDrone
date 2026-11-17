@@ -1,0 +1,181 @@
+{
+  "_help": "Hlavní časový plán. Postup úprav je v hlavičce render.py. Pole záběru: id, ch (kapitola), type (video|shop|planner|title|card), dur (plánovaná délka ze scénáře v s, u karet délka zobrazení), clip (název v out/trailer/raw bez přípony, null = chybí), in/out (výřez pro N a výchozí), cuts (výřez pro P a T), versions (T/P/N), title (krátký název), cap (titulek P a N, [Alt+8] = klávesový štítek), keys (klávesy), steps (řádky postupu pro N), audio (true = zvuk hry z klipu), card (obsah karty), note. Zvuk hry: v klipech je ticho, game_audio_db je ve verzích null (vypnuto).",
+  "paths": {
+    "raw": "out/trailer/raw",
+    "music": "out/trailer/hudba",
+    "final": "out/trailer/final",
+    "work": "tmp/trailer/edit_work"
+  },
+  "brand": {
+    "title": "SPRAYDRONE",
+    "subtitle": "Postřikové drony pro Farming Simulator 25"
+  },
+  "versions": {
+    "T": {
+      "label": "Trailer",
+      "target_s": 60,
+      "music": [
+        {
+          "file": "Inspired.mp3",
+          "start": 80
+        }
+      ],
+      "beat_sync": true,
+      "min_beats": 4,
+      "beat_unit": 2,
+      "xfade": 0,
+      "captions": null,
+      "chapter_cards": false,
+      "cards": false,
+      "game_audio_db": null,
+      "title_beats": 4,
+      "end_beats": 10
+    },
+    "P": {
+      "label": "Přehled",
+      "target_s": 180,
+      "music": [
+        {
+          "file": "Heroic Age.mp3"
+        },
+        {
+          "file": "Impact Moderato.mp3"
+        },
+        {
+          "file": "Inspired.mp3"
+        }
+      ],
+      "beat_sync": false,
+      "xfade": 0.3,
+      "captions": "P",
+      "chapter_cards": true,
+      "chapter_card_s": 2.0,
+      "cards": false,
+      "game_audio_db": null,
+      "title_s": 3.0,
+      "end_s": 6.0
+    },
+    "N": {
+      "label": "Návod",
+      "target_s": 600,
+      "music": [
+        {
+          "file": "Dreams Become Real.mp3"
+        },
+        {
+          "file": "Inspired.mp3"
+        },
+        {
+          "file": "Heroic Age.mp3"
+        },
+        {
+          "file": "Impact Moderato.mp3"
+        }
+      ],
+      "beat_sync": false,
+      "xfade": 0.3,
+      "captions": "N",
+      "chapter_cards": true,
+      "chapter_card_s": 3.5,
+      "cards": true,
+      "game_audio_db": null,
+      "title_s": 4.0,
+      "end_s": 8.0
+    }
+  },
+  "chapters": [
+    {
+      "id": "K0",
+      "title": "Úvod",
+      "sub": "Co je SprayDrone a které vleky existují."
+    },
+    {
+      "id": "K1",
+      "title": "Obchod a konfigurace",
+      "sub": "Tři vleky, drony S/M/L, baterie, barvy a doplňky."
+    },
+    {
+      "id": "K2",
+      "title": "Příjezd a rozložení",
+      "sub": "Souprava dojede k poli, vlek se rozloží, zapne se centrála."
+    },
+    {
+      "id": "K3",
+      "title": "Voda a koncentrát",
+      "sub": "Pumpa, hlavní nádrž, kanystry s koncentrátem, mixér a nabíječky."
+    },
+    {
+      "id": "K4",
+      "title": "Plánovač mise",
+      "sub": "Pole, plodina, dávka, dráhy letu, počasí a dosah relé."
+    },
+    {
+      "id": "K5",
+      "title": "Let a postřik",
+      "sub": "Start, postřik pole, výměna baterie, návrat."
+    },
+    {
+      "id": "K6",
+      "title": "Vápnění",
+      "sub": "Mlýnek, big bag, hadice a vápnění pole dronem."
+    },
+    {
+      "id": "K7",
+      "title": "Sbalení a odjezd",
+      "sub": "Drony přistanou, vlek se složí, souprava odjede."
+    },
+    {
+      "id": "K8",
+      "title": "Závěr",
+      "sub": ""
+    }
+  ],
+  "shots": [
+    {"id": "0.0", "ch": "K0", "type": "title", "dur": 3, "versions": ["T", "P", "N"], "title": "Titulní karta", "note": "přidáno k scénáři; text z brand"},
+    {"id": "0.1", "ch": "K0", "type": "video", "dur": 5, "clip": "b01_aerial_t3", "in": 0.5, "out": 7.0, "cuts": {"P": [1.0, 6.0], "T": [1.0, 5.5]}, "versions": ["T", "P", "N"], "title": "Vzdušný sjezd k farmě", "cap": {"P": "Souprava přijíždí k farmě", "N": "Souprava přijíždí k farmě"}},
+    {"id": "0.2", "ch": "K0", "type": "video", "dur": 10, "clip": "c02_three_wide_t4", "versions": ["P", "N"], "title": "Tři vleky před stodolou", "cap": {"P": "Mini, Max a Middle vedle sebe před stodolou", "N": "Mini, Max a Middle vedle sebe před stodolou"}, "in": 0.5, "out": 9.5, "cuts": {"P": [1.0, 7.0]}, "note": "c02_three_wide_t4: vleky menší v záběru, popředí prázdný štěrk"},
+    {"id": "0.3", "ch": "K0", "type": "card", "dur": 10, "versions": ["N"], "title": "Kapitoly návodu", "card": {"kind": "chapters", "title": "Kapitoly návodu"}},
+    {"id": "1.1", "ch": "K1", "type": "shop", "dur": 10, "clip": "u11_shop_trailers_t2", "versions": ["N"], "title": "Obchod: kategorie vleky", "cap": {"N": "Obchod: vleky Mini, Middle a XL"}, "steps": ["Mini 3 900 €, Middle 6 100 €, XL (v modu Max) 48 000 €.", "V záložce BZUK je i mlýnek na vápno."], "in": 0.3, "out": 12.5, "note": "Max se v obchodě jmenuje XL; drobné opakované snímky při posunu seznamu"},
+    {"id": "1.2", "ch": "K1", "type": "shop", "dur": 12, "clip": "u12_shop_config_t3", "versions": ["N"], "title": "Obchod: dron a baterie", "cap": {"N": "Konfigurace Middle: dron a baterie"}, "steps": ["Dron Malý, Střední nebo Velký, model na střeše se vymění.", "Baterií je 0 až 6, každá s cenou v obchodě."], "in": 0.3, "out": 12.3, "note": "Middle nabízí 0 až 6 baterií (scénář psal 0 až 5)"},
+    {"id": "1.3", "ch": "K1", "type": "shop", "dur": 12, "clip": "u13_shop_look_t3", "versions": ["N"], "title": "Obchod: vzhled", "cap": {"N": "Vzhled: design, barva, hrany paluby, anténa a GPS"}, "steps": ["Designy BZUK, ROSA, kapka a STRATUS AGRI.", "Barva plachty a ráfků, dřevěné hrany paluby, anténa a GPS."], "in": 0.3, "out": 14.8},
+    {"id": "1.4", "ch": "K1", "type": "shop", "dur": 15, "clip": "u14_shop_extras_t3", "versions": ["N"], "title": "Obchod: doplňky", "cap": {"N": "Vybavení dronů, kanystry a mlýnek"}, "in": 0.3, "out": 12.2, "steps": ["Relé, pumpa a násypka (barva laku).", "Kanystry: hnojivo, herbicid, nafta a big bag."], "note": "relé, pumpa a tablet nemají v obchodě 3D náhled ani konfiguraci"},
+    {"id": "1.5", "ch": "K1", "type": "video", "dur": 26, "clip": "c15_compare_t1", "versions": ["P", "N"], "title": "Srovnání tří vleků", "cap": {"P": "Mini, Max a Middle: tři vleky vedle sebe", "N": "Mini, Max a Middle: tři vleky vedle sebe"}, "in": 0.0, "out": 13.5, "cuts": {"P": [1.0, 10.0]}, "steps": ["Mini nese drona na rozkládací desce."]},
+    {"id": "2.1", "ch": "K2", "type": "video", "dur": 6, "clip": "b02_front_t7", "in": 0.3, "out": 6.5, "cuts": {"P": [0.5, 5.5], "T": [0.5, 4.5]}, "versions": ["T", "P", "N"], "title": "Asfaltka", "cap": {"P": "Pickup s vlekem Middle jede k poli", "N": "Pickup s vlekem Middle jede k poli"}, "note": "scénář chtěl protisvětlo; klip je čelní světlo (protisvětlo bylo tmavé)"},
+    {"id": "2.2", "ch": "K2", "type": "video", "dur": 5, "clip": "b03_gravel_t3", "in": 0.5, "out": 7.0, "cuts": {"P": [1.0, 6.0], "T": [1.0, 5.0]}, "versions": ["T", "P", "N"], "title": "Štěrková cesta", "cap": {"P": "Příjezd k poli", "N": "Příjezd k poli"}},
+    {"id": "2.3", "ch": "K2", "type": "video", "dur": 5, "clip": "c23_park_t1", "versions": ["N"], "title": "Zaparkování", "cap": {"N": "Zaparkování u pole, vlek se odpojí a pickup odjede"}, "in": 1.5, "out": 13.0, "note": "pickup dojede, zabrzdí, vlek stojí, pickup odjede; souprava na trávě u okraje pole"},
+    {"id": "2.4", "ch": "K2", "type": "video", "dur": 12, "clip": "b04_unfold_t1", "in": 0.5, "out": 12.0, "cuts": {"P": [1.0, 8.0], "T": [1.0, 5.0]}, "versions": ["T", "P", "N"], "title": "Rozkládání vleku", "keys": ["X"], "cap": {"P": "Rozložení vleku [X]", "N": "Rozložení vleku [X]"}, "steps": ["Vlek nesmí stát příliš nakloněný (nejvýš 5°).", "Vyklopí se žebřík, rozbalí se plachty a rozloží se dron."]},
+    {"id": "2.5", "ch": "K2", "type": "video", "dur": 6, "clip": "b09_mast_t1", "in": 1.0, "out": 7.0, "cuts": {"T": [3.0, 6.5]}, "versions": ["T", "N"], "title": "Stožár antény a GPS", "cap": {"N": "Teleskopický stožár s anténou a GPS vyjede"}, "note": "T přidáno oproti scénáři (silueta proti obloze)"},
+    {"id": "2.6", "ch": "K2", "type": "video", "dur": 10, "clip": "c26_max_unfold_t2", "versions": ["P", "N"], "title": "Max: plošiny a dva drony", "cap": {"P": "Max: rozložení plachet, plošin a dvou dronů", "N": "Max: rozložení plachet, plošin a dvou dronů"}, "in": 0.0, "out": 9.0, "cuts": {"P": [0.5, 7.0]}, "note": "protisvětlo, strana vleku ve stínu", "steps": ["Z vleku vyjedou oba drony."]},
+    {"id": "2.7", "ch": "K2", "type": "video", "dur": 8, "clip": "c27_dusk_t2", "versions": ["P", "N"], "title": "Elektrocentrála", "keys": ["Alt+6"], "cap": {"P": "Elektrocentrála [Alt+6]", "N": "Elektrocentrála [Alt+6]"}, "steps": ["Kamera najíždí na elektrocentrálu na vleku.", "Světla vleku a pickupu svítí."], "in": 0.5, "out": 11.5, "cuts": {"P": [2.0, 8.0]}, "note": "slabší: výfuk ani světlo centrály nejsou znát, jen skříň a červená světla"},
+    {"id": "2.8", "ch": "K2", "type": "card", "dur": 12, "versions": ["N"], "title": "Postup rozložení", "card": {"title": "Postup rozložení", "numbered": true, "draft": true, "lines": ["Zastav vlek na rovném místě (sklon nejvýš 5°).", "Rozlož vlek klávesou [X].", "Po rozložení vyjede stožár s anténou a GPS.", "Zapni elektrocentrálu [Alt+6]."]}},
+    {"id": "3.1", "ch": "K3", "type": "video", "dur": 15, "clip": "c31_pump_t2", "versions": ["P", "N"], "title": "Pumpa a hadice", "cap": {"P": "Pumpa z cisterny do vleku", "N": "Pumpa z cisterny do vleku: sací a výstupní hadice"}, "in": 0.0, "out": 12.0, "cuts": {"P": [2.0, 9.0]}, "note": "zdroj je vanilla cisterna, ne rybník; plnění nádrže ve videu není vidět", "steps": ["Cisterna je zdroj vody, hadice vedou k ventilu vleku."]},
+    {"id": "3.2", "ch": "K3", "type": "video", "dur": 10, "clip": "c32_max_fill_t2", "versions": ["N"], "title": "Max: pumpa a hadice", "cap": {"N": "Max: stejná sestava s pumpou a hadicemi z cisterny"}, "in": 1.0, "out": 10.0, "note": "slabší: hladinoměry v modu nejsou, plnění není vidět"},
+    {"id": "3.3", "ch": "K3", "type": "video", "dur": 15, "clip": "c33_box_t3", "versions": ["P", "N"], "title": "Bedna s kanystry", "keys": ["R"], "cap": {"P": "Koncentrát z kanystru [R]", "N": "Koncentrát z kanystru do koncentrátové nádrže [R]"}, "steps": ["Otevře se bedna s kanystry.", "Kanystr se naklopí nad hrdlem a koncentrát se vlije."], "in": 0.0, "out": 13.0, "cuts": {"P": [1.0, 9.0]}, "note": "kanystr drží neviditelná ruka"},
+    {"id": "3.4", "ch": "K3", "type": "video", "dur": 10, "clip": "c34_morning_t2", "versions": ["N"], "title": "Ranní plnění nádrže dronu", "cap": {"N": "Ráno v mlze: dron přistane na desce a plní se hadicí"}, "in": 0.5, "out": 15.0, "note": "slabší: mixér je v záběru jen z části; ráno s mlhou"},
+    {"id": "3.5", "ch": "K3", "type": "video", "dur": 10, "clip": "c35_night_t1", "versions": ["N"], "title": "Nabíjení baterií", "cap": {"N": "Noc: v otevřené truhle se nabíjejí baterie"}, "steps": ["Na nabíječkách svítí modré LED proužky."], "in": 0.0, "out": 13.0, "note": "noc 21:30"},
+    {"id": "3.6", "ch": "K3", "type": "card", "dur": 14, "versions": ["N"], "title": "Postup míchání", "card": {"title": "Voda a koncentrát", "numbered": true, "draft": true, "lines": ["Pumpou naplň hlavní nádrž vodou.", "Do koncentrátové nádrže nalij koncentrát z kanystru [R].", "Dron se plní hotovou směsí: mixér bere koncentrát a vodu.", "Proporce a spotřebu na hektar doplnit podle plánovače."]}},
+    {"id": "4.1", "ch": "K4", "type": "planner", "dur": 10, "clip": "u41_planner_open_t2", "versions": ["N"], "title": "Plánovač: otevření", "cap": {"N": "Plánovač mise: mapa polí v dosahu"}, "steps": ["Kruh dosahu rádia vleku má 450 m, pole v dosahu jsou zeleně.", "Karta plánu vybraného pole."], "in": 0.3, "out": 11.0, "note": "záběr začíná už otevřeným plánovačem"},
+    {"id": "4.2", "ch": "K4", "type": "planner", "dur": 15, "clip": "u42_planner_field_t3", "versions": ["N"], "title": "Plánovač: výběr pole", "cap": {"N": "Výběr pole a odhad mise"}, "steps": ["Karta pole: dávky, čas letu, plocha, zásoba přípravku, nafta a baterie.", "Na stránce Let výška přeletu a obrubní průjezdy přepočítají odhad."], "in": 0.3, "out": 11.5, "note": "plodina se v plánovači nezobrazuje, jen přípravek"},
+    {"id": "4.3", "ch": "K4", "type": "planner", "dur": 15, "clip": "u43_planner_routes_t5", "versions": ["P", "N"], "title": "Plánovač: dráhy a dosah", "cap": {"P": "Plánovač: dráhy letu a dosah relé", "N": "Dráhy letu na mapě a kruhy dosahu rádia a relé"}, "in": 0.3, "out": 14.0, "cuts": {"P": [1.0, 9.5]}, "steps": ["Obrubní průjezdy mění dráhy letu.", "Relé prodlužují dosah od vleku."], "note": "kruhy relé jsou tenké a málo kontrastní"},
+    {"id": "4.4", "ch": "K4", "type": "video", "dur": 10, "clip": null, "versions": ["P", "N"], "title": "Pohled z dronu", "keys": ["Alt+9"], "cap": {"P": "Pohled z dronu [Alt+9]", "N": "Pohled z dronu za letu [Alt+9]"}, "steps": ["Zpět do vleku se vrátíš klávesou [C]."]},
+    {"id": "4.5", "ch": "K4", "type": "card", "dur": 14, "versions": ["N"], "title": "Co ukáže plánovač", "card": {"title": "Co ukáže plánovač", "numbered": false, "draft": true, "lines": ["Zakázky a jejich stav (hotovo v %).", "Počasí: vítr proti limitu větru.", "Dosah z baterie, výška přeletu a dosah relé.", "Plocha k ošetření, výdrž baterie a doba servisu na vleku."]}},
+    {"id": "5.1", "ch": "K5", "type": "video", "dur": 8, "clip": "b05_takeoff_t2", "in": 0.0, "out": 8.5, "cuts": {"P": [0.5, 6.5], "T": [0.5, 4.5]}, "versions": ["T", "P", "N"], "title": "Start dronu", "keys": ["Alt+8"], "cap": {"P": "Start letu [Alt+8]", "N": "Start letu [Alt+8]"}, "steps": ["Vrtule se rozjedou a dron vzlétne."]},
+    {"id": "5.2", "ch": "K5", "type": "video", "dur": 12, "clip": "b06_spray_t1", "in": 0.5, "out": 10.5, "cuts": {"P": [1.0, 7.0], "T": [1.0, 5.0]}, "versions": ["T", "P", "N"], "title": "Postřik kukuřice", "cap": {"P": "Dron stříká pole", "N": "Dron stříká pole kukuřice"}},
+    {"id": "5.3", "ch": "K5", "type": "video", "dur": 8, "clip": "b07_topdown_t2", "in": 0.5, "out": 8.5, "cuts": {"P": [1.0, 6.0], "T": [1.0, 4.5]}, "versions": ["T", "P", "N"], "title": "Pohled shora", "cap": {"P": "Stopa postřiku po řádcích", "N": "Pohled shora: stopa postřiku po řádcích"}},
+    {"id": "5.4", "ch": "K5", "type": "video", "dur": 10, "clip": "b10_pad_t1", "in": 0.5, "out": 10.5, "cuts": {"P": [1.0, 7.0], "T": [3.0, 7.0]}, "versions": ["T", "P", "N"], "title": "Max: dva drony", "keys": ["Alt+8"], "cap": {"P": "Max: dva drony najednou [Alt+8]", "N": "Max: [Alt+8] startuje oba drony, [Alt+0] je vrací"}, "note": "slabší záběr: drony nestříkají vedle sebe, vzlétají s odstupem 3 s"},
+    {"id": "5.5", "ch": "K5", "type": "video", "dur": 12, "clip": "c55_deck_t2", "versions": ["P", "N"], "title": "Přistání a výměna baterie", "cap": {"P": "Přistání, výměna baterie a doplnění nádrže", "N": "Přistání, výměna baterie a doplnění nádrže"}, "steps": ["Dron přistane na desce vleku.", "Hadice se napojí a baterie se vymění."], "in": 2.0, "out": 17.5, "cuts": {"P": [3.0, 14.0]}},
+    {"id": "5.6", "ch": "K5", "type": "video", "dur": 8, "clip": "c56_return_t7", "versions": ["N"], "title": "Návrat dronu", "keys": ["Alt+0"], "cap": {"P": "Návrat dronu [Alt+0]", "N": "Návrat dronu [Alt+0]"}, "steps": ["Dron klesne a přistane na střechu vleku."], "in": 1.5, "out": 12.0, "cuts": {"P": [2.0, 9.0]}},
+    {"id": "5.7", "ch": "K5", "type": "video", "dur": 5, "clip": "a11_river_e_t7", "in": 0.5, "out": 5.5, "cuts": {"P": [1.0, 5.5], "T": [1.5, 5.5]}, "versions": ["T", "P", "N"], "title": "Řeka", "cap": {"P": "Dron přelétá řeku", "N": "Dron přelétá řeku"}, "note": "starší klip a11 (kamera za dronem); b11_river_t5 je statická alternativa"},
+    {"id": "5.8", "ch": "K5", "type": "card", "dur": 14, "versions": ["N"], "title": "Po vybití baterie", "card": {"title": "Když se baterie vybije", "numbered": false, "draft": true, "lines": ["Dron se vrátí na vlek; ručně ho vrátí [Alt+0].", "Na vleku se vymění baterie a doplní nádrž.", "Není-li náhradní baterie nabitá, mise čeká na nabití.", "Hlídej naftu v elektrocentrále, jinak mise skončí."]}},
+    {"id": "6.1", "ch": "K6", "type": "video", "dur": 8, "clip": "c61_hitch_t5", "versions": ["P", "N"], "title": "Zapřažení mlýnku", "cap": {"P": "Max couvá k mlýnku a zapřáhne ho", "N": "Max couvá k mlýnku a zapřáhne ho"}, "in": 0.0, "out": 13.0, "cuts": {"P": [2.0, 11.0]}, "note": "tahač couvá sám (řízení v modu)", "steps": ["Po zapřažení se zvedne opěrné kolečko."]},
+    {"id": "6.2", "ch": "K6", "type": "video", "dur": 10, "clip": "c62_bigbag_t6", "versions": ["T", "P", "N"], "title": "Big bag do násypky", "cap": {"P": "Big bag nad násypkou mlýnku", "N": "Big bag se zvedne a spustí nad násypku mlýnku"}, "in": 0.0, "out": 12.0, "cuts": {"P": [3.0, 10.5], "T": [5.0, 9.0]}, "note": "big bag nese neviditelná ruka"},
+    {"id": "6.3", "ch": "K6", "type": "video", "dur": 10, "clip": "c63b_south_t1", "versions": ["T", "P", "N"], "title": "Mlýnek", "keys": ["Alt+7"], "cap": {"P": "Mlýnek [Alt+7]", "N": "Mlýnek: motor běží a svítí zelený prstenec [Alt+7]"}, "in": 0.0, "out": 13.0, "cuts": {"P": [3.0, 10.0], "T": [6.0, 10.0]}, "note": "alternativy: c63c_north_t2 (tok vápna v hadici není vidět), c63_mill_t1 (orbit kolem mlýnku); prach ve hře není vidět"},
+    {"id": "6.4", "ch": "K6", "type": "video", "dur": 10, "clip": "c64_lime_t1", "versions": ["P", "N"], "title": "Vápnění pole", "cap": {"P": "Dron vápní strniště", "N": "Dron vápní strniště, bílá mlha je vápno"}, "in": 0.5, "out": 10.0, "cuts": {"P": [1.0, 6.5]}, "note": "strniště je hnědé pole; bílá mlha je vápno"},
+    {"id": "6.5", "ch": "K6", "type": "card", "dur": 14, "versions": ["N"], "title": "Vápnění: čísla", "card": {"title": "Vápnění", "numbered": false, "draft": true, "lines": ["Vápnit je potřeba, když to hra u pole hlásí.", "Spotřeba je kolem 648 l/ha (odhad, po testu ověřit).", "Dávka dronu S / M / L: 20 / 40 / 75 l, to je 0,03 / 0,06 / 0,12 ha.", "Ceny doplnit z obchodu."]}},
+    {"id": "7.1", "ch": "K7", "type": "video", "dur": 10, "clip": "c71_pack_t1", "versions": ["P", "N"], "title": "Sbalení vleku", "cap": {"P": "Dron přistane, plachty a žebřík se složí", "N": "Dron přistane, plachty a žebřík se složí"}, "in": 0.0, "out": 13.5, "cuts": {"P": [1.5, 11.5]}, "steps": ["Vlek je sbalený a připraven k odjezdu."]},
+    {"id": "7.2", "ch": "K7", "type": "video", "dur": 10, "clip": "b12_depart_t1", "in": 0.5, "out": 10.0, "cuts": {"P": [1.0, 7.0], "T": [1.0, 5.0]}, "versions": ["T", "P", "N"], "title": "Odjezd", "cap": {"P": "Souprava odjíždí", "N": "Souprava odjíždí"}, "note": "scénář: západ slunce; klip je světlý a hustá zeleň (část duplicitních snímků)"},
+    {"id": "7.3", "ch": "K7", "type": "card", "dur": 12, "versions": ["N"], "title": "Shrnutí a rady", "card": {"title": "Shrnutí a rady", "numbered": false, "draft": true, "lines": ["Rozkládej vlek na rovném místě.", "Před letem zkontroluj počasí a vítr v plánovači.", "Měj nabité náhradní baterie a naftu v elektrocentrále.", "Po práci vlek složit a odjet."]}},
+    {"id": "8.1", "ch": "K8", "type": "video", "dur": 8, "clip": "b08_finale_t2", "in": 0.5, "out": 8.5, "cuts": {"P": [0.5, 8.0], "T": [0.5, 6.5]}, "versions": ["T", "P", "N"], "title": "Závěr: tři vleky", "cap": {"P": "SprayDrone: postřik a vápnění dronem", "N": "Hotovo: tři vleky a drony ve vzduchu"}},
+    {"id": "8.2", "ch": "K8", "type": "title", "dur": 10, "versions": ["T", "P", "N"], "title": "Závěrečný titulek", "card": {"kind": "end"}, "note": "kredit hudby se skládá automaticky z použitých skladeb (CC BY 4.0)"}
+  ]
+}

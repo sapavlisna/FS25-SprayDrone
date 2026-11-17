@@ -1,0 +1,307 @@
+{
+ "popis": "Řada zleva doprava na rovné ploše (z = 152): kanystr hnojiva, herbicidu, nafty, pytel vápna, big bag, pumpa, násypka, reléová tyč (mezery ≥ 0,5 m; x = -712.0, -711.0, -710.0, -708.6, -706.7, -704.4, -701.8, -698.4). Vleky mimo záběr (Mini zaparkován na (300, −665)).",
+ "vlek": "prod",
+ "beat": "prod",
+ "zabery": [
+  "prod-2",
+  "prod-3",
+  "prod-4",
+  "prod-5",
+  "prod-8"
+ ],
+ "misto": "BET (náhrada: dvůr, -712, 152)",
+ "cas": "13:00",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 13.0,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "sdtLimeMill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeBigBag",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "relayPole",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "mini",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": 300,
+   "z": -665,
+   "yaw": 270,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "playerTo",
+   "x": -706,
+   "z": 158,
+   "force": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "sdtLimeMill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeBigBag",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "relayPole",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "fertilizer",
+   "x": -712.0,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "herbicide",
+   "x": -711.0,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "diesel",
+   "x": -710.0,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "limebag",
+   "x": -708.6,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/limeBigBag/limeBigBag.xml",
+   "x": -706.7,
+   "z": 152,
+   "yaw": 180,
+   "fill": "SDT_FINE_LIME"
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/pump/waterPump.xml",
+   "x": -704.4,
+   "z": 152,
+   "yaw": 180,
+   "diesel": 10
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/hopper/limeHopper.xml",
+   "x": -701.8,
+   "z": 152,
+   "yaw": 180
+  },
+  {
+   "cmd": "ui",
+   "op": "relaySpawn",
+   "x": -698.4,
+   "z": 152
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 48.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "sdtLimeMill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeBigBag",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "relayPole",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

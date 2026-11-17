@@ -1,0 +1,12 @@
+{
+  "name": "t_ground2",
+  "title": "Kontrola usazení: Max a Mini z boku",
+  "steps": [
+    {"cmd": "camSet", "x": -672, "y": 2.0, "z": 100, "rel": "terrain", "tx": -698, "ty": 1.5, "tz": 108, "trel": "terrain", "fov": 50},
+    {"sleep": 1.0},
+    {"snap": "max"},
+    {"cmd": "camSet", "x": -672, "y": 2.0, "z": 120, "rel": "terrain", "tx": -694, "ty": 1.0, "tz": 120, "trel": "terrain", "fov": 50},
+    {"sleep": 1.0},
+    {"snap": "mini"}
+  ]
+}

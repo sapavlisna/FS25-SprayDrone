@@ -217,6 +217,26 @@ function SprayDroneStation.applyPads(self, pads, batteryVariant)
     SprayDroneStation.markRouteDirty(self)
     SprayDroneStation.updateServiceVisuals(self, 0)
     self:requestActionEventUpdate()
+    if SprayDroneDebug and SprayDroneDebug.ENABLED then
+        Logging.info("SDT děj: vlek %s: plošiny %s, dronů %d, %s", tostring(self.id), SprayDroneStation.getPadsText(self), spec.numDrones,
+            SprayDroneStation.getPadParamsText(self))
+    end
+end
+
+function SprayDroneStation.getPadsText(self)
+    local spec = SprayDroneDrones.getRoot(self)
+    local parts = {}
+    for i = 1, spec.numPads do
+        parts[i] = spec.pads[i] ~= "" and spec.pads[i] or "-"
+    end
+    return table.concat(parts, "/")
+end
+
+function SprayDroneStation.getPadParamsText(self)
+    local spec = SprayDroneDrones.getRoot(self)
+    return string.format("dron %s: nádrž %.0f l, záběr %.0f m, hmotnost %.1f kg, baterie %.0f s (%s), vítr max %.0f m/s, čerpadlo %.1f l/s, dosah %.0f m",
+        spec.droneName ~= "" and spec.droneName or "žádný", spec.tankCapacity, spec.workWidth, spec.droneMass, spec.batteryCapacity,
+        tostring(spec.batteryVariant), spec.sprayMaxWind, spec.pumpRate, spec.maxRange)
 end
 
 local function getPadIndex(name)

@@ -220,6 +220,8 @@ function SprayDroneRelay.getChangeBlock(self, unfolded, powered)
     return nil
 end
 
+---------------------------------------------------------------------------------------------------
+
 -- Poloha uzlů podle průběhu rozložení t (0 složeno, 1 rozloženo).
 function SprayDroneRelay.applyProgress(self)
     local state = getSpec(self)

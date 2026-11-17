@@ -1,0 +1,189 @@
+{
+ "name": "u42_planner_field",
+ "title": "Záběr 4.2: plánovač, výběr pole, plodina, dávka, nádrž a nastavení mise",
+ "steps": [
+  {
+   "cmd": "ui",
+   "op": "close"
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove"
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerOpen"
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 4
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "close"
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerOpen"
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerPage",
+   "n": 1
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": -696,
+   "z": 185,
+   "zoom": 2.8,
+   "duration": 0.01,
+   "wait": true,
+   "timeout": 10
+  },
+  {
+   "sleep": 0.4
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 3,
+   "pan": 0.8,
+   "zoom": 3.6,
+   "wait": true,
+   "timeout": 10
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 2,
+   "pan": 0.9,
+   "zoom": 3.0,
+   "wait": true,
+   "timeout": 10
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 4,
+   "pan": 0.9,
+   "zoom": 3.4,
+   "wait": true,
+   "timeout": 10
+  },
+  {
+   "sleep": 0.6
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerPage",
+   "n": 2
+  },
+  {
+   "sleep": 1.4
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerPage",
+   "n": 3
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerSetting",
+   "key": "transitHeight",
+   "delta": 8
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerSetting",
+   "key": "headlands",
+   "delta": 1
+  },
+  {
+   "sleep": 0.7
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerSetting",
+   "key": "headlands",
+   "delta": 1
+  },
+  {
+   "sleep": 0.9
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerSetting",
+   "key": "headlands",
+   "delta": -2
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerSetting",
+   "key": "transitHeight",
+   "delta": -8
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerHover",
+   "off": false
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 4
+  },
+  {
+   "sleep": 0.3
+  },
+  {
+   "cmd": "ui",
+   "op": "close"
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove"
+  }
+ ]
+}

@@ -104,6 +104,33 @@ function SprayDroneBatterySlots.getTakeProblem(self, target)
     return nil
 end
 
+-- Ladicí batteryTake: cíl z argumentu ("n" = šachta n, "d1"/"d2" = baterie v dronu, "" = první obsazená šachta, jinak baterie v dronu)
+-- a důvod, proč z něj vyndat nejde (nil = jde).
+function SprayDroneBatterySlots.getDebugTake(self, arg)
+    local spec = getRoot(self)
+    local target = tonumber(arg)
+    local drone = arg:match("^d(%d)$")
+    if drone ~= nil then
+        target = SprayDroneBatterySlots.getDroneTarget(tonumber(drone))
+    elseif target == nil then
+        for slot = 1, spec.numBatterySlots do
+            if target == nil and SprayDroneBatterySlots.getTargetBattery(self, slot) ~= nil then
+                target = slot
+            end
+        end
+        for d = 1, spec.numDrones or 1 do
+            if target == nil and SprayDroneBatterySlots.getTargetBattery(self, SprayDroneBatterySlots.getDroneTarget(d)) ~= nil then
+                target = SprayDroneBatterySlots.getDroneTarget(d)
+            end
+        end
+    end
+    -- ne „a and b or c“: getTakeProblem vrací nil, když vyndat jde
+    if target == nil then
+        return nil, "sdt_batteryslot_empty"
+    end
+    return target, SprayDroneBatterySlots.getTakeProblem(self, target)
+end
+
 ---------------------------------------------------------------------------------------------------
 -- načtení, smazání
 

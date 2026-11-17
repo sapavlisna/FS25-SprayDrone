@@ -1,0 +1,126 @@
+{
+ "popis": "5m.1 pevná širší kamera, 5m.2 jeřáb dolů k hladině se sacím košem pod vodou (VSTUP modrá, VÝSTUP červená)",
+ "typ": "C / D",
+ "pohyb": "STAT → JIB-D",
+ "smer": "–",
+ "fov": "36 → 40 → 34",
+ "vyska": "1,7 m; 3,8 → 1,1 m",
+ "zabery": [
+  {
+   "id": "max-5m.1",
+   "od": 0.5,
+   "do": 7.0
+  },
+  {
+   "id": "max-5m.2",
+   "od": 7.5,
+   "do": 10.5
+  },
+  {
+   "id": "max-5m.3",
+   "od": 11.0,
+   "do": 13.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 676.5,
+     "y": 1.7,
+     "z": -19,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 7.0,
+     "x": 676.5,
+     "y": 1.7,
+     "z": -19,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "at": 7.0,
+   "cmd": "camPath",
+   "duration": 3.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 675,
+     "y": 3.6,
+     "z": -22,
+     "rel": "terrain",
+     "tx": 684.5,
+     "ty": 0.3,
+     "tz": -32.6,
+     "trel": "terrain",
+     "fov": 40
+    },
+    {
+     "t": 3.5,
+     "x": 677,
+     "y": 1.9,
+     "z": -24,
+     "rel": "terrain",
+     "tx": 684.5,
+     "ty": 0.3,
+     "tz": -32.6,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "at": 10.5,
+   "cmd": "camPath",
+   "duration": 6.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 676,
+     "y": 1.6,
+     "z": -21,
+     "rel": "terrain",
+     "tx": 677.2,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 6.0,
+     "x": 676,
+     "y": 1.6,
+     "z": -21,
+     "rel": "terrain",
+     "tx": 677.2,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

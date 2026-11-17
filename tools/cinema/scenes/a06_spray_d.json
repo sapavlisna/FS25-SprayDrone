@@ -1,0 +1,27 @@
+{
+  "name": "a06_spray_d",
+  "title": "Záběr 5.2: let nad kukuřicí F32, sledování dronu zezadu a shora, mlha postřiku (sledování běží už před záznamem)",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true},
+    {"cmd": "waitDrone", "trailer": "middle", "cond": "parked", "timeout": 120, "optional": true},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -690, "z": 172.5, "yaw": 90, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "setField", "field": 4, "crop": "MAIZE", "growth": 3},
+    {"sleep": 1.0},
+    {"cmd": "selectField", "trailer": "middle", "field": 4},
+    {"cmd": "resetField", "trailer": "middle"},
+    {"cmd": "fillSet", "trailer": "middle"},
+    {"cmd": "camSet", "at": "middle", "x": -4, "y": 5, "z": -8, "tat": "middle:drone1", "tx": 0, "ty": 0, "tz": 0, "fov": 40},
+    {"cmd": "startFlight", "trailer": "middle", "fill": false},
+    {"cmd": "waitDrone", "trailer": "middle", "cond": "spraying", "timeout": 90},
+    {"cmd": "camFollow", "target": "middle:drone1", "ox": 1, "oy": 2.2, "oz": -8, "lx": 0, "ly": -0.6, "lz": 3, "ox2": 2.5, "oy2": 1.9, "oz2": -6.5, "lx2": 0, "ly2": -0.6, "lz2": 3,
+     "tau": 0.6, "tauLook": 0.4, "fov": 38, "fov2": 34, "duration": 13, "ease": "smooth"},
+    {"sleep": 2.0},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.2},
+    {"sleep": 10.0},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true}
+  ]
+}

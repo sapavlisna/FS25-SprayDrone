@@ -1,0 +1,83 @@
+{
+ "name": "u11_shop_trailers",
+ "title": "Záběr 1.1: obchod, kategorie vleky s drony, Mini, Middle, Max a ceny",
+ "steps": [
+  {
+   "cmd": "ui",
+   "op": "close"
+  },
+  {
+   "cmd": "ui",
+   "op": "shopOpen"
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "ui",
+   "op": "shopScroll",
+   "duration": 2.6,
+   "timeout": 10,
+   "wait": true
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "ui",
+   "op": "shopCat",
+   "id": "SPRAYDRONETRAILERS"
+  },
+  {
+   "sleep": 2.2
+  },
+  {
+   "cmd": "ui",
+   "op": "shopItem",
+   "n": 2
+  },
+  {
+   "sleep": 2.2
+  },
+  {
+   "cmd": "ui",
+   "op": "shopItem",
+   "n": 3
+  },
+  {
+   "sleep": 2.4
+  },
+  {
+   "cmd": "ui",
+   "op": "shopItem",
+   "n": 1
+  },
+  {
+   "sleep": 1.8
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "ui",
+   "op": "shopBack"
+  },
+  {
+   "sleep": 0.3
+  },
+  {
+   "cmd": "ui",
+   "op": "close"
+  }
+ ]
+}

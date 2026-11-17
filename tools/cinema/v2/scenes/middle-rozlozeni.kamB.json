@@ -1,0 +1,37 @@
+{
+ "popis": "oblet po směru hodin od levého zadního rohu k levému boku (sever)",
+ "typ": "C",
+ "pohyb": "ORB-CW",
+ "smer": "CW",
+ "fov": "38 → 36",
+ "vyska": "1,6 → 2,4 m, r = 9 → 8,5 m",
+ "zabery": [
+  {
+   "id": "middle-4.1",
+   "od": 2.0,
+   "do": 12.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camOrbit",
+   "radius": 9,
+   "radius2": 8.5,
+   "height": 1.6,
+   "height2": 2.4,
+   "angle0": -130.6,
+   "angle1": -167.5,
+   "lx": 0.0,
+   "ly": 1.4,
+   "lz": 0.0,
+   "fov": 38,
+   "fov2": 36,
+   "tau": 0.3,
+   "duration": 15,
+   "ease": "smooth",
+   "check": false,
+   "target": "middle"
+  }
+ ]
+}

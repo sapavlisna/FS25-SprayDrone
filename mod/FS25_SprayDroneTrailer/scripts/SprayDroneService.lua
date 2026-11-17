@@ -72,6 +72,26 @@ function SprayDroneStation.loadServiceParts(self, xml, key)
     spec.transferMode = SprayDroneStation.TRANSFER_NONE
     spec.transferPallet, spec.transferPalletUnit, spec.palletSearchTime = nil, nil, nil
     spec.transferSyncTimer = 0
+    if SprayDroneStation.DEBUG_POWER then
+        local prefix = spec.dronePrefix
+        local segments, lay = spec.hose ~= nil and spec.hose.segments or {}, spec.hose ~= nil and spec.hose.lay or {}
+        local missing = {}
+        local names = { "battery1", "battery1" .. (spec.batteryVariant or default), "batterySlotDeck1", "batteryCharger",
+            "fillHoseCoil", "fillHoseStart", "fillHoseLay1", "fillHoseSeg1", "fillHoseNozzle", "fillHoseParkPos" }
+        if spec.hasDrone then
+            for _, suffix in ipairs({ "Root", "Tilt", "BatterySlot", "FillPort", "Led_1" }) do
+                table.insert(names, prefix .. suffix)
+            end
+        end
+        for _, name in ipairs(names) do
+            if getMappedNode(self, name) == nil then
+                table.insert(missing, name)
+            end
+        end
+        Logging.info("SDT dron %s (prefix %s), servisní uzly: baterií %d, úchytů %d, článků hadice %d, bodů položené hadice %d, chybí %s",
+            spec.hasDrone and tostring(spec.droneName) or "žádný", tostring(prefix), #spec.batteries, #spec.clamps, #segments, #lay,
+            #missing > 0 and table.concat(missing, ", ") or "nic")
+    end
 end
 
 -- Úchyty lyžin, uzel pro baterii v dronu a plnicí hadice jednoho dronu (spec dronu v kontextu). Hadice mají uzly s prefixem
@@ -762,6 +782,10 @@ function SprayDroneStation:setSprayDroneTransfer(mode, noEventSend, droneIndex)
         end
         spec.palletSearchTime = nil
         self:raiseDirtyFlags(spec.dirtyFlag)
+        if SprayDroneStation.DEBUG_POWER then
+            Logging.info("SDT přečerpávání: režim %d, dron %.1f l, vlek %.1f l", mode, spec.droneFillLevel,
+                self:getFillUnitFillLevel(spec.fillUnitIndex))
+        end
     end
 end
 
@@ -855,6 +879,9 @@ function SprayDroneStation.updateTransferDrone(self, dt)
     if not SprayDroneStation.getCanTransfer(self, mode) or not SprayDroneStation.getHasPower(self) then
         spec.transferMode = SprayDroneStation.TRANSFER_NONE
         self:raiseDirtyFlags(spec.dirtyFlag)
+        if SprayDroneStation.DEBUG_POWER then
+            Logging.info("SDT přečerpávání skončilo: dron %.1f l, vlek %.1f l", spec.droneFillLevel, self:getFillUnitFillLevel(spec.fillUnitIndex))
+        end
         return
     end
     local s = dt * 0.001

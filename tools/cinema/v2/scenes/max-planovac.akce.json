@@ -1,0 +1,316 @@
+{
+ "popis": "t = 1 s `screenWake`, 6 s plánovač; 7 s vybráno blízké pole 59 (u potoka), 9,9 s skok výběru na vzdálenější pole 60 (strniště); 14,9 s karta (stránka 2), 19,4 s mapa; 19,9 / 22,4 / 24,9 s `flightArea` pole 60: 3, 4, 5 bodů (fialová plocha od Maxu k poli).",
+ "vlek": "max",
+ "beat": "6",
+ "zabery": [
+  "max-6.1",
+  "max-6.2",
+  "max-6.3",
+  "max-6.4"
+ ],
+ "misto": "POTOK, plánovač",
+ "cas": "13:05",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 13.08,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -43.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "max",
+   "field": 59
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "max"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER",
+   "liters": 3000
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "SDT_FINE_LIME",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "ui",
+   "op": "close",
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "screenWake",
+   "trailer": "max",
+   "off": true,
+   "optional": true
+  },
+  {
+   "cmd": "flightArea",
+   "trailer": "max",
+   "field": 60,
+   "mode": "clear",
+   "optional": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "screenWake",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "sleep": 5.0
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerOpen",
+   "trailer": "max"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerHover",
+   "off": true
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 59
+  },
+  {
+   "sleep": 0.4
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": 640,
+   "z": 0,
+   "zoom": 2.2,
+   "duration": 0.01,
+   "wait": true,
+   "timeout": 10
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 60
+  },
+  {
+   "sleep": 5.0
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerPage",
+   "n": 2
+  },
+  {
+   "sleep": 4.5
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerPage",
+   "n": 1
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "flightArea",
+   "trailer": "max",
+   "field": 60,
+   "mode": "points",
+   "pts": "666,-47;682,-11;527,15"
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "flightArea",
+   "trailer": "max",
+   "field": 60,
+   "mode": "points",
+   "pts": "666,-47;682,-11;543,51;527,15"
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "flightArea",
+   "trailer": "max",
+   "field": 60,
+   "mode": "points",
+   "pts": "666,-47;682,-11;613,22;543,51;527,15"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "flightArea",
+   "trailer": "max",
+   "field": "all",
+   "mode": "clear",
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerHover",
+   "off": false,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "close",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

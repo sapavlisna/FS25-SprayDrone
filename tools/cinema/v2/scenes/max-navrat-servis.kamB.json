@@ -1,0 +1,88 @@
+{
+ "popis": "7.5 nízká statika zleva zezadu, 7.7 detail výměny baterie v truhle (kamera nad palubou)",
+ "typ": "PC / D",
+ "pohyb": "STAT → NAJ",
+ "smer": "–",
+ "fov": "34 / 36 → 30",
+ "vyska": "1,0 m; 3,6 m",
+ "zabery": [
+  {
+   "id": "max-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "max-7.7",
+   "od": "servicing +0",
+   "do": "servicing +10"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 30,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 9,
+     "y": 1.0,
+     "z": -10,
+     "tat": "max",
+     "tx": 0,
+     "ty": 3.0,
+     "tz": -2.7,
+     "fov": 34
+    },
+    {
+     "t": 30,
+     "at": "max",
+     "x": 9,
+     "y": 1.0,
+     "z": -10,
+     "tat": "max",
+     "tx": 0,
+     "ty": 3.0,
+     "tz": -2.7,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "after": "servicing",
+   "cmd": "camPath",
+   "duration": 10,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 4.5,
+     "y": 3.6,
+     "z": -1.0,
+     "tat": "max",
+     "tx": 0.6,
+     "ty": 2.8,
+     "tz": -1.2,
+     "fov": 36
+    },
+    {
+     "t": 10,
+     "at": "max",
+     "x": 3.4,
+     "y": 3.4,
+     "z": -1.2,
+     "tat": "max",
+     "tx": 0.6,
+     "ty": 2.8,
+     "tz": -1.2,
+     "fov": 30
+    }
+   ]
+  }
+ ]
+}

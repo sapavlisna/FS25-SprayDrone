@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="110">
+    <author>Pavel Mazálek</author>
+    <version>0.7.0.0</version>
+    <title>
+        <en>Spray Drone Service Trailer</en>
+        <cz>Servisní vlek pro postřikový dron</cz>
+        <de>Service-Anhänger für Sprühdrohnen</de>
+    </title>
+    <description>
+        <en><![CDATA[Service trailer for an agricultural spray drone, towable by a car. Tank for liquid fertilizer or herbicide, folding ladder; when unfolded you can enter it as the drone pilot station. The flight planner (Alt+7) shows a map with the trailer, drone range and fields; pick your own field or a fertilizing/herbicide contract field, check the route and start the flight.]]></en>
+        <cz><![CDATA[Servisní vlek pro zemědělský postřikový dron, za osobní auto. Nádrž na tekuté hnojivo nebo herbicid, skládací žebřík; rozložený vlek slouží jako stanoviště pilota dronu, dá se do něj nastoupit. Plánovač letu (Alt+7) ukáže mapu s vlekem, dosahem dronu a poli; vybereš vlastní pole nebo pole zakázky na hnojení či postřik, zkontroluješ trasu a spustíš let.]]></cz>
+    </description>
+    <iconFilename>icon_sprayDroneTrailer.dds</iconFilename>
+    <multiplayer supported="true"/>
+
+    <l10n filenamePrefix="translations/translation"/>
+
+    <actions>
+        <action name="SDT_OPEN_PLANNER" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_START_FLIGHT" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_RETURN_HOME" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_TOGGLE_GENERATOR" category="VEHICLE" displayCategory="VEHICLE"/>
+        <action name="SDT_TOGGLE_LINES" category="VEHICLE" displayCategory="VEHICLE"/>
+    </actions>
+
+    <inputBinding>
+        <actionBinding action="SDT_OPEN_PLANNER">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_7"/>
+        </actionBinding>
+        <actionBinding action="SDT_START_FLIGHT">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_8"/>
+        </actionBinding>
+        <actionBinding action="SDT_RETURN_HOME">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_0"/>
+        </actionBinding>
+        <actionBinding action="SDT_TOGGLE_GENERATOR">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_6"/>
+        </actionBinding>
+        <actionBinding action="SDT_TOGGLE_LINES">
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_5"/>
+        </actionBinding>
+    </inputBinding>
+
+    <specializations>
+        <specialization name="sprayDroneStation" className="SprayDroneStation" filename="scripts/SprayDroneStation.lua"/>
+    </specializations>
+
+    <vehicleTypes>
+        <type name="sprayDroneTrailer" parent="baseFillable" filename="$dataS/scripts/vehicles/Vehicle.lua">
+            <specialization name="fillTriggerVehicle"/>
+            <specialization name="enterable"/>
+            <specialization name="sprayDroneStation"/>
+        </type>
+    </vehicleTypes>
+
+    <storeItems>
+        <storeItem xmlFilename="vehicles/sprayDroneTrailerCar/sprayDroneTrailerCar.xml"/>
+    </storeItems>
+</modDesc>

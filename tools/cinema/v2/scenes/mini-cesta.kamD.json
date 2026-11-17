@@ -1,0 +1,34 @@
+{
+ "popis": "zezadu vysoko, sledování soupravy do dálky (FOL)",
+ "typ": "PC",
+ "pohyb": "FOL",
+ "smer": "–",
+ "fov": "40",
+ "vyska": "4 m, 16 m za soupravou",
+ "zabery": [
+  {
+   "id": "mini-3.1",
+   "od": 0.5,
+   "do": 9.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camFollow",
+   "target": "jd3650",
+   "ox": 0,
+   "oy": 4.0,
+   "oz": -16,
+   "lx": 0,
+   "ly": 1.5,
+   "lz": 8,
+   "fov": 40,
+   "duration": 10,
+   "ease": "smooth",
+   "tau": 0.7,
+   "tauLook": 0.6,
+   "check": false
+  }
+ ]
+}

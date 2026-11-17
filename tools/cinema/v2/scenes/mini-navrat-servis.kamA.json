@@ -1,0 +1,75 @@
+{
+ "popis": "7.5 tele pevně na přistání, 7.6 oblet proti směru hodin kolem dronu na desce",
+ "typ": "PC",
+ "pohyb": "STAT tele → ORB-CCW",
+ "smer": "CCW",
+ "fov": "22 / 40",
+ "vyska": "1,4 m; orbit 2,2 → 1,8 m, r = 6 → 5",
+ "zabery": [
+  {
+   "id": "mini-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "mini-7.6",
+   "od": "servicing +0",
+   "do": "servicing +12"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 25,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -7,
+     "y": 1.4,
+     "z": -13,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 1.5,
+     "tz": 0,
+     "fov": 22
+    },
+    {
+     "t": 25,
+     "at": "mini",
+     "x": -7,
+     "y": 1.4,
+     "z": -13,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 1.5,
+     "tz": 0,
+     "fov": 22
+    }
+   ]
+  },
+  {
+   "after": "servicing",
+   "cmd": "camOrbit",
+   "radius": 6.0,
+   "radius2": 5.0,
+   "height": 2.2,
+   "height2": 1.8,
+   "angle0": -45.0,
+   "angle1": 206.6,
+   "lx": 0.0,
+   "ly": 0.5,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 40,
+   "tau": 0.3,
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "target": "mini:drone1"
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "a11_river_c",
+  "title": "Záběr 5.7: východní břeh řeky L5, dron startuje z vleku a přelétá hladinu s odrazem slunce (pole F40 za řekou)",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true},
+    {"cmd": "waitDrone", "trailer": "middle", "cond": "parked", "timeout": 120, "optional": true},
+    {"sleep": 1.0},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": 398, "z": -262, "yaw": 270, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "setField", "field": 83, "crop": "WHEAT", "growth": 3},
+    {"sleep": 1.0},
+    {"cmd": "selectField", "trailer": "middle", "field": 83},
+    {"cmd": "resetField", "trailer": "middle"},
+    {"cmd": "fillSet", "trailer": "middle"},
+    {"cmd": "camSet", "x": 326, "y": 22, "z": -212, "rel": "terrain", "tat": "middle:drone1", "tx": 0, "ty": 0, "tz": 0, "fov": 40},
+    {"sleep": 1.0},
+    {"cmd": "startFlight", "trailer": "middle", "fill": false},
+    {"sleep": 6.5},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.3},
+    {"cmd": "camPath", "duration": 16, "ease": "smooth", "wait": true, "check": false, "timeout": 40, "tsmooth": 0.5,
+     "keys": [
+       {"t": 0, "x": 326, "y": 22, "z": -212, "rel": "terrain", "tat": "middle:drone1", "tx": 0, "ty": 0, "tz": 0, "fov": 40},
+       {"t": 15, "x": 306, "y": 16, "z": -208, "rel": "terrain", "tat": "middle:drone1", "tx": 0, "ty": 0, "tz": 0, "fov": 40}
+     ]},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true}
+  ]
+}

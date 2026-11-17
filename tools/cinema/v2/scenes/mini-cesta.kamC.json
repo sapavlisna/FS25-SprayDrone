@@ -1,0 +1,51 @@
+{
+ "popis": "tele zepředu ze západu, souprava se blíží a projede, kamera ji sleduje",
+ "typ": "C",
+ "pohyb": "STAT + sledování cílem",
+ "smer": "–",
+ "fov": "24 → 18",
+ "vyska": "1,4 m, x = −751, z = 164",
+ "zabery": [
+  {
+   "id": "mini-3.1",
+   "od": 1.0,
+   "do": 9.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 10.5,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -751,
+     "y": 1.4,
+     "z": 164,
+     "rel": "terrain",
+     "tat": "jd3650",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 22
+    },
+    {
+     "t": 10.5,
+     "x": -751,
+     "y": 1.4,
+     "z": 164,
+     "rel": "terrain",
+     "tat": "jd3650",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 30
+    }
+   ],
+   "tsmooth": 0.4
+  }
+ ]
+}

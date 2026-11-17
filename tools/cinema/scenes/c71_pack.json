@@ -1,0 +1,202 @@
+{
+ "name": "c71_pack",
+ "title": "Záběr 7.1: drony přistanou, ramena se složí, sbalení vleku Middle",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -690,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "middle",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "camSet",
+   "at": "middle",
+   "x": -6,
+   "y": 1.6,
+   "z": -9,
+   "tat": "middle",
+   "tx": 0,
+   "ty": 3.0,
+   "tz": -1,
+   "fov": 40
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "middle",
+   "fill": false
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "airborne",
+   "timeout": 40
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle"
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 12,
+   "ease": "inout",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -6,
+     "y": 1.6,
+     "z": -9,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 3.0,
+     "tz": -1,
+     "fov": 40
+    },
+    {
+     "t": 5,
+     "at": "middle",
+     "x": -10,
+     "y": 1.8,
+     "z": -4,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.6,
+     "tz": -1,
+     "fov": 40
+    },
+    {
+     "t": 9,
+     "at": "middle",
+     "x": -12,
+     "y": 2.0,
+     "z": 2,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.2,
+     "tz": -1,
+     "fov": 38
+    },
+    {
+     "t": 12,
+     "at": "middle",
+     "x": -13,
+     "y": 2.2,
+     "z": 4,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.2,
+     "tz": 0,
+     "fov": 38
+    }
+   ]
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "timeout": 60
+  },
+  {
+   "mark": "parked"
+  },
+  {
+   "sleep": 0.8
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

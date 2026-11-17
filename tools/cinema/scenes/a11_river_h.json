@@ -1,0 +1,26 @@
+{
+  "name": "a11_river_h",
+  "title": "Záběr 5.7 (varianta f): statická kamera s dlouhým objektivem na jihovýchodním břehu, dron přelétá řeku proti odrazu slunce",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true},
+    {"cmd": "waitDrone", "trailer": "middle", "cond": "parked", "timeout": 120, "optional": true},
+    {"sleep": 1.0},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": 398, "z": -262, "yaw": 270, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "setField", "field": 83, "crop": "WHEAT", "growth": 3},
+    {"sleep": 1.0},
+    {"cmd": "selectField", "trailer": "middle", "field": 83},
+    {"cmd": "resetField", "trailer": "middle"},
+    {"cmd": "fillSet", "trailer": "middle"},
+    {"cmd": "camSet", "x": 350, "y": 6, "z": -298, "rel": "terrain", "tx": 296, "ty": 51, "tz": -241, "trel": "world", "fov": 34},
+    {"sleep": 1.0},
+    {"cmd": "startFlight", "trailer": "middle", "fill": false},
+    {"sleep": 12.5},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.3},
+    {"sleep": 9.0},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true}
+  ]
+}

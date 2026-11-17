@@ -1,0 +1,22 @@
+{
+  "name": "s05_takeoff",
+  "title": "Záběr 5: detail paluby, dron se rozjíždí a vzlétá, 4 s",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -690, "z": 167, "yaw": 90, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "selectField", "trailer": "middle", "field": 4},
+    {"cmd": "camSet", "at": "middle", "x": 2.0, "y": 3.3, "z": -2.4, "tat": "middle:drone1", "tx": 0, "ty": 0.2, "tz": 0, "fov": 30},
+    {"sleep": 2.0},
+    {"mark": "shot"},
+    {"record": "start", "seconds": 8},
+    {"cmd": "startFlight", "trailer": "middle", "fill": false},
+    {"cmd": "camPath", "duration": 6, "ease": "smooth", "wait": true, "timeout": 30,
+     "keys": [
+       {"t": 0, "at": "middle", "x": 2.0, "y": 3.3, "z": -2.4, "tat": "middle:drone1", "tx": 0, "ty": 0.2, "tz": 0, "fov": 30},
+       {"t": 6, "at": "middle", "x": 1.4, "y": 3.9, "z": -3.6, "tat": "middle:drone1", "tx": 0, "ty": 0.3, "tz": 0, "fov": 36}
+     ]},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true}
+  ]
+}

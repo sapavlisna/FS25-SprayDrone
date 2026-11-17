@@ -1,0 +1,22 @@
+{
+  "name": "t_obs_a",
+  "title": "Test OBS A: souprava jede proti kameře, kamera sleduje s dolní propustí (tsmooth 0,4), telemetrie jízdy",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -150, "z": -662.5, "yaw": 90, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "x": 60, "y": 1.2, "z": -667.5, "rel": "terrain", "tx": -150, "ty": 3.0, "tz": -664, "trel": "terrain", "fov": 24},
+    {"sleep": 2.0},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": 260, "z": -662.5, "kmh": 50, "tel": true},
+    {"sleep": 8.0},
+    {"mark": "shot"},
+    {"record": "start"},
+    {"cmd": "camPath", "duration": 8, "ease": "smooth", "wait": true, "check": true, "timeout": 30, "tsmooth": 0.4,
+     "keys": [
+       {"t": 0, "x": 60, "y": 1.2, "z": -667.5, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.5, "tz": 0, "fov": 24},
+       {"t": 8, "x": 68, "y": 1.3, "z": -667.5, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.5, "tz": 0, "fov": 21}
+     ]},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

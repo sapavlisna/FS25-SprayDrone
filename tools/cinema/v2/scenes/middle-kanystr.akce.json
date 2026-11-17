@@ -1,0 +1,200 @@
+{
+ "popis": "t = 2 s otevře se skříň (`toolboxSet open`), t = 4,5 s `canisterPour from=box slot=1` fertilizer; police předem naplněny.",
+ "vlek": "middle",
+ "beat": "5",
+ "zabery": [
+  "middle-5.1",
+  "middle-5.2"
+ ],
+ "misto": "POLO, rozložený Middle",
+ "cas": "11:30",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.5,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -625,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "nodeVis",
+   "trailer": "middle",
+   "show": "antennaLarge,gpsRtkBox,antennaBase"
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "main",
+   "fill": "WATER",
+   "liters": 400
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "conc",
+   "fill": "EMPTY",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "fill": true,
+   "optional": true
+  },
+  {
+   "cmd": "playerTo",
+   "x": -619,
+   "z": 465,
+   "force": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "open": true,
+   "part": "all",
+   "wait": false,
+   "optional": true
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "canisterPour",
+   "trailer": "middle",
+   "fill": "fertilizer",
+   "liters": 20,
+   "from": "box",
+   "slot": 1,
+   "tLift": 2.0,
+   "tTilt": 2.0,
+   "tPour": 6.0,
+   "delay": 0.0
+  },
+  {
+   "sleep": 15.5
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "open": false,
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

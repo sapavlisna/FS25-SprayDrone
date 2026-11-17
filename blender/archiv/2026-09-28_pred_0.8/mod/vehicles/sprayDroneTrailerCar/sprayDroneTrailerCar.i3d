@@ -1,0 +1,414 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<i3D xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="sprayDroneTrailerCar" version="1.6" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="i3dConverter" version="1.0" />
+  </Asset>
+
+  <Files>
+  <File fileId="1" filename="$data/shaders/vehicleShader.xml" /><File fileId="2" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_diffuse.png" /><File fileId="3" filename="$data/shared/detailLibrary/flat_normal.png" /><File fileId="4" filename="$data/shared/detailLibrary/nonMetallic/plastic/plasticPainted_specular.png" /><File fileId="5" filename="$data/shared/white_diffuse.png" /><File fileId="6" filename="$data/shared/default_normal.png" /><File fileId="7" filename="$data/shared/default_vmask.png" /><File fileId="8" filename="$data/shared/detailLibrary/nonMetallic/wood/wood1_diffuse.png" /><File fileId="9" filename="$data/shared/detailLibrary/nonMetallic/wood/wood1_normal.png" /><File fileId="10" filename="$data/shared/detailLibrary/nonMetallic/wood/wood1_specular.png" /><File fileId="11" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPainted_diffuse.png" /><File fileId="12" filename="$data/shared/detailLibrary/nonMetallic/metal/metalPainted_specular.png" /><File fileId="13" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_diffuse.png" /><File fileId="14" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_normal.png" /><File fileId="15" filename="$data/shared/detailLibrary/nonMetallic/rubber/rubber_specular.png" /><File fileId="16" filename="$data/shared/detailLibrary/metallic/metalGalvanized_diffuse.png" /><File fileId="17" filename="$data/shared/detailLibrary/metallic/metalGalvanized_normal.png" /><File fileId="18" filename="$data/shared/detailLibrary/metallic/metalGalvanized_specular.png" /></Files>
+
+
+  <Materials>
+    <Material name="Carbon" materialId="16" diffuseColor="0.0431373 0.0431373 0.054902 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.0431373 0.0431373 0.054902" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Drone_Accent_A" materialId="19" diffuseColor="0.74902 0.278431 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.74902 0.278431 0.0196078" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Drone_White" materialId="15" diffuseColor="0.839216 0.85098 0.858824 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.839216 0.85098 0.858824" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Glass_Dark" materialId="20" diffuseColor="0.0117647 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.0117647 0.0196078 0.0196078" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Lamp_Green" materialId="21" diffuseColor="0.0509804 0.45098 0.0784314 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.0509804 0.45098 0.0784314" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Lamp_Red" materialId="22" diffuseColor="0.54902 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.54902 0.0196078 0.0196078" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_DeckWood" materialId="3" diffuseColor="0.521569 0.4 0.258824 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.42 0.28 0.16" /><CustomParameter name="porosity" value="1.0" /><Custommap name="detailDiffuse" fileId="8" /><Custommap name="detailNormal" fileId="9" /><Custommap name="detailSpecular" fileId="10" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_EngineRed" materialId="7" diffuseColor="0.6 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.55 0.03 0.03" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="12" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Frame" materialId="1" diffuseColor="0.0235294 0.0235294 0.027451 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.02 0.022" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="12" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_GenOrange" materialId="4" diffuseColor="0.85098 0.329412 0.0392157 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.8 0.3 0.03" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="12" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_HoseBlack" materialId="6" diffuseColor="0.0196078 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.02 0.02" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="13" /><Custommap name="detailNormal" fileId="14" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_HoseBlue" materialId="5" diffuseColor="0.0509804 0.2 0.6 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.05 0.2 0.6" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="13" /><Custommap name="detailNormal" fileId="14" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_LampAmber" materialId="14" diffuseColor="0.901961 0.45098 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.9 0.45 0.02" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Mesh" materialId="12" diffuseColor="0.0784314 0.0784314 0.0901961 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.06 0.06 0.07" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="12" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_NavLed" materialId="17" diffuseColor="0.54902 0.54902 0.54902 1" customShaderId="1" customShaderVariation="staticLight_vertex">
+    <CustomParameter name="colorScale" value="0.35 0.35 0.35" /><CustomParameter name="lightIds0" value="0 0 0 0" /><CustomParameter name="lightTypeBitMask" value="0" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Rubber" materialId="23" diffuseColor="0.0156863 0.0156863 0.0156863 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.02 0.02" /><CustomParameter name="porosity" value="0.5" /><Custommap name="detailDiffuse" fileId="13" /><Custommap name="detailNormal" fileId="14" /><Custommap name="detailSpecular" fileId="15" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_Steel" materialId="2" diffuseColor="0.6 0.619608 0.639216 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="1 1 1" /><Custommap name="detailDiffuse" fileId="16" /><Custommap name="detailNormal" fileId="17" /><Custommap name="detailSpecular" fileId="18" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_TankBlack" materialId="8" diffuseColor="0.0313726 0.0313726 0.0313726 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.02 0.02 0.02" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_TankWhite" materialId="9" diffuseColor="0.878431 0.878431 0.839216 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.85 0.85 0.82" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_TapeRed" materialId="10" diffuseColor="0.701961 0.0196078 0.0196078 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.7 0.02 0.02" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_TapeWhite" materialId="11" diffuseColor="0.901961 0.901961 0.901961 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.9 0.9 0.9" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="SDT_TopDeck" materialId="13" diffuseColor="0.819608 0.819608 0.8 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.72 0.72 0.7" /><Custommap name="detailDiffuse" fileId="2" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="4" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+    <Material name="Steel_Galvanized" materialId="18" diffuseColor="0.619608 0.639216 0.658824 1" customShaderId="1">
+    <CustomParameter name="colorScale" value="0.619608 0.639216 0.658824" /><Custommap name="detailDiffuse" fileId="11" /><Custommap name="detailNormal" fileId="3" /><Custommap name="detailSpecular" fileId="12" /><Texture fileId="5" /><Normalmap fileId="6" /><Glossmap fileId="7" /></Material>
+  </Materials>
+
+
+  <Shapes externalShapesFile="sprayDroneTrailerCar.i3d.shapes">
+  </Shapes>
+
+  <Scene>
+    <Shape name="sprayDroneTrailerCar_main_component1" shapeId="1" dynamic="true" compound="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" nodeId="288" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1">
+      <TransformGroup name="collisions" nodeId="289">
+        <Shape name="colDrawbar" shapeId="2" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="290" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+        <Shape name="colEquipmentFront" shapeId="3" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="291" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+        <Shape name="colTank" shapeId="4" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="292" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+        <Shape name="colTopDeck" shapeId="5" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="293" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+      </TransformGroup>
+      <TransformGroup name="sprayDroneTrailerCar_vis" nodeId="294">
+        <Shape name="Axle_1" translation="0 0.2626 -0.05" rotation="0 -0 -90" shapeId="6" nodeId="295" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Axle_2" translation="0 0.2626 -0.75" rotation="0 -0 -90" shapeId="6" nodeId="296" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Breakaway_Box" translation="0 0.6 3.075" shapeId="7" nodeId="297" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="CouplerHead" translation="0 0.525 3.44" shapeId="8" nodeId="298" castsShadows="true" receiveShadows="true" materialIds="2" />
+        <Shape name="CouplerLever" translation="0 0.61 3.435" shapeId="9" nodeId="299" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Deck" translation="0 0.7 0" shapeId="10" nodeId="300" castsShadows="true" receiveShadows="true" materialIds="3" />
+        <Shape name="DrawbarMount_L" translation="0.55 0.5675 1.875" shapeId="11" nodeId="301" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="DrawbarMount_R" translation="-0.55 0.5675 1.875" shapeId="11" nodeId="302" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Drawbar_L" translation="0.275 0.5 2.5" rotation="83.6239 -17.904 19.9758" shapeId="12" nodeId="303" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Drawbar_R" translation="-0.275 0.5 2.5" rotation="83.6239 17.904 -19.9758" shapeId="12" nodeId="304" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="DroneClamp_1_Post" translation="0.48 2.53827 0.075" shapeId="13" nodeId="305" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="DroneClamp_2_Post" translation="0.48 2.53827 -0.075" shapeId="13" nodeId="306" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="DroneClamp_3_Post" translation="-0.48 2.53827 0.075" shapeId="13" nodeId="307" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="DroneClamp_4_Post" translation="-0.48 2.53827 -0.075" shapeId="13" nodeId="308" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="FrontBeam" translation="0 0.63 2.06" shapeId="14" nodeId="309" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gen_0_Body" translation="0.55 1.105 1.35" shapeId="15" nodeId="310" castsShadows="true" receiveShadows="true" materialIds="4" />
+        <Shape name="Gen_0_CageTop_+0.19" translation="0.19 1.5 1.35" rotation="-90 -0 0" shapeId="16" nodeId="311" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gen_0_CageTop_+0.91" translation="0.91 1.5 1.35" rotation="-90 -0 0" shapeId="16" nodeId="312" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gen_0_Cage_+0.19_-0.92" translation="0.19 1.11 0.92" shapeId="17" nodeId="313" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gen_0_Cage_+0.19_-1.78" translation="0.19 1.11 1.78" shapeId="17" nodeId="314" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gen_0_Cage_+0.91_-0.92" translation="0.91 1.11 0.92" shapeId="17" nodeId="315" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gen_0_Cage_+0.91_-1.78" translation="0.91 1.11 1.78" shapeId="17" nodeId="316" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gen_0_Exhaust" translation="0.8 1.5 1.7" shapeId="18" nodeId="317" castsShadows="true" receiveShadows="true" materialIds="2" />
+        <Shape name="Gusset_L_Front" translation="1.01 0 0" shapeId="19" nodeId="318" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gusset_L_Rear" translation="1.01 0 0" shapeId="20" nodeId="319" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gusset_R_Front" translation="-1.01 0 0" shapeId="19" nodeId="320" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Gusset_R_Rear" translation="-1.01 0 0" shapeId="20" nodeId="321" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Hanger_1L" translation="0.4 0.4288 0.25" shapeId="21" nodeId="322" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Hanger_1R" translation="-0.4 0.4288 0.25" shapeId="21" nodeId="323" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Hanger_2L" translation="0.4 0.4288 -0.45" shapeId="21" nodeId="324" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Hanger_2R" translation="-0.4 0.4288 -0.45" shapeId="21" nodeId="325" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="HoseReel_0_Bracket" translation="-0.84 2.18 -0.28" shapeId="22" nodeId="326" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="HoseReel_0_Drum" translation="-0.83 2.03 -0.28" rotation="0 -0 -90" shapeId="23" nodeId="327" castsShadows="true" receiveShadows="true" materialIds="5" />
+        <Shape name="HoseReel_0_Flange+0.11" translation="-0.72 2.03 -0.28" rotation="0 -0 -90" shapeId="24" nodeId="328" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="HoseReel_0_Flange-0.11" translation="-0.94 2.03 -0.28" rotation="0 -0 -90" shapeId="24" nodeId="329" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="IBeam_L" translation="0.4 0.615 0" shapeId="25" nodeId="330" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="IBeam_R" translation="-0.4 0.615 0" shapeId="25" nodeId="331" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Jockey_Clamp" translation="0.22 0.51 2.8" shapeId="26" nodeId="332" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Knee_L" translation="1.01 0 0" shapeId="27" nodeId="333" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Knee_R" translation="-1.01 0 0" shapeId="27" nodeId="334" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderHingeBracket_In" translation="0.245 2.26 -2.28" shapeId="28" nodeId="335" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderHingeBracket_Out" translation="0.775 2.26 -2.28" shapeId="28" nodeId="336" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderRack_0_Bar" translation="0.51 2.1825 -0.35" shapeId="29" nodeId="337" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderRack_0_HangerIn" translation="0.23 2.2525 -0.35" shapeId="30" nodeId="338" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderRack_0_HangerOut" translation="0.79 2.2525 -0.35" shapeId="30" nodeId="339" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderRack_1_Bar" translation="0.51 2.1825 -1.55" shapeId="29" nodeId="340" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderRack_1_HangerIn" translation="0.23 2.2525 -1.55" shapeId="30" nodeId="341" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LadderRack_1_HangerOut" translation="0.79 2.2525 -1.55" shapeId="30" nodeId="342" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="LicensePlateMount" translation="0 0.47 -2.07" shapeId="31" nodeId="343" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Post_L0" translation="1.01 1.525 2.03" shapeId="32" nodeId="344" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Post_L1" translation="1.01 1.525 0" shapeId="32" nodeId="345" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Post_L2" translation="1.01 1.525 -2.03" shapeId="32" nodeId="346" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Post_R0" translation="-1.01 1.525 2.03" shapeId="32" nodeId="347" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Post_R1" translation="-1.01 1.525 0" shapeId="32" nodeId="348" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Post_R2" translation="-1.01 1.525 -2.03" shapeId="32" nodeId="349" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Pump_Discharge" translation="-0.34 1.495 0.81" rotation="47.4152 -6.51307 14.7656" shapeId="33" nodeId="350" castsShadows="true" receiveShadows="true" materialIds="6" />
+        <Shape name="Pump_Engine" translation="-0.59 1.135 0.55" shapeId="34" nodeId="351" castsShadows="true" receiveShadows="true" materialIds="7" />
+        <Shape name="Pump_Housing" translation="-0.33 1.14 0.55" rotation="0 -0 -90" shapeId="35" nodeId="352" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Pump_Stand" translation="-0.55 0.845 0.55" shapeId="36" nodeId="353" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Pump_Suction" translation="-0.33 1.04 0.255" rotation="-122.829 -0 0" shapeId="37" nodeId="354" castsShadows="true" receiveShadows="true" materialIds="6" />
+        <Shape name="Rail_L" translation="1.02 0.63 0" shapeId="38" nodeId="355" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Rail_R" translation="-1.02 0.63 0" shapeId="38" nodeId="356" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="RearBeam" translation="0 0.63 -2.06" shapeId="14" nodeId="357" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="SwingArm_1L" translation="0.4 0.2726 0.075" shapeId="39" nodeId="358" castsShadows="true" receiveShadows="true" materialIds="2" />
+        <Shape name="SwingArm_1R" translation="-0.4 0.2726 0.075" shapeId="39" nodeId="359" castsShadows="true" receiveShadows="true" materialIds="2" />
+        <Shape name="SwingArm_2L" translation="0.4 0.2726 -0.625" shapeId="39" nodeId="360" castsShadows="true" receiveShadows="true" materialIds="2" />
+        <Shape name="SwingArm_2R" translation="-0.4 0.2726 -0.625" shapeId="39" nodeId="361" castsShadows="true" receiveShadows="true" materialIds="2" />
+        <Shape name="Tank_Fresh" translation="-0.62 0.92 -1.55" rotation="90 -0 0" shapeId="40" nodeId="362" castsShadows="true" receiveShadows="true" materialIds="9" />
+        <Shape name="Tank_Induction_Body" translation="-0.55 1.545 1.25" shapeId="41" nodeId="363" castsShadows="true" receiveShadows="true" materialIds="9" />
+        <Shape name="Tank_Induction_Cone" translation="-0.55 1.195 1.25" shapeId="42" nodeId="364" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Tank_Induction_Lid" translation="-0.55 1.82 1.25" shapeId="43" nodeId="365" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Tank_Induction_Stand" translation="-0.55 0.895 1.25" shapeId="44" nodeId="366" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Tank_Main" translation="0 1.24 -0.4" rotation="90 -0 0" shapeId="45" nodeId="367" castsShadows="true" receiveShadows="true" materialIds="9" />
+        <Shape name="Tank_Main_Band0" translation="0 1.24 0" rotation="-90 -0 0" shapeId="46" nodeId="368" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Tank_Main_Band1" translation="0 1.24 -0.27" rotation="-90 -0 0" shapeId="47" nodeId="369" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Tank_Main_Band2" translation="0 1.24 -0.53" rotation="-90 -0 0" shapeId="48" nodeId="370" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Tank_Main_Band3" translation="0 1.24 -0.8" rotation="-90 -0 0" shapeId="48" nodeId="371" castsShadows="true" receiveShadows="true" materialIds="8" />
+        <Shape name="Tank_Main_Lid" translation="0 1.67 -0.4" shapeId="49" nodeId="372" castsShadows="true" receiveShadows="true" materialIds="9" />
+        <Shape name="Tank_Main_Saddle0" translation="0 0.895 0" shapeId="50" nodeId="373" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Tank_Main_Saddle1" translation="0 0.895 -0.8" shapeId="50" nodeId="374" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="Tape_L_00" translation="1.053 0.625 1.925" shapeId="51" nodeId="375" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_L_01" translation="1.053 0.625 1.655" shapeId="51" nodeId="376" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_L_02" translation="1.053 0.625 1.385" shapeId="51" nodeId="377" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_L_03" translation="1.053 0.625 1.115" shapeId="51" nodeId="378" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_L_04" translation="1.053 0.625 0.845" shapeId="51" nodeId="379" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_L_05" translation="1.053 0.625 0.575" shapeId="51" nodeId="380" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_L_06" translation="1.053 0.625 0.305" shapeId="51" nodeId="381" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_L_07" translation="1.053 0.625 0.035" shapeId="51" nodeId="382" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_L_08" translation="1.053 0.625 -0.235" shapeId="51" nodeId="383" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_L_09" translation="1.053 0.625 -0.505" shapeId="51" nodeId="384" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_L_10" translation="1.053 0.625 -0.775" shapeId="51" nodeId="385" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_L_11" translation="1.053 0.625 -1.045" shapeId="51" nodeId="386" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_L_12" translation="1.053 0.625 -1.315" shapeId="51" nodeId="387" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_L_13" translation="1.053 0.625 -1.585" shapeId="51" nodeId="388" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_L_14" translation="1.053 0.625 -1.855" shapeId="51" nodeId="389" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_00" translation="-1.053 0.625 1.925" shapeId="51" nodeId="390" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_01" translation="-1.053 0.625 1.655" shapeId="51" nodeId="391" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_R_02" translation="-1.053 0.625 1.385" shapeId="51" nodeId="392" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_03" translation="-1.053 0.625 1.115" shapeId="51" nodeId="393" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_R_04" translation="-1.053 0.625 0.845" shapeId="51" nodeId="394" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_05" translation="-1.053 0.625 0.575" shapeId="51" nodeId="395" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_R_06" translation="-1.053 0.625 0.305" shapeId="51" nodeId="396" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_07" translation="-1.053 0.625 0.035" shapeId="51" nodeId="397" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_R_08" translation="-1.053 0.625 -0.235" shapeId="51" nodeId="398" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_09" translation="-1.053 0.625 -0.505" shapeId="51" nodeId="399" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_R_10" translation="-1.053 0.625 -0.775" shapeId="51" nodeId="400" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_11" translation="-1.053 0.625 -1.045" shapeId="51" nodeId="401" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_R_12" translation="-1.053 0.625 -1.315" shapeId="51" nodeId="402" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Tape_R_13" translation="-1.053 0.625 -1.585" shapeId="51" nodeId="403" castsShadows="true" receiveShadows="true" materialIds="11" />
+        <Shape name="Tape_R_14" translation="-1.053 0.625 -1.855" shapeId="51" nodeId="404" castsShadows="true" receiveShadows="true" materialIds="10" />
+        <Shape name="Toolbox" translation="0.625 0.945 -1.6" shapeId="52" nodeId="405" castsShadows="true" receiveShadows="true" materialIds="12" />
+        <Shape name="TopBeam_L" translation="1.01 2.39 0" shapeId="53" nodeId="406" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopBeam_R" translation="-1.01 2.39 0" shapeId="53" nodeId="407" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopCross_0" translation="0 2.39 2.26" shapeId="54" nodeId="408" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopCross_1" translation="0 2.39 2.03" shapeId="54" nodeId="409" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopCross_2" translation="0 2.39 0" shapeId="54" nodeId="410" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopCross_3" translation="0 2.39 -2.03" shapeId="54" nodeId="411" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopCross_4" translation="0 2.39 -2.26" shapeId="54" nodeId="412" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopDeck" translation="0 2.475 0" shapeId="55" nodeId="413" castsShadows="true" receiveShadows="true" materialIds="13" />
+        <Shape name="TopLip_Front" translation="0 2.52 2.2825" shapeId="56" nodeId="414" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopLip_L" translation="1.0325 2.52 0" shapeId="57" nodeId="415" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="TopLip_R" translation="-1.0325 2.52 0" shapeId="57" nodeId="416" castsShadows="true" receiveShadows="true" materialIds="1" />
+        <Shape name="WorkLight" translation="0 2.57 2.26" shapeId="58" nodeId="417" castsShadows="true" receiveShadows="true" materialIds="14" />
+        <TransformGroup name="attacherJoint" translation="0 0.5 3.55" rotation="-0 90 0" nodeId="418" />
+        <TransformGroup name="droneClampHinge_1" translation="0.48 2.57653 0.075" rotation="0 -0 -100" nodeId="419">
+          <Shape name="DroneClamp_1_Jaw" translation="-0.0510005 2.98023e-08 -7.45058e-09" rotation="0 -0 -8.53774e-07" shapeId="59" nodeId="420" castsShadows="true" receiveShadows="true" materialIds="14" />
+          <Shape name="DroneClamp_1_Lip" translation="-0.0960007 -0.029 -7.45058e-09" rotation="0 -0 -8.53774e-07" shapeId="60" nodeId="421" castsShadows="true" receiveShadows="true" materialIds="14" />
+        </TransformGroup>
+        <TransformGroup name="droneClampHinge_2" translation="0.48 2.57653 -0.075" rotation="0 -0 -100" nodeId="422">
+          <Shape name="DroneClamp_2_Jaw" translation="-0.0510005 2.98023e-08 7.45058e-09" rotation="0 -0 -8.53774e-07" shapeId="59" nodeId="423" castsShadows="true" receiveShadows="true" materialIds="14" />
+          <Shape name="DroneClamp_2_Lip" translation="-0.0960007 -0.029 7.45058e-09" rotation="0 -0 -8.53774e-07" shapeId="60" nodeId="424" castsShadows="true" receiveShadows="true" materialIds="14" />
+        </TransformGroup>
+        <TransformGroup name="droneClampHinge_3" translation="-0.48 2.57653 0.075" rotation="0 -0 100" nodeId="425">
+          <Shape name="DroneClamp_3_Jaw" translation="0.0510005 2.98023e-08 -7.45058e-09" rotation="0 -0 8.53774e-07" shapeId="59" nodeId="426" castsShadows="true" receiveShadows="true" materialIds="14" />
+          <Shape name="DroneClamp_3_Lip" translation="0.0960007 -0.029 -7.45058e-09" rotation="0 -0 8.53774e-07" shapeId="60" nodeId="427" castsShadows="true" receiveShadows="true" materialIds="14" />
+        </TransformGroup>
+        <TransformGroup name="droneClampHinge_4" translation="-0.48 2.57653 -0.075" rotation="0 -0 100" nodeId="428">
+          <Shape name="DroneClamp_4_Jaw" translation="0.0510005 2.98023e-08 7.45058e-09" rotation="0 -0 8.53774e-07" shapeId="59" nodeId="429" castsShadows="true" receiveShadows="true" materialIds="14" />
+          <Shape name="DroneClamp_4_Lip" translation="0.0960007 -0.029 7.45058e-09" rotation="0 -0 8.53774e-07" shapeId="60" nodeId="430" castsShadows="true" receiveShadows="true" materialIds="14" />
+        </TransformGroup>
+        <TransformGroup name="droneRoot" translation="0 2.505 0" nodeId="431">
+          <TransformGroup name="Drone_A_Tilt" translation="0 0.55 0" nodeId="432">
+            <TransformGroup name="Drone_A_ArmPivot_1" translation="0.189999 0.02 0.22" rotation="0 17.1104 0" nodeId="433">
+              <Shape name="Drone_A_ArmCollarRoot_1" translation="-2.32 -3.595 0.19" shapeId="61" nodeId="434" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmCollarTip_1" translation="-2.32 -3.595 0.19" shapeId="62" nodeId="435" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmJoint_1" translation="-2.32 -3.595 0.19" shapeId="63" nodeId="436" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Arm_1" translation="-2.32 -3.595 0.19" shapeId="64" nodeId="437" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Hose_1" translation="-2.32 -3.595 0.19" shapeId="65" nodeId="438" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_HubBottom_1" translation="-1.525 -3.595 -0.76" shapeId="66" nodeId="439" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_HubTop_1" translation="-1.525 -3.595 -0.76" shapeId="67" nodeId="440" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_Led_1" translation="0.575 0.0374999 -0.76" rotation="0 -17.1104 0" shapeId="68" nodeId="441" castsShadows="true" receiveShadows="true" materialIds="17">
+                <Light name="Drone_A_LedLight_1" translation="0 -0.0425 0" rotation="-90 -0 0" nodeId="442" type="point" color="1 0.03 0.02" emitDiffuse="true" emitSpecular="true" range="3" />
+              </Shape>
+              <Shape name="Drone_A_MotorRib_1_0" translation="-1.525 -3.595 -0.76" shapeId="69" nodeId="443" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_1_1" translation="-1.525 -3.595 -0.76" shapeId="70" nodeId="444" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_1_2" translation="-1.525 -3.595 -0.76" shapeId="71" nodeId="445" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_Motor_1" translation="-1.525 -3.595 -0.76" shapeId="72" nodeId="446" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_NozzleDrop_1" translation="-2.32 -3.595 0.19" shapeId="73" nodeId="447" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Nozzle_1" translation="-1.525 -3.595 -0.76" shapeId="74" nodeId="448" castsShadows="true" receiveShadows="true" materialIds="19" />
+              <TransformGroup name="Drone_A_Rotor_1Bottom" translation="0.575 0.0199997 -0.76" rotation="0 1.70755e-06 0" nodeId="449">
+                <Shape name="Drone_A_Blade_1Bottom0" translation="0 -2.38419e-07 -8.9407e-08" rotation="-0 -129.924 -0" shapeId="75" nodeId="450" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_1Bottom1" translation="0 -2.38419e-07 -8.9407e-08" rotation="-0 -129.924 -0" shapeId="76" nodeId="451" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+              <TransformGroup name="Drone_A_Rotor_1Top" translation="0.575 0.22 -0.76" rotation="0 1.70755e-06 0" nodeId="452">
+                <Shape name="Drone_A_Blade_1Top0" translation="0 -2.38419e-07 -8.9407e-08" rotation="-0 -129.924 -0" shapeId="77" nodeId="453" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_1Top1" translation="0 -2.38419e-07 -8.9407e-08" rotation="-0 -129.924 -0" shapeId="78" nodeId="454" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+            </TransformGroup>
+            <TransformGroup name="Drone_A_ArmPivot_2" translation="-0.190001 0.02 0.22" rotation="-0 162.89 -0" nodeId="455">
+              <Shape name="Drone_A_ArmCollarRoot_2" translation="-2.32 -3.595 -0.19" shapeId="79" nodeId="456" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmCollarTip_2" translation="-2.32 -3.595 -0.19" shapeId="80" nodeId="457" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmJoint_2" translation="-2.32 -3.595 -0.19" shapeId="81" nodeId="458" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Arm_2" translation="-2.32 -3.595 -0.19" shapeId="82" nodeId="459" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Hose_2" translation="-2.32 -3.595 -0.19" shapeId="83" nodeId="460" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_HubBottom_2" translation="-1.525 -3.595 0.76" shapeId="84" nodeId="461" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_HubTop_2" translation="-1.525 -3.595 0.76" shapeId="85" nodeId="462" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_Led_2" translation="0.575 0.0374999 0.76" rotation="-0 -162.89 -0" shapeId="68" nodeId="463" castsShadows="true" receiveShadows="true" materialIds="17">
+                <Light name="Drone_A_LedLight_2" translation="0 -0.0425 0" rotation="-90 -0 0" nodeId="464" type="point" color="1 0.03 0.02" emitDiffuse="true" emitSpecular="true" range="3" />
+              </Shape>
+              <Shape name="Drone_A_MotorRib_2_0" translation="-1.525 -3.595 0.76" shapeId="86" nodeId="465" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_2_1" translation="-1.525 -3.595 0.76" shapeId="87" nodeId="466" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_2_2" translation="-1.525 -3.595 0.76" shapeId="88" nodeId="467" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_Motor_2" translation="-1.525 -3.595 0.76" shapeId="89" nodeId="468" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_NozzleDrop_2" translation="-2.32 -3.595 -0.19" shapeId="90" nodeId="469" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Nozzle_2" translation="-1.525 -3.595 0.76" shapeId="91" nodeId="470" castsShadows="true" receiveShadows="true" materialIds="19" />
+              <TransformGroup name="Drone_A_Rotor_2Bottom" translation="0.575 0.0199997 0.76" rotation="0 -1.70755e-06 0" nodeId="471">
+                <Shape name="Drone_A_Blade_2Bottom0" translation="-5.96046e-08 0 -1.19209e-07" rotation="-0 129.924 -0" shapeId="92" nodeId="472" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_2Bottom1" translation="-5.96046e-08 0 -1.19209e-07" rotation="-0 129.924 -0" shapeId="93" nodeId="473" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+              <TransformGroup name="Drone_A_Rotor_2Top" translation="0.575 0.22 0.76" rotation="0 -1.70755e-06 0" nodeId="474">
+                <Shape name="Drone_A_Blade_2Top0" translation="-5.96046e-08 0 -1.19209e-07" rotation="-0 129.924 -0" shapeId="94" nodeId="475" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_2Top1" translation="-5.96046e-08 0 -1.19209e-07" rotation="-0 129.924 -0" shapeId="95" nodeId="476" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+            </TransformGroup>
+            <TransformGroup name="Drone_A_ArmPivot_3" translation="0.189999 0.02 -0.22" rotation="0 -41.1104 0" nodeId="477">
+              <Shape name="Drone_A_ArmCollarRoot_3" translation="-1.88 -3.595 0.19" shapeId="96" nodeId="478" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmCollarTip_3" translation="-1.88 -3.595 0.19" shapeId="97" nodeId="479" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmJoint_3" translation="-1.88 -3.595 0.19" shapeId="98" nodeId="480" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Arm_3" translation="-1.88 -3.595 0.19" shapeId="99" nodeId="481" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Hose_3" translation="-1.88 -3.595 0.19" shapeId="100" nodeId="482" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_HubBottom_3" translation="-2.675 -3.595 -0.76" shapeId="101" nodeId="483" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_HubTop_3" translation="-2.675 -3.595 -0.76" shapeId="102" nodeId="484" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_Led_3" translation="-0.575 0.0374999 -0.76" rotation="0 41.1104 0" shapeId="103" nodeId="485" castsShadows="true" receiveShadows="true" materialIds="17">
+                <Light name="Drone_A_LedLight_3" translation="0 -0.0425 0" rotation="-90 -0 0" nodeId="486" type="point" color="0.03 1 0.08" emitDiffuse="true" emitSpecular="true" range="3" />
+              </Shape>
+              <Shape name="Drone_A_MotorRib_3_0" translation="-2.675 -3.595 -0.76" shapeId="104" nodeId="487" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_3_1" translation="-2.675 -3.595 -0.76" shapeId="105" nodeId="488" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_3_2" translation="-2.675 -3.595 -0.76" shapeId="106" nodeId="489" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_Motor_3" translation="-2.675 -3.595 -0.76" shapeId="107" nodeId="490" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_NozzleDrop_3" translation="-1.88 -3.595 0.19" shapeId="108" nodeId="491" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Nozzle_3" translation="-2.675 -3.595 -0.76" shapeId="109" nodeId="492" castsShadows="true" receiveShadows="true" materialIds="19" />
+              <TransformGroup name="Drone_A_Rotor_3Bottom" translation="-0.575 0.02 -0.76" nodeId="493">
+                <Shape name="Drone_A_Blade_3Bottom0" rotation="0 -50.076 0" shapeId="110" nodeId="494" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_3Bottom1" rotation="0 -50.076 0" shapeId="111" nodeId="495" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+              <TransformGroup name="Drone_A_Rotor_3Top" translation="-0.575 0.22 -0.76" nodeId="496">
+                <Shape name="Drone_A_Blade_3Top0" rotation="0 -50.076 0" shapeId="112" nodeId="497" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_3Top1" rotation="0 -50.076 0" shapeId="113" nodeId="498" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+            </TransformGroup>
+            <TransformGroup name="Drone_A_ArmPivot_4" translation="-0.190001 0.02 -0.22" rotation="-0 -138.89 -0" nodeId="499">
+              <Shape name="Drone_A_ArmCollarRoot_4" translation="-1.88 -3.595 -0.19" rotation="0 1.70755e-06 0" shapeId="114" nodeId="500" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmCollarTip_4" translation="-1.88 -3.595 -0.19" rotation="0 1.70755e-06 0" shapeId="115" nodeId="501" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_ArmJoint_4" translation="-1.88 -3.595 -0.19" rotation="0 1.70755e-06 0" shapeId="116" nodeId="502" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Arm_4" translation="-1.88 -3.595 -0.19" rotation="0 1.70755e-06 0" shapeId="117" nodeId="503" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Hose_4" translation="-1.88 -3.595 -0.19" rotation="0 1.70755e-06 0" shapeId="118" nodeId="504" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_HubBottom_4" translation="-2.675 -3.595 0.76" rotation="0 1.70755e-06 0" shapeId="119" nodeId="505" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_HubTop_4" translation="-2.675 -3.595 0.76" rotation="0 1.70755e-06 0" shapeId="120" nodeId="506" castsShadows="true" receiveShadows="true" materialIds="15" />
+              <Shape name="Drone_A_Led_4" translation="-0.575 0.0374999 0.76" rotation="-0 138.89 -0" shapeId="103" nodeId="507" castsShadows="true" receiveShadows="true" materialIds="17">
+                <Light name="Drone_A_LedLight_4" translation="0 -0.0425 0" rotation="-90 -0 0" nodeId="508" type="point" color="0.03 1 0.08" emitDiffuse="true" emitSpecular="true" range="3" />
+              </Shape>
+              <Shape name="Drone_A_MotorRib_4_0" translation="-2.675 -3.595 0.76" rotation="0 1.70755e-06 0" shapeId="121" nodeId="509" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_4_1" translation="-2.675 -3.595 0.76" rotation="0 1.70755e-06 0" shapeId="122" nodeId="510" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_MotorRib_4_2" translation="-2.675 -3.595 0.76" rotation="0 1.70755e-06 0" shapeId="123" nodeId="511" castsShadows="true" receiveShadows="true" materialIds="18" />
+              <Shape name="Drone_A_Motor_4" translation="-2.675 -3.595 0.76" rotation="0 1.70755e-06 0" shapeId="124" nodeId="512" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_NozzleDrop_4" translation="-1.88 -3.595 -0.19" rotation="0 1.70755e-06 0" shapeId="125" nodeId="513" castsShadows="true" receiveShadows="true" materialIds="16" />
+              <Shape name="Drone_A_Nozzle_4" translation="-2.675 -3.595 0.76" rotation="0 1.70755e-06 0" shapeId="126" nodeId="514" castsShadows="true" receiveShadows="true" materialIds="19" />
+              <TransformGroup name="Drone_A_Rotor_4Bottom" translation="-0.575 0.0199997 0.76" rotation="0 3.41509e-06 0" nodeId="515">
+                <Shape name="Drone_A_Blade_4Bottom0" translation="5.96046e-08 0 -1.19209e-07" rotation="0 50.0759 0" shapeId="127" nodeId="516" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_4Bottom1" translation="5.96046e-08 0 -1.19209e-07" rotation="0 50.0759 0" shapeId="128" nodeId="517" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+              <TransformGroup name="Drone_A_Rotor_4Top" translation="-0.575 0.22 0.76" rotation="0 3.41509e-06 0" nodeId="518">
+                <Shape name="Drone_A_Blade_4Top0" translation="5.96046e-08 0 -1.19209e-07" rotation="0 50.0759 0" shapeId="129" nodeId="519" castsShadows="true" receiveShadows="true" materialIds="16" />
+                <Shape name="Drone_A_Blade_4Top1" translation="5.96046e-08 0 -1.19209e-07" rotation="0 50.0759 0" shapeId="130" nodeId="520" castsShadows="true" receiveShadows="true" materialIds="16" />
+              </TransformGroup>
+            </TransformGroup>
+            <Shape name="Drone_A_Battery" translation="-1.44432e-06 -3.575 -2.3" rotation="-0 -90 0" shapeId="131" nodeId="521" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_BatteryLatch" translation="-1.29566e-06 0.0699999 -0.29" rotation="-0 -90 0" scale="0.04 0.035 0.14" shapeId="132" nodeId="522" castsShadows="true" receiveShadows="true" materialIds="19" />
+            <Shape name="Drone_A_Body" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="133" nodeId="523" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_BodyStripe" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="134" nodeId="524" castsShadows="true" receiveShadows="true" materialIds="19" />
+            <Shape name="Drone_A_GpsDome" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="135" nodeId="525" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_GpsMast" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="136" nodeId="526" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_GpsRib_0" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="137" nodeId="527" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_GpsRib_1" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="138" nodeId="528" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_GpsRib_2" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="139" nodeId="529" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_GpsRib_3" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="140" nodeId="530" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_Leg_LF" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="141" nodeId="531" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_Leg_LR" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="142" nodeId="532" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_Leg_RF" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="143" nodeId="533" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_Leg_RR" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="144" nodeId="534" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_Lens_0" translation="-0.0600013 0.02 0.32" rotation="90 -0 -90" shapeId="145" nodeId="535" castsShadows="true" receiveShadows="true" materialIds="20" />
+            <Shape name="Drone_A_Lens_1" translation="0.0599987 0.02 0.32" rotation="90 -0 -90" shapeId="145" nodeId="536" castsShadows="true" receiveShadows="true" materialIds="20" />
+            <Shape name="Drone_A_Manifold" translation="-1.24842e-06 -0.455 -3.29819e-08" rotation="-0 -90 0" scale="0.16 0.05 0.1" shapeId="132" nodeId="537" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_NavLight_L" translation="0.419999 -0.48 0.4" rotation="-0 -90 0" scale="0.05 0.02 0.03" shapeId="132" nodeId="538" castsShadows="true" receiveShadows="true" materialIds="21" />
+            <Shape name="Drone_A_NavLight_R" translation="-0.420001 -0.48 0.4" rotation="-0 -90 0" scale="0.05 0.02 0.03" shapeId="132" nodeId="539" castsShadows="true" receiveShadows="true" materialIds="22" />
+            <Shape name="Drone_A_Nose" translation="-1.42572e-06 -3.575 -1.82" rotation="-0 -90 0" shapeId="146" nodeId="540" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_Pump" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="147" nodeId="541" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_RadarRear" translation="-1.45736e-06 -3.575 -2.38" rotation="-0 -90 0" shapeId="148" nodeId="542" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_SkidCross" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="149" nodeId="543" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_SkidPad_LF" translation="0.419999 -3.575 -1.68" rotation="-0 -90 0" shapeId="150" nodeId="544" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_SkidPad_LR" translation="0.419999 -3.575 -2.52" rotation="-0 -90 0" shapeId="151" nodeId="545" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_SkidPad_RF" translation="-0.420001 -3.575 -1.68" rotation="-0 -90 0" shapeId="151" nodeId="546" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_SkidPad_RR" translation="-0.420001 -3.575 -2.52" rotation="-0 -90 0" shapeId="151" nodeId="547" castsShadows="true" receiveShadows="true" materialIds="16" />
+            <Shape name="Drone_A_Skid_L" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="152" nodeId="548" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_Skid_R" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="153" nodeId="549" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_Tank" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="154" nodeId="550" castsShadows="true" receiveShadows="true" materialIds="15" />
+            <Shape name="Drone_A_TankCap" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="155" nodeId="551" castsShadows="true" receiveShadows="true" materialIds="19" />
+            <Shape name="Drone_A_TankGauge" translation="-0.160001 -0.225 0.27" rotation="-0 -90 0" scale="0.02 0.18 0.05" shapeId="132" nodeId="552" castsShadows="true" receiveShadows="true" materialIds="20" />
+            <Shape name="Drone_A_TankNeck" translation="-1.41174e-06 -3.575 -2.1" rotation="-0 -90 0" shapeId="156" nodeId="553" castsShadows="true" receiveShadows="true" materialIds="16" />
+          </TransformGroup>
+        </TransformGroup>
+        <TransformGroup name="enterable" nodeId="554">
+          <TransformGroup name="exitPoint" translation="2.05 0 -1.7" nodeId="555" />
+          <TransformGroup name="outdoorCameraTarget" translation="0 3.5 0" nodeId="556">
+            <Camera name="outdoorCamera" translation="0 3 -8" rotation="-90 -0 0" nodeId="557" fov="22" nearClip="0.3" farClip="5000" orthographicHeight="1" />
+          </TransformGroup>
+        </TransformGroup>
+        <TransformGroup name="fill" nodeId="558">
+          <Shape name="dieselFillRootNode" shapeId="157" kinematic="true" compound="true" collisionFilterGroup="0x40000000" collisionFilterMask="0x20000000" nodeId="559" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+          <Shape name="exactFillRootNode" shapeId="158" kinematic="true" compound="true" collisionFilterGroup="0x40000000" collisionFilterMask="0x20000000" nodeId="560" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+          <Shape name="fillTrigger" shapeId="159" kinematic="true" compound="true" trigger="true" collisionFilterGroup="0x20000000" collisionFilterMask="0x40000000" nodeId="561" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+        </TransformGroup>
+        <TransformGroup name="generatorExhaust" translation="0.8 1.57 1.7" nodeId="562" />
+        <TransformGroup name="jockeyWheel" translation="0.27 0.5 2.8" nodeId="563">
+          <Shape name="Jockey_Crank" translation="0 0.33 0" shapeId="160" nodeId="564" castsShadows="true" receiveShadows="true" materialIds="1" />
+          <Shape name="Jockey_Fork" translation="0 -0.355 0" shapeId="161" nodeId="565" castsShadows="true" receiveShadows="true" materialIds="2" />
+          <Shape name="Jockey_Tube" shapeId="162" nodeId="566" castsShadows="true" receiveShadows="true" materialIds="2" />
+          <Shape name="Jockey_Wheel" translation="0 -0.4 0" rotation="0 -0 -90" shapeId="163" nodeId="567" castsShadows="true" receiveShadows="true" materialIds="23" />
+        </TransformGroup>
+        <TransformGroup name="ladderSlide" translation="0 2.22 -2.3" nodeId="568">
+          <TransformGroup name="ladderHinge" nodeId="569">
+            <Shape name="Ladder_Foot_In" translation="0.3 -2.21 -0.35" shapeId="164" nodeId="570" castsShadows="true" receiveShadows="true" materialIds="23" />
+            <Shape name="Ladder_Foot_Out" translation="0.72 -2.21 -0.35" shapeId="164" nodeId="571" castsShadows="true" receiveShadows="true" materialIds="23" />
+            <Shape name="Ladder_Pin_In" translation="0.3 0 0" rotation="0 -0 -90" shapeId="165" nodeId="572" castsShadows="true" receiveShadows="true" materialIds="2" />
+            <Shape name="Ladder_Pin_Out" translation="0.72 0 0" rotation="0 -0 -90" shapeId="165" nodeId="573" castsShadows="true" receiveShadows="true" materialIds="2" />
+            <Shape name="Ladder_Rail_In" translation="0.3 -1.1 -0.175" rotation="9.03949 -0 0" shapeId="166" nodeId="574" castsShadows="true" receiveShadows="true" materialIds="2" />
+            <Shape name="Ladder_Rail_Out" translation="0.72 -1.1 -0.175" rotation="9.03949 -0 0" shapeId="166" nodeId="575" castsShadows="true" receiveShadows="true" materialIds="2" />
+            <Shape name="Ladder_Rung_01" translation="0.51 -1.9381 -0.308334" rotation="0 -0 -90" shapeId="167" nodeId="576" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="Ladder_Rung_02" translation="0.51 -1.67619 -0.266667" rotation="0 -0 -90" shapeId="167" nodeId="577" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="Ladder_Rung_03" translation="0.51 -1.41429 -0.225" rotation="0 -0 -90" shapeId="167" nodeId="578" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="Ladder_Rung_04" translation="0.51 -1.15238 -0.183333" rotation="0 -0 -90" shapeId="167" nodeId="579" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="Ladder_Rung_05" translation="0.51 -0.890476 -0.141667" rotation="0 -0 -90" shapeId="167" nodeId="580" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="Ladder_Rung_06" translation="0.51 -0.628571 -0.1" rotation="0 -0 -90" shapeId="167" nodeId="581" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="Ladder_Rung_07" translation="0.51 -0.366667 -0.0583334" rotation="0 -0 -90" shapeId="167" nodeId="582" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="Ladder_Rung_08" translation="0.51 -0.104762 -0.0166667" rotation="0 -0 -90" shapeId="167" nodeId="583" castsShadows="true" receiveShadows="true" materialIds="12" />
+            <Shape name="colLadder" shapeId="168" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="584" castsShadows="true" receiveShadows="true" nonRenderable="true" materialIds="1" />
+          </TransformGroup>
+        </TransformGroup>
+        <TransformGroup name="licensePlateBack" translation="0 0.47 -2.101" rotation="-0 -180 -0" nodeId="585" />
+        <TransformGroup name="sharedLights" nodeId="586">
+          <TransformGroup name="plateNumberLight03" translation="0 0.535 -2.105" rotation="-90 -0 -90" nodeId="587" />
+          <TransformGroup name="rearLight52_left" translation="0.86 0.62 -2.105" rotation="-90 -5.00896e-06 -180" nodeId="588" />
+          <TransformGroup name="rearLight52_right" translation="-0.86 0.62 -2.105" rotation="-90 -5.00896e-06 -180" nodeId="589" />
+          <TransformGroup name="sideMarker05_left" translation="1.053 0.63 -1.98" rotation="0 -0 -90" nodeId="590" />
+          <TransformGroup name="sideMarker05_right" translation="-1.053 0.63 -1.98" rotation="0 -0 90" nodeId="591" />
+        </TransformGroup>
+        <TransformGroup name="tipOccluder" nodeId="592">
+          <TransformGroup name="occlusionAreaHeight" translation="0.9 0 -2.1" nodeId="593" />
+          <TransformGroup name="occlusionAreaStart" translation="0.9 0 2.1" nodeId="594" />
+          <TransformGroup name="occlusionAreaWidth" translation="-0.9 0 2.1" nodeId="595" />
+        </TransformGroup>
+        <TransformGroup name="wheels" nodeId="596">
+          <TransformGroup name="wheelBackLeft" translation="0.85 0.2626 -0.75" nodeId="597" />
+          <TransformGroup name="wheelBackRight" translation="-0.85 0.2626 -0.75" nodeId="598" />
+          <TransformGroup name="wheelFrontLeft" translation="0.85 0.2626 -0.05" nodeId="599" />
+          <TransformGroup name="wheelFrontRight" translation="-0.85 0.2626 -0.05" nodeId="600" />
+        </TransformGroup>
+      </TransformGroup>
+    </Shape>
+  </Scene>
+
+</i3D>

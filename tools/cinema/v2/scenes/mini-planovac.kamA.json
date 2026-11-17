@@ -1,0 +1,75 @@
+{
+ "popis": "displej na vleku (STAT), mapa: plynulé přiblížení na pole 4 (MAPA+), karta plánu",
+ "typ": "D / UI",
+ "pohyb": "STAT → MAPA+ → STAT",
+ "smer": "–",
+ "fov": "32 (svět)",
+ "vyska": "1,2 m, 1,5 m od displeje",
+ "zabery": [
+  {
+   "id": "mini-6.1",
+   "od": 0.5,
+   "do": 5.5
+  },
+  {
+   "id": "mini-6.2",
+   "od": 8.0,
+   "do": 15.0
+  },
+  {
+   "id": "mini-6.3",
+   "od": 15.5,
+   "do": 21.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 6,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -2.2,
+     "y": 1.2,
+     "z": -1.7,
+     "tat": "mini",
+     "tx": -0.74,
+     "ty": 0.9,
+     "tz": -0.27,
+     "fov": 32
+    },
+    {
+     "t": 6,
+     "at": "mini",
+     "x": -2.2,
+     "y": 1.2,
+     "z": -1.7,
+     "tat": "mini",
+     "tx": -0.74,
+     "ty": 0.9,
+     "tz": -0.27,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "at": 8.0,
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": -697,
+   "z": 215,
+   "zoom": 3.6,
+   "duration": 6.0
+  },
+  {
+   "at": 19.5,
+   "cmd": "ui",
+   "op": "plannerPage",
+   "n": 3
+  }
+ ]
+}

@@ -51,6 +51,10 @@ SprayDroneScanMap.TREAT_BITS = 3
 -- [farmId][fieldId] = mapa
 SprayDroneScanMap.maps = {}
 SprayDroneScanMap.syncTimer = 0
+-- ladění: vynucená překážka skenu ("dark", "rain", "wind"), jinak nil
+SprayDroneScanMap.debugBlocker = nil
+-- ladění: vynucená rychlost větru (m/s), jinak nil
+SprayDroneScanMap.debugWind = nil
 SprayDroneScanMap.windSpeed = nil
 
 function SprayDroneScanMap.encode(c)
@@ -272,6 +276,16 @@ function SprayDroneScanMap.getSummary(map)
     s.weedShare = s.scanned > 0 and s.weedShare / s.scanned or 0
     s.coverage = s.cells > 0 and math.min(s.scanned / s.cells, 1) or 0
     return s
+end
+
+function SprayDroneScanMap.formatSummary(map)
+    local s = SprayDroneScanMap.getSummary(map)
+    local pf = s.pfCells > 0 and string.format(", PF %d buněk (dusík %.0f, %.0f-%.0f kg/ha)", s.pfCells, s.avgNitrogen, s.minNitrogen,
+        s.maxNitrogen) or ""
+    return string.format("pole %d, buňka %d m: naskenováno %d z %d buněk (%.0f %%), plevel %d buněk (neviditelný %d, průměrně %.0f %% plochy), "
+        .. "slabý porost %d, zralé %d, kameny %d, ošetřeno po skenu %d%s, stáří %.1f h", map.fieldId, map.cellSize, s.scanned, s.cells,
+        s.coverage * 100, s.weedCells, s.invisibleWeedCells, s.weedShare * 100, s.unfertilizedCells, s.ripeCells, s.stoneCells,
+        s.treatedCells, pf, SprayDroneScanMap.getAgeHours(map))
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -507,6 +521,11 @@ end
 -- Vítr teď: WindUpdater.currentVelocity (ve hře ověřeno, že existuje; posluchač se ozve až při změně větru), jinak poslední hlášení.
 -- Jednotka m/s: mapy mají <wind speed> v km/h (slunečno 4-13, zataženo 17-28, déšť 38-68) a speed 10 dal currentVelocity 2,8.
 function SprayDroneScanMap.getWindSpeed()
+    if SprayDroneDebug and SprayDroneDebug.ENABLED then
+        if SprayDroneScanMap.debugWind ~= nil then
+            return SprayDroneScanMap.debugWind
+        end
+    end
     local updater = SprayDroneScanMap.windUpdater
     if updater ~= nil and type(updater.currentVelocity) == "number" then
         return updater.currentVelocity
@@ -536,6 +555,12 @@ function SprayDroneScanMap.getBlocker(maxWind, allowDark)
     local wind = SprayDroneScanMap.getWindSpeed()
     local info = string.format("slunce %s, %02d:%02d, srážky %.2f%s, vítr %s m/s", tostring(env.isSunOn), env.currentHour or -1,
         env.currentMinute or 0, rain, raining and " (prší)" or "", wind ~= nil and string.format("%.1f", wind) or "?")
+    if SprayDroneDebug and SprayDroneDebug.ENABLED then
+        local forced = SprayDroneScanMap.debugBlocker
+        if forced ~= nil and not (forced == "dark" and allowDark) then
+            return forced, info .. " (vynuceno laděním)"
+        end
+    end
     if env.isSunOn == false and not allowDark then
         return "dark", info
     end
@@ -746,6 +771,9 @@ function SprayDroneScanMap.load(directory)
             map.treated[index] = tonumber(timeText, 16)
             map.treatedKinds[index] = tonumber(kindsText, 16)
         end
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT sken: načtena mapa %s", SprayDroneScanMap.formatSummary(map))
+        end
         m = m + 1
     end
     xmlFile:delete()
@@ -770,6 +798,8 @@ if FSBaseMission ~= nil and FSBaseMission.sendInitialClientState ~= nil then
         SprayDroneScanMap.sendAllToConnection(connection)
     end)
 end
+
+---------------------------------------------------------------------------------------------------
 
 function SprayDroneScanMap:loadMap()
     SprayDroneScanMap.windUpdater = nil

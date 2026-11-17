@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!-- Generováno z blender/templates/sprayDroneTrailerCar.xml.in skriptem blender/export_car_mod.py. Needitovat ručně. -->
+<vehicle type="FS25_SprayDroneTrailer.sprayDroneTrailer">
+    <annotation>Spray drone service trailer (car version). Vzor: ABI Water Trailer 550, podvozek Stema Trius, nastupování jako Anderson hybridX.</annotation>
+
+    <storeData>
+        <name>Spray Drone Service Trailer S</name>
+        <functions>
+            <function>$l10n_function_tank</function>
+        </functions>
+        <image>vehicles/sprayDroneTrailerCar/store_sprayDroneTrailerCar.dds</image>
+        <price>18500</price>
+        <lifetime>600</lifetime>
+        <rotation>0</rotation>
+        <brand>LIZARD</brand>
+        <category>misc</category>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_typeDesc_sprayerTank</typeDesc>
+        <filename>vehicles/sprayDroneTrailerCar/sprayDroneTrailerCar.i3d</filename>
+        <size width="2.11" length="6.32" height="2.60" lengthOffset="0.47"/>
+        <components maxMass="2000">
+            <component centerOfMass="0 0.95 0.10" solverIterationCount="10" mass="780"/>
+        </components>
+        <schemaOverlay attacherJointPosition="0 0" name="IMPLEMENT"/>
+        <mapHotspot type="TOOL_TRAILED"/>
+    </base>
+
+    <wheels>
+        <wheelConfigurations tireCategories="CAR">
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="DEFAULT">
+                <wheels>
+                    <wheel dimensions="195_50R13" isLeft="true" hasTireTracks="true" hasParticles="true" rimOffset="0.02">
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.2" repr="wheelFrontLeft" forcePointRatio="0.3" initialCompression="10" suspTravel="0.10" spring="15" damper="30" frictionScale="2.8"/>
+                        <outerRim filename="$data/shared/wheels/rims/stema/rim001.i3d" node="0|0" widthAndDiam="7.5 13.5"/>
+                    </wheel>
+                    <wheel dimensions="195_50R13" isLeft="false" hasTireTracks="true" hasParticles="true" rimOffset="0.02">
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.2" repr="wheelFrontRight" forcePointRatio="0.3" initialCompression="10" suspTravel="0.10" spring="15" damper="30" frictionScale="2.8"/>
+                        <outerRim filename="$data/shared/wheels/rims/stema/rim001.i3d" node="0|1" widthAndDiam="7.5 13.5"/>
+                    </wheel>
+                    <wheel dimensions="195_50R13" isLeft="true" hasTireTracks="true" hasParticles="true" rimOffset="0.02">
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.2" repr="wheelBackLeft" forcePointRatio="0.3" initialCompression="10" suspTravel="0.10" spring="15" damper="30" frictionScale="2.8"/>
+                        <outerRim filename="$data/shared/wheels/rims/stema/rim001.i3d" node="0|0" widthAndDiam="7.5 13.5"/>
+                    </wheel>
+                    <wheel dimensions="195_50R13" isLeft="false" hasTireTracks="true" hasParticles="true" rimOffset="0.02">
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.2" repr="wheelBackRight" forcePointRatio="0.3" initialCompression="10" suspTravel="0.10" spring="15" damper="30" frictionScale="2.8"/>
+                        <outerRim filename="$data/shared/wheels/rims/stema/rim001.i3d" node="0|1" widthAndDiam="7.5 13.5"/>
+                    </wheel>
+                </wheels>
+            </wheelConfiguration>
+        </wheelConfigurations>
+    </wheels>
+
+    <attachable>
+        <inputAttacherJoints>
+            <inputAttacherJoint node="attacherJoint" jointType="trailerCar" attacherHeight="0.50"/>
+            <inputAttacherJoint node="attacherJoint" jointType="trailerLow" attacherHeight="0.50"/>
+        </inputAttacherJoints>
+        <brakeForce force="0.1" maxForce="0.3" maxForceMass="2000"/>
+        <support animationName="moveSupport"/>
+    </attachable>
+
+    <!-- do vleku jde nastoupit jen rozloženého (hlídá scripts/SprayDroneStation.lua); je to stanoviště pilota dronu -->
+    <enterable isTabbable="true">
+        <enterReferenceNode node="sprayDroneTrailerCar_main_component1" interactionRadius="4"/>
+        <exitPoint node="exitPoint"/>
+        <cameras>
+            <camera node="outdoorCamera" rotatable="true" rotateNode="outdoorCameraTarget" limit="true" useWorldXZRotation="true"
+                    rotMinX="-1.4" rotMaxX="1.2" transMin="3" transMax="40" translation="0 0 9" rotation="-25 180 0"/>
+        </cameras>
+    </enterable>
+
+    <licensePlates>
+        <licensePlate node="licensePlateBack" position="BACK" preferedType="SQUARISH" placementArea="0.06 0.26 0.09 0.15"/>
+    </licensePlates>
+
+    <lights>
+        <states>
+            <state lightTypes="0"/>
+        </states>
+        <sharedLight linkNode="rearLight52_left" filename="$data/shared/assets/lights/lizard/rearLight52_left.xml"/>
+        <sharedLight linkNode="rearLight52_right" filename="$data/shared/assets/lights/lizard/rearLight52_right.xml"/>
+        <sharedLight linkNode="sideMarker05_left" filename="$data/shared/assets/lights/lizard/sideMarker05_left.xml"/>
+        <sharedLight linkNode="sideMarker05_right" filename="$data/shared/assets/lights/lizard/sideMarker05_right.xml"/>
+        <sharedLight linkNode="plateNumberLight03" filename="$data/shared/assets/lights/lizard/plateNumberLight03.xml"/>
+    </lights>
+
+    <animations>
+        <!-- opěrné kolečko: čas 0 = zapřaženo (zvednuté), čas 1 = odpojeno (na zemi, model v i3d) -->
+        <animation name="moveSupport">
+            <part node="jockeyWheel" startTime="0" endTime="1" startTrans="0.27 0.7 2.8" endTrans="0.27 0.5 2.8"/>
+        </animation>
+        <!-- konvence FS25 (Foldable.lua): čas 0 = rozloženo (model v i3d), čas 1 = složeno;
+             startMoveDirection="1" => vozidlo začíná v čase 1. Skládání: 0–2 s se složí dron na plošině (skript podle
+             času skládání, sprayDrone#trailerFoldEnd), pak vyklopit a zasunout žebřík; 2–2,4 s se zavřou úchyty lyžin
+             dronu (sprayDrone#securedFoldTime = 2,4 / 3). -->
+        <animation name="foldLadder">
+            <part node="ladderHinge" startTime="2" endTime="2.5" startRot="0 0 0" endRot="80.9605 0 0"/>
+            <part node="ladderSlide" startTime="2.5" endTime="3" startTrans="0 2.22 -2.3" endTrans="0 2.22 -0.072333"/>
+            <part node="droneClampHinge_1" startTime="2" endTime="2.4" startRot="0 0 -100" endRot="0 0 0"/>
+            <part node="droneClampHinge_2" startTime="2" endTime="2.4" startRot="0 0 -100" endRot="0 0 0"/>
+            <part node="droneClampHinge_3" startTime="2" endTime="2.4" startRot="0 0 100" endRot="0 0 0"/>
+            <part node="droneClampHinge_4" startTime="2" endTime="2.4" startRot="0 0 100" endRot="0 0 0"/>
+        </animation>
+    </animations>
+
+    <foldable>
+        <foldingConfigurations>
+            <foldingConfiguration>
+                <foldingParts startMoveDirection="1">
+                    <foldingPart animationName="foldLadder" speedScale="1"/>
+                </foldingParts>
+            </foldingConfiguration>
+        </foldingConfigurations>
+    </foldable>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration name="$l10n_configuration_valueDefault" price="0">
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="liquidFertilizer herbicide" capacity="600">
+                        <exactFillRootNode node="exactFillRootNode"/>
+                    </fillUnit>
+                    <!-- nádrž elektrocentrály (nabíjí baterie dronu); plní se na čerpací stanici nebo z nádrže na naftu -->
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" fillTypes="diesel" capacity="30">
+                        <exactFillRootNode node="dieselFillRootNode"/>
+                    </fillUnit>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <!-- z nádrže vleku se dočerpává dron (a případně pozemní postřikovač zajetý vedle vleku) -->
+    <fillTriggerVehicle triggerNode="fillTrigger" fillUnitIndex="1" litersPerSecond="50"/>
+
+    <!-- postřikový dron (scripts/SprayDroneStation.lua, docs/DRON.md); schéma vehicle.xsd tuhle sekci nezná.
+         foldPart: natočení kloubů složeno/rozloženo (čas 0..1 rozložení), rotor: vrtule, která se za letu točí;
+         batteryMinutes: výdrž ve vodorovném letu s plnou nádrží, odběr roste s kvadrátem hmotnosti a s fází letu,
+         baterie se na vleku mění pod batterySwapBelow kapacity;
+         sounds.rotor: smyčka rotorů, výšku a hlasitost podle otáček řídí skript;
+         litersPerSecond: čerpadlo, kterým se dron na plošině plní z nádrže vleku;
+         power: elektrocentrála (nafta z fillUnit dieselFillUnitIndex) nabíjí náhradní baterie, jen když vlek je rozložený;
+         chargeMinutes = nabití jedné baterie z 30 % na 95 %, dieselPerHour = spotřeba při nabíjení, readyLevel = od kolika
+         je náhradní baterie připravená k výměně; navLight: LED ramen (svit shaderem lightIds0 a bodové světlo) -->
+    <sprayDrone node="droneRoot" fillUnitIndex="1" range="300" workWidth="9" tankCapacity="40" batteryMinutes="8" droneMass="52"
+                batteryHoverFactor="1.15" batteryClimbFactor="1.4" batteryDescentFactor="0.8" batterySwapBelow="0.3" trailerFoldEnd="0.667"
+                cruiseSpeed="10" sprayingSpeed="7" climbSpeed="3" ascentSpeed="5" acceleration="2.5" yawSpeed="90"
+                sprayHeight="3" transitHeight="12" obstacleClearance="5" maxTransitHeight="60" corridorHeight="8" usageScale="1"
+                litersPerSecond="1" securedFoldTime="0.8">
+        <power dieselFillUnitIndex="2" spareBatteries="2" chargeMinutes="10" dieselPerHour="2.2" readyLevel="0.95" swapTime="5">
+            <exhaust node="generatorExhaust" filename="$data/effects/exhaust/exhaust.i3d" color="0.12 0.12 0.12 0.35" scale="0.35"/>
+        </power>
+        <navLights intensity="4" lightScale="0.3" blinkPeriod="1" blinkOn="0.5"/>
+        <sounds>
+            <rotor file="sounds/droneRotorLoop.ogg" linkNode="Drone_A_Tilt" innerRadius="8" outerRadius="120" fadeOut="300">
+                <volume indoor="0.6" outdoor="1.2"/>
+                <pitch indoor="1" outdoor="1"/>
+                <lowpassGain indoor="0.6" outdoor="1"/>
+            </rotor>
+            <generator template="riceFieldPump" linkNode="generatorExhaust" innerRadius="3" outerRadius="40" fadeIn="0.5" fadeOut="1">
+                <volume indoor="0.25" outdoor="0.7"/>
+            </generator>
+        </sounds>
+        <!-- postřik: síť efektu vanilla postřikovače Hardi Mega (backArmEffect: síť 5,84 × 2,04 m, viditelný
+             postřik jen ~1,5 m uprostřed) z $data, materiál
+             podle přípravku (materialType="sprayer"); skript 4 kusy postaví napříč dronem vedle sebe na workWidth a protáhne k zemi -->
+        <effects meshWidth="1.5" meshHeight="2.04" nozzleY="-0.2" rotY="0">
+            <effectNode filename="$data/vehicles/hardi/mega1200L/mega1200L.i3d" node="0|0|1|0|0|0|8" linkNode="Drone_A_Tilt" materialType="sprayer" delay="0"/>
+            <effectNode filename="$data/vehicles/hardi/mega1200L/mega1200L.i3d" node="0|0|1|0|0|0|8" linkNode="Drone_A_Tilt" materialType="sprayer" delay="0"/>
+            <effectNode filename="$data/vehicles/hardi/mega1200L/mega1200L.i3d" node="0|0|1|0|0|0|8" linkNode="Drone_A_Tilt" materialType="sprayer" delay="0"/>
+            <effectNode filename="$data/vehicles/hardi/mega1200L/mega1200L.i3d" node="0|0|1|0|0|0|8" linkNode="Drone_A_Tilt" materialType="sprayer" delay="0"/>
+        </effects>
+        <tilt node="Drone_A_Tilt"/>
+        <foldPart node="Drone_A_ArmPivot_1" foldedRot="0 17.110 0" unfoldedRot="0 -90.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_A_Blade_1Top0" foldedRot="0 -129.924 0" unfoldedRot="0 -39.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_1Top1" foldedRot="0 -129.924 0" unfoldedRot="0 -219.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_1Bottom0" foldedRot="0 -129.924 0" unfoldedRot="0 -129.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_1Bottom1" foldedRot="0 -129.924 0" unfoldedRot="0 50.076 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_ArmPivot_2" foldedRot="0 162.890 0" unfoldedRot="0 270.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_A_Blade_2Top0" foldedRot="0 129.924 0" unfoldedRot="0 219.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_2Top1" foldedRot="0 129.924 0" unfoldedRot="0 39.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_2Bottom0" foldedRot="0 129.924 0" unfoldedRot="0 129.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_2Bottom1" foldedRot="0 129.924 0" unfoldedRot="0 309.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_ArmPivot_3" foldedRot="0 -41.110 0" unfoldedRot="0 -90.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_A_Blade_3Top0" foldedRot="0 -50.076 0" unfoldedRot="0 39.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_3Top1" foldedRot="0 -50.076 0" unfoldedRot="0 -140.076 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_3Bottom0" foldedRot="0 -50.076 0" unfoldedRot="0 -50.076 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_3Bottom1" foldedRot="0 -50.076 0" unfoldedRot="0 129.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_ArmPivot_4" foldedRot="0 -138.890 0" unfoldedRot="0 -90.000 0" startTime="0" endTime="0.6"/>
+        <foldPart node="Drone_A_Blade_4Top0" foldedRot="0 50.076 0" unfoldedRot="0 140.076 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_4Top1" foldedRot="0 50.076 0" unfoldedRot="0 -39.924 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_4Bottom0" foldedRot="0 50.076 0" unfoldedRot="0 50.076 0" startTime="0.5" endTime="1"/>
+        <foldPart node="Drone_A_Blade_4Bottom1" foldedRot="0 50.076 0" unfoldedRot="0 230.076 0" startTime="0.5" endTime="1"/>
+        <rotor node="Drone_A_Rotor_1Top" direction="1"/>
+        <rotor node="Drone_A_Rotor_1Bottom" direction="-1"/>
+        <rotor node="Drone_A_Rotor_2Top" direction="-1"/>
+        <rotor node="Drone_A_Rotor_2Bottom" direction="1"/>
+        <rotor node="Drone_A_Rotor_3Top" direction="-1"/>
+        <rotor node="Drone_A_Rotor_3Bottom" direction="1"/>
+        <rotor node="Drone_A_Rotor_4Top" direction="1"/>
+        <rotor node="Drone_A_Rotor_4Bottom" direction="-1"/>
+        <navLight node="Drone_A_Led_1" lightNode="Drone_A_LedLight_1" blink="false"/>
+        <navLight node="Drone_A_Led_2" lightNode="Drone_A_LedLight_2" blink="false"/>
+        <navLight node="Drone_A_Led_3" lightNode="Drone_A_LedLight_3" blink="true"/>
+        <navLight node="Drone_A_Led_4" lightNode="Drone_A_LedLight_4" blink="true"/>
+    </sprayDrone>
+
+    <foliageBending>
+        <bendingNode minX="-1.05" maxX="1.05" minZ="-2.10" maxZ="2.10" yOffset="0.3"/>
+    </foliageBending>
+
+    <ai>
+        <agentAttachment jointNode="attacherJoint" rotCenterWheelIndices="1 2 3 4" width="2.11" height="2.60" length="6.32" lengthOffset="0.47"/>
+    </ai>
+
+    <tipOccluder>
+        <occlusionArea start="occlusionAreaStart" width="occlusionAreaWidth" height="occlusionAreaHeight"/>
+    </tipOccluder>
+
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="2" fieldMultiplier="2"/>
+
+    <i3dMappings>
+        <i3dMapping id="sprayDroneTrailerCar_main_component1" node="0>"/>
+        <i3dMapping id="sprayDroneTrailerCar_vis" node="0>1"/>
+        <i3dMapping id="attacherJoint" node="0>1|123"/>
+        <i3dMapping id="wheelFrontLeft" node="0>1|137|2"/>
+        <i3dMapping id="wheelFrontRight" node="0>1|137|3"/>
+        <i3dMapping id="wheelBackLeft" node="0>1|137|0"/>
+        <i3dMapping id="wheelBackRight" node="0>1|137|1"/>
+        <i3dMapping id="ladderSlide" node="0>1|133"/>
+        <i3dMapping id="ladderHinge" node="0>1|133|0"/>
+        <i3dMapping id="jockeyWheel" node="0>1|132"/>
+        <i3dMapping id="fillTrigger" node="0>1|130|2"/>
+        <i3dMapping id="exactFillRootNode" node="0>1|130|1"/>
+        <i3dMapping id="rearLight52_left" node="0>1|135|1"/>
+        <i3dMapping id="rearLight52_right" node="0>1|135|2"/>
+        <i3dMapping id="plateNumberLight03" node="0>1|135|0"/>
+        <i3dMapping id="sideMarker05_left" node="0>1|135|3"/>
+        <i3dMapping id="sideMarker05_right" node="0>1|135|4"/>
+        <i3dMapping id="exitPoint" node="0>1|129|0"/>
+        <i3dMapping id="outdoorCameraTarget" node="0>1|129|1"/>
+        <i3dMapping id="outdoorCamera" node="0>1|129|1|0"/>
+        <i3dMapping id="droneRoot" node="0>1|128"/>
+        <i3dMapping id="occlusionAreaStart" node="0>1|136|1"/>
+        <i3dMapping id="occlusionAreaWidth" node="0>1|136|2"/>
+        <i3dMapping id="occlusionAreaHeight" node="0>1|136|0"/>
+        <i3dMapping id="licensePlateBack" node="0>1|134"/>
+        <i3dMapping id="generatorExhaust" node="0>1|131"/>
+        <i3dMapping id="dieselFillRootNode" node="0>1|130|0"/>
+        <i3dMapping id="droneClampHinge_1" node="0>1|124"/>
+        <i3dMapping id="droneClampHinge_2" node="0>1|125"/>
+        <i3dMapping id="droneClampHinge_3" node="0>1|126"/>
+        <i3dMapping id="droneClampHinge_4" node="0>1|127"/>
+        <i3dMapping id="Drone_A_Tilt" node="0>1|128|0"/>
+        <i3dMapping id="Drone_A_ArmPivot_1" node="0>1|128|0|0"/>
+        <i3dMapping id="Drone_A_ArmPivot_2" node="0>1|128|0|1"/>
+        <i3dMapping id="Drone_A_ArmPivot_3" node="0>1|128|0|2"/>
+        <i3dMapping id="Drone_A_ArmPivot_4" node="0>1|128|0|3"/>
+        <i3dMapping id="Drone_A_Rotor_1Top" node="0>1|128|0|0|15"/>
+        <i3dMapping id="Drone_A_Rotor_1Bottom" node="0>1|128|0|0|14"/>
+        <i3dMapping id="Drone_A_Rotor_2Top" node="0>1|128|0|1|15"/>
+        <i3dMapping id="Drone_A_Rotor_2Bottom" node="0>1|128|0|1|14"/>
+        <i3dMapping id="Drone_A_Rotor_3Top" node="0>1|128|0|2|15"/>
+        <i3dMapping id="Drone_A_Rotor_3Bottom" node="0>1|128|0|2|14"/>
+        <i3dMapping id="Drone_A_Rotor_4Top" node="0>1|128|0|3|15"/>
+        <i3dMapping id="Drone_A_Rotor_4Bottom" node="0>1|128|0|3|14"/>
+        <i3dMapping id="Drone_A_Blade_1Top0" node="0>1|128|0|0|15|0"/>
+        <i3dMapping id="Drone_A_Blade_1Top1" node="0>1|128|0|0|15|1"/>
+        <i3dMapping id="Drone_A_Blade_1Bottom0" node="0>1|128|0|0|14|0"/>
+        <i3dMapping id="Drone_A_Blade_1Bottom1" node="0>1|128|0|0|14|1"/>
+        <i3dMapping id="Drone_A_Blade_2Top0" node="0>1|128|0|1|15|0"/>
+        <i3dMapping id="Drone_A_Blade_2Top1" node="0>1|128|0|1|15|1"/>
+        <i3dMapping id="Drone_A_Blade_2Bottom0" node="0>1|128|0|1|14|0"/>
+        <i3dMapping id="Drone_A_Blade_2Bottom1" node="0>1|128|0|1|14|1"/>
+        <i3dMapping id="Drone_A_Blade_3Top0" node="0>1|128|0|2|15|0"/>
+        <i3dMapping id="Drone_A_Blade_3Top1" node="0>1|128|0|2|15|1"/>
+        <i3dMapping id="Drone_A_Blade_3Bottom0" node="0>1|128|0|2|14|0"/>
+        <i3dMapping id="Drone_A_Blade_3Bottom1" node="0>1|128|0|2|14|1"/>
+        <i3dMapping id="Drone_A_Blade_4Top0" node="0>1|128|0|3|15|0"/>
+        <i3dMapping id="Drone_A_Blade_4Top1" node="0>1|128|0|3|15|1"/>
+        <i3dMapping id="Drone_A_Blade_4Bottom0" node="0>1|128|0|3|14|0"/>
+        <i3dMapping id="Drone_A_Blade_4Bottom1" node="0>1|128|0|3|14|1"/>
+        <i3dMapping id="Drone_A_Led_1" node="0>1|128|0|0|7"/>
+        <i3dMapping id="Drone_A_LedLight_1" node="0>1|128|0|0|7|0"/>
+        <i3dMapping id="Drone_A_Led_2" node="0>1|128|0|1|7"/>
+        <i3dMapping id="Drone_A_LedLight_2" node="0>1|128|0|1|7|0"/>
+        <i3dMapping id="Drone_A_Led_3" node="0>1|128|0|2|7"/>
+        <i3dMapping id="Drone_A_LedLight_3" node="0>1|128|0|2|7|0"/>
+        <i3dMapping id="Drone_A_Led_4" node="0>1|128|0|3|7"/>
+        <i3dMapping id="Drone_A_LedLight_4" node="0>1|128|0|3|7|0"/>
+    </i3dMappings>
+</vehicle>

@@ -1,0 +1,219 @@
+{
+ "name": "c32_max_fill",
+ "title": "Záběr 3.2: plnění hlavní nádrže Max přes pumpu z cisterny",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -684,
+   "z": 158,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": false
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/pump/waterPump.xml",
+   "x": -696,
+   "z": 164,
+   "yaw": 0,
+   "diesel": 10
+  },
+  {
+   "cmd": "spawnMod",
+   "mod": "base",
+   "rel": "data/vehicles/abi/waterTrailer550/waterTrailer550.xml",
+   "x": -696,
+   "z": 170,
+   "yaw": 90,
+   "water": 700
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "stationAt",
+   "trailer": "max",
+   "port": 1,
+   "pd": 3.0,
+   "cd": 3.6,
+   "dy": 0.0,
+   "cyaw": 0
+  },
+  {
+   "cmd": "dbg",
+   "command": "emptyTanks"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "EMPTY"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "playerTo",
+   "x": -680,
+   "z": 164,
+   "force": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whConnect1"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whOut"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "camSet",
+   "x": -702,
+   "y": 1.8,
+   "z": 170,
+   "rel": "terrain",
+   "tx": -690.5,
+   "ty": 1.3,
+   "tz": 163,
+   "trel": "terrain",
+   "fov": 48
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 13,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -702,
+     "y": 1.8,
+     "z": 170,
+     "rel": "terrain",
+     "tx": -690.5,
+     "ty": 1.3,
+     "tz": 163,
+     "trel": "terrain",
+     "fov": 48
+    },
+    {
+     "t": 6,
+     "x": -700,
+     "y": 1.6,
+     "z": 169.5,
+     "rel": "terrain",
+     "tx": -692,
+     "ty": 1.5,
+     "tz": 162.5,
+     "trel": "terrain",
+     "fov": 44
+    },
+    {
+     "t": 13,
+     "x": -699,
+     "y": 1.5,
+     "z": 168.5,
+     "rel": "terrain",
+     "tx": -693,
+     "ty": 1.5,
+     "tz": 161.5,
+     "trel": "terrain",
+     "fov": 40
+    }
+   ]
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "cmd": "dbg",
+   "command": "pumpOn"
+  },
+  {
+   "sleep": 11.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "dbg",
+   "command": "pumpOff"
+  }
+ ]
+}

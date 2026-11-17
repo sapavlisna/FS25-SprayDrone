@@ -1,0 +1,50 @@
+{
+ "popis": "tele z dálky od východu, komprese perspektivy",
+ "typ": "C",
+ "pohyb": "STAT, tele",
+ "smer": "–",
+ "fov": "18",
+ "vyska": "1,8 m, (−640, 137)",
+ "zabery": [
+  {
+   "id": "mini-3.2",
+   "od": 1.0,
+   "do": 13.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -640,
+     "y": 1.8,
+     "z": 137,
+     "rel": "terrain",
+     "tx": -692,
+     "ty": 1.8,
+     "tz": 141,
+     "trel": "terrain",
+     "fov": 18
+    },
+    {
+     "t": 14,
+     "x": -640,
+     "y": 1.8,
+     "z": 137,
+     "rel": "terrain",
+     "tx": -692,
+     "ty": 1.8,
+     "tz": 141,
+     "trel": "terrain",
+     "fov": 18
+    }
+   ]
+  }
+ ]
+}

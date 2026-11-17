@@ -1,0 +1,203 @@
+{
+ "name": "c63_diag",
+ "title": "diag",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "vehicles/sdtLimeMill/sdtLimeMill.xml",
+   "x": -740,
+   "z": 162,
+   "yaw": 90,
+   "once": "mill"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "detachFrom",
+   "parent": "max",
+   "child": "mill",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -684,
+   "z": 162,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "moveVehicle",
+   "vehicle": "mill",
+   "x": -701.94,
+   "z": 162,
+   "yaw": 90
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "attachTo",
+   "parent": "max",
+   "child": "mill",
+   "yaw": 90
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655,mill",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millFill"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whConnect5"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "camSet",
+   "x": -698.44,
+   "y": 1.7,
+   "z": 158.0,
+   "rel": "terrain",
+   "tx": -698.94,
+   "ty": 1.1,
+   "tz": 161.5,
+   "trel": "terrain",
+   "fov": 42
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "snap": "a"
+  },
+  {
+   "cmd": "camSet",
+   "x": -703.44,
+   "y": 1.4,
+   "z": 160.0,
+   "rel": "terrain",
+   "tx": -698.94,
+   "ty": 0.9,
+   "tz": 162,
+   "trel": "terrain",
+   "fov": 45
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "snap": "b"
+  },
+  {
+   "cmd": "camSet",
+   "x": -699.44,
+   "y": 1.8,
+   "z": 166.5,
+   "rel": "terrain",
+   "tx": -698.94,
+   "ty": 1.0,
+   "tz": 163.0,
+   "trel": "terrain",
+   "fov": 42
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "snap": "c"
+  },
+  {
+   "cmd": "camSet",
+   "x": -695.94,
+   "y": 2.2,
+   "z": 158.5,
+   "rel": "terrain",
+   "tx": -698.94,
+   "ty": 1.0,
+   "tz": 162,
+   "trel": "terrain",
+   "fov": 45
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "snap": "d"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whValve"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "a2"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  }
+ ]
+}

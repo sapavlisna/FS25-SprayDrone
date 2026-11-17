@@ -1,0 +1,50 @@
+{
+ "popis": "z potoka (východ) – levý bok k vodě? ne: pravý bok (ventily) k potoku, STAT",
+ "typ": "PC",
+ "pohyb": "STAT",
+ "smer": "–",
+ "fov": "36",
+ "vyska": "0,9 m, (685, -33)",
+ "zabery": [
+  {
+   "id": "max-3.2",
+   "od": 1.0,
+   "do": 13.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 689,
+     "y": 7.0,
+     "z": -29.0,
+     "rel": "terrain",
+     "tx": 674,
+     "ty": 1.8,
+     "tz": -45.0,
+     "trel": "terrain",
+     "fov": 38
+    },
+    {
+     "t": 14,
+     "x": 689,
+     "y": 7.0,
+     "z": -29.0,
+     "rel": "terrain",
+     "tx": 674,
+     "ty": 1.8,
+     "tz": -45.0,
+     "trel": "terrain",
+     "fov": 38
+    }
+   ]
+  }
+ ]
+}

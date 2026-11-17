@@ -440,12 +440,19 @@ function SprayDroneMill.isHoseAttached(self)
     return g_time - getSpec(self).outletUsedTime < SprayDroneMill.OUTLET_USED_MS * 2
 end
 
+local function getVehicleLabel(v)
+    return v ~= nil and string.format("%s (id %s)", v.configFileNameClean or "?", tostring(v.id)) or "?"
+end
+
 -- Záznam sypání do big bagu do log.txt (SDT děj): začátek a po BAG_FLOW_QUIET_MS bez litru konec s množstvím.
 function SprayDroneMill.flushBagFlow(self, force)
     local spec = getSpec(self)
     local f = spec.bagFlow
     if f.on and (force or g_time - f.last >= SprayDroneMill.BAG_FLOW_QUIET_MS) then
         f.on = false
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT děj: mlýnek %s: sypání do big bagu skončilo, nasypáno %.1f l za %.1f s", getVehicleLabel(self), f.total, (f.last - f.start) / 1000)
+        end
     end
 end
 
@@ -492,9 +499,15 @@ function SprayDroneMill.spawnBag(self)
         local v = vehicles ~= nil and vehicles[1] or nil
         if state ~= VehicleLoadingState.OK or v == nil then
             spec.bagSpawnRetry = g_time + SprayDroneMill.BAG_SPAWN_RETRY_MS
+            if SprayDroneDebug and SprayDroneDebug.ENABLED then
+                Logging.info("SDT děj: mlýnek %s: nový big bag se nepodařilo vytvořit (%s)", getVehicleLabel(self), tostring(state))
+            end
             return
         end
         spec.bag = v
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT děj: mlýnek %s: pod plnicí hlavou nic nestálo, vytvořen nový big bag %s", getVehicleLabel(self), getVehicleLabel(v))
+        end
     end)
 end
 
@@ -535,6 +548,9 @@ function SprayDroneMill.updateBag(self, dt, seconds)
     local f = spec.bagFlow
     if not f.on then
         f.on, f.total, f.start = true, 0, g_time
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT děj: mlýnek %s: sypání do big bagu začalo, %s", getVehicleLabel(self), getVehicleLabel(bag))
+        end
     end
     f.total = f.total + moved
     f.last = g_time
@@ -608,11 +624,17 @@ local function notePour(self, spec, moved, from)
     if moved > 0 then
         if not f.on then
             f.on, f.total, f.start = true, 0, g_time
+            if SprayDroneDebug and SprayDroneDebug.ENABLED then
+                Logging.info("SDT děj: %s: nalévání začalo, %s", getVehicleLabel(self), getVehicleLabel(from))
+            end
         end
         f.total = f.total + moved
         f.last = g_time
     elseif f.on and g_time - f.last >= SprayDroneMill.POUR_FLOW_QUIET_MS then
         f.on = false
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT děj: %s: nalévání skončilo, přeléváno %.1f l za %.1f s", getVehicleLabel(self), f.total, (f.last - f.start) / 1000)
+        end
     end
 end
 
@@ -699,6 +721,9 @@ local function setDust(self, spec, field, effects, on, what)
     end
     spec[field] = on
     SprayDroneStation.setSprayMistEmitting(effects, on)
+    if SprayDroneDebug and SprayDroneDebug.ENABLED then
+        Logging.info("SDT děj: mlýnek %s: prach %s %s", getVehicleLabel(self), what, on and "začal" or "skončil")
+    end
 end
 
 local function getPlayerPosition()
@@ -976,6 +1001,7 @@ function SprayDroneMillEngineActivatable:activate() end
 function SprayDroneMillEngineActivatable:deactivate() end
 
 function SprayDroneMillEngineActivatable:draw() end
+
 
 ---------------------------------------------------------------------------------------------------
 -- ventil výstupu: levé tlačítko myši na páku rozdělovače (R u spojky patří hadici vleku, SprayDroneWaterHose)

@@ -778,6 +778,9 @@ local function describeSurroundings(self, h)
             pump.pondMode and "rybník" or "nádrž", tostring(ok), level ~= nil and string.format("%.2f", level) or "žádná", ground, pump.minDepth or SprayDroneWaterHose.POND_DEPTH))
     end
     if #lines > 0 then
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT děj: hadice %d na %s pustena ve výšce %.2f m (%.1f %.1f), okolí: %s", h.index, flowName(self), h.holdY or 0, h.holdX, h.holdZ, table.concat(lines, " | "))
+        end
     end
 end
 
@@ -785,6 +788,9 @@ local function noteFlow(self, h, dst, src, moved)
     if moved > 0 then
         if not h.flowOn then
             h.flowOn, h.flowTotal, h.flowStart = true, 0, g_time
+            if SprayDroneDebug and SprayDroneDebug.ENABLED then
+                Logging.info("SDT děj: hadice %d na %s: tok začal, %s -> %s", h.index, flowName(self), flowName(src), flowName(dst))
+            end
         end
         h.flowTotal = h.flowTotal + moved
         h.flowLast = g_time
@@ -794,6 +800,9 @@ end
 local function flushFlow(self, h, force)
     if h.flowOn and (force or g_time - h.flowLast >= SprayDroneWaterHose.FLOW_QUIET_MS) then
         h.flowOn = false
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT děj: hadice %d na %s: tok skončil, přeteklo %.1f l za %.1f s", h.index, flowName(self), h.flowTotal, (h.flowLast - h.flowStart) / 1000)
+        end
     end
 end
 

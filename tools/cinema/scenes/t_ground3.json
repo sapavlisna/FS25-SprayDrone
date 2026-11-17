@@ -1,0 +1,16 @@
+{
+  "name": "t_ground3",
+  "title": "Kontrola usazení souprav na místě (-640,110): boční pohled",
+  "steps": [
+    {"cmd": "placeSet", "trailer": "mini", "tractor": "jd3650", "x": -640, "z": 110, "yaw": 90, "unfolded": false},
+    {"sleep": 9.0},
+    {"cmd": "camSet", "x": -648, "y": 1.3, "z": 96, "rel": "terrain", "tx": -648, "ty": 1.2, "tz": 110, "trel": "terrain", "fov": 45},
+    {"sleep": 1.0},
+    {"snap": "mini_jd"},
+    {"cmd": "placeSet", "trailer": "max", "tractor": "mt655", "x": -640, "z": 110, "yaw": 90, "unfolded": false},
+    {"sleep": 9.0},
+    {"cmd": "camSet", "x": -648, "y": 1.3, "z": 94, "rel": "terrain", "tx": -648, "ty": 1.4, "tz": 110, "trel": "terrain", "fov": 50},
+    {"sleep": 1.0},
+    {"snap": "max_mt"}
+  ]
+}

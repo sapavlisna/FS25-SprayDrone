@@ -1,0 +1,111 @@
+{
+ "name": "b01_aerial",
+ "title": "Záběr 0.1: vzdušný sjezd k farmě, v dálce jede souprava",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -625,
+   "z": 172.5,
+   "yaw": 270,
+   "unfolded": false
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 20,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "camSet",
+   "x": -540,
+   "y": 48,
+   "z": 330,
+   "rel": "terrain",
+   "tx": -700,
+   "ty": 5,
+   "tz": 150,
+   "trel": "terrain",
+   "fov": 40
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "pickup",
+   "x": -830,
+   "z": 172.5,
+   "kmh": 22,
+   "tel": false
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 1.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 9,
+   "ease": "smooth",
+   "wait": true,
+   "check": true,
+   "timeout": 30,
+   "keys": [
+    {
+     "t": 0,
+     "x": -540,
+     "y": 48,
+     "z": 330,
+     "rel": "terrain",
+     "tx": -700,
+     "ty": 5,
+     "tz": 150,
+     "trel": "terrain",
+     "fov": 40
+    },
+    {
+     "t": 9,
+     "x": -655,
+     "y": 5.5,
+     "z": 212,
+     "rel": "terrain",
+     "tx": -698,
+     "ty": 5,
+     "tz": 150,
+     "trel": "terrain",
+     "fov": 33
+    }
+   ]
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "pickup"
+  }
+ ]
+}

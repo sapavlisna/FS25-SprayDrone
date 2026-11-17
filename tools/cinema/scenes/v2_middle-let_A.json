@@ -1,0 +1,410 @@
+{
+ "name": "v2_middle-let_A",
+ "title": "middle-let | kamera A: 7.0 NAJ na dron, 7.1 pevná kamera se naklání za stoupáním, 7.2 FOL, 7.3 TOP nad dronem, 7.4 boční tracking",
+ "v2": {
+  "akce": "middle-let",
+  "kamera": "A",
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.0",
+   "middle-7.1",
+   "middle-7.2",
+   "middle-7.3",
+   "middle-7.4"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.75,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -625,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "nodeVis",
+   "trailer": "middle",
+   "show": "antennaLarge,gpsRtkBox,antennaBase"
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "middle",
+   "field": 91
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "main",
+   "fill": "LIQUIDFERTILIZER",
+   "liters": 1000
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "conc",
+   "fill": "LIQUIDFERTILIZER",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "open": false,
+   "optional": true
+  },
+  {
+   "cmd": "play",
+   "trailer": "middle",
+   "command": "windOff"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 2.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle:drone1",
+     "x": 2.2,
+     "y": 0.8,
+     "z": -2.4,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 32
+    },
+    {
+     "t": 2.0,
+     "at": "middle:drone1",
+     "x": 2.2,
+     "y": 0.8,
+     "z": -2.4,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 4.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle:drone1",
+     "x": 2.2,
+     "y": 0.8,
+     "z": -2.4,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 32
+    },
+    {
+     "t": 4.0,
+     "at": "middle:drone1",
+     "x": 1.2,
+     "y": 0.45,
+     "z": -1.1,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0,
+     "fov": 28
+    }
+   ]
+  },
+  {
+   "mark": "det"
+  },
+  {
+   "cmd": "mark",
+   "name": "det",
+   "optional": true
+  },
+  {
+   "sleep": 4.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 8.5,
+     "y": 2.6,
+     "z": -8.0,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 7.0,
+     "at": "middle",
+     "x": 8.5,
+     "y": 2.6,
+     "z": -8.0,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.8,
+     "tz": 0,
+     "fov": 36
+    }
+   ],
+   "tsmooth": 0.3
+  },
+  {
+   "mark": "start"
+  },
+  {
+   "cmd": "mark",
+   "name": "start",
+   "optional": true
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "middle",
+   "fill": false
+  },
+  {
+   "sleep": 7.0
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "spraying",
+   "timeout": 200
+  },
+  {
+   "mark": "w1"
+  },
+  {
+   "cmd": "camFollow",
+   "target": "middle:drone1",
+   "ox": 0,
+   "oy": 2.6,
+   "oz": -10,
+   "lx": 0,
+   "ly": -0.4,
+   "lz": 4,
+   "fov": 34,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.9,
+   "tauLook": 0.6,
+   "check": false,
+   "ox2": 2.0,
+   "oy2": 3.4,
+   "oz2": -11,
+   "fov2": 32
+  },
+  {
+   "cmd": "mark",
+   "name": "w1",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "mark": "w2"
+  },
+  {
+   "cmd": "camPath",
+   "duration": 6.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle:drone1",
+     "x": 0,
+     "y": 27,
+     "z": -0.8,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0,
+     "tz": 0.6,
+     "fov": 40
+    },
+    {
+     "t": 6.5,
+     "at": "middle:drone1",
+     "x": 0,
+     "y": 31,
+     "z": -0.8,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0,
+     "tz": 0.6,
+     "fov": 40
+    }
+   ]
+  },
+  {
+   "cmd": "mark",
+   "name": "w2",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "mark": "w3"
+  },
+  {
+   "cmd": "camFollow",
+   "target": "middle:drone1",
+   "ox": 8.5,
+   "oy": 1.5,
+   "oz": -2.5,
+   "lx": 0,
+   "ly": 0,
+   "lz": 1.0,
+   "fov": 32,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.5,
+   "tauLook": 0.4,
+   "check": false
+  },
+  {
+   "cmd": "mark",
+   "name": "w3",
+   "optional": true
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

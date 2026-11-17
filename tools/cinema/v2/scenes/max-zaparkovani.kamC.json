@@ -1,0 +1,50 @@
+{
+ "popis": "tele zdálky od jihu proti jízdě",
+ "typ": "C",
+ "pohyb": "STAT tele",
+ "smer": "–",
+ "fov": "18",
+ "vyska": "1,4 m, (670, 33)",
+ "zabery": [
+  {
+   "id": "max-3.2",
+   "od": 1.0,
+   "do": 13.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 670,
+     "y": 3.0,
+     "z": 33.0,
+     "rel": "terrain",
+     "tx": 674,
+     "ty": 2.0,
+     "tz": -45.0,
+     "trel": "terrain",
+     "fov": 18
+    },
+    {
+     "t": 14,
+     "x": 670,
+     "y": 3.0,
+     "z": 33.0,
+     "rel": "terrain",
+     "tx": 674,
+     "ty": 2.0,
+     "tz": -45.0,
+     "trel": "terrain",
+     "fov": 18
+    }
+   ]
+  }
+ ]
+}

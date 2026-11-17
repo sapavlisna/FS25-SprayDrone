@@ -1,0 +1,60 @@
+{
+ "popis": "5m.1 TRK R→L podél břehu: pumpa, hadice, motor naskočí a hadice se napnou",
+ "typ": "C",
+ "pohyb": "TRK R→L",
+ "smer": "R→L",
+ "fov": "38",
+ "vyska": "1,4 m, x = −7,5 (potok za kamerou)",
+ "zabery": [
+  {
+   "id": "max-5m.1",
+   "od": 0.5,
+   "do": 7.0
+  },
+  {
+   "id": "max-5m.3",
+   "od": 11.0,
+   "do": 13.5
+  },
+  {
+   "id": "max-5m.4",
+   "od": 14.2,
+   "do": 15.7
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 16,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 667,
+     "y": 2.4,
+     "z": -13,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 16,
+     "x": 672,
+     "y": 1.8,
+     "z": -19,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 0.9,
+     "tz": -30,
+     "trel": "terrain",
+     "fov": 28
+    }
+   ]
+  }
+ ]
+}

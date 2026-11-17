@@ -1,0 +1,75 @@
+{
+ "popis": "7.5 FOL za sestupem dronu, 7.6 oblet po směru hodin (opačný směr než A)",
+ "typ": "PC",
+ "pohyb": "FOL → NAJ na truhlu",
+ "smer": "–",
+ "fov": "34 / 30 → 26",
+ "vyska": "2,4 m; 1,6 → 1,4 m, 3–4 m od truhly",
+ "zabery": [
+  {
+   "id": "mini-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "mini-7.6",
+   "od": "servicing +0",
+   "do": "servicing +12"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camFollow",
+   "target": "mini:drone1",
+   "ox": 4,
+   "oy": 2.4,
+   "oz": -7,
+   "lx": 0,
+   "ly": -0.3,
+   "lz": 0,
+   "fov": 34,
+   "duration": 8,
+   "ease": "smooth",
+   "tau": 0.8,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": 3,
+   "oy2": 1.6,
+   "oz2": -5
+  },
+  {
+   "after": "servicing",
+   "cmd": "camPath",
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 2.8,
+     "y": 1.6,
+     "z": 3.6,
+     "tat": "mini",
+     "tx": 0.5,
+     "ty": 1.0,
+     "tz": 1.55,
+     "fov": 30
+    },
+    {
+     "t": 12,
+     "at": "mini",
+     "x": 2.2,
+     "y": 1.4,
+     "z": 2.8,
+     "tat": "mini",
+     "tx": 0.5,
+     "ty": 1.0,
+     "tz": 1.55,
+     "fov": 26
+    }
+   ]
+  }
+ ]
+}

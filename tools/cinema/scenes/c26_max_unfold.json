@@ -1,0 +1,168 @@
+{
+ "name": "c26_max_unfold",
+ "title": "Záběr 2.6: Max u pole rozkládá plošiny a dva drony",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -690,
+   "z": 128,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": false
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "jd3650",
+   "x": -690,
+   "z": 172.5,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,jd3650,middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "camSet",
+   "at": "max",
+   "x": 4.5,
+   "y": 1.4,
+   "z": -11,
+   "tat": "max",
+   "tx": 0,
+   "ty": 1.9,
+   "tz": -3,
+   "fov": 38
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 1.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 12,
+   "ease": "inout",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": 4.5,
+     "y": 1.4,
+     "z": -11,
+     "tat": "max",
+     "tx": 0,
+     "ty": 1.9,
+     "tz": -3,
+     "fov": 38
+    },
+    {
+     "t": 4,
+     "at": "max",
+     "x": 9,
+     "y": 1.7,
+     "z": -9,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.2,
+     "tz": -2,
+     "fov": 40
+    },
+    {
+     "t": 8,
+     "at": "max",
+     "x": 11,
+     "y": 2.2,
+     "z": -2,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.4,
+     "tz": -1,
+     "fov": 40
+    },
+    {
+     "t": 12,
+     "at": "max",
+     "x": 13,
+     "y": 3.0,
+     "z": 5,
+     "tat": "max",
+     "tx": 0,
+     "ty": 2.2,
+     "tz": 0,
+     "fov": 40
+    }
+   ]
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

@@ -1,0 +1,270 @@
+{
+ "popis": "Mlýnek stojí samostatně (yaw 0, kořen (677.8, -26.0), výstup ≈ 7 m od vápnové spojky Maxu, nezapřažen). t = 2 s `dbg whConnect5` (hadice mlýnek → vápnová spojka), 7,5 s `bagLift target=mill` (big bag LIME 300 l), 17 s `millOn` (motor, zelený prstenec), 21 s `whValve` (kohout), 29 s `millOff`.",
+ "vlek": "max",
+ "beat": "5m",
+ "zabery": [
+  "max-5m.5",
+  "max-5m.6",
+  "max-5m.7",
+  "max-5m.8"
+ ],
+ "misto": "POTOK, mlýnek za pravým bokem Maxu",
+ "cas": "12:42",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 12.7,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -43.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "EMPTY",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "playerTo",
+   "x": 681,
+   "z": -39.0,
+   "force": true
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "vehicles/sdtLimeMill/sdtLimeMill.xml",
+   "x": 677.8,
+   "z": -26.0,
+   "yaw": 0,
+   "once": "mill"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "moveVehicle",
+   "vehicle": "mill",
+   "x": 677.8,
+   "z": -26.0,
+   "yaw": 0
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whConnect5"
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "cmd": "bagLift",
+   "target": "mill",
+   "side": 3.2,
+   "up": 3.4,
+   "dx": 0,
+   "dz": 1,
+   "tLift": 3.0,
+   "tMove": 2.5,
+   "tLower": 1.5,
+   "tHold": 9.0,
+   "fill": 300,
+   "delay": 1.0
+  },
+  {
+   "sleep": 9.5
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whValve"
+  },
+  {
+   "sleep": 8.0
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff",
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "mill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

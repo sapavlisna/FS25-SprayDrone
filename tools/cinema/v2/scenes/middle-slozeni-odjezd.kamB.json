@@ -1,0 +1,89 @@
+{
+ "popis": "8.1 pevný vysoký záběr zezadu, 8.2 tele ze severu se sledováním cíle",
+ "typ": "C",
+ "pohyb": "STAT → STAT + sledování",
+ "smer": "R→L",
+ "fov": "34 / 26 → 20",
+ "vyska": "3,0 m; 3,2 m",
+ "zabery": [
+  {
+   "id": "middle-8.1",
+   "od": 2.0,
+   "do": 12.0
+  },
+  {
+   "id": "middle-8.2",
+   "od": 14.0,
+   "do": 23.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 0.4,
+     "y": 3.0,
+     "z": -10,
+     "tat": "middle",
+     "tx": 0.3,
+     "ty": 2.0,
+     "tz": -1.0,
+     "fov": 34
+    },
+    {
+     "t": 14.0,
+     "at": "middle",
+     "x": 0.4,
+     "y": 3.0,
+     "z": -10,
+     "tat": "middle",
+     "tx": 0.3,
+     "ty": 2.0,
+     "tz": -1.0,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "at": 14.0,
+   "cmd": "camPath",
+   "duration": 11,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -663,
+     "y": 3.2,
+     "z": 450,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 26
+    },
+    {
+     "t": 11,
+     "x": -663,
+     "y": 3.2,
+     "z": 450,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 20
+    }
+   ],
+   "tsmooth": 0.4
+  }
+ ]
+}

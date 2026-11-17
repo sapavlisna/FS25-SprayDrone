@@ -1,0 +1,438 @@
+{
+ "popis": "Mini + JD 3650 (−705, 138), Max + MT655 (−694, 136), Middle + pickup (−683, 138), yaw 180, rozložené; čtyři drony (Mini 1, Max 2, Middle 1) vzlétnou a `droneHover` je drží 34 s nad vleky.",
+ "vlek": "mini+max+middle",
+ "beat": "epilog",
+ "zabery": [
+  "spol-1",
+  "spol-2",
+  "spol-3"
+ ],
+ "misto": "DVŮR (−694, 138), tři vleky (c02_three_wide)",
+ "cas": "13:00",
+ "t_event": 2.0,
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 13.0,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 3,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 4,
+   "crop": "MAIZE",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 5,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "sdtLimeMill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeBigBag",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "relayPole",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": -705,
+   "z": 138,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -694,
+   "z": 136,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -683,
+   "z": 138,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "mini",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "play",
+   "trailer": "mini",
+   "command": "windOff",
+   "optional": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "max",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "max"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "play",
+   "trailer": "max",
+   "command": "windOff",
+   "optional": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "nodeVis",
+   "trailer": "middle",
+   "show": "antennaLarge,gpsRtkBox,antennaBase"
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "middle",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "play",
+   "trailer": "middle",
+   "command": "windOff",
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650,max,mt655,middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": -694,
+   "z": 170,
+   "force": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "kamera": true
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "mini",
+   "fill": false
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "max",
+   "fill": false,
+   "drone": 0
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "middle",
+   "fill": false
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "airborne",
+   "drone": 1,
+   "timeout": 60
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "airborne",
+   "drone": 1,
+   "timeout": 60
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "airborne",
+   "drone": 2,
+   "timeout": 60
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "airborne",
+   "drone": 1,
+   "timeout": 60
+  },
+  {
+   "cmd": "droneHover",
+   "trailer": "mini",
+   "drone": 1,
+   "seconds": 34,
+   "delay": 2.0
+  },
+  {
+   "cmd": "droneHover",
+   "trailer": "max",
+   "drone": 1,
+   "seconds": 34,
+   "delay": 2.0
+  },
+  {
+   "cmd": "droneHover",
+   "trailer": "max",
+   "drone": 2,
+   "seconds": 34,
+   "delay": 2.0
+  },
+  {
+   "cmd": "droneHover",
+   "trailer": "middle",
+   "drone": 1,
+   "seconds": 34,
+   "delay": 2.0
+  },
+  {
+   "mark": "h1"
+  },
+  {
+   "cmd": "mark",
+   "name": "h1",
+   "optional": true
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "mark": "h2"
+  },
+  {
+   "cmd": "mark",
+   "name": "h2",
+   "optional": true
+  },
+  {
+   "sleep": 8.5
+  },
+  {
+   "mark": "h3"
+  },
+  {
+   "cmd": "mark",
+   "name": "h3",
+   "optional": true
+  },
+  {
+   "sleep": 8.5
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "drone": 0
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

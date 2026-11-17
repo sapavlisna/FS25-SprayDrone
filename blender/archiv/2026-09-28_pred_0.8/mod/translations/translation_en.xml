@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="input_SDT_OPEN_PLANNER" text="Drone: flight planner"/>
+        <text name="input_SDT_START_FLIGHT" text="Drone: start flight"/>
+        <text name="input_SDT_RETURN_HOME" text="Drone: return home"/>
+        <text name="sdt_hud_field" text="Drone field: %s"/>
+        <text name="sdt_hud_noField" text="none (flight planner Alt+7)"/>
+        <text name="sdt_hud_route" text="Drone batches left: %d"/>
+        <text name="sdt_hud_drone" text="Drone: %s"/>
+        <text name="sdt_hud_droneTank" text="Drone tank %.0f/%.0f l | battery %.0f %%"/>
+        <text name="sdt_state_parked" text="on trailer"/>
+        <text name="sdt_state_flying" text="flying a batch"/>
+        <text name="sdt_state_returning" text="returning"/>
+        <text name="sdt_state_servicing" text="service on the deck"/>
+        <text name="sdt_state_waitCharge" text="waiting for a charged battery – %.0f %%"/>
+        <text name="sdt_state_pumping" text="filling tank (%.0f l/min)"/>
+        <text name="sdt_state_swapping" text="swapping battery"/>
+        <text name="sdt_state_pumpingSwapping" text="filling tank and swapping battery"/>
+        <text name="sdt_hud_power" text="Trailer batteries: %s"/>
+        <text name="sdt_hud_generator" text="Generator: %s | diesel %.1f/%.0f l"/>
+        <text name="sdt_hud_charging" text="(charging)"/>
+        <text name="sdt_hud_generatorOn" text="charging"/>
+        <text name="sdt_hud_generatorOff" text="off"/>
+        <text name="sdt_status_noFuel" text="Drone: the generator is out of diesel and no spare battery is charged"/>
+        <text name="sdt_planner_service" text="Service on the trailer %.1f min, of which waiting for charge %.1f min"/>
+        <text name="sdt_planner_diesel" text="Diesel for charging: ~%.1f l, in generator %.1f l"/>
+        <text name="sdt_planner_noFuel" text="Not enough diesel – the mission stops when no spare battery is charged."/>
+        <text name="sdt_planner_fuelRunsOut" text="Diesel runs out before all batteries are charged – refuel the generator."/>
+        <text name="sdt_status_fieldDone" text="Drone: field is done, nothing left to spray"/>
+        <text name="sdt_status_trailerEmpty" text="Drone: trailer tank is empty"/>
+        <text name="sdt_status_unreachable" text="Drone: the rest of the field is beyond battery range"/>
+        <text name="sdt_status_aborted" text="Drone: mission aborted (trailer folded or field missing)"/>
+        <text name="sdt_status_notAllowed" text="Drone: the field can no longer be treated (contract ended or field not owned)"/>
+        <text name="sdt_status_obstacle" text="Drone: an obstacle on the way is higher than the drone may fly – move the trailer"/>
+        <text name="sdt_warning_obstacleTooHigh" text="An obstacle on the way is higher than the drone may fly – move the trailer"/>
+        <text name="sdt_warning_noField" text="There is no field here"/>
+        <text name="sdt_warning_noFieldSelected" text="Select a field in the flight planner first"/>
+        <text name="sdt_warning_notOwned" text="Foreign field – not owned by your farm and no contract"/>
+        <text name="sdt_warning_missionNoSpray" text="The contract on this field does not allow spraying"/>
+        <text name="sdt_warning_missionProduct" text="The contract needs a different product than the trailer holds"/>
+        <text name="sdt_warning_missionRunning" text="The drone is flying – change the field after it returns"/>
+        <text name="sdt_warning_outOfRange" text="The field is out of drone range"/>
+        <text name="sdt_warning_droneFlying" text="The drone is airborne – returning, fold after it lands"/>
+        <text name="sdt_warning_rotorsSpinning" text="The drone rotors are still spinning down – fold once they stop"/>
+        <text name="sdt_button_close" text="Close"/>
+        <text name="sdt_button_start" text="Start flight"/>
+        <text name="sdt_button_returnHome" text="Return home"/>
+        <text name="sdt_planner_title" text="Drone flight planner"/>
+        <text name="sdt_planner_trailer" text="TRAILER"/>
+        <text name="sdt_planner_trailerTank" text="Trailer: %.0f l – %s"/>
+        <text name="sdt_planner_params" text="Range %.0f m, working width %.0f m"/>
+        <text name="sdt_planner_noField" text="No field selected"/>
+        <text name="sdt_planner_hintSelect" text="Click a field with a blue or gold outline inside the range circle."/>
+        <text name="sdt_planner_field" text="Field %s"/>
+        <text name="sdt_planner_ownField" text="Own field"/>
+        <text name="sdt_planner_contract" text="Contract"/>
+        <text name="sdt_planner_contractTag" text="contract"/>
+        <text name="sdt_planner_contractInfo" text="Contract: %s (%.0f %% done)"/>
+        <text name="sdt_planner_batches" text="Batches (tank + battery): %d"/>
+        <text name="sdt_planner_time" text="Estimated flight time: %.1f min"/>
+        <text name="sdt_planner_battery" text="Battery: up to %.0f %% per batch, battery swaps %d"/>
+        <text name="sdt_planner_batteryLife" text="Battery life %.0f min with a full tank, %.0f min empty"/>
+        <text name="sdt_planner_transit" text="Transit height: %.0f m"/>
+        <text name="sdt_planner_transitObstacle" text="Transit height: %.0f m (raised for obstacles)"/>
+        <text name="sdt_planner_tooHigh" text="An obstacle on the way exceeds the %.0f m limit – move the trailer."/>
+        <text name="sdt_planner_area" text="Area to treat: %.2f ha"/>
+        <text name="sdt_planner_liters" text="Needed: %.0f l, available %.0f l"/>
+        <text name="sdt_planner_notEnough" text="Not enough product for the whole field – the drone stops when the trailer is empty."/>
+        <text name="sdt_planner_product" text="Product: %s"/>
+        <text name="sdt_planner_clipped" text="Part of the field is out of range – the route covers only the part inside the circle."/>
+        <text name="sdt_planner_hover" text="Under cursor: field %s"/>
+        <text name="sdt_planner_clickToSelect" text="Click to select it"/>
+        <text name="sdt_planner_selected" text="Selected field %s"/>
+        <text name="sdt_planner_started" text="Flight started"/>
+        <text name="sdt_planner_returning" text="The drone is returning to the trailer"/>
+        <text name="sdt_planner_legend" text="Outlines: green = selected, blue = own, gold = contract, red = not allowed, purple = flight area. Route line colors = batches, white dashed = transit."/>
+        <text name="sdt_planner_controls" text="Click = select field, drag = pan map, wheel = zoom."/>
+        <text name="sdt_status_areaNoPath" text="Drone: the flight area does not connect the trailer with the field – edit or delete it"/>
+        <text name="sdt_button_drawArea" text="Draw flight area"/>
+        <text name="sdt_button_editArea" text="Edit flight area"/>
+        <text name="sdt_button_closeArea" text="Close area"/>
+        <text name="sdt_button_cancelDraw" text="Cancel drawing"/>
+        <text name="sdt_button_undoPoint" text="Remove last point"/>
+        <text name="sdt_button_deleteArea" text="Delete area"/>
+        <text name="sdt_planner_areaNeedField" text="Select a field first – the flight area belongs to a field"/>
+        <text name="sdt_planner_areaSaved" text="Flight area saved (%d points)"/>
+        <text name="sdt_planner_areaDeleted" text="Flight area deleted – the drone flies directly"/>
+        <text name="sdt_planner_areaCancelled" text="Drawing cancelled, the area is unchanged"/>
+        <text name="sdt_planner_areaMaxPoints" text="The area can have at most %d points"/>
+        <text name="sdt_planner_flightArea" text="Flight area: %d points (transit only inside it or over the field)"/>
+        <text name="sdt_planner_areaHomeOutside" text="The trailer is outside the flight area – cannot fly."/>
+        <text name="sdt_planner_areaNoPath" text="The flight area does not connect the trailer with the field – cannot fly."/>
+        <text name="sdt_planner_areaFix" text="Edit the area so it contains the trailer and reaches the field, or delete it (Backspace)."/>
+        <text name="sdt_planner_transitLength" text="Direct transit: out %.0f m, back %.0f m (1st batch), total %.1f km"/>
+        <text name="sdt_planner_transitLengthArea" text="Transit via area: out %.0f m, back %.0f m (1st batch), total %.1f km"/>
+        <text name="sdt_planner_drawing" text="Drawing flight area: %d points"/>
+        <text name="sdt_planner_drawHint" text="Outline a path from the trailer to the field around buildings and trees. Click the first point to close the area."/>
+        <text name="sdt_planner_controlsDraw" text="Click = add point, drag = pan map, wheel = zoom."/>
+        <text name="input_SDT_TOGGLE_GENERATOR" text="Drone: generator on/off"/>
+        <text name="input_SDT_TOGGLE_LINES" text="Drone: show/hide world lines"/>
+        <text name="sdt_action_generatorOn" text="Drone: turn generator on"/>
+        <text name="sdt_action_generatorOff" text="Drone: turn generator off"/>
+        <text name="sdt_action_linesShow" text="Drone: show world lines"/>
+        <text name="sdt_action_linesHide" text="Drone: hide world lines"/>
+        <text name="sdt_fill_droneTank" text="Tank"/>
+        <text name="sdt_fill_secured" text="Drone secured"/>
+        <text name="sdt_state_secured" text="secured on the deck"/>
+        <text name="sdt_hud_generatorDisabled" text="switched off"/>
+        <text name="sdt_fill_battery" text="Battery"/>
+        <text name="sdt_fill_inDrone" text="in drone"/>
+        <text name="sdt_fill_charging" text="charging"/>
+        <text name="sdt_fill_spares" text="Trailer"/>
+    </texts>
+</l10n>

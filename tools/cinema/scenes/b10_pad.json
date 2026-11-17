@@ -1,0 +1,134 @@
+{
+ "name": "b10_pad",
+ "title": "Záběr 5.4 (varianta pad): Max (JD 3650), orbit kolem plošin se dvěma drony, oba vzlétají a odlétají nad pole",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -690,
+   "z": 128,
+   "yaw": 90,
+   "unfolded": false
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "jd3650",
+   "x": -690,
+   "z": 172.5,
+   "yaw": 90,
+   "unfolded": true,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "setField",
+   "field": 4,
+   "crop": "MAIZE",
+   "growth": 3
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "max",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "max"
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,jd3650,middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "camOrbit",
+   "target": "max:drone1",
+   "target2": "max:drone2",
+   "radius": 17,
+   "radius2": 13,
+   "height": 7,
+   "height2": 5,
+   "angle0": 215,
+   "angle1": 320,
+   "lx": 0,
+   "ly": 0.5,
+   "lz": 0,
+   "fov": 46,
+   "fov2": 42,
+   "tau": 0.15,
+   "duration": 12,
+   "ease": "smooth"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "max",
+   "fill": false
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.2
+  },
+  {
+   "sleep": 11.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  }
+ ]
+}

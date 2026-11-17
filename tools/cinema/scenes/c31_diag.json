@@ -1,0 +1,165 @@
+{
+ "name": "c31_diag",
+ "title": "diag",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "cmd": "playerTo",
+   "x": 362,
+   "z": -132
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "spawnPump"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": 379.6,
+   "z": -130.2,
+   "yaw": 43.8,
+   "unfolded": false,
+   "fill": false
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "dbg",
+   "command": "emptyTanks"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 9
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whPond"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "cmd": "dbg",
+   "command": "whOut"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "dbg",
+   "command": "whStatus"
+  },
+  {
+   "cmd": "dbg",
+   "command": "pumpOn"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "camSet",
+   "x": 376.1,
+   "y": 2.2,
+   "z": -144.1,
+   "rel": "terrain",
+   "tx": 369.1,
+   "ty": 1.0,
+   "tz": -139.1,
+   "trel": "terrain",
+   "fov": 50
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "snap": "a"
+  },
+  {
+   "cmd": "camSet",
+   "x": 373.1,
+   "y": 4.0,
+   "z": -130.1,
+   "rel": "terrain",
+   "tx": 372.1,
+   "ty": 0.5,
+   "tz": -140.1,
+   "trel": "terrain",
+   "fov": 50
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "snap": "b"
+  },
+  {
+   "cmd": "camSet",
+   "x": 364.1,
+   "y": 3.0,
+   "z": -146.1,
+   "rel": "terrain",
+   "tx": 372.1,
+   "ty": 0.8,
+   "tz": -137.1,
+   "trel": "terrain",
+   "fov": 55
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "snap": "c"
+  },
+  {
+   "cmd": "dbg",
+   "command": "pumpStatus"
+  },
+  {
+   "cmd": "dbg",
+   "command": "pumpOff"
+  }
+ ]
+}

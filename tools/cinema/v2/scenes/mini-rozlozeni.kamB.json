@@ -1,0 +1,37 @@
+{
+ "popis": "oblet proti směru hodin od pravého zadního rohu k pravému boku (jih, slunce vzadu)",
+ "typ": "C",
+ "pohyb": "ORB-CCW",
+ "smer": "CCW",
+ "fov": "38 → 36",
+ "vyska": "1,5 → 2,0 m, r = 8,5 → 8 m",
+ "zabery": [
+  {
+   "id": "mini-4.1",
+   "od": 2.0,
+   "do": 14.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camOrbit",
+   "radius": 8.5,
+   "radius2": 8,
+   "height": 1.5,
+   "height2": 2.0,
+   "angle0": -49.4,
+   "angle1": 18.4,
+   "lx": 0.0,
+   "ly": 1.0,
+   "lz": 0.0,
+   "fov": 38,
+   "fov2": 36,
+   "tau": 0.3,
+   "duration": 17,
+   "ease": "smooth",
+   "check": false,
+   "target": "mini"
+  }
+ ]
+}

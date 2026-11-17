@@ -1,0 +1,63 @@
+{
+ "name": "c_fogdiag",
+ "title": "diag mlha",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "camSet",
+   "x": -690,
+   "y": 2.0,
+   "z": 150,
+   "rel": "terrain",
+   "tx": -690,
+   "ty": 3.0,
+   "tz": 190,
+   "trel": "terrain",
+   "fov": 50
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "a_base"
+  },
+  {
+   "cmd": "setTime",
+   "hour": 6.7
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "b_time"
+  },
+  {
+   "cmd": "setFog",
+   "groundFogGroundLevelDensity": 0.5,
+   "heightFogGroundLevelDensity": 0.4,
+   "groundFogStartDayTimeMinutes": 120,
+   "groundFogEndDayTimeMinutes": 560,
+   "groundFogExtraHeight": 30,
+   "groundFogMinValleyDepth": 0
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "snap": "c_fog"
+  },
+  {
+   "cmd": "setWeather",
+   "weather": "CLOUDY",
+   "variation": 1
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "snap": "d_cloudy"
+  }
+ ]
+}

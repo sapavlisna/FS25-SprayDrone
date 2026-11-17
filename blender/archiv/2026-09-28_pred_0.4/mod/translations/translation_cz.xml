@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="input_SDT_OPEN_PLANNER" text="Dron: plánovač letu"/>
+        <text name="input_SDT_START_FLIGHT" text="Dron: spustit let"/>
+        <text name="input_SDT_RETURN_HOME" text="Dron: návrat na vlek"/>
+        <text name="sdt_hud_field" text="Dron – pole: %s"/>
+        <text name="sdt_hud_noField" text="nevybráno (plánovač letu Alt+7)"/>
+        <text name="sdt_hud_route" text="Dron – zbývá dávek: %d"/>
+        <text name="sdt_hud_drone" text="Dron: %s | nádrž %.0f/%.0f l | baterie %.0f %%"/>
+        <text name="sdt_state_parked" text="na vleku"/>
+        <text name="sdt_state_flying" text="letí dávku"/>
+        <text name="sdt_state_returning" text="vrací se"/>
+        <text name="sdt_state_servicing" text="doplňuje a mění baterii"/>
+        <text name="sdt_status_fieldDone" text="Dron: pole je hotové, není co postřikovat"/>
+        <text name="sdt_status_trailerEmpty" text="Dron: nádrž vleku je prázdná"/>
+        <text name="sdt_status_unreachable" text="Dron: zbytek pole je mimo dosah baterie"/>
+        <text name="sdt_status_aborted" text="Dron: mise přerušena (vlek složený nebo pole neexistuje)"/>
+        <text name="sdt_status_notAllowed" text="Dron: pole už ošetřovat nejde (zakázka skončila nebo pole nepatří farmě)"/>
+        <text name="sdt_warning_noField" text="Tady není pole"/>
+        <text name="sdt_warning_noFieldSelected" text="Nejdřív vyber pole v plánovači letu"/>
+        <text name="sdt_warning_notOwned" text="Cizí pole – nepatří tvé farmě a nemáš na něm zakázku"/>
+        <text name="sdt_warning_missionNoSpray" text="Zakázka na tomto poli postřik nedovoluje"/>
+        <text name="sdt_warning_missionProduct" text="Zakázka potřebuje jiný přípravek, než je ve vleku"/>
+        <text name="sdt_warning_missionRunning" text="Dron letí – pole jde změnit až po návratu"/>
+        <text name="sdt_warning_outOfRange" text="Pole je mimo dosah dronu"/>
+        <text name="sdt_warning_droneFlying" text="Dron je ve vzduchu – vrací se, složit jde až po přistání"/>
+        <text name="sdt_button_close" text="Zavřít"/>
+        <text name="sdt_button_start" text="Spustit let"/>
+        <text name="sdt_button_returnHome" text="Návrat domů"/>
+        <text name="sdt_planner_title" text="Plánovač letu dronu"/>
+        <text name="sdt_planner_trailer" text="VLEK"/>
+        <text name="sdt_planner_trailerTank" text="Vlek: %.0f l – %s"/>
+        <text name="sdt_planner_params" text="Dosah %.0f m, záběr %.0f m"/>
+        <text name="sdt_planner_noField" text="Pole není vybrané"/>
+        <text name="sdt_planner_hintSelect" text="Klikni na pole v modrém nebo zlatém obrysu uvnitř kruhu dosahu."/>
+        <text name="sdt_planner_field" text="Pole %s"/>
+        <text name="sdt_planner_ownField" text="Vlastní pole"/>
+        <text name="sdt_planner_contract" text="Zakázka"/>
+        <text name="sdt_planner_contractTag" text="zakázka"/>
+        <text name="sdt_planner_contractInfo" text="Zakázka: %s (hotovo %.0f %%)"/>
+        <text name="sdt_planner_batches" text="Dávek (nádrž + baterie): %d"/>
+        <text name="sdt_planner_area" text="Plocha k ošetření: %.2f ha"/>
+        <text name="sdt_planner_liters" text="Potřeba: %.0f l, k dispozici %.0f l"/>
+        <text name="sdt_planner_notEnough" text="Přípravku nestačí na celé pole – dron skončí, až vlek vyprázdní."/>
+        <text name="sdt_planner_product" text="Přípravek: %s"/>
+        <text name="sdt_planner_clipped" text="Část pole je mimo dosah – trasa pokrývá jen část uvnitř kruhu."/>
+        <text name="sdt_planner_hover" text="Pod kurzorem: pole %s"/>
+        <text name="sdt_planner_clickToSelect" text="Kliknutím ho vybereš"/>
+        <text name="sdt_planner_selected" text="Vybráno pole %s"/>
+        <text name="sdt_planner_started" text="Let spuštěn"/>
+        <text name="sdt_planner_returning" text="Dron se vrací na vlek"/>
+        <text name="sdt_planner_legend" text="Obrysy: zelená = vybrané, modrá = vlastní, zlatá = zakázka, červená = nejde. Barvy čar trasy = dávky."/>
+        <text name="sdt_planner_controls" text="Klik = výběr pole, tažení = posun mapy, kolečko = zoom."/>
+    </texts>
+</l10n>

@@ -1,0 +1,26 @@
+{
+  "name": "b12_depart",
+  "title": "Záběr 7.2 (v2): souprava odjíždí po asfaltce od kamery do slunce, kamera nízko na krajnici, auto celou dobu v záběru",
+  "steps": [
+    {"cmd": "setWeather", "weather": "SUN", "variation": 1},
+    {"cmd": "setTime", "hour": 18.1},
+    {"cmd": "setFog", "reset": true},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -2, "z": -662.5, "yaw": 270, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "x": 14, "y": 1.3, "z": -666.5, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.8, "tz": 0, "fov": 34},
+    {"sleep": 6.0},
+    {"cmd": "groundCheck", "vehicles": "middle,pickup", "maxTilt": 9},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": -250, "z": -662.5, "kmh": 36},
+    {"sleep": 4.0},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.5},
+    {"cmd": "camPath", "duration": 9, "ease": "linear", "wait": true, "check": false, "timeout": 30, "tsmooth": 0.3,
+     "keys": [
+       {"t": 0, "x": 14, "y": 1.3, "z": -666.5, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.9, "tz": 0, "fov": 34},
+       {"t": 9, "x": 14, "y": 1.3, "z": -666.5, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 2.5, "tz": 0, "fov": 17}
+     ]},
+    {"sleep": 0.3},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

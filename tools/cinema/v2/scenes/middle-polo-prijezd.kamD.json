@@ -1,0 +1,50 @@
+{
+ "popis": "vyvýšený široký záběr z jihozápadu s vodou v pozadí (hledí k severovýchodu)",
+ "typ": "C",
+ "pohyb": "STAT + pomalý nájezd (fov)",
+ "smer": "–",
+ "fov": "36 → 26",
+ "vyska": "5,0 m, (-660, 445) – ověřená poloha",
+ "zabery": [
+  {
+   "id": "middle-3.2",
+   "od": 1.0,
+   "do": 14.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -660,
+     "y": 5.0,
+     "z": 445,
+     "rel": "terrain",
+     "tx": -632,
+     "ty": 1.5,
+     "tz": 456,
+     "trel": "terrain",
+     "fov": 36
+    },
+    {
+     "t": 15,
+     "x": -660,
+     "y": 5.0,
+     "z": 445,
+     "rel": "terrain",
+     "tx": -632,
+     "ty": 1.5,
+     "tz": 456,
+     "trel": "terrain",
+     "fov": 26
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "b11_river",
+  "title": "Záběr 5.7 (v3): východní břeh řeky, souprava na rovném místě (440,-230), kamera na louce jižně od řeky, pan za dronem přelétajícím hladinu",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true},
+    {"cmd": "waitDrone", "trailer": "middle", "cond": "parked", "timeout": 120, "optional": true},
+    {"sleep": 1.0},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": 440, "z": -230, "yaw": 270, "unfolded": false, "fill": true, "timeout": 60},
+    {"cmd": "fold", "trailer": "middle", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "setField", "field": 83, "crop": "WHEAT", "growth": 3},
+    {"sleep": 1.0},
+    {"cmd": "selectField", "trailer": "middle", "field": 83},
+    {"cmd": "resetField", "trailer": "middle"},
+    {"cmd": "fillSet", "trailer": "middle"},
+    {"cmd": "camSet", "x": 395, "y": 8, "z": -200, "rel": "terrain", "tx": 345, "ty": 56, "tz": -229, "trel": "world", "fov": 40},
+    {"sleep": 6.0},
+    {"cmd": "groundCheck", "vehicles": "middle,pickup", "maxTilt": 6},
+    {"cmd": "startFlight", "trailer": "middle", "fill": false},
+    {"sleep": 13.0},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.3},
+    {"cmd": "camPath", "duration": 8, "ease": "linear", "wait": true, "check": false, "timeout": 30, "tsmooth": 0.5,
+     "keys": [
+       {"t": 0, "x": 395, "y": 8, "z": -200, "rel": "terrain", "tx": 335, "ty": 57, "tz": -229, "trel": "world", "fov": 54},
+       {"t": 8, "x": 395, "y": 8, "z": -200, "rel": "terrain", "tx": 328, "ty": 57, "tz": -229, "trel": "world", "fov": 50}
+     ]},
+    {"sleep": 0.3},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "middle", "optional": true}
+  ]
+}

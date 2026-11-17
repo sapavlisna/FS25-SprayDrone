@@ -1,0 +1,63 @@
+{
+ "popis": "ověřený záběr b02_road: pevná kamera 26 m od osy, švenk za tahačem",
+ "typ": "PC",
+ "pohyb": "PAN-L",
+ "smer": "R→L",
+ "fov": "32 → 38 → 32",
+ "vyska": "1,6 m, z = −636 (ověřeno)",
+ "zabery": [
+  {
+   "id": "mini-2.1",
+   "od": 0,
+   "do": 7.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 7.5,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 30,
+     "y": 1.6,
+     "z": -636,
+     "rel": "terrain",
+     "tat": "jd3650",
+     "tx": 0,
+     "ty": 2.7,
+     "tz": 6,
+     "fov": 32
+    },
+    {
+     "t": 2.2,
+     "x": 30,
+     "y": 1.6,
+     "z": -636,
+     "rel": "terrain",
+     "tat": "jd3650",
+     "tx": 0,
+     "ty": 2.7,
+     "tz": 6,
+     "fov": 38
+    },
+    {
+     "t": 7.5,
+     "x": 30,
+     "y": 1.6,
+     "z": -636,
+     "rel": "terrain",
+     "tat": "jd3650",
+     "tx": 0,
+     "ty": 2.7,
+     "tz": 6,
+     "fov": 32
+    }
+   ],
+   "tsmooth": 0.35
+  }
+ ]
+}

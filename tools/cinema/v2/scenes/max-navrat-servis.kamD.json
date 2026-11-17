@@ -1,0 +1,88 @@
+{
+ "popis": "7.5 shora zprava, 7.7 detail dronu a hadice zblízka",
+ "typ": "PC / D",
+ "pohyb": "STAT → ODJ",
+ "smer": "–",
+ "fov": "34 / 28",
+ "vyska": "3,0 m; 0,6 m",
+ "zabery": [
+  {
+   "id": "max-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "max-7.7",
+   "od": "servicing +0",
+   "do": "servicing +10"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 30,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max",
+     "x": -6,
+     "y": 5.0,
+     "z": 8,
+     "tat": "max",
+     "tx": 0,
+     "ty": 3.0,
+     "tz": -2.7,
+     "fov": 34
+    },
+    {
+     "t": 30,
+     "at": "max",
+     "x": -6,
+     "y": 5.0,
+     "z": 8,
+     "tat": "max",
+     "tx": 0,
+     "ty": 3.0,
+     "tz": -2.7,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "after": "servicing",
+   "cmd": "camPath",
+   "duration": 10,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "max:drone1",
+     "x": -1.7,
+     "y": 0.6,
+     "z": -1.5,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0.1,
+     "fov": 28
+    },
+    {
+     "t": 10,
+     "at": "max:drone1",
+     "x": -3.2,
+     "y": 1.0,
+     "z": -3.0,
+     "tat": "max:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0.1,
+     "fov": 30
+    }
+   ]
+  }
+ ]
+}

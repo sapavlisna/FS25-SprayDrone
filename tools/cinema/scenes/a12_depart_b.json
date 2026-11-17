@@ -1,0 +1,22 @@
+{
+  "name": "a12_depart_b",
+  "title": "Záběr 7.2: odjezd složené soupravy po asfaltce do slunce při západu, kamera nízko za soupravou",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": 38, "z": -662.5, "yaw": 270, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "x": 62, "y": 1.1, "z": -668.5, "rel": "terrain", "tx": -171, "ty": 82.5, "tz": -608, "trel": "world", "fov": 34},
+    {"sleep": 2.0},
+    {"mark": "shot"},
+    {"record": "start", "lead": 1.0},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": -330, "z": -662.5, "kmh": 40},
+    {"cmd": "camPath", "duration": 11, "ease": "smooth", "wait": true, "check": false, "timeout": 30, "tsmooth": 0.7,
+     "keys": [
+       {"t": 0, "x": 62, "y": 1.1, "z": -668.5, "rel": "terrain", "tx": -171, "ty": 82.5, "tz": -608, "trel": "world", "fov": 34},
+       {"t": 5, "x": 62, "y": 1.1, "z": -668.5, "rel": "terrain", "tx": -171, "ty": 82.5, "tz": -612, "trel": "world", "fov": 32},
+       {"t": 11, "x": 62, "y": 1.2, "z": -668.5, "rel": "terrain", "tx": -171, "ty": 82.5, "tz": -616, "trel": "world", "fov": 30}
+     ]},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

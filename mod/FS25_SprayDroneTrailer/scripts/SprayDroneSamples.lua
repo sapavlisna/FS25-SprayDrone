@@ -599,6 +599,7 @@ function SprayDroneSamples.getPickWarning(self, x, z)
     return nil
 end
 
+-- Klient (plánovač, ladění): přidá (add) nebo odebere bod u (x, z) ve vybraném poli; radius = jak daleko od kliknutí bod hledat (m).
 -- Vrací nil a případně klíč informace (bod ve vysokém porostu), nebo klíč varování. Změna jde eventem na server a ostatním klientům.
 function SprayDroneSamples.requestPick(self, x, z, add, radius)
     local spec = getSpec(self)
@@ -819,6 +820,10 @@ function SprayDroneSamples.startNextBatch(self)
     end
     local points = SprayDroneSamples.getPoints(self)
     if #points.pending == 0 then
+        if SprayDroneDebug and SprayDroneDebug.ENABLED then
+            Logging.info("SDT děj: odběr vzorků pole %d: %d bodů, odebráno %d, vysoký porost %d, mimo dosah %d", spec.fieldId, points.total,
+                points.sampled, points.tall, points.far)
+        end
         local status = SprayDroneSamples.STATUS_DONE
         if points.tall > 0 then
             status = SprayDroneSamples.STATUS_TALL
@@ -956,6 +961,7 @@ function SprayDroneSamples.takeSample(self, x, z)
         end
     end
     if ok then
+        -- vzorek do prázdné krabičky v dronu (bez vzaté krabičky, např. let z ladění, se krabička počítá jako vzatá)
         spec.samplerBatchSamples = (spec.samplerBatchSamples or 0) + 1
         spec.samplesCarried = math.min(spec.samplesCarried + 1, 2 ^ SprayDroneSamples.CARRY_BITS - 1)
         spec.samplerBoxes = math.max(spec.samplerBoxes or 0, spec.samplesCarried)

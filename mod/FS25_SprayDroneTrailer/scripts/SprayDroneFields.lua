@@ -18,9 +18,9 @@ SprayDroneFields.shared = {
     "settingsVersion", "coverage", "coverageDirtyFlag", "coverageSyncTime", "dirtyFlag", "positionDirtyFlag", "flightSyncTimer",
     "batteries", "batteryNodes", "batteryParents", "batteryShown", "batteryMoves", "batterySlotDeck", "batteryStowed", "chargerLeds",
     "chargerLedShown", "lastFoldProgress", "numCharging",
-    "generatorEnabled", "generatorRunning", "exhaust", "exhaust2", "numGenerators", "powerSyncTimer", "sound",
+    "generatorEnabled", "generatorRunning", "exhaust", "exhaust2", "numGenerators", "powerSyncTimer", "powerDebugTimer", "sound",
     "transferMode", "transferPallet", "transferPalletUnit", "palletSearchTime", "transferSyncTimer",
-    "toolbox", "relaySlots", "ladder", "actionEvents", "actionStates", "frozen", "loadedFrozen", "centerOfMass", "shapeOrigins", "padShapes", "stuckWarningTime",
+    "toolbox", "relaySlots", "ladder", "actionEvents", "actionStates", "frozen", "loadedFrozen", "centerOfMass", "shapeOrigins", "padShapes", "debugCommandId", "stuckWarningTime",
     -- nová pole vozidla
     "numDrones", "drones", "activeDrones", "numBatterySlots", "batterySlotBits", "transferDrone", "layerGap",
     "droneCameraRequested", "firstDroneCamera", "secondVariant", "secondVariants", "level", "plannerScreenNode", "plannerScreenOn", "screenWakeTime", "sdtScreenShown",
@@ -69,7 +69,8 @@ SprayDroneFields.drone = {
     "foldParts", "hasDrone", "hose", "hoseConnect", "hoseT", "spraySoundOn", "rotorPitchFactor", "rotorStartDelay",
     "rotorRetryTime", "hotspot", "localRot", "localTrans", "navLights", "node", "parent", "pad",
     "propBlades", "propPaintMaterial", "propSource", "rotors", "rotorSpeed", "rotorsParked", "rotorVolumeScale", "samples", "soundPitch",
-    "soundVolume", "sprayEffectPlacement", "sprayEffectsActive", "sprayEffectsPlaced",
+    "soundVolume", "soundDebugPlaying", "soundDebugTimer", "sprayEffectPlacement", "sprayEffectsActive", "sprayEffectsPlaced",
     "sprayEffectsShown", "tiltNode", "camera", "outCamera", "homeYawOffset",
-
+    -- ladění
+    "debugLoopDetached", "debugT", "debugTimer"
 }

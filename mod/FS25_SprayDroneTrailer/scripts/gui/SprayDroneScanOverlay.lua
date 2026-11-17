@@ -60,6 +60,15 @@ SprayDroneScanOverlay.LAYERS = {
 }
 SprayDroneScanOverlay.DEFAULT_LAYER = 2
 
+function SprayDroneScanOverlay.getLayerIndex(id)
+    for i, layer in ipairs(SprayDroneScanOverlay.LAYERS) do
+        if layer.id == id then
+            return i
+        end
+    end
+    return nil
+end
+
 -- Barva buňky (klíč COLORS) ve vrstvě; c je rozbalená hodnota (SprayDroneScanMap.decode).
 function SprayDroneScanOverlay.getCellColorKey(layer, c)
     if layer == "weed" then
@@ -226,6 +235,13 @@ function SprayDronePlannerScreen:setScanLayer(index)
     SprayDroneSound.noteAction(string.format("plánovač: vrstva mapy skenu %s", self:getScanLayer().id))
 end
 
+-- Přehled polí je stránka Pole levého panelu.
+function SprayDronePlannerScreen:setScanOverview(visible)
+    self.scanOverviewRows = nil
+    self:setPage(visible and SprayDronePlannerScreen.PAGE_FIELDS or SprayDronePlannerScreen.PAGE_MAP)
+    SprayDroneSound.noteAction(string.format("plánovač: přehled polí %s", visible and "otevřen" or "zavřen"))
+end
+
 function SprayDronePlannerScreen:getScanRects(map, layer, now)
     local cache = self.scanRects[map]
     if cache == nil or cache.layer ~= layer or cache.updated ~= map.updated or cache.revision ~= map.revision or g_time >= cache.time then
@@ -292,3 +308,10 @@ function SprayDronePlannerScreen:getScanOverviewRows()
     return rows
 end
 
+function SprayDronePlannerScreen:selectScanOverviewRow(row)
+    self:centerOnField(row.field)
+    SprayDroneSound.noteAction(string.format("plánovač: přehled polí, klik na pole %d", row.id))
+    if not self.drawMode then
+        self:selectField(row.field)
+    end
+end

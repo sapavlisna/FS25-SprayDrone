@@ -1,0 +1,165 @@
+{
+ "popis": "5m.5 tele zdálky na spojku, 5m.6 vyvýšený záběr na vyklopení, 5m.7 šnek a motor z boku, 5m.8 FOL-like boční jízda",
+ "typ": "C / PC / D",
+ "pohyb": "STAT tele → STAT → NAJ → TRK R→L",
+ "smer": "R→L (5m.8)",
+ "fov": "24 / 36 / 32 / 38",
+ "vyska": "1,5 m; 3,5 m; 1,2 m; 1,7 m",
+ "zabery": [
+  {
+   "id": "max-5m.5",
+   "od": 0.5,
+   "do": 7.5
+  },
+  {
+   "id": "max-5m.6",
+   "od": 8.0,
+   "do": 16.5
+  },
+  {
+   "id": "max-5m.7",
+   "od": 17.0,
+   "do": 20.5
+  },
+  {
+   "id": "max-5m.8",
+   "od": 21.0,
+   "do": 29.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 8.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 683.5,
+     "y": 3.5,
+     "z": -21.0,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.4,
+     "tz": -26.0,
+     "trel": "terrain",
+     "fov": 24
+    },
+    {
+     "t": 8.0,
+     "x": 683.5,
+     "y": 3.5,
+     "z": -21.0,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.4,
+     "tz": -26.0,
+     "trel": "terrain",
+     "fov": 24
+    }
+   ]
+  },
+  {
+   "at": 8.0,
+   "cmd": "camPath",
+   "duration": 8.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mill",
+     "x": -3.5,
+     "y": 3.5,
+     "z": 6.5,
+     "tat": "bigBag_lime",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 8.5,
+     "at": "mill",
+     "x": -3.5,
+     "y": 3.5,
+     "z": 6.5,
+     "tat": "bigBag_lime",
+     "tx": 0,
+     "ty": 0.6,
+     "tz": 0,
+     "fov": 34
+    }
+   ],
+   "tsmooth": 0.4
+  },
+  {
+   "at": 17.0,
+   "cmd": "camPath",
+   "duration": 4.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mill",
+     "x": 2.6,
+     "y": 1.2,
+     "z": 1.8,
+     "tat": "mill",
+     "tx": 0.2,
+     "ty": 1.1,
+     "tz": 0.0,
+     "fov": 32
+    },
+    {
+     "t": 4.0,
+     "at": "mill",
+     "x": 2.0,
+     "y": 1.3,
+     "z": 0.8,
+     "tat": "mill",
+     "tx": 0.2,
+     "ty": 1.1,
+     "tz": 0.0,
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "at": 21.0,
+   "cmd": "camPath",
+   "duration": 9.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 679,
+     "y": 2.8,
+     "z": -9,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.2,
+     "tz": -26,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 9.0,
+     "x": 672,
+     "y": 2.8,
+     "z": -11,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.2,
+     "tz": -26,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,162 @@
+{
+ "name": "c63_mill",
+ "title": "Záběr 6.3: mlýnek mele vápno, prach, zelený prstenec, vápno hadicí do vleku",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "vehicles/sdtLimeMill/sdtLimeMill.xml",
+   "x": -740,
+   "z": 162,
+   "yaw": 90,
+   "once": "mill"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "detachFrom",
+   "parent": "max",
+   "child": "mill",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -684,
+   "z": 162,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "moveVehicle",
+   "vehicle": "mill",
+   "x": -701.94,
+   "z": 162,
+   "yaw": 90
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "attachTo",
+   "parent": "max",
+   "child": "mill",
+   "yaw": 90
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655,mill",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millFill"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whConnect5"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "camOrbit",
+   "target": "mill",
+   "radius": 6.5,
+   "radius2": 6.0,
+   "height": 2.2,
+   "height2": 2.6,
+   "angle0": 205,
+   "angle1": 335,
+   "lx": 0,
+   "ly": 1.2,
+   "lz": 0,
+   "fov": 42,
+   "fov2": 42,
+   "tau": 0.3,
+   "duration": 12,
+   "ease": "smooth"
+  },
+  {
+   "sleep": 0.5
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.3
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "dbg",
+   "command": "whValve"
+  },
+  {
+   "sleep": 7.5
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  }
+ ]
+}

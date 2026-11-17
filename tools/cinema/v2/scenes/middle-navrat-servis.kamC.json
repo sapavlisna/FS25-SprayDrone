@@ -1,0 +1,62 @@
+{
+ "popis": "7.5 FOL za sestupem, 7.6 oblet proti směru hodin (opačný směr)",
+ "typ": "PC",
+ "pohyb": "FOL → ORB-CCW",
+ "smer": "CCW",
+ "fov": "34 / 38",
+ "vyska": "2,4 m; orbit 1,6 → 1,8 m, r = 5 → 4,2",
+ "zabery": [
+  {
+   "id": "middle-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "middle-7.6",
+   "od": "servicing +0",
+   "do": "servicing +12"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camFollow",
+   "target": "middle:drone1",
+   "ox": 4,
+   "oy": 2.4,
+   "oz": -7,
+   "lx": 0,
+   "ly": -0.3,
+   "lz": 0,
+   "fov": 34,
+   "duration": 8,
+   "ease": "smooth",
+   "tau": 0.8,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": 3,
+   "oy2": 1.8,
+   "oz2": -5
+  },
+  {
+   "after": "servicing",
+   "cmd": "camOrbit",
+   "radius": 5.0,
+   "radius2": 4.2,
+   "height": 1.6,
+   "height2": 1.8,
+   "angle0": -135.0,
+   "angle1": -26.6,
+   "lx": 0.0,
+   "ly": 0.2,
+   "lz": 0.0,
+   "fov": 38,
+   "fov2": 38,
+   "tau": 0.3,
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "target": "middle:drone1"
+  }
+ ]
+}

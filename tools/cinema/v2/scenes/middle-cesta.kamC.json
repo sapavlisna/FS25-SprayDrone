@@ -1,0 +1,51 @@
+{
+ "popis": "tele zepředu od východu, souprava se blíží po louce",
+ "typ": "C",
+ "pohyb": "STAT + sledování cílem",
+ "smer": "–",
+ "fov": "22 → 30",
+ "vyska": "1,5 m, (−735, 184), 11,5 m jižně od cesty",
+ "zabery": [
+  {
+   "id": "middle-3.1",
+   "od": 1.0,
+   "do": 9.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 10,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -735,
+     "y": 1.5,
+     "z": 184.0,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 22
+    },
+    {
+     "t": 10,
+     "x": -735,
+     "y": 1.5,
+     "z": 184.0,
+     "rel": "terrain",
+     "tat": "pickup",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 30
+    }
+   ],
+   "tsmooth": 0.4
+  }
+ ]
+}

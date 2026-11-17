@@ -1,0 +1,169 @@
+{
+ "name": "v2_max-silnice_A",
+ "title": "max-silnice | kamera A: tele ze západního konce silnice proti jízdě, souprava roste z dálky",
+ "v2": {
+  "akce": "max-silnice",
+  "kamera": "A",
+  "vlek": "max",
+  "beat": "1-2",
+  "zabery": [
+   "max-1.1",
+   "max-2.1"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 12.0,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "-690,150",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 90,
+   "z": -662.5,
+   "yaw": 270,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 9
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "mt655",
+   "x": -95,
+   "z": -662.5,
+   "kmh": 36,
+   "mode": "line",
+   "tel": true
+  },
+  {
+   "sleep": 4.5
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 16,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -43,
+     "y": 1.4,
+     "z": -658,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 14
+    },
+    {
+     "t": 8,
+     "x": -43,
+     "y": 1.4,
+     "z": -658,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 16
+    },
+    {
+     "t": 16,
+     "x": -43,
+     "y": 1.4,
+     "z": -658,
+     "rel": "terrain",
+     "tx": 25,
+     "ty": 2.0,
+     "tz": -662.5,
+     "trel": "terrain",
+     "fov": 22
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 16.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "mt655",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

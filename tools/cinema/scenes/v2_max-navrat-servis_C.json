@@ -1,0 +1,290 @@
+{
+ "name": "v2_max-navrat-servis_C",
+ "title": "max-navrat-servis | kamera C: 7.5 FOL za sestupem dronu 1, 7.6 oblet po směru hodin",
+ "v2": {
+  "akce": "max-navrat-servis",
+  "kamera": "C",
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.5",
+   "max-7.6",
+   "max-7.7"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 13.5,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 59,
+   "crop": "POTATO",
+   "growth": 5
+  },
+  {
+   "cmd": "setField",
+   "field": 60,
+   "crop": "WHEAT",
+   "growth": "cut"
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "max",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": 674.0,
+   "z": -55.2,
+   "yaw": 180,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "max",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "max",
+   "field": 60
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "max"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "main",
+   "fill": "WATER",
+   "liters": 3000
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "max",
+   "unit": "conc",
+   "fill": "SDT_FINE_LIME",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "max"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "max",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "max",
+   "open": false,
+   "optional": true
+  },
+  {
+   "cmd": "play",
+   "trailer": "max",
+   "command": "windOff"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": 681,
+   "z": -44.6,
+   "force": true
+  },
+  {
+   "cmd": "coverLines",
+   "trailer": "max",
+   "field": 60,
+   "keep": "auto2",
+   "optional": true
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "max",
+   "fill": false,
+   "drone": 0
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "airborne",
+   "drone": 1,
+   "timeout": 40
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "airborne",
+   "drone": 2,
+   "timeout": 40
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "droneSet",
+   "trailer": "max",
+   "drone": 1,
+   "battery": 0.2,
+   "tank": 1.5
+  },
+  {
+   "cmd": "droneSet",
+   "trailer": "max",
+   "drone": 2,
+   "battery": 0.2,
+   "tank": 1.5
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "near",
+   "drone": 1,
+   "dist": 40,
+   "timeout": 200
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camFollow",
+   "target": "max:drone1",
+   "ox": 4,
+   "oy": 2.4,
+   "oz": -7,
+   "lx": 0,
+   "ly": -0.3,
+   "lz": 0,
+   "fov": 34,
+   "duration": 8,
+   "ease": "smooth",
+   "tau": 0.8,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": 3,
+   "oy2": 1.8,
+   "oz2": -5
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "servicing",
+   "drone": 1,
+   "timeout": 90
+  },
+  {
+   "mark": "servicing"
+  },
+  {
+   "cmd": "camOrbit",
+   "radius": 6.5,
+   "radius2": 5.5,
+   "height": 2.0,
+   "height2": 2.2,
+   "angle0": -63.4,
+   "angle1": -130.6,
+   "lx": 0.0,
+   "ly": 0.5,
+   "lz": 0.0,
+   "fov": 38,
+   "fov2": 38,
+   "tau": 0.3,
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "target": "max:drone1"
+  },
+  {
+   "cmd": "mark",
+   "name": "servicing",
+   "optional": true
+  },
+  {
+   "sleep": 14.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "a04_unfold",
+  "title": "Záběr 2.4: rozkládání vleku Middle na dvoře před stodolou, orbit od zadního rohu k pravému boku",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -690, "z": 140, "yaw": 90, "unfolded": false, "fill": true},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "at": "middle", "x": -2.5, "y": 1.2, "z": -7.5, "tat": "middle", "tx": 0, "ty": 1.8, "tz": -2.5, "fov": 36},
+    {"sleep": 2.5},
+    {"mark": "shot"},
+    {"record": "start", "lead": 1.0},
+    {"cmd": "camPath", "duration": 11, "ease": "inout", "check": false,
+     "keys": [
+       {"t": 0, "at": "middle", "x": -2.5, "y": 1.2, "z": -7.5, "tat": "middle", "tx": 0, "ty": 1.8, "tz": -2.5, "fov": 36},
+       {"t": 3.5, "at": "middle", "x": -6.5, "y": 1.5, "z": -6.5, "tat": "middle", "tx": 0, "ty": 1.9, "tz": -2, "fov": 38},
+       {"t": 7.5, "at": "middle", "x": -9.5, "y": 1.7, "z": -1.8, "tat": "middle", "tx": 0, "ty": 2.0, "tz": -1, "fov": 38},
+       {"t": 11, "at": "middle", "x": -13, "y": 1.9, "z": -3, "tat": "middle", "tx": 0, "ty": 2.1, "tz": -1, "fov": 38}
+     ]},
+    {"sleep": 0.5},
+    {"cmd": "unfoldTrailer", "trailer": "middle", "wait": true, "timeout": 30},
+    {"sleep": 5.0},
+    {"record": "stop"}
+  ]
+}

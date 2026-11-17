@@ -1,0 +1,173 @@
+{
+ "name": "v2_middle-rozlozeni_D",
+ "title": "middle-rozlozeni | kamera D: boční jízda podél pravého boku zepředu dozadu s jeřábem nahoru",
+ "v2": {
+  "akce": "middle-rozlozeni",
+  "kamera": "D",
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.33,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -625,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "nodeVis",
+   "trailer": "middle",
+   "show": "antennaLarge,gpsRtkBox,antennaBase"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -9,
+     "y": 2.8,
+     "z": 4.5,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 1.8,
+     "tz": 0.5,
+     "fov": 36
+    },
+    {
+     "t": 7.5,
+     "at": "middle",
+     "x": -9.3,
+     "y": 3.2,
+     "z": 0.0,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": -0.2,
+     "fov": 36
+    },
+    {
+     "t": 15,
+     "at": "middle",
+     "x": -9.6,
+     "y": 4.0,
+     "z": -4.5,
+     "tat": "middle",
+     "tx": 0,
+     "ty": 2.2,
+     "tz": -0.8,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": false
+  },
+  {
+   "sleep": 11.0
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "record": "stop"
+  }
+ ]
+}

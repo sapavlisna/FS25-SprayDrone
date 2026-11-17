@@ -1,0 +1,89 @@
+{
+ "popis": "8.1 jeřáb dolů nad složením, 8.2 pevný tele zezadu za odjíždějící soupravou",
+ "typ": "C",
+ "pohyb": "JIB-D → STAT tele + sledování",
+ "smer": "–",
+ "fov": "36 → 34 / 20 → 14",
+ "vyska": "5,5 → 1,5 m; 1,4 m",
+ "zabery": [
+  {
+   "id": "mini-8.1",
+   "od": 2.0,
+   "do": 14.0
+  },
+  {
+   "id": "mini-8.2",
+   "od": 15.0,
+   "do": 24.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 14.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -9,
+     "y": 5.5,
+     "z": -6.5,
+     "tat": "mini",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 14.5,
+     "at": "mini",
+     "x": -9.5,
+     "y": 1.5,
+     "z": -6.0,
+     "tat": "mini",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 34
+    }
+   ]
+  },
+  {
+   "at": 15.0,
+   "cmd": "camPath",
+   "duration": 12,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -722,
+     "y": 1.4,
+     "z": 150,
+     "rel": "terrain",
+     "tat": "jd3650",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 20
+    },
+    {
+     "t": 12,
+     "x": -722,
+     "y": 1.4,
+     "z": 150,
+     "rel": "terrain",
+     "tat": "jd3650",
+     "tx": 0,
+     "ty": 2.0,
+     "tz": 0,
+     "fov": 14
+    }
+   ],
+   "tsmooth": 0.4
+  }
+ ]
+}

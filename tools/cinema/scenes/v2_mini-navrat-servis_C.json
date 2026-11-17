@@ -1,0 +1,275 @@
+{
+ "name": "v2_mini-navrat-servis_C",
+ "title": "mini-navrat-servis | kamera C: 7.5 FOL za sestupem dronu, 7.6 oblet po směru hodin (opačný směr než A)",
+ "v2": {
+  "akce": "mini-navrat-servis",
+  "kamera": "C",
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.0,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 3,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 4,
+   "crop": "MAIZE",
+   "growth": 3
+  },
+  {
+   "cmd": "setField",
+   "field": 5,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "mini",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": -690,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "fold",
+   "trailer": "mini",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "mini",
+   "field": 4
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "mini",
+   "unit": "main",
+   "fill": "HERBICIDE",
+   "liters": 300
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "mini",
+   "unit": "conc",
+   "fill": "HERBICIDE",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "mini"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "mini",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "mini",
+   "open": false,
+   "optional": true
+  },
+  {
+   "cmd": "play",
+   "trailer": "mini",
+   "command": "windOff"
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "mini,jd3650",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": -698,
+   "z": 150,
+   "force": true
+  },
+  {
+   "cmd": "startFlight",
+   "trailer": "mini",
+   "fill": false
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "airborne",
+   "timeout": 40
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "cmd": "droneSet",
+   "trailer": "mini",
+   "battery": 0.2,
+   "tank": 1.5
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "near",
+   "dist": 28,
+   "timeout": 150
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camFollow",
+   "target": "mini:drone1",
+   "ox": 4,
+   "oy": 2.4,
+   "oz": -7,
+   "lx": 0,
+   "ly": -0.3,
+   "lz": 0,
+   "fov": 34,
+   "duration": 8,
+   "ease": "smooth",
+   "tau": 0.8,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": 3,
+   "oy2": 1.6,
+   "oz2": -5
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "servicing",
+   "timeout": 60
+  },
+  {
+   "mark": "servicing"
+  },
+  {
+   "cmd": "camPath",
+   "duration": 12,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 2.8,
+     "y": 1.6,
+     "z": 3.6,
+     "tat": "mini",
+     "tx": 0.5,
+     "ty": 1.0,
+     "tz": 1.55,
+     "fov": 30
+    },
+    {
+     "t": 12,
+     "at": "mini",
+     "x": 2.2,
+     "y": 1.4,
+     "z": 2.8,
+     "tat": "mini",
+     "tx": 0.5,
+     "ty": 1.0,
+     "tz": 1.55,
+     "fov": 26
+    }
+   ]
+  },
+  {
+   "cmd": "mark",
+   "name": "servicing",
+   "optional": true
+  },
+  {
+   "sleep": 14.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

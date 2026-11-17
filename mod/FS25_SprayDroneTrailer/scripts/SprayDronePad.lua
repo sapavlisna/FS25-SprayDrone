@@ -220,6 +220,7 @@ function SprayDronePad.getSpotPosition(self, onPlate)
     return localToWorld(pad.parent, pad.carrierPos[1], pad.carrierPos[2], pad.carrierPos[3])
 end
 
+-- V obchodě (a v konfiguraci) stojí bedna celá složená (Pavel 2026-10-29; dřív byla z půlky otevřená, to umí už jen ladicí příkaz shopPose).
 -- Foldable si čas skládání bere z loadedFoldAnimTime až v onPostLoad, takže stačí ho tady přepsat; koupený vlek se načítá znovu už mimo
 -- obchod a začíná složený.
 function SprayDronePad.openInShop(self)

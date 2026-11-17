@@ -68,6 +68,7 @@ function probe.boxCallback(_, nodeId)
 end
 
 -- Je nad bodem (x, y, z) (dron na plošině) do výšky height volno? radius = poloměr dronu s vrtulemi, rootVehicle = vlastní
+-- souprava (přeskakuje se). Vrací ok a důvod "roof" | "tree" | "obstacle"; do hits (nepovinné) zapíše zásahy pro ladění
 -- ({ray (0 = box), node, name, reason, x, y, z, distance}).
 function SprayDroneLaunch.getClearance(x, y, z, radius, height, rootVehicle, hits)
     local h = math.max(height or SprayDroneLaunch.CHECK_HEIGHT, SprayDroneLaunch.MIN_HEIGHT)

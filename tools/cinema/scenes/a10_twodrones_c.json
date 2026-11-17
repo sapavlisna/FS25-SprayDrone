@@ -1,0 +1,30 @@
+{
+  "name": "a10_twodrones_c",
+  "title": "Záběr 5.4 (varianta c): Max (JD 3650), vzdušný přílet a orbit kolem paluby, oba drony vzlétají vedle sebe a odlétají nad pole",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "returnHome", "trailer": "max", "optional": true},
+    {"cmd": "waitDrone", "trailer": "max", "cond": "parked", "drone": 1, "timeout": 120, "optional": true},
+    {"cmd": "waitDrone", "trailer": "max", "cond": "parked", "drone": 2, "timeout": 120, "optional": true},
+    {"sleep": 1.0},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -640, "z": 110, "yaw": 90, "unfolded": false},
+    {"cmd": "placeSet", "trailer": "max", "tractor": "jd3650", "x": -690, "z": 172.5, "yaw": 90, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "max", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "setField", "field": 4, "crop": "MAIZE", "growth": 3},
+    {"sleep": 1.0},
+    {"cmd": "selectField", "trailer": "max", "field": 4},
+    {"cmd": "resetField", "trailer": "max"},
+    {"cmd": "fillSet", "trailer": "max"},
+    {"cmd": "camSet", "x": -698, "y": 24, "z": 215, "rel": "terrain", "tx": -698.5, "ty": 51, "tz": 172.5, "trel": "world", "fov": 46},
+    {"sleep": 1.0},
+    {"cmd": "startFlight", "trailer": "max", "fill": false},
+    {"sleep": 1.4},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.3},
+    {"cmd": "camOrbit", "x": -698.5, "y": 51, "z": 172.5, "rel": "world", "radius": 40, "radius2": 14, "height": 22, "height2": 4.5, "angle0": 305, "angle1": 405, "lx": 0, "ly": 1.5, "lz": 0,
+     "fov": 46, "fov2": 50, "tau": 0.2, "duration": 11, "ease": "smooth"},
+    {"sleep": 11.0},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "max", "optional": true}
+  ]
+}

@@ -1,0 +1,52 @@
+[
+ {
+  "id": "limebigbag",
+  "title": "Big bag na mleté vápno",
+  "category": "vybavení",
+  "job": "vanilla",
+  "states": [
+   {
+    "state": "",
+    "shots": []
+   }
+  ],
+  "note": "Vanilla big bag hry ($data/objects/bigBag/bigBag.i3d): vak s poutky, zvedá se hákem, už to není paleta. Mód ho používá přes objects/limeBigBag/limeBigBag.xml (parentFile na vanilla XML, druh náplně SDT_FINE_LIME místo hnojiva, kapacita 1000 l, při koupi prázdný). Plní ho mlýnek v režimu výstupu „big bag“. Vlastní model v módu není; ve hře se podle druhu náplně přepíná materiál (lime_mat, bílá vápenná textura), proto ho katalog ukazuje s materiálem vápna (bigBagLime_mat).",
+  "tris": 2054,
+  "objects": 2,
+  "materials": [
+   "bigBagLime_mat",
+   "white_silverScratched_mat"
+  ],
+  "images": [
+   "bigBagLime_diffuse.png",
+   "bigBag_normal.png",
+   "bigBag_specular.png",
+   "bigBagOutput_normal.png",
+   "bigBagOutput_vmask.png"
+  ],
+  "size": {
+   "w": 0.99,
+   "l": 0.84,
+   "h": 1.888
+  },
+  "bbox": [
+   [
+    -0.495,
+    -0.42,
+    -0.153
+   ],
+   [
+    0.495,
+    0.42,
+    1.735
+   ]
+  ],
+  "visibleNames": [
+   "bigBag_vis",
+   "outputClose"
+  ],
+  "geMaterialIds": {
+   "bigBag_vis": 7
+  }
+ }
+]

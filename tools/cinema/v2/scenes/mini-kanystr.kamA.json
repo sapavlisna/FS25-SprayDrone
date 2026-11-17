@@ -1,0 +1,100 @@
+{
+ "popis": "najetí k pravé bedně (štítek ≥ 1 s), pak švenk k hrdlu koncentrátové nádrže",
+ "typ": "PC→D",
+ "pohyb": "NAJ → PAN-R",
+ "smer": "–",
+ "fov": "40 → 28 → 34",
+ "vyska": "1,5 → 1,2 m, 2,2–4,8 m od bedny",
+ "zabery": [
+  {
+   "id": "mini-5.1",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "mini-5.2",
+   "od": 7.5,
+   "do": 14.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -3.0,
+     "y": 1.9,
+     "z": -1.8,
+     "tat": "mini",
+     "tx": -0.7,
+     "ty": 0.9,
+     "tz": 1.2,
+     "fov": 36
+    },
+    {
+     "t": 7.5,
+     "at": "mini",
+     "x": -1.8,
+     "y": 2.0,
+     "z": -0.4,
+     "tat": "mini",
+     "tx": -0.7,
+     "ty": 0.95,
+     "tz": 1.25,
+     "fov": 28
+    }
+   ]
+  },
+  {
+   "at": 7.5,
+   "cmd": "camPath",
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -1.8,
+     "y": 2.0,
+     "z": -0.4,
+     "tat": "mini",
+     "tx": -0.7,
+     "ty": 1.2,
+     "tz": 1.2,
+     "fov": 28
+    },
+    {
+     "t": 3,
+     "at": "mini",
+     "x": -2.0,
+     "y": 2.5,
+     "z": 0.8,
+     "tat": "mini",
+     "tx": -0.6,
+     "ty": 2.0,
+     "tz": 2.3,
+     "fov": 30
+    },
+    {
+     "t": 7.5,
+     "at": "mini",
+     "x": -2.3,
+     "y": 2.7,
+     "z": 1.0,
+     "tat": "mini",
+     "tx": -0.6,
+     "ty": 1.9,
+     "tz": 2.3,
+     "fov": 32
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "b02_front",
+  "title": "Záběr 2.1 (v3): asfaltka, souprava jede po silnici ze západního slunce proti kameře (slunce za kamerou, čelní světlo), kamera nízko na krajnici",
+  "steps": [
+    {"cmd": "setWeather", "weather": "SUN", "variation": 1},
+    {"cmd": "setTime", "hour": 18.2},
+    {"cmd": "setFog", "reset": true},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": 92, "z": -662.5, "yaw": 270, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20},
+    {"cmd": "camSet", "x": -15, "y": 1.4, "z": -667, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.8, "tz": 0, "fov": 24},
+    {"sleep": 6.0},
+    {"cmd": "groundCheck", "vehicles": "middle,pickup", "maxTilt": 9},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": -60, "z": -662.5, "kmh": 40},
+    {"sleep": 5.6},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.5},
+    {"cmd": "camPath", "duration": 5.6, "ease": "linear", "wait": true, "check": false, "timeout": 30, "tsmooth": 0.3,
+     "keys": [
+       {"t": 0, "x": -15, "y": 1.4, "z": -667, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.9, "tz": 0, "fov": 22},
+       {"t": 5.6, "x": -15, "y": 1.4, "z": -667, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.9, "tz": 0, "fov": 27}
+     ]},
+    {"sleep": 0.3},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

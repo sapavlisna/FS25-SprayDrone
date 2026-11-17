@@ -1,0 +1,140 @@
+{
+ "name": "c_nightdiag",
+ "title": "diag noc",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -690,
+   "z": 140,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "playerTo",
+   "x": -682,
+   "z": 148,
+   "force": true
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "on": true,
+   "batteries": 0.3,
+   "fuel": 20
+  },
+  {
+   "cmd": "camSet",
+   "at": "middle",
+   "x": -7,
+   "y": 1.7,
+   "z": -8,
+   "tat": "middle",
+   "tx": 0,
+   "ty": 1.6,
+   "tz": -1,
+   "fov": 42
+  },
+  {
+   "cmd": "setTime",
+   "hour": 18.8
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "t188"
+  },
+  {
+   "cmd": "setTime",
+   "hour": 19.2
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "t192"
+  },
+  {
+   "cmd": "setTime",
+   "hour": 19.6
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "t196"
+  },
+  {
+   "cmd": "setTime",
+   "hour": 20.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "t205"
+  },
+  {
+   "cmd": "setTime",
+   "hour": 22.0
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "snap": "t220"
+  }
+ ]
+}

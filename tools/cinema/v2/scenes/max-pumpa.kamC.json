@@ -1,0 +1,60 @@
+{
+ "popis": "uzamčený rám: pumpa běží (5m.3), po 14,0 s tentýž rám bez pumpy (5m.4, střih na shodu)",
+ "typ": "D",
+ "pohyb": "STAT (uzamčený)",
+ "smer": "–",
+ "fov": "38",
+ "vyska": "1,0 m, x = −8,8",
+ "zabery": [
+  {
+   "id": "max-5m.1",
+   "od": 0.5,
+   "do": 7.0
+  },
+  {
+   "id": "max-5m.3",
+   "od": 11.0,
+   "do": 13.5
+  },
+  {
+   "id": "max-5m.4",
+   "od": 14.2,
+   "do": 15.7
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 17,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 662,
+     "y": 2.8,
+     "z": -36,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 1.0,
+     "tz": -30.5,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 17,
+     "x": 662,
+     "y": 2.8,
+     "z": -36,
+     "rel": "terrain",
+     "tx": 677,
+     "ty": 1.0,
+     "tz": -30.5,
+     "trel": "terrain",
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

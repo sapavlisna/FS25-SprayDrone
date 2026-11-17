@@ -1,0 +1,41 @@
+{
+ "popis": "tracking ze severní strany (scénář: L→R), proti slunci, jen záloha",
+ "typ": "PC",
+ "pohyb": "TRK (camFollow)",
+ "smer": "L→R",
+ "fov": "34 → 31",
+ "vyska": "1,6–1,8 m, 31 → 29 m vpravo (sever)",
+ "zabery": [
+  {
+   "id": "mini-3.1",
+   "od": 0.5,
+   "do": 9.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camFollow",
+   "target": "jd3650",
+   "ox": -31,
+   "oy": 1.6,
+   "oz": 6,
+   "lx": 0,
+   "ly": 3.2,
+   "lz": -2,
+   "fov": 36,
+   "duration": 9,
+   "ease": "smooth",
+   "tau": 0.5,
+   "tauLook": 0.5,
+   "check": false,
+   "ox2": -29,
+   "oy2": 1.8,
+   "oz2": -7,
+   "lx2": 0,
+   "ly2": 3.2,
+   "lz2": -2,
+   "fov2": 33
+  }
+ ]
+}

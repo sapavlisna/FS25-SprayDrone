@@ -1,0 +1,24 @@
+{
+ "name": "c_survey",
+ "title": "přehled místa",
+ "steps": [
+  {
+   "cmd": "camSet",
+   "x": -705.0,
+   "y": 55.0,
+   "z": 160.0,
+   "rel": "terrain",
+   "tx": -705.0,
+   "ty": 0,
+   "tz": 160.5,
+   "trel": "terrain",
+   "fov": 70
+  },
+  {
+   "sleep": 2.5
+  },
+  {
+   "snap": "top"
+  }
+ ]
+}

@@ -1,0 +1,192 @@
+{
+ "name": "c23_park",
+ "title": "Záběr 2.3: souprava dojede k poli, zastaví, odpojení vleku",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "setField",
+   "field": "3,4,5",
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -662,
+   "z": 172.5,
+   "yaw": 270,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 20
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 9
+  },
+  {
+   "cmd": "playerTo",
+   "x": -690,
+   "z": 165,
+   "force": true
+  },
+  {
+   "cmd": "camSet",
+   "x": -692,
+   "y": 1.6,
+   "z": 165,
+   "rel": "terrain",
+   "tat": "pickup",
+   "tx": 0,
+   "ty": 1.4,
+   "tz": 0,
+   "fov": 34
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "pickup",
+   "x": -706,
+   "z": 172.5,
+   "kmh": 16,
+   "radius": 2.5
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 16,
+   "ease": "smooth",
+   "check": false,
+   "tsmooth": 0.4,
+   "keys": [
+    {
+     "t": 0,
+     "x": -692,
+     "y": 1.6,
+     "z": 165,
+     "rel": "terrain",
+     "tat": "middle",
+     "tx": 0,
+     "ty": 1.6,
+     "tz": 0,
+     "fov": 34
+    },
+    {
+     "t": 8,
+     "x": -693,
+     "y": 1.7,
+     "z": 164,
+     "rel": "terrain",
+     "tat": "middle",
+     "tx": 0,
+     "ty": 1.6,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 16,
+     "x": -695,
+     "y": 1.8,
+     "z": 162,
+     "rel": "terrain",
+     "tat": "middle",
+     "tx": 0,
+     "ty": 1.6,
+     "tz": 0,
+     "fov": 38
+    }
+   ]
+  },
+  {
+   "cmd": "waitDrive",
+   "vehicle": "pickup",
+   "timeout": 40
+  },
+  {
+   "mark": "arrived"
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "detachFrom",
+   "parent": "pickup",
+   "child": "middle"
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "cmd": "driveTo",
+   "vehicle": "pickup",
+   "x": -740,
+   "z": 172.5,
+   "kmh": 8,
+   "radius": 2.5
+  },
+  {
+   "sleep": 5.5
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "stopVehicle",
+   "vehicle": "pickup"
+  }
+ ]
+}

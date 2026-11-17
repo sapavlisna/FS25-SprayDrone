@@ -1,0 +1,166 @@
+{
+ "popis": "7.1 jeřáb zleva zezadu, 7.2 FOL zepředu (3/4), 7.3 TOP vysoko, 7.4 FOL nízko zezadu (záloha TRK)",
+ "typ": "C / PC",
+ "pohyb": "JIB-U → FOL (čelo) → TOP → FOL nízko",
+ "smer": "–",
+ "fov": "36 / 34 / 28 / 36",
+ "vyska": "1,0 → 5,5 m; FOL 2 m; TOP 42 m",
+ "zabery": [
+  {
+   "id": "mini-7.1",
+   "od": "t=2 +0",
+   "do": "t=2 +7"
+  },
+  {
+   "id": "mini-7.2",
+   "od": "w1 +0",
+   "do": "w1 +6,5"
+  },
+  {
+   "id": "mini-7.3",
+   "od": "w2 +0",
+   "do": "w2 +6,5"
+  },
+  {
+   "id": "mini-7.4",
+   "od": "w3 +0",
+   "do": "w3 +6,5"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 2.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 6,
+     "y": 1.0,
+     "z": -9,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 2.0,
+     "at": "mini",
+     "x": 6,
+     "y": 1.0,
+     "z": -9,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "at": 2.0,
+   "cmd": "camPath",
+   "duration": 7.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 6,
+     "y": 1.0,
+     "z": -9,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0,
+     "fov": 36
+    },
+    {
+     "t": 7.0,
+     "at": "mini",
+     "x": 8,
+     "y": 5.5,
+     "z": -10.5,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 32
+    }
+   ],
+   "tsmooth": 0.3
+  },
+  {
+   "after": "w1",
+   "cmd": "camFollow",
+   "target": "mini:drone1",
+   "ox": 1.5,
+   "oy": 2.0,
+   "oz": 9,
+   "lx": 0,
+   "ly": 0,
+   "lz": -3,
+   "fov": 40,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.9,
+   "tauLook": 0.6,
+   "check": false
+  },
+  {
+   "after": "w2",
+   "cmd": "camPath",
+   "duration": 6.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini:drone1",
+     "x": 0,
+     "y": 42,
+     "z": -1.0,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0,
+     "tz": 1.0,
+     "fov": 28
+    },
+    {
+     "t": 6.5,
+     "at": "mini:drone1",
+     "x": 0,
+     "y": 42,
+     "z": -1.0,
+     "tat": "mini:drone1",
+     "tx": 0,
+     "ty": 0,
+     "tz": 1.0,
+     "fov": 28
+    }
+   ]
+  },
+  {
+   "after": "w3",
+   "cmd": "camFollow",
+   "target": "mini:drone1",
+   "ox": 0,
+   "oy": 1.2,
+   "oz": -7,
+   "lx": 0,
+   "ly": 0.3,
+   "lz": 3,
+   "fov": 36,
+   "duration": 6.5,
+   "ease": "smooth",
+   "tau": 0.6,
+   "tauLook": 0.5,
+   "check": false
+  }
+ ]
+}

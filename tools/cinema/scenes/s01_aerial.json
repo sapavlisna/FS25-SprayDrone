@@ -1,0 +1,22 @@
+{
+  "name": "s01_aerial",
+  "title": "Záběr 1: vzdušný sjezd nad F33 k farmě, 5 s",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -606, "z": 172.5, "yaw": 270, "unfolded": false},
+    {"cmd": "fold", "trailer": "middle", "state": "fold", "wait": true, "timeout": 20, "optional": true},
+    {"cmd": "camSet", "x": -585, "y": 30, "z": 262, "rel": "terrain", "tx": -690, "ty": 6, "tz": 130, "trel": "terrain", "fov": 42},
+    {"sleep": 2.0},
+    {"cmd": "driveTo", "vehicle": "pickup", "x": -830, "z": 172.5, "kmh": 22},
+    {"sleep": 2.0},
+    {"mark": "shot"},
+    {"record": "start", "seconds": 8},
+    {"cmd": "camPath", "duration": 5, "ease": "smooth", "wait": true, "check": true, "timeout": 30,
+     "keys": [
+       {"t": 0, "x": -585, "y": 30, "z": 262, "rel": "terrain", "tx": -690, "ty": 6, "tz": 130, "trel": "terrain", "fov": 42},
+       {"t": 5, "x": -632, "y": 4.5, "z": 203, "rel": "terrain", "tat": "pickup", "tx": 0, "ty": 1.2, "tz": -2, "fov": 34}
+     ]},
+    {"record": "stop"},
+    {"cmd": "stopVehicle", "vehicle": "pickup"}
+  ]
+}

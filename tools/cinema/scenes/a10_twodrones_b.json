@@ -1,0 +1,33 @@
+{
+  "name": "a10_twodrones_b",
+  "title": "Záběr 5.4 (varianta b): Max (JD 3650), dva drony stříkají vedle sebe a blíží se ke kameře od vleku (pohled podél řádků), kamera pomalu stoupá",
+  "steps": [
+    {"include": "_common_setup"},
+    {"cmd": "returnHome", "trailer": "max", "optional": true},
+    {"cmd": "waitDrone", "trailer": "max", "cond": "parked", "drone": 1, "timeout": 120, "optional": true},
+    {"cmd": "waitDrone", "trailer": "max", "cond": "parked", "drone": 2, "timeout": 120, "optional": true},
+    {"sleep": 1.0},
+    {"cmd": "placeSet", "trailer": "middle", "tractor": "pickup", "x": -640, "z": 110, "yaw": 90, "unfolded": false},
+    {"cmd": "placeSet", "trailer": "max", "tractor": "jd3650", "x": -690, "z": 172.5, "yaw": 90, "unfolded": true, "fill": true},
+    {"cmd": "fold", "trailer": "max", "state": "unfold", "wait": true, "timeout": 30},
+    {"cmd": "setField", "field": 4, "crop": "MAIZE", "growth": 3},
+    {"sleep": 1.0},
+    {"cmd": "selectField", "trailer": "max", "field": 4},
+    {"cmd": "resetField", "trailer": "max"},
+    {"cmd": "fillSet", "trailer": "max"},
+    {"cmd": "camSet", "x": -704, "y": 6, "z": 164, "rel": "terrain", "tx": -702, "ty": 51, "tz": 240, "trel": "world", "fov": 50},
+    {"cmd": "trace", "trailer": "max", "on": true},
+    {"cmd": "startFlight", "trailer": "max", "fill": false},
+    {"sleep": 27.0},
+    {"mark": "shot"},
+    {"record": "start", "lead": 0.3},
+    {"cmd": "camPath", "duration": 12, "ease": "smooth", "wait": true, "check": false, "timeout": 30,
+     "keys": [
+       {"t": 0, "x": -704, "y": 6, "z": 164, "rel": "terrain", "tx": -702, "ty": 51, "tz": 240, "trel": "world", "fov": 50},
+       {"t": 6, "x": -704, "y": 8, "z": 162, "rel": "terrain", "tx": -702, "ty": 51, "tz": 226, "trel": "world", "fov": 50},
+       {"t": 12, "x": -704, "y": 11, "z": 158, "rel": "terrain", "tx": -702, "ty": 51, "tz": 208, "trel": "world", "fov": 46}
+     ]},
+    {"record": "stop"},
+    {"cmd": "returnHome", "trailer": "max", "optional": true}
+  ]
+}

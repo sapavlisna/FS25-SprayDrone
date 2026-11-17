@@ -1,0 +1,599 @@
+{
+ "name": "v2_prod-rada_B",
+ "title": "prod-rada | kamera B: prod-2 TRK R→L (opačné pořadí), prod-3 NAJ na big bag, prod-4 TRK L→R pumpa pak násypka, prod-5 ORB-CCW tyč, prod-8 pevný vyvýšený celek",
+ "v2": {
+  "akce": "prod-rada",
+  "kamera": "B",
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-2",
+   "prod-3",
+   "prod-4",
+   "prod-5",
+   "prod-8"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 13.0,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "sdtLimeMill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeBigBag",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "relayPole",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "mini",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "mini",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "mini",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "mini",
+   "tractor": "jd3650",
+   "x": 300,
+   "z": -665,
+   "yaw": 270,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "playerTo",
+   "x": -706,
+   "z": 158,
+   "force": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "sdtLimeMill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeBigBag",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "relayPole",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "fertilizer",
+   "x": -712.0,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "herbicide",
+   "x": -711.0,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "diesel",
+   "x": -710.0,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnCanister",
+   "kind": "limebag",
+   "x": -708.6,
+   "z": 152,
+   "yaw": 180,
+   "lift": 0.05
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/limeBigBag/limeBigBag.xml",
+   "x": -706.7,
+   "z": 152,
+   "yaw": 180,
+   "fill": "SDT_FINE_LIME"
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/pump/waterPump.xml",
+   "x": -704.4,
+   "z": 152,
+   "yaw": 180,
+   "diesel": 10
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "objects/hopper/limeHopper.xml",
+   "x": -701.8,
+   "z": 152,
+   "yaw": 180
+  },
+  {
+   "cmd": "ui",
+   "op": "relaySpawn",
+   "x": -698.4,
+   "z": 152
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 2.0,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -708.6,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -708.6,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 2.0,
+     "x": -708.6,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -708.6,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 13.2,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0.0,
+     "x": -708.6,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -708.6,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 2.4,
+     "x": -708.6,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -708.6,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 3.5999999999999996,
+     "x": -710.0,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -710.0,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 6.0,
+     "x": -710.0,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -710.0,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 7.2,
+     "x": -711.0,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -711.0,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 9.6,
+     "x": -711.0,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -711.0,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 10.799999999999999,
+     "x": -712.0,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -712.0,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    },
+    {
+     "t": 13.2,
+     "x": -712.0,
+     "y": 0.8,
+     "z": 153.6,
+     "rel": "terrain",
+     "tx": -712.0,
+     "ty": 0.35,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "sleep": 13.7
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -706.7,
+     "y": 1.0,
+     "z": 156.0,
+     "rel": "terrain",
+     "tx": -706.7,
+     "ty": 0.9,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 34
+    },
+    {
+     "t": 5.5,
+     "x": -706.7,
+     "y": 0.9,
+     "z": 153.8,
+     "rel": "terrain",
+     "tx": -706.7,
+     "ty": 0.9,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 28
+    }
+   ]
+  },
+  {
+   "sleep": 6.5
+  },
+  {
+   "cmd": "camPath",
+   "duration": 6.699999999999999,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0.0,
+     "x": -704.4,
+     "y": 1.1,
+     "z": 154.0,
+     "rel": "terrain",
+     "tx": -704.4,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 2.6,
+     "x": -704.4,
+     "y": 1.1,
+     "z": 154.0,
+     "rel": "terrain",
+     "tx": -704.4,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 4.1,
+     "x": -701.8,
+     "y": 1.1,
+     "z": 154.0,
+     "rel": "terrain",
+     "tx": -701.8,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    },
+    {
+     "t": 6.699999999999999,
+     "x": -701.8,
+     "y": 1.1,
+     "z": 154.0,
+     "rel": "terrain",
+     "tx": -701.8,
+     "ty": 0.55,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "sleep": 9.5
+  },
+  {
+   "cmd": "camOrbit",
+   "radius": 3.4,
+   "radius2": 3.0,
+   "height": 1.2,
+   "height2": 1.8,
+   "angle0": -20,
+   "angle1": 230,
+   "lx": 0.0,
+   "ly": 0.0,
+   "lz": 0.0,
+   "fov": 35,
+   "fov2": 35,
+   "tau": 0.3,
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "x": -698.4,
+   "y": 1.3,
+   "z": 152,
+   "rel": "terrain"
+  },
+  {
+   "sleep": 8.0
+  },
+  {
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -704.6,
+     "y": 2.8,
+     "z": 166,
+     "rel": "terrain",
+     "tx": -704.6,
+     "ty": 0.6,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 40
+    },
+    {
+     "t": 5.5,
+     "x": -704.6,
+     "y": 2.8,
+     "z": 166,
+     "rel": "terrain",
+     "tx": -704.6,
+     "ty": 0.6,
+     "tz": 152,
+     "trel": "terrain",
+     "fov": 40
+    }
+   ]
+  },
+  {
+   "sleep": 8.3
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterPump",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "waterTrailer550",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeHopper",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "sdtLimeMill",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "limeBigBag",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "bigBag_lime",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "removeVehicle",
+   "vehicle": "relayPole",
+   "all": true,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

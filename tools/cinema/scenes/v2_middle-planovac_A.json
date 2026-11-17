@@ -1,0 +1,287 @@
+{
+ "name": "v2_middle-planovac_A",
+ "title": "middle-planovac | kamera A: displej (NAJ), mapa: pole jižně od poloostrova, plynulé oddálení na kruh dosahu (MAPA−)",
+ "v2": {
+  "akce": "middle-planovac",
+  "kamera": "A",
+  "vlek": "middle",
+  "beat": "6",
+  "zabery": [
+   "middle-6.1",
+   "middle-6.2",
+   "middle-6.3"
+  ]
+ },
+ "steps": [
+  {
+   "cmd": "setWeather",
+   "weather": "SUN",
+   "variation": 1
+  },
+  {
+   "cmd": "setTime",
+   "hour": 11.67,
+   "lock": true
+  },
+  {
+   "cmd": "setFog",
+   "reset": true
+  },
+  {
+   "cmd": "setField",
+   "field": 91,
+   "crop": "WHEAT",
+   "growth": 3
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "middle",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "isolate",
+   "keep": "middle",
+   "park": "260,-665",
+   "props": true,
+   "vehicles": true,
+   "radius": 150,
+   "timeout": 300
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "middle",
+   "tractor": "pickup",
+   "x": -625,
+   "z": 455,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true,
+   "timeout": 60
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "fold",
+   "wait": true,
+   "timeout": 30
+  },
+  {
+   "cmd": "nodeVis",
+   "trailer": "middle",
+   "show": "antennaLarge,gpsRtkBox,antennaBase"
+  },
+  {
+   "cmd": "fold",
+   "trailer": "middle",
+   "state": "unfold",
+   "wait": true,
+   "timeout": 40
+  },
+  {
+   "cmd": "selectField",
+   "trailer": "middle",
+   "field": 91
+  },
+  {
+   "cmd": "resetField",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "main",
+   "fill": "WATER"
+  },
+  {
+   "cmd": "setTank",
+   "trailer": "middle",
+   "unit": "conc",
+   "fill": "LIQUIDFERTILIZER",
+   "optional": true
+  },
+  {
+   "cmd": "fillSet",
+   "trailer": "middle"
+  },
+  {
+   "cmd": "generator",
+   "trailer": "middle",
+   "batteries": 1.0,
+   "fuel": 10,
+   "on": false,
+   "optional": true
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop",
+   "optional": true
+  },
+  {
+   "cmd": "toolboxSet",
+   "trailer": "middle",
+   "open": false,
+   "optional": true
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "middle,pickup",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "ui",
+   "op": "close",
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "relayRemove",
+   "optional": true
+  },
+  {
+   "cmd": "screenWake",
+   "trailer": "middle",
+   "off": true,
+   "optional": true
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "cmd": "mark",
+   "name": "ready",
+   "optional": true
+  },
+  {
+   "cmd": "camPath",
+   "duration": 6,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 3.6,
+     "y": 1.8,
+     "z": -1.0,
+     "tat": "middle",
+     "tx": 1.04,
+     "ty": 1.5,
+     "tz": 2.26,
+     "fov": 32
+    },
+    {
+     "t": 6,
+     "at": "middle",
+     "x": 2.6,
+     "y": 1.6,
+     "z": 0.5,
+     "tat": "middle",
+     "tx": 1.04,
+     "ty": 1.5,
+     "tz": 2.26,
+     "fov": 28
+    }
+   ]
+  },
+  {
+   "record": "start",
+   "lead": 0.5
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "screenWake",
+   "trailer": "middle",
+   "optional": true
+  },
+  {
+   "sleep": 5.0
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerOpen",
+   "trailer": "middle"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerHover",
+   "off": true
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 91
+  },
+  {
+   "sleep": 0.4
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": -700,
+   "z": 620,
+   "zoom": 2.6,
+   "duration": 0.01,
+   "wait": true,
+   "timeout": 10
+  },
+  {
+   "sleep": 0.6
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": -640,
+   "z": 560,
+   "zoom": 1.2,
+   "duration": 6.5
+  },
+  {
+   "sleep": 6.9
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerPage",
+   "n": 2
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "ui",
+   "op": "plannerHover",
+   "off": false,
+   "optional": true
+  },
+  {
+   "cmd": "ui",
+   "op": "close",
+   "optional": true
+  },
+  {
+   "cmd": "camStop",
+   "optional": true
+  }
+ ]
+}

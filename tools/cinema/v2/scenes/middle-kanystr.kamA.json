@@ -1,0 +1,100 @@
+{
+ "popis": "ověřená dráha c33: zezadu k roletě skříně, pak podél pravého boku k hrdlu",
+ "typ": "PC→D",
+ "pohyb": "NAJ ke štítku → NAJ k hrdlu",
+ "smer": "–",
+ "fov": "38 → 26 → 34",
+ "vyska": "1,0 m; 2,3 → 2,6 m",
+ "zabery": [
+  {
+   "id": "middle-5.1",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "middle-5.2",
+   "od": 7.5,
+   "do": 15.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -2.6,
+     "y": 1.0,
+     "z": -5.6,
+     "tat": "middle",
+     "tx": -0.7,
+     "ty": 0.9,
+     "tz": -2.0,
+     "fov": 38
+    },
+    {
+     "t": 7.5,
+     "at": "middle",
+     "x": -1.1,
+     "y": 0.95,
+     "z": -3.7,
+     "tat": "middle",
+     "tx": -0.75,
+     "ty": 0.8,
+     "tz": -2.0,
+     "fov": 26
+    }
+   ]
+  },
+  {
+   "at": 7.5,
+   "cmd": "camPath",
+   "duration": 7.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -1.1,
+     "y": 0.95,
+     "z": -3.7,
+     "tat": "middle",
+     "tx": -0.75,
+     "ty": 0.8,
+     "tz": -2.0,
+     "fov": 26
+    },
+    {
+     "t": 3,
+     "at": "middle",
+     "x": -3.4,
+     "y": 2.3,
+     "z": -0.8,
+     "tat": "middle",
+     "tx": -0.45,
+     "ty": 1.7,
+     "tz": 0.9,
+     "fov": 34
+    },
+    {
+     "t": 7.5,
+     "at": "middle",
+     "x": -3.8,
+     "y": 2.6,
+     "z": 1.6,
+     "tat": "middle",
+     "tx": -0.5,
+     "ty": 1.7,
+     "tz": 1.2,
+     "fov": 34
+    }
+   ]
+  }
+ ]
+}

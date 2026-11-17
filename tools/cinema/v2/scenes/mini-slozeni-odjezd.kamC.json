@@ -1,0 +1,72 @@
+{
+ "popis": "8.1 pevný nízký záběr zezadu (panely se skládají), 8.2 FOL za soupravou",
+ "typ": "C / PC",
+ "pohyb": "STAT → FOL",
+ "smer": "–",
+ "fov": "36 / 40",
+ "vyska": "1,2 m; 2,8 m",
+ "zabery": [
+  {
+   "id": "mini-8.1",
+   "od": 2.0,
+   "do": 14.0
+  },
+  {
+   "id": "mini-8.2",
+   "od": 15.0,
+   "do": 24.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 15,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": 0.4,
+     "y": 1.2,
+     "z": -8.5,
+     "tat": "mini",
+     "tx": 0.3,
+     "ty": 1.0,
+     "tz": -2.0,
+     "fov": 36
+    },
+    {
+     "t": 15,
+     "at": "mini",
+     "x": 0.4,
+     "y": 1.2,
+     "z": -8.5,
+     "tat": "mini",
+     "tx": 0.3,
+     "ty": 1.0,
+     "tz": -2.0,
+     "fov": 36
+    }
+   ]
+  },
+  {
+   "at": 15.0,
+   "cmd": "camFollow",
+   "target": "jd3650",
+   "ox": 0,
+   "oy": 2.8,
+   "oz": -14,
+   "lx": 0,
+   "ly": 1.5,
+   "lz": 8,
+   "fov": 40,
+   "duration": 11,
+   "ease": "smooth",
+   "tau": 0.7,
+   "tauLook": 0.6,
+   "check": false
+  }
+ ]
+}

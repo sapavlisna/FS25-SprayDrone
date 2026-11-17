@@ -1,0 +1,77 @@
+{
+ "popis": "displej pevně z odstupu, mapa: výběr pole 91 se zoomem, pak oddálení",
+ "typ": "D / UI",
+ "pohyb": "STAT → skok výběru + MAPA−",
+ "smer": "–",
+ "fov": "30 (svět)",
+ "vyska": "1,6 m, 4 m",
+ "zabery": [
+  {
+   "id": "middle-6.1",
+   "od": 0.5,
+   "do": 5.5
+  },
+  {
+   "id": "middle-6.2",
+   "od": 8.0,
+   "do": 15.0
+  },
+  {
+   "id": "middle-6.3",
+   "od": 15.5,
+   "do": 21.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 6,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 4.2,
+     "y": 1.6,
+     "z": -0.8,
+     "tat": "middle",
+     "tx": 1.04,
+     "ty": 1.5,
+     "tz": 2.26,
+     "fov": 30
+    },
+    {
+     "t": 6,
+     "at": "middle",
+     "x": 4.2,
+     "y": 1.6,
+     "z": -0.8,
+     "tat": "middle",
+     "tx": 1.04,
+     "ty": 1.5,
+     "tz": 2.26,
+     "fov": 30
+    }
+   ]
+  },
+  {
+   "at": 8.0,
+   "cmd": "ui",
+   "op": "plannerField",
+   "id": 91,
+   "pan": 0.8,
+   "zoom": 2.2
+  },
+  {
+   "at": 10.0,
+   "cmd": "ui",
+   "op": "plannerView",
+   "x": -650,
+   "z": 540,
+   "zoom": 1.3,
+   "duration": 5.0
+  }
+ ]
+}

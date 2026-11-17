@@ -1,0 +1,88 @@
+{
+ "popis": "7.5 tele zdálky, 7.7 detail dronu a hadice zblízka",
+ "typ": "PC / D",
+ "pohyb": "STAT tele → ODJ",
+ "smer": "–",
+ "fov": "22 / 28",
+ "vyska": "1,6 m; 0,6 m",
+ "zabery": [
+  {
+   "id": "middle-7.5",
+   "od": 0.0,
+   "do": 7.0
+  },
+  {
+   "id": "middle-7.7",
+   "od": "servicing +0",
+   "do": "servicing +10"
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 25,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": -9,
+     "y": 1.6,
+     "z": -14,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 22
+    },
+    {
+     "t": 25,
+     "at": "middle",
+     "x": -9,
+     "y": 1.6,
+     "z": -14,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 2.5,
+     "tz": 0,
+     "fov": 22
+    }
+   ]
+  },
+  {
+   "after": "servicing",
+   "cmd": "camPath",
+   "duration": 10,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle:drone1",
+     "x": -1.4,
+     "y": 0.6,
+     "z": -1.8,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0.1,
+     "fov": 28
+    },
+    {
+     "t": 10,
+     "at": "middle:drone1",
+     "x": -2.9,
+     "y": 1.0,
+     "z": -3.3,
+     "tat": "middle:drone1",
+     "tx": 0,
+     "ty": 0.2,
+     "tz": 0.1,
+     "fov": 30
+    }
+   ]
+  }
+ ]
+}

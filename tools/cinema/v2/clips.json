@@ -1,0 +1,3867 @@
+[
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-rozlozeni_A_t1.mkv",
+  "akce": "mini-rozlozeni",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:29",
+  "trvani_s": 40,
+  "delka_s": 18.27,
+  "list": "out/trailer/v2/check/mini-rozlozeni_A_t1_list.jpg",
+  "clipcheck": "mini-rozlozeni_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 18.27 s, 1096 snímků, pts rozestup 16.00..17.00 ms, unikátních 372 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/1-2/mini-silnice_A_t1.mkv",
+  "akce": "mini-silnice",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "1-2",
+  "zabery": [
+   "mini-1.1",
+   "mini-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:30",
+  "trvani_s": 50,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/mini-silnice_A_t1_list.jpg",
+  "clipcheck": "mini-silnice_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 366 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/1-2/mini-silnice_B_t1.mkv",
+  "akce": "mini-silnice",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "1-2",
+  "zabery": [
+   "mini-1.1",
+   "mini-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:31",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/mini-silnice_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 16.87s:33ms\nmini-silnice_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1014 snímků, pts rozestup 16.00..33.00 ms, unikátních 365 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/1-2/mini-silnice_C_t1.mkv",
+  "akce": "mini-silnice",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "1-2",
+  "zabery": [
+   "mini-1.1",
+   "mini-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:32",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/mini-silnice_C_t1_list.jpg",
+  "clipcheck": "mini-silnice_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 367 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.04"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/1-2/mini-silnice_D_t1.mkv",
+  "akce": "mini-silnice",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "1-2",
+  "zabery": [
+   "mini-1.1",
+   "mini-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:33",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/mini-silnice_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 16.87s:33ms\nmini-silnice_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1014 snímků, pts rozestup 16.00..33.00 ms, unikátních 362 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.16"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_A_t1.mkv",
+  "akce": "mini-cesta",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:33",
+  "trvani_s": 32,
+  "delka_s": 11.42,
+  "list": "out/trailer/v2/check/mini-cesta_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 11.37s:33ms\nmini-cesta_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 11.42 s, 684 snímků, pts rozestup 16.00..33.00 ms, unikátních 248 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_B_t1.mkv",
+  "akce": "mini-cesta",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:34",
+  "trvani_s": 33,
+  "delka_s": 11.42,
+  "list": "out/trailer/v2/check/mini-cesta_B_t1_list.jpg",
+  "clipcheck": "mini-cesta_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 11.42 s, 685 snímků, pts rozestup 16.00..17.00 ms, unikátních 248 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_C_t1.mkv",
+  "akce": "mini-cesta",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:35",
+  "trvani_s": 32,
+  "delka_s": 11.42,
+  "list": "out/trailer/v2/check/mini-cesta_C_t1_list.jpg",
+  "clipcheck": "mini-cesta_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 11.42 s, 685 snímků, pts rozestup 16.00..17.00 ms, unikátních 247 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_D_t1.mkv",
+  "akce": "mini-cesta",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:35",
+  "trvani_s": 32,
+  "delka_s": 11.42,
+  "list": "out/trailer/v2/check/mini-cesta_D_t1_list.jpg",
+  "clipcheck": "mini-cesta_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 11.42 s, 685 snímků, pts rozestup 16.00..17.00 ms, unikátních 247 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_A_t1.mkv",
+  "akce": "mini-dvur-prijezd",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:36",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/mini-dvur-prijezd_A_t1_list.jpg",
+  "clipcheck": "mini-dvur-prijezd_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 895 snímků, pts rozestup 16.00..17.00 ms, unikátních 274 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_B_t1.mkv",
+  "akce": "mini-dvur-prijezd",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:37",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/mini-dvur-prijezd_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 14.87s:33ms\nmini-dvur-prijezd_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 894 snímků, pts rozestup 16.00..33.00 ms, unikátních 123 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_C_t1.mkv",
+  "akce": "mini-dvur-prijezd",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:37",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/mini-dvur-prijezd_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 14.87s:33ms\nmini-dvur-prijezd_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 894 snímků, pts rozestup 16.00..33.00 ms, unikátních 314 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.10"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_D_t1.mkv",
+  "akce": "mini-dvur-prijezd",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:38",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/mini-dvur-prijezd_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 14.87s:33ms\nmini-dvur-prijezd_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 894 snímků, pts rozestup 16.00..33.00 ms, unikátních 286 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-rozlozeni_B_t1.mkv",
+  "akce": "mini-rozlozeni",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:39",
+  "trvani_s": 35,
+  "delka_s": 18.32,
+  "list": "out/trailer/v2/check/mini-rozlozeni_B_t1_list.jpg",
+  "clipcheck": "mini-rozlozeni_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 18.32 s, 1099 snímků, pts rozestup 16.00..17.00 ms, unikátních 372 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-rozlozeni_C_t1.mkv",
+  "akce": "mini-rozlozeni",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:39",
+  "trvani_s": 48,
+  "delka_s": 18.37,
+  "list": "out/trailer/v2/check/mini-rozlozeni_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 18.30s:50ms\nmini-rozlozeni_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 18.37 s, 1100 snímků, pts rozestup 16.00..50.00 ms, unikátních 310 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.14"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-rozlozeni_D_t1.mkv",
+  "akce": "mini-rozlozeni",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:40",
+  "trvani_s": 48,
+  "delka_s": 18.32,
+  "list": "out/trailer/v2/check/mini-rozlozeni_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 18.25s:50ms\nmini-rozlozeni_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 18.32 s, 1097 snímků, pts rozestup 16.00..50.00 ms, unikátních 394 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.18"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-detaily_A_t1.mkv",
+  "akce": "mini-detaily",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.2",
+   "mini-4.3",
+   "mini-4.4",
+   "mini-4.5",
+   "mini-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:42",
+  "trvani_s": 73,
+  "delka_s": 30.47,
+  "list": "out/trailer/v2/check/mini-detaily_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.42s:33ms\nmini-detaily_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.47 s, 1827 snímků, pts rozestup 16.00..33.00 ms, unikátních 548 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.07"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-detaily_B_t1.mkv",
+  "akce": "mini-detaily",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.2",
+   "mini-4.3",
+   "mini-4.4",
+   "mini-4.5",
+   "mini-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:43",
+  "trvani_s": 73,
+  "delka_s": 30.42,
+  "list": "out/trailer/v2/check/mini-detaily_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.37s:33ms\nmini-detaily_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.42 s, 1824 snímků, pts rozestup 16.00..33.00 ms, unikátních 607 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_A_t1.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:44",
+  "trvani_s": 65,
+  "delka_s": 21.52,
+  "list": "out/trailer/v2/check/mini-kanystr_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.45s:50ms\nmini-kanystr_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 21.52 s, 1289 snímků, pts rozestup 16.00..50.00 ms, unikátních 442 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.07"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_B_t1.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:45",
+  "trvani_s": 65,
+  "delka_s": 21.47,
+  "list": "out/trailer/v2/check/mini-kanystr_B_t1_list.jpg",
+  "clipcheck": "mini-kanystr_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 21.47 s, 1288 snímků, pts rozestup 16.00..17.00 ms, unikátních 302 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_C_t1.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:47",
+  "trvani_s": 65,
+  "delka_s": 21.52,
+  "list": "out/trailer/v2/check/mini-kanystr_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.45s:50ms\nmini-kanystr_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 21.52 s, 1289 snímků, pts rozestup 16.00..50.00 ms, unikátních 200 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_D_t1.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:48",
+  "trvani_s": 65,
+  "delka_s": 21.52,
+  "list": "out/trailer/v2/check/mini-kanystr_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.45s:50ms\nmini-kanystr_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 21.52 s, 1289 snímků, pts rozestup 16.00..50.00 ms, unikátních 263 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/6/mini-planovac_A_t1.mkv",
+  "akce": "mini-planovac",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "6",
+  "zabery": [
+   "mini-6.1",
+   "mini-6.2",
+   "mini-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:49",
+  "trvani_s": 75,
+  "delka_s": 30.27,
+  "list": "out/trailer/v2/check/mini-planovac_A_t1_list.jpg",
+  "clipcheck": "mini-planovac_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.27 s, 1816 snímků, pts rozestup 16.00..17.00 ms, unikátních 372 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.02"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/6/mini-planovac_B_t1.mkv",
+  "akce": "mini-planovac",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "6",
+  "zabery": [
+   "mini-6.1",
+   "mini-6.2",
+   "mini-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:51",
+  "trvani_s": 73,
+  "delka_s": 28.57,
+  "list": "out/trailer/v2/check/mini-planovac_B_t1_list.jpg",
+  "clipcheck": "mini-planovac_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 28.57 s, 1714 snímků, pts rozestup 16.00..17.00 ms, unikátních 423 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.02"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-let_A_t1.mkv",
+  "akce": "mini-let",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.1",
+   "mini-7.2",
+   "mini-7.3",
+   "mini-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:52",
+  "trvani_s": 83,
+  "delka_s": 39.12,
+  "list": "out/trailer/v2/check/mini-let_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 39.05s:50ms\nmini-let_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 39.12 s, 2345 snímků, pts rozestup 16.00..50.00 ms, unikátních 805 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-let_B_t1.mkv",
+  "akce": "mini-let",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.1",
+   "mini-7.2",
+   "mini-7.3",
+   "mini-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:54",
+  "trvani_s": 83,
+  "delka_s": 39.12,
+  "list": "out/trailer/v2/check/mini-let_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 39.07s:33ms\nmini-let_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 39.12 s, 2346 snímků, pts rozestup 16.00..33.00 ms, unikátních 850 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-let_C_t1.mkv",
+  "akce": "mini-let",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.1",
+   "mini-7.2",
+   "mini-7.3",
+   "mini-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:55",
+  "trvani_s": 83,
+  "delka_s": 39.37,
+  "list": "out/trailer/v2/check/mini-let_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 39.30s:50ms\nmini-let_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 39.37 s, 2360 snímků, pts rozestup 16.00..50.00 ms, unikátních 851 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-navrat-servis_A_t1.mkv",
+  "akce": "mini-navrat-servis",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 07:58",
+  "trvani_s": 120,
+  "delka_s": 22.77,
+  "list": "out/trailer/v2/check/mini-navrat-servis_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 22.70s:50ms\nmini-navrat-servis_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 22.77 s, 1364 snímků, pts rozestup 16.00..50.00 ms, unikátních 441 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.07"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-navrat-servis_B_t1.mkv",
+  "akce": "mini-navrat-servis",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:00",
+  "trvani_s": 120,
+  "delka_s": 22.77,
+  "list": "out/trailer/v2/check/mini-navrat-servis_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 22.70s:50ms\nmini-navrat-servis_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 22.77 s, 1364 snímků, pts rozestup 16.00..50.00 ms, unikátních 459 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-navrat-servis_C_t1.mkv",
+  "akce": "mini-navrat-servis",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:02",
+  "trvani_s": 120,
+  "delka_s": 22.77,
+  "list": "out/trailer/v2/check/mini-navrat-servis_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 22.70s:50ms\nmini-navrat-servis_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 22.77 s, 1364 snímků, pts rozestup 16.00..50.00 ms, unikátních 440 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-navrat-servis_D_t1.mkv",
+  "akce": "mini-navrat-servis",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:04",
+  "trvani_s": 120,
+  "delka_s": 22.47,
+  "list": "out/trailer/v2/check/mini-navrat-servis_D_t1_list.jpg",
+  "clipcheck": "mini-navrat-servis_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 22.47 s, 1348 snímků, pts rozestup 16.00..17.00 ms, unikátních 397 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_A_t1.mkv",
+  "akce": "mini-slozeni-odjezd",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "8",
+  "zabery": [
+   "mini-8.1",
+   "mini-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:05",
+  "trvani_s": 70,
+  "delka_s": 27.82,
+  "list": "out/trailer/v2/check/mini-slozeni-odjezd_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 27.75s:50ms\nmini-slozeni-odjezd_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 27.82 s, 1667 snímků, pts rozestup 16.00..50.00 ms, unikátních 576 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.15"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_B_t1.mkv",
+  "akce": "mini-slozeni-odjezd",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "8",
+  "zabery": [
+   "mini-8.1",
+   "mini-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:07",
+  "trvani_s": 58,
+  "delka_s": 27.82,
+  "list": "out/trailer/v2/check/mini-slozeni-odjezd_B_t1_list.jpg",
+  "clipcheck": "mini-slozeni-odjezd_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 27.82 s, 1669 snímků, pts rozestup 16.00..17.00 ms, unikátních 586 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_C_t1.mkv",
+  "akce": "mini-slozeni-odjezd",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "mini",
+  "beat": "8",
+  "zabery": [
+   "mini-8.1",
+   "mini-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:08",
+  "trvani_s": 58,
+  "delka_s": 27.87,
+  "list": "out/trailer/v2/check/mini-slozeni-odjezd_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 27.82s:33ms\nmini-slozeni-odjezd_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 27.87 s, 1671 snímků, pts rozestup 16.00..33.00 ms, unikátních 509 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.14"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/1-2/middle-silnice_A_t1.mkv",
+  "akce": "middle-silnice",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "1-2",
+  "zabery": [
+   "middle-1.1",
+   "middle-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:19",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/middle-silnice_A_t1_list.jpg",
+  "clipcheck": "middle-silnice_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 352 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.15"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/1-2/middle-silnice_B_t1.mkv",
+  "akce": "middle-silnice",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "1-2",
+  "zabery": [
+   "middle-1.1",
+   "middle-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:20",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/middle-silnice_B_t1_list.jpg",
+  "clipcheck": "middle-silnice_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 367 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.07"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/1-2/middle-silnice_C_t1.mkv",
+  "akce": "middle-silnice",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "1-2",
+  "zabery": [
+   "middle-1.1",
+   "middle-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:21",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/middle-silnice_C_t1_list.jpg",
+  "clipcheck": "middle-silnice_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 363 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.04"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/1-2/middle-silnice_D_t1.mkv",
+  "akce": "middle-silnice",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "1-2",
+  "zabery": [
+   "middle-1.1",
+   "middle-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:22",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/middle-silnice_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 16.85s:50ms\nmiddle-silnice_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1013 snímků, pts rozestup 16.00..50.00 ms, unikátních 348 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": null,
+  "akce": "middle-cesta",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: =40.0 bat=0 | 2026-10-25 08:22:23.707 Info: CINEMA t=6774.126 08:22:23 isolate dokon�eno -> ok souprav parkuje 2, selhalo 0, rekvizit smaz�no 0, vozidel p�esunuto 0 | 2026-10-25 08:22:25.325 Info: CINEMA t=6775.744 08:22:25 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:22:25.510 Info: CINEMA t=6775.930 08:22:25 fold dokon�eno -> ok slo�eno | 2026-10-25 08:22:31.584 Info: CINEMA t=6781.999 08:22:31 groundCheck -> CHYBA middle: n�klon 9.6� [middle kola -0.02..-0.02 sklon 9.6�; pickup kola -0.05..0.01 sklon 3.8�] | 2026-10-25 08:22:31.864 Info: CINEMA t=6782.277 08:22:31 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:22",
+  "trvani_s": 14
+ },
+ {
+  "soubor": null,
+  "akce": "middle-cesta",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: =40.0 bat=0 | 2026-10-25 08:22:37.290 Info: CINEMA t=6787.705 08:22:37 isolate dokon�eno -> ok souprav parkuje 2, selhalo 0, rekvizit smaz�no 0, vozidel p�esunuto 0 | 2026-10-25 08:22:38.914 Info: CINEMA t=6789.330 08:22:38 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:22:39.100 Info: CINEMA t=6789.517 08:22:39 fold dokon�eno -> ok slo�eno | 2026-10-25 08:22:45.218 Info: CINEMA t=6795.567 08:22:45 groundCheck -> CHYBA middle: n�klon 9.6� [middle kola -0.02..-0.02 sklon 9.6�; pickup kola -0.05..0.01 sklon 3.8�] | 2026-10-25 08:22:45.495 Info: CINEMA t=6795.844 08:22:45 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:22",
+  "trvani_s": 14
+ },
+ {
+  "soubor": null,
+  "akce": "middle-cesta",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: =40.0 bat=0 | 2026-10-25 08:22:51.189 Info: CINEMA t=6801.535 08:22:51 isolate dokon�eno -> ok souprav parkuje 2, selhalo 0, rekvizit smaz�no 0, vozidel p�esunuto 0 | 2026-10-25 08:22:52.813 Info: CINEMA t=6803.161 08:22:52 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:22:52.999 Info: CINEMA t=6803.347 08:22:52 fold dokon�eno -> ok slo�eno | 2026-10-25 08:22:59.070 Info: CINEMA t=6809.411 08:22:59 groundCheck -> CHYBA middle: n�klon 9.6� [middle kola -0.02..-0.02 sklon 9.6�; pickup kola -0.05..0.01 sklon 3.8�] | 2026-10-25 08:22:59.347 Info: CINEMA t=6809.689 08:22:59 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:22",
+  "trvani_s": 14
+ },
+ {
+  "soubor": null,
+  "akce": "middle-cesta",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: =40.0 bat=0 | 2026-10-25 08:23:04.763 Info: CINEMA t=6815.094 08:23:04 isolate dokon�eno -> ok souprav parkuje 2, selhalo 0, rekvizit smaz�no 0, vozidel p�esunuto 0 | 2026-10-25 08:23:06.434 Info: CINEMA t=6816.760 08:23:06 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:23:06.614 Info: CINEMA t=6816.945 08:23:06 fold dokon�eno -> ok slo�eno | 2026-10-25 08:23:12.695 Info: CINEMA t=6823.019 08:23:12 groundCheck -> CHYBA middle: n�klon 9.6� [middle kola -0.02..-0.02 sklon 9.6�; pickup kola -0.05..0.01 sklon 3.8�] | 2026-10-25 08:23:12.973 Info: CINEMA t=6823.297 08:23:12 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:23",
+  "trvani_s": 14
+ },
+ {
+  "soubor": null,
+  "akce": "middle-polo-prijezd",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala:  08:23:18.668 Info: CINEMA t=6828.994 08:23:18 isolate dokon�eno -> ok souprav parkuje 2, selhalo 0, rekvizit smaz�no 0, vozidel p�esunuto 0 | 2026-10-25 08:23:20.290 Info: CINEMA t=6830.617 08:23:20 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:23:20.477 Info: CINEMA t=6830.802 08:23:20 fold dokon�eno -> ok slo�eno | 2026-10-25 08:23:26.547 Info: CINEMA t=6836.869 08:23:26 groundCheck -> CHYBA middle: n�klon 20.8�; pickup: n�klon 20.3� [middle kola -0.00..0.00 sklon 20.8�; pickup kola -0.02..0.07 sklon 20.3�] | 2026-10-25 08:23:26.823 Info: CINEMA t=6837.145 08:23:26 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:23",
+  "trvani_s": 14
+ },
+ {
+  "soubor": null,
+  "akce": "middle-polo-prijezd",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala:  t=6843.491 08:23:33 eval -> ok SHOW_TRIGGER_MARKER=true, SHOW_HELP_ICONS=true, INGAME_MAP_HOTSPOT_FILTER=4294967295, SHOW_HELP_TRIGGER=true | 2026-10-25 08:23:33.860 Info: CINEMA t=6844.186 08:23:33 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:23:34.046 Info: CINEMA t=6844.372 08:23:34 fold dokon�eno -> ok slo�eno | 2026-10-25 08:23:40.128 Info: CINEMA t=6850.443 08:23:40 groundCheck -> CHYBA middle: n�klon 20.8�; pickup: n�klon 20.3� [middle kola -0.00..0.00 sklon 20.8�; pickup kola -0.02..0.07 sklon 20.3�] | 2026-10-25 08:23:40.407 Info: CINEMA t=6850.722 08:23:40 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:23",
+  "trvani_s": 14
+ },
+ {
+  "soubor": null,
+  "akce": "middle-polo-prijezd",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala:  08:23:46.112 Info: CINEMA t=6856.417 08:23:46 isolate dokon�eno -> ok souprav parkuje 2, selhalo 0, rekvizit smaz�no 0, vozidel p�esunuto 0 | 2026-10-25 08:23:47.781 Info: CINEMA t=6858.086 08:23:47 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:23:47.964 Info: CINEMA t=6858.270 08:23:47 fold dokon�eno -> ok slo�eno | 2026-10-25 08:23:54.044 Info: CINEMA t=6864.343 08:23:54 groundCheck -> CHYBA middle: n�klon 20.8�; pickup: n�klon 20.3� [middle kola -0.00..0.00 sklon 20.8�; pickup kola -0.02..0.07 sklon 20.3�] | 2026-10-25 08:23:54.325 Info: CINEMA t=6864.622 08:23:54 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:23",
+  "trvani_s": 14
+ },
+ {
+  "soubor": null,
+  "akce": "middle-polo-prijezd",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: l=40.0 bat=0 | 2026-10-25 08:24:00.017 Info: CINEMA t=6870.320 08:24:00 isolate dokon�eno -> ok souprav parkuje 2, selhalo 0, rekvizit smaz�no 0, vozidel p�esunuto 0 | 2026-10-25 08:24:01.641 Info: CINEMA t=6871.939 08:24:01 placeSet dokon�eno -> ok zap�a�eno pickup+middle; skl�d� se; n�dr� 1000 l, baterie nabit�; pokus� 1 | 2026-10-25 08:24:01.828 Info: CINEMA t=6872.125 08:24:01 fold dokon�eno -> ok slo�eno | 2026-10-25 08:24:07.895 Info: CINEMA t=6878.188 08:24:07 groundCheck -> CHYBA middle: n�klon 8.2� [middle kola -0.01..0.18 sklon 8.2�; pickup kola -0.04..0.00 sklon 0.2�] | 2026-10-25 08:24:08.173 Info: CINEMA t=6878.465 08:24:08 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 08:24",
+  "trvani_s": 14
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-cesta_A_t1.mkv",
+  "akce": "middle-cesta",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:50",
+  "trvani_s": 37,
+  "delka_s": 10.92,
+  "list": "out/trailer/v2/check/middle-cesta_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 10.87s:33ms\nmiddle-cesta_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 10.92 s, 654 snímků, pts rozestup 16.00..33.00 ms, unikátních 237 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-cesta_B_t1.mkv",
+  "akce": "middle-cesta",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:51",
+  "trvani_s": 31,
+  "delka_s": 10.97,
+  "list": "out/trailer/v2/check/middle-cesta_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 10.90s:50ms\nmiddle-cesta_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 10.97 s, 656 snímků, pts rozestup 16.00..50.00 ms, unikátních 237 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-cesta_C_t1.mkv",
+  "akce": "middle-cesta",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:51",
+  "trvani_s": 31,
+  "delka_s": 10.92,
+  "list": "out/trailer/v2/check/middle-cesta_C_t1_list.jpg",
+  "clipcheck": "middle-cesta_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 10.92 s, 655 snímků, pts rozestup 16.00..17.00 ms, unikátních 237 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-cesta_D_t1.mkv",
+  "akce": "middle-cesta",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:52",
+  "trvani_s": 31,
+  "delka_s": 10.97,
+  "list": "out/trailer/v2/check/middle-cesta_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 10.90s:50ms\nmiddle-cesta_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 10.97 s, 656 snímků, pts rozestup 16.00..50.00 ms, unikátních 240 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.07"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_A_t1.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:53",
+  "trvani_s": 34,
+  "delka_s": 16.07,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 16.00s:50ms\nmiddle-polo-prijezd_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.07 s, 962 snímků, pts rozestup 16.00..50.00 ms, unikátních 347 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.14"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_B_t1.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:53",
+  "trvani_s": 34,
+  "delka_s": 15.92,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 15.87s:33ms\nmiddle-polo-prijezd_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 15.92 s, 954 snímků, pts rozestup 16.00..33.00 ms, unikátních 343 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_C_t1.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:54",
+  "trvani_s": 34,
+  "delka_s": 15.92,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_C_t1_list.jpg",
+  "clipcheck": "middle-polo-prijezd_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 15.92 s, 955 snímků, pts rozestup 16.00..17.00 ms, unikátních 282 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.14"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_D_t1.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:55",
+  "trvani_s": 34,
+  "delka_s": 15.92,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_D_t1_list.jpg",
+  "clipcheck": "middle-polo-prijezd_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 15.92 s, 955 snímků, pts rozestup 16.00..17.00 ms, unikátních 321 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.15"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_A_t1.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:55",
+  "trvani_s": 33,
+  "delka_s": 16.37,
+  "list": "out/trailer/v2/check/middle-rozlozeni_A_t1_list.jpg",
+  "clipcheck": "middle-rozlozeni_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.37 s, 982 snímků, pts rozestup 16.00..17.00 ms, unikátních 338 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_B_t1.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:56",
+  "trvani_s": 39,
+  "delka_s": 16.32,
+  "list": "out/trailer/v2/check/middle-rozlozeni_B_t1_list.jpg",
+  "clipcheck": "middle-rozlozeni_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.32 s, 979 snímků, pts rozestup 16.00..17.00 ms, unikátních 351 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_C_t1.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:57",
+  "trvani_s": 39,
+  "delka_s": 16.32,
+  "list": "out/trailer/v2/check/middle-rozlozeni_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 16.25s:50ms\nmiddle-rozlozeni_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.32 s, 977 snímků, pts rozestup 16.00..50.00 ms, unikátních 222 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.14"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_D_t1.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:57",
+  "trvani_s": 39,
+  "delka_s": 16.42,
+  "list": "out/trailer/v2/check/middle-rozlozeni_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 16.35s:50ms\nmiddle-rozlozeni_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.42 s, 983 snímků, pts rozestup 16.00..50.00 ms, unikátních 341 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-detaily_A_t1.mkv",
+  "akce": "middle-detaily",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.2",
+   "middle-4.3",
+   "middle-4.4",
+   "middle-4.5",
+   "middle-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 08:59",
+  "trvani_s": 60,
+  "delka_s": 30.42,
+  "list": "out/trailer/v2/check/middle-detaily_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.35s:50ms\nmiddle-detaily_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.42 s, 1823 snímků, pts rozestup 16.00..50.00 ms, unikátních 590 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-detaily_B_t1.mkv",
+  "akce": "middle-detaily",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.2",
+   "middle-4.3",
+   "middle-4.4",
+   "middle-4.5",
+   "middle-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:00",
+  "trvani_s": 59,
+  "delka_s": 30.42,
+  "list": "out/trailer/v2/check/middle-detaily_B_t1_list.jpg",
+  "clipcheck": "middle-detaily_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.42 s, 1825 snímků, pts rozestup 16.00..17.00 ms, unikátních 528 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.07"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/5/middle-kanystr_A_t1.mkv",
+  "akce": "middle-kanystr",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "5",
+  "zabery": [
+   "middle-5.1",
+   "middle-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:01",
+  "trvani_s": 52,
+  "delka_s": 21.82,
+  "list": "out/trailer/v2/check/middle-kanystr_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.75s:50ms\nmiddle-kanystr_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 21.82 s, 1307 snímků, pts rozestup 16.00..50.00 ms, unikátních 430 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/5/middle-kanystr_B_t1.mkv",
+  "akce": "middle-kanystr",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "5",
+  "zabery": [
+   "middle-5.1",
+   "middle-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:02",
+  "trvani_s": 52,
+  "delka_s": 21.57,
+  "list": "out/trailer/v2/check/middle-kanystr_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.50s:50ms\nmiddle-kanystr_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 21.57 s, 1292 snímků, pts rozestup 16.00..50.00 ms, unikátních 311 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/5/middle-kanystr_C_t1.mkv",
+  "akce": "middle-kanystr",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "5",
+  "zabery": [
+   "middle-5.1",
+   "middle-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:03",
+  "trvani_s": 52,
+  "delka_s": 21.57,
+  "list": "out/trailer/v2/check/middle-kanystr_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.50s:50ms\nmiddle-kanystr_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 21.57 s, 1292 snímků, pts rozestup 16.00..50.00 ms, unikátních 309 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": null,
+  "akce": "middle-planovac",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "6",
+  "zabery": [
+   "middle-6.1",
+   "middle-6.2",
+   "middle-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: 3:47 screenWake -> ok displej probuzen (plannerScreenOn je) | 2026-10-25 09:03:51.615 Info: CINEMA t=9261.878 09:03:51 kamera 17929154253 konec (frames=131 dt_prum=45.9 ms dt_max=47.7 ms nad25ms=130, doba 6.02 s) | 2026-10-25 09:03:52.556 Info: CINEMA t=9262.807 09:03:52 ui -> ok gui=SprayDronePlannerScreen shopPage=? | 2026-10-25 09:03:53.664 Info: CINEMA t=9263.915 09:03:53 ui -> ok hover vypnut | 2026-10-25 09:03:53.944 Info: CINEMA t=9264.195 09:03:53 ui -> CHYBA pole 91 nen� v seznamu | 2026-10-25 09:03:55.057 Info: CINEMA t=9265.307 09:03:55 kamera vypnuta, p�vodn� kamera vr�cena | 2026-10-25 09:03:55.058 Info: CINEMA t=9265.307 09:03:55 camStop -> ok kamera vypnuta | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 09:03",
+  "trvani_s": 38
+ },
+ {
+  "soubor": null,
+  "akce": "middle-planovac",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "6",
+  "zabery": [
+   "middle-6.1",
+   "middle-6.2",
+   "middle-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: 4:25 screenWake -> ok displej probuzen (plannerScreenOn je) | 2026-10-25 09:04:29.694 Info: CINEMA t=9299.951 09:04:29 kamera 17929154634 konec (frames=131 dt_prum=45.9 ms dt_max=48.4 ms nad25ms=130, doba 6.02 s) | 2026-10-25 09:04:30.628 Info: CINEMA t=9300.877 09:04:30 ui -> ok gui=SprayDronePlannerScreen shopPage=? | 2026-10-25 09:04:31.737 Info: CINEMA t=9301.988 09:04:31 ui -> ok hover vypnut | 2026-10-25 09:04:32.016 Info: CINEMA t=9302.267 09:04:32 ui -> CHYBA pole 91 nen� v seznamu | 2026-10-25 09:04:33.126 Info: CINEMA t=9303.378 09:04:33 kamera vypnuta, p�vodn� kamera vr�cena | 2026-10-25 09:04:33.126 Info: CINEMA t=9303.378 09:04:33 camStop -> ok kamera vypnuta | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 09:04",
+  "trvani_s": 38
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-let_A_t1.mkv",
+  "akce": "middle-let",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.0",
+   "middle-7.1",
+   "middle-7.2",
+   "middle-7.3",
+   "middle-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:06",
+  "trvani_s": 105,
+  "delka_s": 74.42,
+  "list": "out/trailer/v2/check/middle-let_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 74.35s:50ms\nmiddle-let_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 74.42 s, 4463 snímků, pts rozestup 16.00..50.00 ms, unikátních 1606 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.10"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-let_B_t1.mkv",
+  "akce": "middle-let",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.0",
+   "middle-7.1",
+   "middle-7.2",
+   "middle-7.3",
+   "middle-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:08",
+  "trvani_s": 116,
+  "delka_s": 74.37,
+  "list": "out/trailer/v2/check/middle-let_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 74.30s:50ms\nmiddle-let_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 74.37 s, 4460 snímků, pts rozestup 16.00..50.00 ms, unikátních 1408 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-let_C_t1.mkv",
+  "akce": "middle-let",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.0",
+   "middle-7.1",
+   "middle-7.2",
+   "middle-7.3",
+   "middle-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:10",
+  "trvani_s": 118,
+  "delka_s": 74.37,
+  "list": "out/trailer/v2/check/middle-let_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 74.30s:50ms\nmiddle-let_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 74.37 s, 4460 snímků, pts rozestup 16.00..50.00 ms, unikátních 1612 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-navrat-servis_A_t1.mkv",
+  "akce": "middle-navrat-servis",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:13",
+  "trvani_s": 144,
+  "delka_s": 23.62,
+  "list": "out/trailer/v2/check/middle-navrat-servis_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 23.55s:50ms\nmiddle-navrat-servis_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 23.62 s, 1415 snímků, pts rozestup 16.00..50.00 ms, unikátních 517 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.10"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-navrat-servis_B_t1.mkv",
+  "akce": "middle-navrat-servis",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:15",
+  "trvani_s": 132,
+  "delka_s": 23.37,
+  "list": "out/trailer/v2/check/middle-navrat-servis_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 23.30s:50ms\nmiddle-navrat-servis_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 23.37 s, 1400 snímků, pts rozestup 16.00..50.00 ms, unikátních 427 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-navrat-servis_C_t1.mkv",
+  "akce": "middle-navrat-servis",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:18",
+  "trvani_s": 132,
+  "delka_s": 23.37,
+  "list": "out/trailer/v2/check/middle-navrat-servis_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 23.30s:50ms\nmiddle-navrat-servis_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 23.37 s, 1400 snímků, pts rozestup 16.00..50.00 ms, unikátních 483 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-navrat-servis_D_t1.mkv",
+  "akce": "middle-navrat-servis",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:20",
+  "trvani_s": 132,
+  "delka_s": 23.32,
+  "list": "out/trailer/v2/check/middle-navrat-servis_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 23.25s:50ms\nmiddle-navrat-servis_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 23.32 s, 1397 snímků, pts rozestup 16.00..50.00 ms, unikátních 495 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_A_t1.mkv",
+  "akce": "middle-slozeni-odjezd",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "8",
+  "zabery": [
+   "middle-8.1",
+   "middle-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:21",
+  "trvani_s": 56,
+  "delka_s": 26.22,
+  "list": "out/trailer/v2/check/middle-slozeni-odjezd_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.17s:33ms\nmiddle-slozeni-odjezd_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 26.22 s, 1572 snímků, pts rozestup 16.00..33.00 ms, unikátních 564 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_B_t1.mkv",
+  "akce": "middle-slozeni-odjezd",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "8",
+  "zabery": [
+   "middle-8.1",
+   "middle-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:22",
+  "trvani_s": 50,
+  "delka_s": 26.22,
+  "list": "out/trailer/v2/check/middle-slozeni-odjezd_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.17s:33ms\nmiddle-slozeni-odjezd_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 26.22 s, 1572 snímků, pts rozestup 16.00..33.00 ms, unikátních 544 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.16"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_C_t1.mkv",
+  "akce": "middle-slozeni-odjezd",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "8",
+  "zabery": [
+   "middle-8.1",
+   "middle-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:23",
+  "trvani_s": 50,
+  "delka_s": 26.22,
+  "list": "out/trailer/v2/check/middle-slozeni-odjezd_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.15s:50ms\nmiddle-slozeni-odjezd_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 26.22 s, 1571 snímků, pts rozestup 16.00..50.00 ms, unikátních 564 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/1-2/max-silnice_A_t1.mkv",
+  "akce": "max-silnice",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "1-2",
+  "zabery": [
+   "max-1.1",
+   "max-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:28",
+  "trvani_s": 44,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/max-silnice_A_t1_list.jpg",
+  "clipcheck": "max-silnice_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 351 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.15"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/1-2/max-silnice_B_t1.mkv",
+  "akce": "max-silnice",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "1-2",
+  "zabery": [
+   "max-1.1",
+   "max-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:29",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/max-silnice_B_t1_list.jpg",
+  "clipcheck": "max-silnice_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 371 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/1-2/max-silnice_C_t1.mkv",
+  "akce": "max-silnice",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "1-2",
+  "zabery": [
+   "max-1.1",
+   "max-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:30",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/max-silnice_C_t1_list.jpg",
+  "clipcheck": "max-silnice_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 368 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.04"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/1-2/max-silnice_D_t1.mkv",
+  "akce": "max-silnice",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "max",
+  "beat": "1-2",
+  "zabery": [
+   "max-1.1",
+   "max-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:31",
+  "trvani_s": 38,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/max-silnice_D_t1_list.jpg",
+  "clipcheck": "max-silnice_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 246 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/3/max-zaparkovani_A_t1.mkv",
+  "akce": "max-zaparkovani",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "3",
+  "zabery": [
+   "max-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:31",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/max-zaparkovani_A_t1_list.jpg",
+  "clipcheck": "max-zaparkovani_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 895 snímků, pts rozestup 16.00..17.00 ms, unikátních 235 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/3/max-zaparkovani_B_t1.mkv",
+  "akce": "max-zaparkovani",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "3",
+  "zabery": [
+   "max-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:32",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/max-zaparkovani_B_t1_list.jpg",
+  "clipcheck": "max-zaparkovani_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 895 snímků, pts rozestup 16.00..17.00 ms, unikátních 200 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.15"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/3/max-zaparkovani_C_t1.mkv",
+  "akce": "max-zaparkovani",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "3",
+  "zabery": [
+   "max-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:33",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/max-zaparkovani_C_t1_list.jpg",
+  "clipcheck": "max-zaparkovani_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 895 snímků, pts rozestup 16.00..17.00 ms, unikátních 276 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.10"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/3/max-zaparkovani_D_t1.mkv",
+  "akce": "max-zaparkovani",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "max",
+  "beat": "3",
+  "zabery": [
+   "max-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:33",
+  "trvani_s": 33,
+  "delka_s": 14.97,
+  "list": "out/trailer/v2/check/max-zaparkovani_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 14.90s:50ms\nmax-zaparkovani_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 14.97 s, 896 snímků, pts rozestup 16.00..50.00 ms, unikátních 322 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/4/max-rozlozeni_A_t1.mkv",
+  "akce": "max-rozlozeni",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:34",
+  "trvani_s": 32,
+  "delka_s": 15.57,
+  "list": "out/trailer/v2/check/max-rozlozeni_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 15.50s:50ms\nmax-rozlozeni_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 15.57 s, 932 snímků, pts rozestup 16.00..50.00 ms, unikátních 313 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.16"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/4/max-rozlozeni_B_t1.mkv",
+  "akce": "max-rozlozeni",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:35",
+  "trvani_s": 38,
+  "delka_s": 15.47,
+  "list": "out/trailer/v2/check/max-rozlozeni_B_t1_list.jpg",
+  "clipcheck": "max-rozlozeni_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 15.47 s, 928 snímků, pts rozestup 16.00..17.00 ms, unikátních 325 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/4/max-rozlozeni_C_t1.mkv",
+  "akce": "max-rozlozeni",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:35",
+  "trvani_s": 38,
+  "delka_s": 15.52,
+  "list": "out/trailer/v2/check/max-rozlozeni_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 15.45s:50ms\nmax-rozlozeni_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 15.52 s, 929 snímků, pts rozestup 16.00..50.00 ms, unikátních 275 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/4/max-rozlozeni_D_t1.mkv",
+  "akce": "max-rozlozeni",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:36",
+  "trvani_s": 38,
+  "delka_s": 15.52,
+  "list": "out/trailer/v2/check/max-rozlozeni_D_t1_list.jpg",
+  "clipcheck": "max-rozlozeni_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 15.52 s, 931 snímků, pts rozestup 16.00..17.00 ms, unikátních 336 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/4/max-detaily_A_t1.mkv",
+  "akce": "max-detaily",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.2",
+   "max-4.3",
+   "max-4.4",
+   "max-4.5",
+   "max-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:37",
+  "trvani_s": 60,
+  "delka_s": 30.72,
+  "list": "out/trailer/v2/check/max-detaily_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.65s:50ms\nmax-detaily_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.72 s, 1841 snímků, pts rozestup 16.00..50.00 ms, unikátních 594 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/4/max-detaily_B_t1.mkv",
+  "akce": "max-detaily",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.2",
+   "max-4.3",
+   "max-4.4",
+   "max-4.5",
+   "max-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:38",
+  "trvani_s": 60,
+  "delka_s": 30.42,
+  "list": "out/trailer/v2/check/max-detaily_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.35s:50ms\nmax-detaily_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.42 s, 1823 snímků, pts rozestup 16.00..50.00 ms, unikátních 585 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.10"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_A_t1.mkv",
+  "akce": "max-pumpa",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:39",
+  "trvani_s": 58,
+  "delka_s": 19.57,
+  "list": "out/trailer/v2/check/max-pumpa_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.50s:50ms\nmax-pumpa_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 19.57 s, 1172 snímků, pts rozestup 16.00..50.00 ms, unikátních 421 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_B_t1.mkv",
+  "akce": "max-pumpa",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:41",
+  "trvani_s": 58,
+  "delka_s": 19.87,
+  "list": "out/trailer/v2/check/max-pumpa_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.82s:33ms\nmax-pumpa_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 19.87 s, 1191 snímků, pts rozestup 16.00..33.00 ms, unikátních 411 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.19"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_C_t1.mkv",
+  "akce": "max-pumpa",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:42",
+  "trvani_s": 58,
+  "delka_s": 19.67,
+  "list": "out/trailer/v2/check/max-pumpa_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.62s:33ms\nmax-pumpa_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 19.67 s, 1179 snímků, pts rozestup 16.00..33.00 ms, unikátních 418 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.23"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_D_t1.mkv",
+  "akce": "max-pumpa",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:43",
+  "trvani_s": 58,
+  "delka_s": 19.82,
+  "list": "out/trailer/v2/check/max-pumpa_D_t1_list.jpg",
+  "clipcheck": "max-pumpa_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 19.82 s, 1189 snímků, pts rozestup 16.00..17.00 ms, unikátních 417 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.21"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_A_t1.mkv",
+  "akce": "max-mlynek",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:44",
+  "trvani_s": 72,
+  "delka_s": 33.22,
+  "list": "out/trailer/v2/check/max-mlynek_A_t1_list.jpg",
+  "clipcheck": "max-mlynek_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 33.22 s, 1993 snímků, pts rozestup 16.00..17.00 ms, unikátních 721 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_B_t1.mkv",
+  "akce": "max-mlynek",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:45",
+  "trvani_s": 72,
+  "delka_s": 33.22,
+  "list": "out/trailer/v2/check/max-mlynek_B_t1_list.jpg",
+  "clipcheck": "max-mlynek_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 33.22 s, 1993 snímků, pts rozestup 16.00..17.00 ms, unikátních 680 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_C_t1.mkv",
+  "akce": "max-mlynek",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:47",
+  "trvani_s": 72,
+  "delka_s": 33.27,
+  "list": "out/trailer/v2/check/max-mlynek_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 33.22s:33ms\nmax-mlynek_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 33.27 s, 1995 snímků, pts rozestup 16.00..33.00 ms, unikátních 668 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": null,
+  "akce": "max-planovac",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "6",
+  "zabery": [
+   "max-6.1",
+   "max-6.2",
+   "max-6.3",
+   "max-6.4"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: creenWake -> ok displej probuzen (plannerScreenOn je) | 2026-10-25 09:48:02.158 Info: CINEMA t=11912.299 09:48:02 kamera 17929180758 konec (frames=131 dt_prum=45.9 ms dt_max=47.9 ms nad25ms=130, doba 6.02 s) | 2026-10-25 09:48:03.094 Info: CINEMA t=11913.225 09:48:03 ui -> ok gui=SprayDronePlannerScreen shopPage=? | 2026-10-25 09:48:04.203 Info: CINEMA t=11914.337 09:48:04 ui -> ok hover vypnut | 2026-10-25 09:48:04.485 Info: CINEMA t=11914.616 09:48:04 ui -> CHYBA pole 59 nen� v seznamu | 2026-10-25 09:48:05.592 Info: CINEMA t=11915.725 09:48:05 kamera vypnuta, p�vodn� kamera vr�cena | 2026-10-25 09:48:05.592 Info: CINEMA t=11915.725 09:48:05 camStop -> ok kamera vypnuta | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 09:48",
+  "trvani_s": 38
+ },
+ {
+  "soubor": null,
+  "akce": "max-planovac",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "6",
+  "zabery": [
+   "max-6.1",
+   "max-6.2",
+   "max-6.3",
+   "max-6.4"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: creenWake -> ok displej probuzen (plannerScreenOn je) | 2026-10-25 09:48:40.461 Info: CINEMA t=11950.596 09:48:40 kamera 17929181141 konec (frames=131 dt_prum=46.0 ms dt_max=47.7 ms nad25ms=130, doba 6.02 s) | 2026-10-25 09:48:41.400 Info: CINEMA t=11951.524 09:48:41 ui -> ok gui=SprayDronePlannerScreen shopPage=? | 2026-10-25 09:48:42.507 Info: CINEMA t=11952.635 09:48:42 ui -> ok hover vypnut | 2026-10-25 09:48:42.786 Info: CINEMA t=11952.914 09:48:42 ui -> CHYBA pole 59 nen� v seznamu | 2026-10-25 09:48:43.896 Info: CINEMA t=11954.024 09:48:43 kamera vypnuta, p�vodn� kamera vr�cena | 2026-10-25 09:48:43.896 Info: CINEMA t=11954.024 09:48:43 camStop -> ok kamera vypnuta | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 09:48",
+  "trvani_s": 38
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/7/max-let_A_t1.mkv",
+  "akce": "max-let",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.0",
+   "max-7.1",
+   "max-7.2",
+   "max-7.3",
+   "max-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:50",
+  "trvani_s": 100,
+  "delka_s": 69.92,
+  "list": "out/trailer/v2/check/max-let_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 69.87s:33ms\nmax-let_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 69.92 s, 4194 snímků, pts rozestup 16.00..33.00 ms, unikátních 1148 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/7/max-let_B_t1.mkv",
+  "akce": "max-let",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.0",
+   "max-7.1",
+   "max-7.2",
+   "max-7.3",
+   "max-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:52",
+  "trvani_s": 101,
+  "delka_s": 69.92,
+  "list": "out/trailer/v2/check/max-let_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 69.85s:50ms\nmax-let_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 69.92 s, 4193 snímků, pts rozestup 16.00..50.00 ms, unikátních 1434 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/7/max-let_C_t1.mkv",
+  "akce": "max-let",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.0",
+   "max-7.1",
+   "max-7.2",
+   "max-7.3",
+   "max-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:54",
+  "trvani_s": 101,
+  "delka_s": 69.87,
+  "list": "out/trailer/v2/check/max-let_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 69.82s:33ms\nmax-let_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 69.87 s, 4191 snímků, pts rozestup 16.00..33.00 ms, unikátních 1285 (mpdecimate), zaškobrtnutí 1 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/7/max-navrat-servis_A_t1.mkv",
+  "akce": "max-navrat-servis",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.5",
+   "max-7.6",
+   "max-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:56",
+  "trvani_s": 110,
+  "delka_s": 24.17,
+  "list": "out/trailer/v2/check/max-navrat-servis_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 24.10s:50ms\nmax-navrat-servis_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 24.17 s, 1448 snímků, pts rozestup 16.00..50.00 ms, unikátních 483 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.10"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/7/max-navrat-servis_B_t1.mkv",
+  "akce": "max-navrat-servis",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.5",
+   "max-7.6",
+   "max-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 09:58",
+  "trvani_s": 110,
+  "delka_s": 24.17,
+  "list": "out/trailer/v2/check/max-navrat-servis_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 24.10s:50ms\nmax-navrat-servis_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 24.17 s, 1448 snímků, pts rozestup 16.00..50.00 ms, unikátních 481 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/7/max-navrat-servis_C_t1.mkv",
+  "akce": "max-navrat-servis",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.5",
+   "max-7.6",
+   "max-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:00",
+  "trvani_s": 109,
+  "delka_s": 24.17,
+  "list": "out/trailer/v2/check/max-navrat-servis_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 24.10s:50ms\nmax-navrat-servis_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 24.17 s, 1448 snímků, pts rozestup 16.00..50.00 ms, unikátních 528 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/7/max-navrat-servis_D_t1.mkv",
+  "akce": "max-navrat-servis",
+  "kamera": "D",
+  "take": 1,
+  "vlek": "max",
+  "beat": "7",
+  "zabery": [
+   "max-7.5",
+   "max-7.6",
+   "max-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:02",
+  "trvani_s": 110,
+  "delka_s": 24.17,
+  "list": "out/trailer/v2/check/max-navrat-servis_D_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 24.12s:33ms\nmax-navrat-servis_D_t1.mkv: 1920x1080 r=60/1 avg=60/1, 24.17 s, 1449 snímků, pts rozestup 16.00..33.00 ms, unikátních 513 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/8/max-slozeni-odjezd_A_t1.mkv",
+  "akce": "max-slozeni-odjezd",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "8",
+  "zabery": [
+   "max-8.1",
+   "max-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:03",
+  "trvani_s": 56,
+  "delka_s": 26.12,
+  "list": "out/trailer/v2/check/max-slozeni-odjezd_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.05s:50ms\nmax-slozeni-odjezd_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 26.12 s, 1565 snímků, pts rozestup 16.00..50.00 ms, unikátních 552 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/8/max-slozeni-odjezd_B_t1.mkv",
+  "akce": "max-slozeni-odjezd",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "8",
+  "zabery": [
+   "max-8.1",
+   "max-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:04",
+  "trvani_s": 50,
+  "delka_s": 26.12,
+  "list": "out/trailer/v2/check/max-slozeni-odjezd_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.05s:50ms\nmax-slozeni-odjezd_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 26.12 s, 1565 snímků, pts rozestup 16.00..50.00 ms, unikátních 554 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/8/max-slozeni-odjezd_C_t1.mkv",
+  "akce": "max-slozeni-odjezd",
+  "kamera": "C",
+  "take": 1,
+  "vlek": "max",
+  "beat": "8",
+  "zabery": [
+   "max-8.1",
+   "max-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:05",
+  "trvani_s": 50,
+  "delka_s": 26.67,
+  "list": "out/trailer/v2/check/max-slozeni-odjezd_C_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.60s:50ms\nmax-slozeni-odjezd_C_t1.mkv: 1920x1080 r=60/1 avg=60/1, 26.67 s, 1598 snímků, pts rozestup 16.00..50.00 ms, unikátních 446 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/6/max-planovac_A_t1.mkv",
+  "akce": "max-planovac",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "max",
+  "beat": "6",
+  "zabery": [
+   "max-6.1",
+   "max-6.2",
+   "max-6.3",
+   "max-6.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:08",
+  "trvani_s": 76,
+  "delka_s": 44.47,
+  "list": "out/trailer/v2/check/max-planovac_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 44.42s:33ms\nmax-planovac_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 44.47 s, 2667 snímků, pts rozestup 16.00..33.00 ms, unikátních 598 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.01"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/6/max-planovac_B_t1.mkv",
+  "akce": "max-planovac",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "max",
+  "beat": "6",
+  "zabery": [
+   "max-6.1",
+   "max-6.2",
+   "max-6.3",
+   "max-6.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:09",
+  "trvani_s": 78,
+  "delka_s": 45.57,
+  "list": "out/trailer/v2/check/max-planovac_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 45.50s:50ms\nmax-planovac_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 45.57 s, 2732 snímků, pts rozestup 16.00..50.00 ms, unikátních 588 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.02"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/6/middle-planovac_A_t1.mkv",
+  "akce": "middle-planovac",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "6",
+  "zabery": [
+   "middle-6.1",
+   "middle-6.2",
+   "middle-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:11",
+  "trvani_s": 61,
+  "delka_s": 30.72,
+  "list": "out/trailer/v2/check/middle-planovac_A_t1_list.jpg",
+  "clipcheck": "middle-planovac_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.72 s, 1843 snímků, pts rozestup 16.00..17.00 ms, unikátních 527 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.02"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/6/middle-planovac_B_t1.mkv",
+  "akce": "middle-planovac",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "middle",
+  "beat": "6",
+  "zabery": [
+   "middle-6.1",
+   "middle-6.2",
+   "middle-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:12",
+  "trvani_s": 62,
+  "delka_s": 30.22,
+  "list": "out/trailer/v2/check/middle-planovac_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.15s:50ms\nmiddle-planovac_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 30.22 s, 1811 snímků, pts rozestup 16.00..50.00 ms, unikátních 273 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.02"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/prod/prod/prod-rada_A_t1.mkv",
+  "akce": "prod-rada",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-2",
+   "prod-3",
+   "prod-4",
+   "prod-5",
+   "prod-8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:14",
+  "trvani_s": 82,
+  "delka_s": 49.82,
+  "list": "out/trailer/v2/check/prod-rada_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 49.75s:50ms\nprod-rada_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 49.82 s, 2987 snímků, pts rozestup 16.00..50.00 ms, unikátních 832 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/prod/prod/prod-rada_B_t1.mkv",
+  "akce": "prod-rada",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-2",
+   "prod-3",
+   "prod-4",
+   "prod-5",
+   "prod-8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:15",
+  "trvani_s": 77,
+  "delka_s": 49.82,
+  "list": "out/trailer/v2/check/prod-rada_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 49.75s:50ms\nprod-rada_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 49.82 s, 2987 snímků, pts rozestup 16.00..50.00 ms, unikátních 847 (mpdecimate), zaškobrtnutí 4 (po 2 s: 4 [23.37s 23.42s 23.48s 23.53s]), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/prod/prod/prod-vleky_A_t1.mkv",
+  "akce": "prod-vleky",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-1",
+   "prod-6",
+   "prod-7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:17",
+  "trvani_s": 85,
+  "delka_s": 27.27,
+  "list": "out/trailer/v2/check/prod-vleky_A_t1_list.jpg",
+  "clipcheck": "prod-vleky_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 27.27 s, 1636 snímků, pts rozestup 16.00..17.00 ms, unikátních 487 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": null,
+  "akce": "prod-vleky",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-1",
+   "prod-6",
+   "prod-7"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: nfo: CINEMA t=13736.472 10:18:26 padDrone -> CHYBA odm�tnuto: sdt_pad_mixed | 2026-10-25 10:18:28.607 Info: CINEMA t=13738.697 10:18:28 generator -> ok centr�la=false nabit� 540 | 2026-10-25 10:18:28.884 Info: CINEMA t=13738.974 10:18:28 generator -> ok centr�la=false nabit� 480 | 2026-10-25 10:18:29.163 Info: CINEMA t=13739.252 10:18:29 generator -> ok centr�la=false nabit� 480 | 2026-10-25 10:18:35.281 Info: CINEMA t=13745.371 10:18:35 groundCheck -> CHYBA max: kola 1.43..1.54 m od ter�nu; mt655: kola -0.01..1.18 m od ter�nu; mt655: n�klon 23.3� [mini kola 0.01..0.01 sklon 0. | 2026-10-25 10:18:35.558 Info: CINEMA t=13745.648 10:18:35 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 10:18",
+  "trvani_s": 68
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini+max+middle/epilog/spol_A_t1.mkv",
+  "akce": "spol",
+  "kamera": "A",
+  "take": 1,
+  "vlek": "mini+max+middle",
+  "beat": "epilog",
+  "zabery": [
+   "spol-1",
+   "spol-2",
+   "spol-3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:20",
+  "trvani_s": 106,
+  "delka_s": 35.22,
+  "list": "out/trailer/v2/check/spol_A_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 35.15s:50ms\nspol_A_t1.mkv: 1920x1080 r=60/1 avg=60/1, 35.22 s, 2111 snímků, pts rozestup 16.00..50.00 ms, unikátních 765 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini+max+middle/epilog/spol_B_t1.mkv",
+  "akce": "spol",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "mini+max+middle",
+  "beat": "epilog",
+  "zabery": [
+   "spol-1",
+   "spol-2",
+   "spol-3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:22",
+  "trvani_s": 118,
+  "delka_s": 35.22,
+  "list": "out/trailer/v2/check/spol_B_t1_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 35.17s:33ms\nspol_B_t1.mkv: 1920x1080 r=60/1 avg=60/1, 35.22 s, 2112 snímků, pts rozestup 16.00..33.00 ms, unikátních 704 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_A_t2.mkv",
+  "akce": "max-pumpa",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:27",
+  "trvani_s": 58,
+  "delka_s": 19.57,
+  "list": "out/trailer/v2/check/max-pumpa_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.52s:33ms\nmax-pumpa_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 19.57 s, 1173 snímků, pts rozestup 16.00..33.00 ms, unikátních 419 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_B_t2.mkv",
+  "akce": "max-pumpa",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:29",
+  "trvani_s": 58,
+  "delka_s": 19.87,
+  "list": "out/trailer/v2/check/max-pumpa_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.82s:33ms\nmax-pumpa_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 19.87 s, 1191 snímků, pts rozestup 16.00..33.00 ms, unikátních 405 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.19"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_C_t2.mkv",
+  "akce": "max-pumpa",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:30",
+  "trvani_s": 58,
+  "delka_s": 19.62,
+  "list": "out/trailer/v2/check/max-pumpa_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.55s:50ms\nmax-pumpa_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 19.62 s, 1175 snímků, pts rozestup 16.00..50.00 ms, unikátních 415 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.17"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_D_t2.mkv",
+  "akce": "max-pumpa",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:31",
+  "trvani_s": 58,
+  "delka_s": 19.82,
+  "list": "out/trailer/v2/check/max-pumpa_D_t2_list.jpg",
+  "clipcheck": "max-pumpa_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 19.82 s, 1189 snímků, pts rozestup 16.00..17.00 ms, unikátních 401 (mpdecimate), zaškobrtnutí 4 (po 2 s: 4 [11.92s 12.00s 12.03s 12.08s]), medián pohybu 0.19"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_A_t2.mkv",
+  "akce": "max-mlynek",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:32",
+  "trvani_s": 73,
+  "delka_s": 33.27,
+  "list": "out/trailer/v2/check/max-mlynek_A_t2_list.jpg",
+  "clipcheck": "max-mlynek_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 33.27 s, 1996 snímků, pts rozestup 16.00..17.00 ms, unikátních 705 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.06"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_B_t2.mkv",
+  "akce": "max-mlynek",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:33",
+  "trvani_s": 72,
+  "delka_s": 33.22,
+  "list": "out/trailer/v2/check/max-mlynek_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 33.17s:33ms\nmax-mlynek_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 33.22 s, 1992 snímků, pts rozestup 16.00..33.00 ms, unikátních 598 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_A_t3.mkv",
+  "akce": "max-pumpa",
+  "kamera": "A",
+  "take": 3,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:38",
+  "trvani_s": 58,
+  "delka_s": 19.62,
+  "list": "out/trailer/v2/check/max-pumpa_A_t3_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.57s:33ms\nmax-pumpa_A_t3.mkv: 1920x1080 r=60/1 avg=60/1, 19.62 s, 1176 snímků, pts rozestup 16.00..33.00 ms, unikátních 377 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.19"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_B_t3.mkv",
+  "akce": "max-pumpa",
+  "kamera": "B",
+  "take": 3,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:39",
+  "trvani_s": 58,
+  "delka_s": 19.87,
+  "list": "out/trailer/v2/check/max-pumpa_B_t3_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.82s:33ms\nmax-pumpa_B_t3.mkv: 1920x1080 r=60/1 avg=60/1, 19.87 s, 1191 snímků, pts rozestup 16.00..33.00 ms, unikátních 212 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_C_t3.mkv",
+  "akce": "max-pumpa",
+  "kamera": "C",
+  "take": 3,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:41",
+  "trvani_s": 58,
+  "delka_s": 19.62,
+  "list": "out/trailer/v2/check/max-pumpa_C_t3_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.57s:33ms\nmax-pumpa_C_t3.mkv: 1920x1080 r=60/1 avg=60/1, 19.62 s, 1176 snímků, pts rozestup 16.00..33.00 ms, unikátních 184 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_D_t3.mkv",
+  "akce": "max-pumpa",
+  "kamera": "D",
+  "take": 3,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:42",
+  "trvani_s": 58,
+  "delka_s": 19.87,
+  "list": "out/trailer/v2/check/max-pumpa_D_t3_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.82s:33ms\nmax-pumpa_D_t3.mkv: 1920x1080 r=60/1 avg=60/1, 19.87 s, 1191 snímků, pts rozestup 16.00..33.00 ms, unikátních 208 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_A_t3.mkv",
+  "akce": "max-mlynek",
+  "kamera": "A",
+  "take": 3,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:43",
+  "trvani_s": 72,
+  "delka_s": 33.22,
+  "list": "out/trailer/v2/check/max-mlynek_A_t3_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 33.17s:33ms\nmax-mlynek_A_t3.mkv: 1920x1080 r=60/1 avg=60/1, 33.22 s, 1992 snímků, pts rozestup 16.00..33.00 ms, unikátních 688 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.07"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_B_t3.mkv",
+  "akce": "max-mlynek",
+  "kamera": "B",
+  "take": 3,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:44",
+  "trvani_s": 72,
+  "delka_s": 33.22,
+  "list": "out/trailer/v2/check/max-mlynek_B_t3_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 33.17s:33ms\nmax-mlynek_B_t3.mkv: 1920x1080 r=60/1 avg=60/1, 33.22 s, 1992 snímků, pts rozestup 16.00..33.00 ms, unikátních 658 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-mlynek_C_t2.mkv",
+  "akce": "max-mlynek",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.5",
+   "max-5m.6",
+   "max-5m.7",
+   "max-5m.8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:46",
+  "trvani_s": 72,
+  "delka_s": 33.22,
+  "list": "out/trailer/v2/check/max-mlynek_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 33.17s:33ms\nmax-mlynek_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 33.22 s, 1992 snímků, pts rozestup 16.00..33.00 ms, unikátních 694 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/3/max-zaparkovani_B_t2.mkv",
+  "akce": "max-zaparkovani",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "max",
+  "beat": "3",
+  "zabery": [
+   "max-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:47",
+  "trvani_s": 39,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/max-zaparkovani_B_t2_list.jpg",
+  "clipcheck": "max-zaparkovani_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 895 snímků, pts rozestup 16.00..17.00 ms, unikátních 187 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.14"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/4/max-rozlozeni_B_t2.mkv",
+  "akce": "max-rozlozeni",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "max",
+  "beat": "4",
+  "zabery": [
+   "max-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:47",
+  "trvani_s": 32,
+  "delka_s": 15.52,
+  "list": "out/trailer/v2/check/max-rozlozeni_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 15.45s:50ms\nmax-rozlozeni_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 15.52 s, 929 snímků, pts rozestup 16.00..50.00 ms, unikátních 330 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/prod/prod/prod-rada_A_t2.mkv",
+  "akce": "prod-rada",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-2",
+   "prod-3",
+   "prod-4",
+   "prod-5",
+   "prod-8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:49",
+  "trvani_s": 82,
+  "delka_s": 49.82,
+  "list": "out/trailer/v2/check/prod-rada_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 49.77s:33ms\nprod-rada_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 49.82 s, 2988 snímků, pts rozestup 16.00..33.00 ms, unikátních 868 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.08"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/prod/prod/prod-rada_B_t2.mkv",
+  "akce": "prod-rada",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-2",
+   "prod-3",
+   "prod-4",
+   "prod-5",
+   "prod-8"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:50",
+  "trvani_s": 77,
+  "delka_s": 49.82,
+  "list": "out/trailer/v2/check/prod-rada_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 49.77s:33ms\nprod-rada_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 49.82 s, 2988 snímků, pts rozestup 16.00..33.00 ms, unikátních 765 (mpdecimate), zaškobrtnutí 4 (po 2 s: 4 [23.33s 23.38s 23.43s 23.48s]), medián pohybu 0.09"
+ },
+ {
+  "soubor": null,
+  "akce": "prod-vleky",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-1",
+   "prod-6",
+   "prod-7"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: nfo: CINEMA t=15715.840 10:51:25 padDrone -> CHYBA odm�tnuto: sdt_pad_mixed | 2026-10-25 10:51:27.978 Info: CINEMA t=15718.060 10:51:27 generator -> ok centr�la=false nabit� 540 | 2026-10-25 10:51:28.257 Info: CINEMA t=15718.338 10:51:28 generator -> ok centr�la=false nabit� 480 | 2026-10-25 10:51:28.535 Info: CINEMA t=15718.616 10:51:28 generator -> ok centr�la=false nabit� 480 | 2026-10-25 10:51:34.648 Info: CINEMA t=15724.727 10:51:34 groundCheck -> CHYBA max: kola -0.33..-0.24 m od ter�nu; mt655: kola -0.33..2.20 m od ter�nu; mt655: n�klon 50.1� [mini kola 0.01..0.01 sklon  | 2026-10-25 10:51:34.929 Info: CINEMA t=15725.005 10:51:34 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 10:51",
+  "trvani_s": 44
+ },
+ {
+  "soubor": null,
+  "akce": "prod-vleky",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-1",
+   "prod-6",
+   "prod-7"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: nfo: CINEMA t=15784.498 10:52:34 padDrone -> CHYBA odm�tnuto: sdt_pad_mixed | 2026-10-25 10:52:36.638 Info: CINEMA t=15786.720 10:52:36 generator -> ok centr�la=false nabit� 540 | 2026-10-25 10:52:36.917 Info: CINEMA t=15786.999 10:52:36 generator -> ok centr�la=false nabit� 480 | 2026-10-25 10:52:37.196 Info: CINEMA t=15787.277 10:52:37 generator -> ok centr�la=false nabit� 480 | 2026-10-25 10:52:43.306 Info: CINEMA t=15793.389 10:52:43 groundCheck -> CHYBA max: kola -6.79..-5.05 m od ter�nu; max: n�klon 80.5�; mt655: kola 1.21..2.15 m od ter�nu; mt655: n�klon 9.7� [mini kola  | 2026-10-25 10:52:43.583 Info: CINEMA t=15793.665 10:52:43 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 10:52",
+  "trvani_s": 69
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_A_t2.mkv",
+  "akce": "mini-cesta",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:53",
+  "trvani_s": 49,
+  "delka_s": 11.42,
+  "list": "out/trailer/v2/check/mini-cesta_A_t2_list.jpg",
+  "clipcheck": "mini-cesta_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 11.42 s, 685 snímků, pts rozestup 16.00..17.00 ms, unikátních 249 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_B_t2.mkv",
+  "akce": "mini-cesta",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:54",
+  "trvani_s": 33,
+  "delka_s": 11.47,
+  "list": "out/trailer/v2/check/mini-cesta_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 11.40s:50ms\nmini-cesta_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 11.47 s, 686 snímků, pts rozestup 16.00..50.00 ms, unikátních 248 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_C_t2.mkv",
+  "akce": "mini-cesta",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:54",
+  "trvani_s": 32,
+  "delka_s": 11.42,
+  "list": "out/trailer/v2/check/mini-cesta_C_t2_list.jpg",
+  "clipcheck": "mini-cesta_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 11.42 s, 685 snímků, pts rozestup 16.00..17.00 ms, unikátních 681 (mpdecimate), zaškobrtnutí 3 (po 2 s: 2 [4.60s 5.10s]), medián pohybu 1.33"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-cesta_D_t2.mkv",
+  "akce": "mini-cesta",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:55",
+  "trvani_s": 32,
+  "delka_s": 11.42,
+  "list": "out/trailer/v2/check/mini-cesta_D_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 11.37s:33ms\nmini-cesta_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 11.42 s, 684 snímků, pts rozestup 16.00..33.00 ms, unikátních 675 (mpdecimate), zaškobrtnutí 10 (po 2 s: 0 ), medián pohybu 3.84"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_A_t2.mkv",
+  "akce": "mini-dvur-prijezd",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:56",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/mini-dvur-prijezd_A_t2_list.jpg",
+  "clipcheck": "mini-dvur-prijezd_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 895 snímků, pts rozestup 16.00..17.00 ms, unikátních 571 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.16"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_B_t2.mkv",
+  "akce": "mini-dvur-prijezd",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:56",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/mini-dvur-prijezd_B_t2_list.jpg",
+  "clipcheck": "mini-dvur-prijezd_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 895 snímků, pts rozestup 16.00..17.00 ms, unikátních 803 (mpdecimate), zaškobrtnutí 11 (po 2 s: 1 [5.20s]), medián pohybu 5.86"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/3/mini-dvur-prijezd_C_t2.mkv",
+  "akce": "mini-dvur-prijezd",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "3",
+  "zabery": [
+   "mini-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:57",
+  "trvani_s": 33,
+  "delka_s": 14.92,
+  "list": "out/trailer/v2/check/mini-dvur-prijezd_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 14.87s:33ms\nmini-dvur-prijezd_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 14.92 s, 894 snímků, pts rozestup 16.00..33.00 ms, unikátních 866 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.19"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-rozlozeni_D_t2.mkv",
+  "akce": "mini-rozlozeni",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:58",
+  "trvani_s": 35,
+  "delka_s": 18.12,
+  "list": "out/trailer/v2/check/mini-rozlozeni_D_t2_list.jpg",
+  "clipcheck": "mini-rozlozeni_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 18.12 s, 1087 snímků, pts rozestup 16.00..17.00 ms, unikátních 938 (mpdecimate), zaškobrtnutí 22 (po 2 s: 19 [2.00s 2.07s 2.12s 2.15s 2.18s 2.45s 4.32s 4.45s 4.50s 4.58s]), medián pohybu 1.66"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/4/mini-detaily_B_t2.mkv",
+  "akce": "mini-detaily",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "4",
+  "zabery": [
+   "mini-4.2",
+   "mini-4.3",
+   "mini-4.4",
+   "mini-4.5",
+   "mini-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 10:59",
+  "trvani_s": 72,
+  "delka_s": 30.62,
+  "list": "out/trailer/v2/check/mini-detaily_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.55s:50ms\nmini-detaily_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 30.62 s, 1835 snímků, pts rozestup 16.00..50.00 ms, unikátních 1636 (mpdecimate), zaškobrtnutí 1 (po 2 s: 1 [19.38s]), medián pohybu 3.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_A_t2.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:00",
+  "trvani_s": 64,
+  "delka_s": 21.37,
+  "list": "out/trailer/v2/check/mini-kanystr_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.32s:33ms\nmini-kanystr_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 21.37 s, 1281 snímků, pts rozestup 16.00..33.00 ms, unikátních 1053 (mpdecimate), zaškobrtnutí 2 (po 2 s: 2 [15.38s 16.72s]), medián pohybu 1.80"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_B_t2.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:01",
+  "trvani_s": 64,
+  "delka_s": 21.07,
+  "list": "out/trailer/v2/check/mini-kanystr_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.02s:33ms\nmini-kanystr_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 21.07 s, 1263 snímků, pts rozestup 16.00..33.00 ms, unikátních 560 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.13"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_C_t2.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:03",
+  "trvani_s": 64,
+  "delka_s": 21.32,
+  "list": "out/trailer/v2/check/mini-kanystr_C_t2_list.jpg",
+  "clipcheck": "mini-kanystr_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 21.32 s, 1279 snímků, pts rozestup 16.00..17.00 ms, unikátních 649 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.09"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/5/mini-kanystr_D_t2.mkv",
+  "akce": "mini-kanystr",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "5",
+  "zabery": [
+   "mini-5.1",
+   "mini-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:04",
+  "trvani_s": 64,
+  "delka_s": 21.22,
+  "list": "out/trailer/v2/check/mini-kanystr_D_t2_list.jpg",
+  "clipcheck": "mini-kanystr_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 21.22 s, 1273 snímků, pts rozestup 16.00..17.00 ms, unikátních 694 (mpdecimate), zaškobrtnutí 1 (po 2 s: 1 [8.15s]), medián pohybu 0.21"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/6/mini-planovac_A_t2.mkv",
+  "akce": "mini-planovac",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "6",
+  "zabery": [
+   "mini-6.1",
+   "mini-6.2",
+   "mini-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:05",
+  "trvani_s": 73,
+  "delka_s": 29.92,
+  "list": "out/trailer/v2/check/mini-planovac_A_t2_list.jpg",
+  "clipcheck": "mini-planovac_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 29.92 s, 1795 snímků, pts rozestup 16.00..17.00 ms, unikátních 650 (mpdecimate), zaškobrtnutí 2 (po 2 s: 2 [9.60s 14.47s]), medián pohybu 0.02"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/6/mini-planovac_B_t2.mkv",
+  "akce": "mini-planovac",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "6",
+  "zabery": [
+   "mini-6.1",
+   "mini-6.2",
+   "mini-6.3"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:07",
+  "trvani_s": 72,
+  "delka_s": 28.52,
+  "list": "out/trailer/v2/check/mini-planovac_B_t2_list.jpg",
+  "clipcheck": "mini-planovac_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 28.52 s, 1711 snímků, pts rozestup 16.00..17.00 ms, unikátních 833 (mpdecimate), zaškobrtnutí 31 (po 2 s: 29 [3.10s 3.13s 3.22s 3.32s 3.47s 3.70s 3.73s 3.77s 3.82s 3.90s]), medián pohybu 0.02"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-let_B_t2.mkv",
+  "akce": "mini-let",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.1",
+   "mini-7.2",
+   "mini-7.3",
+   "mini-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:08",
+  "trvani_s": 82,
+  "delka_s": 38.72,
+  "list": "out/trailer/v2/check/mini-let_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 38.65s:50ms\nmini-let_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 38.72 s, 2321 snímků, pts rozestup 16.00..50.00 ms, unikátních 2275 (mpdecimate), zaškobrtnutí 39 (po 2 s: 36 [3.08s 3.27s 3.43s 6.72s 6.80s 6.83s 12.83s 13.10s 13.73s 14.18s]), medián pohybu 9.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-let_C_t2.mkv",
+  "akce": "mini-let",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.1",
+   "mini-7.2",
+   "mini-7.3",
+   "mini-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:10",
+  "trvani_s": 82,
+  "delka_s": 38.87,
+  "list": "out/trailer/v2/check/mini-let_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 38.80s:50ms\nmini-let_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 38.87 s, 2330 snímků, pts rozestup 16.00..50.00 ms, unikátních 2165 (mpdecimate), zaškobrtnutí 55 (po 2 s: 53 [3.63s 3.77s 10.42s 10.60s 10.92s 11.43s 11.55s 11.93s 15.33s 15.35s]), medián pohybu 5.89"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-navrat-servis_B_t2.mkv",
+  "akce": "mini-navrat-servis",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:12",
+  "trvani_s": 119,
+  "delka_s": 22.97,
+  "list": "out/trailer/v2/check/mini-navrat-servis_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 22.92s:33ms\nmini-navrat-servis_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 22.97 s, 1377 snímků, pts rozestup 16.00..33.00 ms, unikátních 1371 (mpdecimate), zaškobrtnutí 5 (po 2 s: 5 [8.25s 8.35s 8.40s 8.45s 8.58s]), medián pohybu 0.69"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-navrat-servis_C_t2.mkv",
+  "akce": "mini-navrat-servis",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:14",
+  "trvani_s": 119,
+  "delka_s": 22.82,
+  "list": "out/trailer/v2/check/mini-navrat-servis_C_t2_list.jpg",
+  "clipcheck": "mini-navrat-servis_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 22.82 s, 1369 snímků, pts rozestup 16.00..17.00 ms, unikátních 1176 (mpdecimate), zaškobrtnutí 9 (po 2 s: 9 [8.28s 8.82s 8.88s 9.67s 9.70s 9.83s 9.93s 10.37s 10.97s]), medián pohybu 1.12"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/7/mini-navrat-servis_D_t2.mkv",
+  "akce": "mini-navrat-servis",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "7",
+  "zabery": [
+   "mini-7.5",
+   "mini-7.6",
+   "mini-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:16",
+  "trvani_s": 118,
+  "delka_s": 22.62,
+  "list": "out/trailer/v2/check/mini-navrat-servis_D_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 22.55s:50ms\nmini-navrat-servis_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 22.62 s, 1355 snímků, pts rozestup 16.00..50.00 ms, unikátních 1059 (mpdecimate), zaškobrtnutí 17 (po 2 s: 17 [7.83s 8.03s 8.45s 8.68s 10.77s 10.82s 11.07s 11.10s 11.22s 11.27s]), medián pohybu 2.05"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_A_t2.mkv",
+  "akce": "mini-slozeni-odjezd",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "8",
+  "zabery": [
+   "mini-8.1",
+   "mini-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:18",
+  "trvani_s": 70,
+  "delka_s": 27.92,
+  "list": "out/trailer/v2/check/mini-slozeni-odjezd_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 27.87s:33ms\nmini-slozeni-odjezd_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 27.92 s, 1674 snímků, pts rozestup 16.00..33.00 ms, unikátních 1499 (mpdecimate), zaškobrtnutí 37 (po 2 s: 36 [4.73s 6.12s 6.37s 6.60s 6.65s 7.03s 7.48s 7.75s 8.23s 8.45s]), medián pohybu 0.79"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/mini/8/mini-slozeni-odjezd_B_t2.mkv",
+  "akce": "mini-slozeni-odjezd",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "mini",
+  "beat": "8",
+  "zabery": [
+   "mini-8.1",
+   "mini-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:19",
+  "trvani_s": 58,
+  "delka_s": 27.77,
+  "list": "out/trailer/v2/check/mini-slozeni-odjezd_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 27.70s:50ms\nmini-slozeni-odjezd_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 27.77 s, 1664 snímků, pts rozestup 16.00..50.00 ms, unikátních 1512 (mpdecimate), zaškobrtnutí 68 (po 2 s: 54 [2.43s 3.23s 3.48s 3.57s 3.67s 3.72s 3.80s 4.13s 4.17s 4.32s]), medián pohybu 2.26"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/1-2/middle-silnice_B_t2.mkv",
+  "akce": "middle-silnice",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "1-2",
+  "zabery": [
+   "middle-1.1",
+   "middle-2.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:20",
+  "trvani_s": 37,
+  "delka_s": 16.92,
+  "list": "out/trailer/v2/check/middle-silnice_B_t2_list.jpg",
+  "clipcheck": "middle-silnice_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 16.92 s, 1015 snímků, pts rozestup 16.00..17.00 ms, unikátních 905 (mpdecimate), zaškobrtnutí 29 (po 2 s: 25 [2.03s 2.10s 3.02s 3.12s 3.18s 3.37s 3.48s 3.70s 3.75s 3.93s]), medián pohybu 1.18"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-cesta_A_t2.mkv",
+  "akce": "middle-cesta",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:20",
+  "trvani_s": 30,
+  "delka_s": 10.97,
+  "list": "out/trailer/v2/check/middle-cesta_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 10.90s:50ms\nmiddle-cesta_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 10.97 s, 656 snímků, pts rozestup 16.00..50.00 ms, unikátních 613 (mpdecimate), zaškobrtnutí 45 (po 2 s: 33 [2.00s 2.83s 4.05s 5.00s 5.07s 5.67s 5.70s 5.73s 5.78s 5.85s]), medián pohybu 10.25"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-cesta_B_t2.mkv",
+  "akce": "middle-cesta",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:21",
+  "trvani_s": 30,
+  "delka_s": 10.92,
+  "list": "out/trailer/v2/check/middle-cesta_B_t2_list.jpg",
+  "clipcheck": "middle-cesta_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 10.92 s, 655 snímků, pts rozestup 16.00..17.00 ms, unikátních 638 (mpdecimate), zaškobrtnutí 17 (po 2 s: 11 [2.18s 4.85s 5.75s 5.82s 6.72s 6.78s 6.90s 6.95s 7.87s 8.83s]), medián pohybu 10.63"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-cesta_C_t2.mkv",
+  "akce": "middle-cesta",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:22",
+  "trvani_s": 30,
+  "delka_s": 10.92,
+  "list": "out/trailer/v2/check/middle-cesta_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 10.87s:33ms\nmiddle-cesta_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 10.92 s, 654 snímků, pts rozestup 16.00..33.00 ms, unikátních 642 (mpdecimate), zaškobrtnutí 13 (po 2 s: 7 [6.62s 6.67s 6.72s 6.80s 6.92s 6.98s 7.08s]), medián pohybu 2.00"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_A_t2.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:22",
+  "trvani_s": 34,
+  "delka_s": 16.22,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_A_t2_list.jpg",
+  "clipcheck": "middle-polo-prijezd_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 16.22 s, 973 snímků, pts rozestup 16.00..17.00 ms, unikátních 868 (mpdecimate), zaškobrtnutí 2 (po 2 s: 2 [3.82s 4.65s]), medián pohybu 0.65"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_B_t2.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:23",
+  "trvani_s": 34,
+  "delka_s": 15.92,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_B_t2_list.jpg",
+  "clipcheck": "middle-polo-prijezd_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 15.92 s, 955 snímků, pts rozestup 16.00..17.00 ms, unikátních 593 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.26"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_C_t2.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:24",
+  "trvani_s": 34,
+  "delka_s": 15.87,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_C_t2_list.jpg",
+  "clipcheck": "middle-polo-prijezd_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 15.87 s, 952 snímků, pts rozestup 16.00..17.00 ms, unikátních 934 (mpdecimate), zaškobrtnutí 5 (po 2 s: 0 ), medián pohybu 1.03"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/3/middle-polo-prijezd_D_t2.mkv",
+  "akce": "middle-polo-prijezd",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "3",
+  "zabery": [
+   "middle-3.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:25",
+  "trvani_s": 34,
+  "delka_s": 15.92,
+  "list": "out/trailer/v2/check/middle-polo-prijezd_D_t2_list.jpg",
+  "clipcheck": "middle-polo-prijezd_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 15.92 s, 955 snímků, pts rozestup 16.00..17.00 ms, unikátních 863 (mpdecimate), zaškobrtnutí 20 (po 2 s: 15 [2.17s 2.50s 2.77s 6.28s 6.75s 6.83s 6.90s 7.03s 7.07s 7.17s]), medián pohybu 0.70"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_A_t2.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:25",
+  "trvani_s": 32,
+  "delka_s": 16.37,
+  "list": "out/trailer/v2/check/middle-rozlozeni_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 16.30s:50ms\nmiddle-rozlozeni_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 16.37 s, 980 snímků, pts rozestup 16.00..50.00 ms, unikátních 885 (mpdecimate), zaškobrtnutí 21 (po 2 s: 19 [2.52s 2.82s 2.98s 3.27s 3.35s 5.28s 5.38s 9.12s 11.18s 11.27s]), medián pohybu 2.26"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_B_t2.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:26",
+  "trvani_s": 38,
+  "delka_s": 16.07,
+  "list": "out/trailer/v2/check/middle-rozlozeni_B_t2_list.jpg",
+  "clipcheck": "middle-rozlozeni_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 16.07 s, 964 snímků, pts rozestup 16.00..17.00 ms, unikátních 890 (mpdecimate), zaškobrtnutí 17 (po 2 s: 15 [2.43s 5.35s 5.38s 5.52s 5.57s 5.70s 5.73s 5.77s 5.83s 5.93s]), medián pohybu 1.42"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_C_t2.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:27",
+  "trvani_s": 39,
+  "delka_s": 16.27,
+  "list": "out/trailer/v2/check/middle-rozlozeni_C_t2_list.jpg",
+  "clipcheck": "middle-rozlozeni_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 16.27 s, 976 snímků, pts rozestup 16.00..17.00 ms, unikátních 516 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.26"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-rozlozeni_D_t2.mkv",
+  "akce": "middle-rozlozeni",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.1"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:28",
+  "trvani_s": 39,
+  "delka_s": 16.22,
+  "list": "out/trailer/v2/check/middle-rozlozeni_D_t2_list.jpg",
+  "clipcheck": "middle-rozlozeni_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 16.22 s, 973 snímků, pts rozestup 16.00..17.00 ms, unikátních 911 (mpdecimate), zaškobrtnutí 11 (po 2 s: 11 [5.82s 6.00s 6.08s 6.20s 6.53s 6.93s 6.97s 7.95s 12.62s 12.67s]), medián pohybu 1.78"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/4/middle-detaily_B_t2.mkv",
+  "akce": "middle-detaily",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "4",
+  "zabery": [
+   "middle-4.2",
+   "middle-4.3",
+   "middle-4.4",
+   "middle-4.5",
+   "middle-4.6"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:29",
+  "trvani_s": 60,
+  "delka_s": 30.97,
+  "list": "out/trailer/v2/check/middle-detaily_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 30.92s:33ms\nmiddle-detaily_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 30.97 s, 1857 snímků, pts rozestup 16.00..33.00 ms, unikátních 1436 (mpdecimate), zaškobrtnutí 36 (po 2 s: 36 [2.63s 2.88s 3.18s 3.22s 3.52s 3.65s 7.53s 7.67s 7.70s 7.73s]), medián pohybu 2.29"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/5/middle-kanystr_A_t2.mkv",
+  "akce": "middle-kanystr",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "5",
+  "zabery": [
+   "middle-5.1",
+   "middle-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:30",
+  "trvani_s": 51,
+  "delka_s": 21.32,
+  "list": "out/trailer/v2/check/middle-kanystr_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.25s:50ms\nmiddle-kanystr_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 21.32 s, 1277 snímků, pts rozestup 16.00..50.00 ms, unikátních 1072 (mpdecimate), zaškobrtnutí 15 (po 2 s: 14 [2.38s 2.43s 3.43s 3.48s 5.08s 10.33s 10.47s 10.58s 10.65s 11.15s]), medián pohybu 2.60"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/5/middle-kanystr_B_t2.mkv",
+  "akce": "middle-kanystr",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "5",
+  "zabery": [
+   "middle-5.1",
+   "middle-5.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:31",
+  "trvani_s": 51,
+  "delka_s": 21.37,
+  "list": "out/trailer/v2/check/middle-kanystr_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 21.32s:33ms\nmiddle-kanystr_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 21.37 s, 1281 snímků, pts rozestup 16.00..33.00 ms, unikátních 800 (mpdecimate), zaškobrtnutí 8 (po 2 s: 4 [3.12s 3.23s 5.12s 5.17s]), medián pohybu 0.19"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-let_A_t2.mkv",
+  "akce": "middle-let",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.0",
+   "middle-7.1",
+   "middle-7.2",
+   "middle-7.3",
+   "middle-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:33",
+  "trvani_s": 104,
+  "delka_s": 74.02,
+  "list": "out/trailer/v2/check/middle-let_A_t2_list.jpg",
+  "clipcheck": "middle-let_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 74.02 s, 4441 snímků, pts rozestup 16.00..17.00 ms, unikátních 4062 (mpdecimate), zaškobrtnutí 41 (po 2 s: 41 [19.68s 50.73s 50.90s 51.17s 51.20s 51.32s 51.45s 53.52s 53.75s 53.87s]), medián pohybu 0.83"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-let_B_t2.mkv",
+  "akce": "middle-let",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.0",
+   "middle-7.1",
+   "middle-7.2",
+   "middle-7.3",
+   "middle-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:35",
+  "trvani_s": 103,
+  "delka_s": 73.92,
+  "list": "out/trailer/v2/check/middle-let_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 73.85s:50ms\nmiddle-let_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 73.92 s, 4433 snímků, pts rozestup 16.00..50.00 ms, unikátních 3940 (mpdecimate), zaškobrtnutí 31 (po 2 s: 28 [5.35s 5.50s 5.53s 7.42s 50.67s 57.53s 59.07s 64.37s 64.38s 64.42s]), medián pohybu 0.73"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-let_C_t2.mkv",
+  "akce": "middle-let",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.0",
+   "middle-7.1",
+   "middle-7.2",
+   "middle-7.3",
+   "middle-7.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:37",
+  "trvani_s": 109,
+  "delka_s": 73.72,
+  "list": "out/trailer/v2/check/middle-let_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 73.65s:50ms\nmiddle-let_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 73.72 s, 4421 snímků, pts rozestup 16.00..50.00 ms, unikátních 4145 (mpdecimate), zaškobrtnutí 35 (po 2 s: 33 [4.10s 7.33s 7.58s 7.87s 8.13s 8.18s 8.27s 10.28s 28.92s 28.98s]), medián pohybu 1.79"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-navrat-servis_A_t2.mkv",
+  "akce": "middle-navrat-servis",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:40",
+  "trvani_s": 140,
+  "delka_s": 23.67,
+  "list": "out/trailer/v2/check/middle-navrat-servis_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 23.60s:50ms\nmiddle-navrat-servis_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 23.67 s, 1418 snímků, pts rozestup 16.00..50.00 ms, unikátních 1398 (mpdecimate), zaškobrtnutí 12 (po 2 s: 11 [8.62s 8.83s 8.85s 8.93s 9.02s 9.28s 9.62s 9.65s 9.72s 10.43s]), medián pohybu 2.11"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-navrat-servis_C_t2.mkv",
+  "akce": "middle-navrat-servis",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:43",
+  "trvani_s": 132,
+  "delka_s": 23.62,
+  "list": "out/trailer/v2/check/middle-navrat-servis_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 23.55s:50ms\nmiddle-navrat-servis_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 23.62 s, 1415 snímků, pts rozestup 16.00..50.00 ms, unikátních 1274 (mpdecimate), zaškobrtnutí 27 (po 2 s: 21 [2.42s 2.68s 2.82s 2.88s 3.07s 3.15s 3.23s 3.28s 3.45s 3.57s]), medián pohybu 5.17"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/7/middle-navrat-servis_D_t2.mkv",
+  "akce": "middle-navrat-servis",
+  "kamera": "D",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "7",
+  "zabery": [
+   "middle-7.5",
+   "middle-7.6",
+   "middle-7.7"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:45",
+  "trvani_s": 139,
+  "delka_s": 23.42,
+  "list": "out/trailer/v2/check/middle-navrat-servis_D_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 23.35s:50ms\nmiddle-navrat-servis_D_t2.mkv: 1920x1080 r=60/1 avg=60/1, 23.42 s, 1403 snímků, pts rozestup 16.00..50.00 ms, unikátních 1219 (mpdecimate), zaškobrtnutí 31 (po 2 s: 31 [8.47s 8.53s 8.55s 8.77s 8.82s 8.90s 10.30s 10.40s 10.52s 10.72s]), medián pohybu 1.92"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_A_t2.mkv",
+  "akce": "middle-slozeni-odjezd",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "8",
+  "zabery": [
+   "middle-8.1",
+   "middle-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:46",
+  "trvani_s": 56,
+  "delka_s": 26.22,
+  "list": "out/trailer/v2/check/middle-slozeni-odjezd_A_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.17s:33ms\nmiddle-slozeni-odjezd_A_t2.mkv: 1920x1080 r=60/1 avg=60/1, 26.22 s, 1572 snímků, pts rozestup 16.00..33.00 ms, unikátních 1518 (mpdecimate), zaškobrtnutí 35 (po 2 s: 30 [2.50s 2.60s 2.63s 2.67s 3.13s 3.17s 3.20s 3.27s 3.37s 3.43s]), medián pohybu 1.57"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_B_t2.mkv",
+  "akce": "middle-slozeni-odjezd",
+  "kamera": "B",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "8",
+  "zabery": [
+   "middle-8.1",
+   "middle-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:47",
+  "trvani_s": 49,
+  "delka_s": 26.07,
+  "list": "out/trailer/v2/check/middle-slozeni-odjezd_B_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.00s:50ms\nmiddle-slozeni-odjezd_B_t2.mkv: 1920x1080 r=60/1 avg=60/1, 26.07 s, 1562 snímků, pts rozestup 16.00..50.00 ms, unikátních 1180 (mpdecimate), zaškobrtnutí 17 (po 2 s: 15 [15.00s 15.38s 15.52s 15.63s 15.78s 16.75s 16.85s 16.90s 17.92s 17.95s]), medián pohybu 0.31"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/middle/8/middle-slozeni-odjezd_C_t2.mkv",
+  "akce": "middle-slozeni-odjezd",
+  "kamera": "C",
+  "take": 2,
+  "vlek": "middle",
+  "beat": "8",
+  "zabery": [
+   "middle-8.1",
+   "middle-8.2"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:49",
+  "trvani_s": 50,
+  "delka_s": 26.42,
+  "list": "out/trailer/v2/check/middle-slozeni-odjezd_C_t2_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 26.35s:50ms\nmiddle-slozeni-odjezd_C_t2.mkv: 1920x1080 r=60/1 avg=60/1, 26.42 s, 1583 snímků, pts rozestup 16.00..50.00 ms, unikátních 1494 (mpdecimate), zaškobrtnutí 36 (po 2 s: 34 [2.38s 2.50s 2.53s 2.60s 2.65s 2.68s 4.07s 4.30s 4.35s 4.42s]), medián pohybu 1.95"
+ },
+ {
+  "soubor": null,
+  "akce": "prod-vleky",
+  "kamera": "A",
+  "take": 2,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-1",
+   "prod-6",
+   "prod-7"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: nfo: CINEMA t=19283.486 11:50:55 padDrone -> CHYBA odm�tnuto: sdt_pad_mixed | 2026-10-25 11:50:57.597 Info: CINEMA t=19285.600 11:50:57 generator -> ok centr�la=false nabit� 540 | 2026-10-25 11:50:57.848 Info: CINEMA t=19285.850 11:50:57 generator -> ok centr�la=false nabit� 480 | 2026-10-25 11:50:58.100 Info: CINEMA t=19286.102 11:50:58 generator -> ok centr�la=false nabit� 480 | 2026-10-25 11:51:04.167 Info: CINEMA t=19292.169 11:51:04 groundCheck -> CHYBA max: kola 1.60..1.64 m od ter�nu; mt655: kola -0.01..1.25 m od ter�nu; mt655: n�klon 24.7� [mini kola 0.01..0.01 sklon 0. | 2026-10-25 11:51:04.418 Info: CINEMA t=19292.419 11:51:04 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 11:51",
+  "trvani_s": 48
+ },
+ {
+  "soubor": null,
+  "akce": "prod-vleky",
+  "kamera": "B",
+  "take": 1,
+  "vlek": "prod",
+  "beat": "prod",
+  "zabery": [
+   "prod-1",
+   "prod-6",
+   "prod-7"
+  ],
+  "t_event": 2.0,
+  "stav": "chyba",
+  "nalezy": [
+   "scéna selhala: nfo: CINEMA t=19348.475 11:52:00 padDrone -> CHYBA odm�tnuto: sdt_pad_mixed | 2026-10-25 11:52:02.618 Info: CINEMA t=19350.592 11:52:02 generator -> ok centr�la=false nabit� 540 | 2026-10-25 11:52:02.877 Info: CINEMA t=19350.854 11:52:02 generator -> ok centr�la=false nabit� 480 | 2026-10-25 11:52:03.130 Info: CINEMA t=19351.106 11:52:03 generator -> ok centr�la=false nabit� 480 | 2026-10-25 11:52:09.389 Info: CINEMA t=19357.366 11:52:09 groundCheck -> CHYBA max: kola 1.42..1.49 m od ter�nu; mt655: kola -0.01..1.34 m od ter�nu; mt655: n�klon 26.7� [mini kola 0.01..0.01 sklon 0. | 2026-10-25 11:52:09.641 Info: CINEMA t=19357.620 11:52:09 camStop -> ok kamera nebyla zapnut� | sn�mk� n�hledu: 0"
+  ],
+  "natoceno": "2026-10-25 11:52",
+  "trvani_s": 65
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_A_t4.mkv",
+  "akce": "max-pumpa",
+  "kamera": "A",
+  "take": 4,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:53",
+  "trvani_s": 69,
+  "delka_s": 19.17,
+  "list": "out/trailer/v2/check/max-pumpa_A_t4_list.jpg",
+  "clipcheck": "max-pumpa_A_t4.mkv: 1920x1080 r=60/1 avg=60/1, 19.17 s, 1150 snímků, pts rozestup 16.00..17.00 ms, unikátních 1051 (mpdecimate), zaškobrtnutí 10 (po 2 s: 10 [2.45s 3.12s 3.33s 3.40s 5.80s 7.87s 8.10s 8.15s 15.37s 15.73s]), medián pohybu 1.67"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_B_t4.mkv",
+  "akce": "max-pumpa",
+  "kamera": "B",
+  "take": 4,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:54",
+  "trvani_s": 57,
+  "delka_s": 19.62,
+  "list": "out/trailer/v2/check/max-pumpa_B_t4_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.57s:33ms\nmax-pumpa_B_t4.mkv: 1920x1080 r=60/1 avg=60/1, 19.62 s, 1176 snímků, pts rozestup 16.00..33.00 ms, unikátních 413 (mpdecimate), zaškobrtnutí 10 (po 2 s: 10 [8.42s 8.60s 8.70s 9.03s 9.08s 9.17s 9.23s 9.45s 9.80s 9.88s]), medián pohybu 0.22"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_C_t4.mkv",
+  "akce": "max-pumpa",
+  "kamera": "C",
+  "take": 4,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:55",
+  "trvani_s": 57,
+  "delka_s": 19.27,
+  "list": "out/trailer/v2/check/max-pumpa_C_t4_list.jpg",
+  "clipcheck": "rozestupy pts > 20 ms: 19.20s:50ms\nmax-pumpa_C_t4.mkv: 1920x1080 r=60/1 avg=60/1, 19.27 s, 1154 snímků, pts rozestup 16.00..50.00 ms, unikátních 380 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.17"
+ },
+ {
+  "soubor": "out/trailer/v2/raw/max/5m/max-pumpa_D_t4.mkv",
+  "akce": "max-pumpa",
+  "kamera": "D",
+  "take": 4,
+  "vlek": "max",
+  "beat": "5m",
+  "zabery": [
+   "max-5m.1",
+   "max-5m.2",
+   "max-5m.3",
+   "max-5m.4"
+  ],
+  "t_event": 2.0,
+  "stav": "natoceno",
+  "nalezy": [],
+  "natoceno": "2026-10-25 11:56",
+  "trvani_s": 58,
+  "delka_s": 19.67,
+  "list": "out/trailer/v2/check/max-pumpa_D_t4_list.jpg",
+  "clipcheck": "max-pumpa_D_t4.mkv: 1920x1080 r=60/1 avg=60/1, 19.67 s, 1180 snímků, pts rozestup 16.00..17.00 ms, unikátních 570 (mpdecimate), zaškobrtnutí 0 (po 2 s: 0 ), medián pohybu 0.22"
+ }
+]

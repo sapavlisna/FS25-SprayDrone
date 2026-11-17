@@ -1,0 +1,126 @@
+{
+ "popis": "prod-1 pevný celek z odstupu, prod-6 NAJ na truhlu Middle (vzpěry), prod-7 TRK R→L",
+ "typ": "C / D / PC",
+ "pohyb": "STAT → NAJ → TRK R→L",
+ "smer": "R→L",
+ "fov": "40 / 32 / 38",
+ "vyska": "1,8 m; 3,6 m; 1,8 m",
+ "zabery": [
+  {
+   "id": "prod-1",
+   "od": 0.0,
+   "do": 6.5
+  },
+  {
+   "id": "prod-6",
+   "od": 7.0,
+   "do": 12.0
+  },
+  {
+   "id": "prod-7",
+   "od": 12.5,
+   "do": 21.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 6.8,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -706.7,
+     "y": 1.8,
+     "z": 172,
+     "rel": "terrain",
+     "tx": -706.7,
+     "ty": 1.6,
+     "tz": 130,
+     "trel": "terrain",
+     "fov": 40
+    },
+    {
+     "t": 6.8,
+     "x": -706.7,
+     "y": 1.8,
+     "z": 172,
+     "rel": "terrain",
+     "tx": -706.7,
+     "ty": 1.6,
+     "tz": 130,
+     "trel": "terrain",
+     "fov": 40
+    }
+   ]
+  },
+  {
+   "at": 7.0,
+   "cmd": "camPath",
+   "duration": 5.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "middle",
+     "x": 3.6,
+     "y": 3.6,
+     "z": 0.9,
+     "tat": "middle",
+     "tx": 0.4,
+     "ty": 2.4,
+     "tz": 1.9,
+     "fov": 32
+    },
+    {
+     "t": 5.5,
+     "at": "middle",
+     "x": 2.6,
+     "y": 3.2,
+     "z": 1.0,
+     "tat": "middle",
+     "tx": 0.4,
+     "ty": 2.4,
+     "tz": 1.9,
+     "fov": 28
+    }
+   ]
+  },
+  {
+   "at": 12.5,
+   "cmd": "camPath",
+   "duration": 9.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": -666,
+     "y": 1.8,
+     "z": 144,
+     "rel": "terrain",
+     "tx": -680,
+     "ty": 3.2,
+     "tz": 126,
+     "trel": "terrain",
+     "fov": 38
+    },
+    {
+     "t": 9.5,
+     "x": -722,
+     "y": 1.8,
+     "z": 144,
+     "rel": "terrain",
+     "tx": -708,
+     "ty": 3.2,
+     "tz": 126,
+     "trel": "terrain",
+     "fov": 38
+    }
+   ]
+  }
+ ]
+}

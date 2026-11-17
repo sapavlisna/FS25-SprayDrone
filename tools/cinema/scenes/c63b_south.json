@@ -1,0 +1,199 @@
+{
+ "name": "c63b_south",
+ "title": "Záběr 6.3 (jih): mlýnek se rozběhne, zelený prstenec, motor",
+ "steps": [
+  {
+   "include": "_common_setup"
+  },
+  {
+   "cmd": "spawnMod",
+   "rel": "vehicles/sdtLimeMill/sdtLimeMill.xml",
+   "x": -740,
+   "z": 162,
+   "yaw": 90,
+   "once": "mill"
+  },
+  {
+   "sleep": 3.0
+  },
+  {
+   "cmd": "detachFrom",
+   "parent": "max",
+   "child": "mill",
+   "optional": true
+  },
+  {
+   "cmd": "returnHome",
+   "trailer": "max",
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 1,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "cmd": "waitDrone",
+   "trailer": "max",
+   "cond": "parked",
+   "drone": 2,
+   "timeout": 120,
+   "optional": true
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "placeSet",
+   "trailer": "max",
+   "tractor": "mt655",
+   "x": -684,
+   "z": 162,
+   "yaw": 90,
+   "unfolded": false,
+   "fill": true
+  },
+  {
+   "cmd": "moveVehicle",
+   "vehicle": "mill",
+   "x": -701.94,
+   "z": 162,
+   "yaw": 90
+  },
+  {
+   "sleep": 2.0
+  },
+  {
+   "cmd": "attachTo",
+   "parent": "max",
+   "child": "mill",
+   "yaw": 90
+  },
+  {
+   "sleep": 6.0
+  },
+  {
+   "cmd": "groundCheck",
+   "vehicles": "max,mt655,mill",
+   "maxTilt": 6
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millFill"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 4.0
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whDrop"
+  },
+  {
+   "cmd": "dbg",
+   "command": "whConnect5"
+  },
+  {
+   "sleep": 1.0
+  },
+  {
+   "cmd": "playerTo",
+   "x": -690,
+   "z": 168,
+   "force": true
+  },
+  {
+   "cmd": "camSet",
+   "at": "mill",
+   "x": 4.2,
+   "y": 1.7,
+   "z": -2.0,
+   "tat": "mill",
+   "tx": 0.5,
+   "ty": 1.2,
+   "tz": -0.2,
+   "fov": 42
+  },
+  {
+   "sleep": 1.5
+  },
+  {
+   "mark": "shot"
+  },
+  {
+   "record": "start",
+   "lead": 0.3
+  },
+  {
+   "cmd": "camPath",
+   "duration": 13,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mill",
+     "x": 4.2,
+     "y": 1.7,
+     "z": -2.0,
+     "tat": "mill",
+     "tx": 0.5,
+     "ty": 1.2,
+     "tz": -0.2,
+     "fov": 42
+    },
+    {
+     "t": 6,
+     "at": "mill",
+     "x": 3.4,
+     "y": 1.5,
+     "z": -1.0,
+     "tat": "mill",
+     "tx": 0.6,
+     "ty": 1.2,
+     "tz": -0.1,
+     "fov": 36
+    },
+    {
+     "t": 13,
+     "at": "mill",
+     "x": 2.6,
+     "y": 1.5,
+     "z": 0.4,
+     "tat": "mill",
+     "tx": 0.6,
+     "ty": 1.2,
+     "tz": 0.0,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "sleep": 1.2
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOn"
+  },
+  {
+   "sleep": 11.5
+  },
+  {
+   "record": "stop"
+  },
+  {
+   "cmd": "millDbg",
+   "command": "millOff"
+  }
+ ]
+}

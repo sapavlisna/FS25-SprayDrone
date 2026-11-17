@@ -1,0 +1,155 @@
+{
+ "popis": "5m.5 oblet proti směru hodin kolem hadice, 5m.6 sledování klesajícího big bagu, 5m.7 nájezd na mlýnek, 5m.8 TRK L→R",
+ "typ": "C / PC / D",
+ "pohyb": "ORB-CCW → TILT-D → NAJ → TRK L→R",
+ "smer": "L→R (5m.8)",
+ "fov": "40 / 40 / 34 / 38",
+ "vyska": "1,8 → 1,5 m; 1,6 m; 1,4 m; 1,7 m",
+ "zabery": [
+  {
+   "id": "max-5m.5",
+   "od": 0.5,
+   "do": 7.5
+  },
+  {
+   "id": "max-5m.6",
+   "od": 8.0,
+   "do": 16.5
+  },
+  {
+   "id": "max-5m.7",
+   "od": 17.0,
+   "do": 20.5
+  },
+  {
+   "id": "max-5m.8",
+   "od": 21.0,
+   "do": 29.0
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camOrbit",
+   "radius": 6.0,
+   "radius2": 4.5,
+   "height": 2.6,
+   "height2": 2.2,
+   "angle0": 20,
+   "angle1": 160,
+   "lx": 0.0,
+   "ly": 0.0,
+   "lz": 0.0,
+   "fov": 40,
+   "fov2": 38,
+   "tau": 0.3,
+   "duration": 8.0,
+   "ease": "smooth",
+   "check": false,
+   "x": 677.8,
+   "y": 1.2,
+   "z": -26.0,
+   "rel": "terrain"
+  },
+  {
+   "at": 8.0,
+   "cmd": "camPath",
+   "duration": 8.5,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mill",
+     "x": 6.5,
+     "y": 1.6,
+     "z": 4.0,
+     "tat": "bigBag_lime",
+     "tx": 0,
+     "ty": 1.0,
+     "tz": 0,
+     "fov": 40
+    },
+    {
+     "t": 8.5,
+     "at": "mill",
+     "x": 6.0,
+     "y": 2.0,
+     "z": 3.0,
+     "tat": "bigBag_lime",
+     "tx": 0,
+     "ty": 0.5,
+     "tz": 0,
+     "fov": 36
+    }
+   ],
+   "tsmooth": 0.4
+  },
+  {
+   "at": 17.0,
+   "cmd": "camPath",
+   "duration": 4.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mill",
+     "x": 3.2,
+     "y": 1.4,
+     "z": -0.3,
+     "tat": "mill",
+     "tx": 0.2,
+     "ty": 1.1,
+     "tz": 0.0,
+     "fov": 34
+    },
+    {
+     "t": 4.0,
+     "at": "mill",
+     "x": 1.8,
+     "y": 1.5,
+     "z": 0.1,
+     "tat": "mill",
+     "tx": 0.2,
+     "ty": 1.1,
+     "tz": 0.0,
+     "fov": 32
+    }
+   ]
+  },
+  {
+   "at": 21.0,
+   "cmd": "camPath",
+   "duration": 9.0,
+   "ease": "smooth",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "x": 664,
+     "y": 3.0,
+     "z": -14,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.2,
+     "tz": -26,
+     "trel": "terrain",
+     "fov": 38
+    },
+    {
+     "t": 9.0,
+     "x": 664,
+     "y": 3.0,
+     "z": -21,
+     "rel": "terrain",
+     "tx": 677.8,
+     "ty": 1.2,
+     "tz": -26,
+     "trel": "terrain",
+     "fov": 38
+    }
+   ]
+  }
+ ]
+}

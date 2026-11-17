@@ -1,0 +1,50 @@
+{
+ "popis": "nízká pevná kamera u hrdla: kanystr se naklání a koncentrát se vlévá",
+ "typ": "D",
+ "pohyb": "STAT nízko",
+ "smer": "–",
+ "fov": "36",
+ "vyska": "1,2 m, (−2,5; 4,0)",
+ "zabery": [
+  {
+   "id": "mini-5.2",
+   "od": 7.5,
+   "do": 14.5
+  }
+ ],
+ "steps": [
+  {
+   "at": 0,
+   "cmd": "camPath",
+   "duration": 20,
+   "ease": "linear",
+   "check": false,
+   "keys": [
+    {
+     "t": 0,
+     "at": "mini",
+     "x": -2.5,
+     "y": 1.2,
+     "z": 4.0,
+     "tat": "mini",
+     "tx": -0.6,
+     "ty": 2.0,
+     "tz": 2.3,
+     "fov": 36
+    },
+    {
+     "t": 20,
+     "at": "mini",
+     "x": -2.5,
+     "y": 1.2,
+     "z": 4.0,
+     "tat": "mini",
+     "tx": -0.6,
+     "ty": 2.0,
+     "tz": 2.3,
+     "fov": 36
+    }
+   ]
+  }
+ ]
+}

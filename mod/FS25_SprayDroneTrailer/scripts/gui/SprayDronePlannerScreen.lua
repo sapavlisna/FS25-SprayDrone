@@ -199,6 +199,9 @@ function SprayDronePlannerScreen.show(vehicle, mode, origin, anywhere)
     SprayDronePlannerScreen.INSTANCE.vehicle = vehicle
     SprayDronePlannerScreen.INSTANCE.openMode = mode or SprayDronePlannerScreen.MODE_VEHICLE
     SprayDronePlannerScreen.INSTANCE.originVehicle = origin or vehicle
+    if SprayDroneDebug and SprayDroneDebug.ENABLED then
+        SprayDronePlannerScreen.INSTANCE.debugAnywhere = anywhere == true
+    end
     g_gui:showGui(SprayDronePlannerScreen.GUI_NAME)
 end
 
@@ -262,6 +265,10 @@ function SprayDronePlannerScreen:layoutTargetSelector()
     end
     selector:setSize(self.leftBox.absSize[1], nil)
     selector:setAbsolutePosition(self.leftBox.absPosition[1], pagesTop + gap)
+    if SprayDroneDebug and SprayDroneDebug.ENABLED then
+        Logging.info("SDT PLANNER: výběr dronu %.4f %.4f %.4f x %.4f, záhlaví dole %.4f, stránky nahoře %.4f (posun %.4f)", selector.absPosition[1],
+            selector.absPosition[2], selector.absSize[1], selector.absSize[2], headerBottom, pagesTop, need)
+    end
 end
 
 function SprayDronePlannerScreen:onOpen()
@@ -301,6 +308,7 @@ function SprayDronePlannerScreen:onClose()
     self.vehicle = nil
     self.openMode = nil
     self.originVehicle = nil
+    self.debugAnywhere = false
     self.fields = {}
 end
 
@@ -933,6 +941,11 @@ function SprayDronePlannerScreen:getIsOriginUsable()
     if isGone(origin) then
         return false
     end
+    if SprayDroneDebug and SprayDroneDebug.ENABLED then
+        if self.debugAnywhere then
+            return true
+        end
+    end
     if self.openMode == SprayDronePlannerScreen.MODE_TABLET then
         return true
     elseif self.openMode == SprayDronePlannerScreen.MODE_SCREEN then
@@ -1242,6 +1255,43 @@ function SprayDronePlannerScreen:onClickReturn()
     if self.vehicle ~= nil then
         self.vehicle:sprayDroneCommand(SprayDroneCommandEvent.RETURN_HOME, 0)
         self:showMessage(g_i18n:getText("sdt_planner_returning"), false)
+    end
+end
+
+-- Polohy prvků v pixelech okna (DEBUG, příkaz plannerLayout) pro skutečné kliky myší: [x, y] středu, y shora.
+function SprayDronePlannerScreen:logLayout()
+    local function center(name, element)
+        if element == nil then
+            return
+        end
+        local x = (element.absPosition[1] + element.absSize[1] * 0.5) * g_screenWidth
+        local y = (1 - element.absPosition[2] - element.absSize[2] * 0.5) * g_screenHeight
+        Logging.info("SDT UI %s: střed %d %d, velikost %d x %d, viditelný %s", name, x, y, element.absSize[1] * g_screenWidth,
+            element.absSize[2] * g_screenHeight, tostring(element:getIsVisible()))
+    end
+    Logging.info("SDT UI myš: %d %d (okno %d x %d)", self.mouseX * g_screenWidth, (1 - self.mouseY) * g_screenHeight, g_screenWidth, g_screenHeight)
+    center("pageSelector", self.pageSelector)
+    center("leftBox", self.leftBox)
+    center("fieldList", self.fieldList)
+    center("legendList", self.legendList)
+    for page, elements in pairs(self.settingElements) do
+        for i, element in ipairs(elements) do
+            center(string.format("setting %d.%d (%s)", page, i, SprayDroneStation.SETTINGS[element.sdtSetting].key), element)
+        end
+    end
+    for _, list in ipairs({ self.fieldList, self.legendList }) do
+        for s, section in ipairs(list.sections or {}) do
+            for i, cell in ipairs(section.cells or {}) do
+                if cell ~= nil and cell.absPosition ~= nil then
+                    center(string.format("%s %d.%d", list == self.fieldList and "field" or "legend", s, i), cell)
+                end
+            end
+        end
+    end
+    local r = self.cardRect
+    if r ~= nil then
+        Logging.info("SDT UI karta: x %d..%d, y %d..%d", r[1] * g_screenWidth, (r[1] + r[3]) * g_screenWidth,
+            (1 - r[2] - r[4]) * g_screenHeight, (1 - r[2]) * g_screenHeight)
     end
 end
 
